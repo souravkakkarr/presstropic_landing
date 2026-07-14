@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presstropic — The operating system for printing presses</title>
+<meta name="description" content="Presstropic is a print-first ERP that runs paper, plates, jobs, stock and dispatch from one system — replacing registers, spreadsheets and WhatsApp with one source of truth.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#141414; --ink-2:#464646; --ink-3:#7a7a7a;
+    --paper:#fbfaf7; --paper-2:#f4f1ea; --white:#fff;
+    --line:rgba(20,20,20,.11); --line-2:rgba(20,20,20,.19);
+    --gold:#c9a200; --gold-deep:#9a7400; --gold-bright:#f5c518;
+    --black:#0d0d0d;
+    --r:12px; --maxw:1160px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,.display{font-family:'Space Grotesk',sans-serif;letter-spacing:-.01em;line-height:1.1}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-deep)}
+
+  /* registration-mark motif */
+  .regmark{width:20px;height:20px;flex:0 0 20px;position:relative}
+  .regmark::before,.regmark::after{content:"";position:absolute;background:var(--gold-deep)}
+  .regmark::before{left:50%;top:0;width:1.5px;height:100%;transform:translateX(-50%)}
+  .regmark::after{top:50%;left:0;height:1.5px;width:100%;transform:translateY(-50%)}
+  .regmark span{position:absolute;inset:4px;border:1.5px solid var(--gold-deep);border-radius:50%}
+
+  /* buttons — explicit hover colors, never same text/bg */
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;padding:13px 24px;border-radius:var(--r);border:1.5px solid transparent;cursor:pointer;transition:background .16s,color .16s,border-color .16s,transform .16s;white-space:nowrap}
+  .btn-primary{background:var(--black);color:#fff;border-color:var(--black)}
+  .btn-primary:hover{background:var(--gold-deep);border-color:var(--gold-deep);color:#fff;transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line-2)}
+  .btn-ghost:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .btn-gold{background:var(--gold-deep);color:#fff;border-color:var(--gold-deep)}
+  .btn-gold:hover{background:var(--black);color:#fff;border-color:var(--black);transform:translateY(-1px)}
+
+  /* header */
+  header{position:sticky;top:0;z-index:50;background:rgba(251,250,247,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:70px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .brand img{height:30px;width:auto}
+  .nav-links{display:flex;align-items:center;gap:30px}
+  .nav-links a.navlink{font-size:14px;font-weight:500;color:var(--ink-2);transition:color .15s}
+  .nav-links a.navlink:hover{color:var(--gold-deep)}
+  @media(max-width:900px){.nav-links .navlink{display:none}}
+
+  /* hero */
+  .hero{padding:72px 0 60px}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:40px}}
+  .hero .eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+  .hero h1{font-size:clamp(36px,5.2vw,58px);font-weight:700}
+  .hero h1 .accent{color:var(--gold-deep)}
+  .hero p.lede{font-size:19px;color:var(--ink-2);margin:22px 0 20px;max-width:40ch}
+  .hero p.sub{font-size:15px;color:var(--ink-3);margin-bottom:30px;max-width:44ch}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-modules{display:flex;gap:18px;margin-top:34px;flex-wrap:wrap}
+  .hero-mod{display:flex;flex-direction:column;align-items:center;gap:7px;font-size:11px;font-weight:600;color:var(--ink-3);letter-spacing:.02em}
+  .hero-mod img{width:30px;height:30px}
+
+  /* mock window */
+  .mock{background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:0 24px 60px -26px rgba(20,20,20,.3);overflow:hidden}
+  .mock-bar{display:flex;align-items:center;gap:7px;padding:12px 14px;border-bottom:1px solid var(--line);background:var(--paper-2)}
+  .mock-dot{width:10px;height:10px;border-radius:50%;background:var(--line-2)}
+  .mock-url{margin-left:10px;font-size:11px;color:var(--ink-3);font-family:'Space Grotesk',sans-serif;letter-spacing:.02em}
+  .mock-body{padding:18px}
+  .mock-row{display:flex;gap:12px;margin-bottom:12px}
+  .mock-kpi{flex:1;border:1px solid var(--line);border-radius:8px;padding:12px}
+  .mock-kpi .k-label{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+  .mock-kpi .k-val{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px;margin-top:4px}
+  .mock-kpi .k-val.gold{color:var(--gold-deep)}
+  .mock-table{border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .mock-th{display:flex;background:var(--paper-2);padding:8px 12px;font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+  .mock-tr{display:flex;padding:9px 12px;border-top:1px solid var(--line);font-size:12px}
+  .mock-th span,.mock-tr span{flex:1}
+  .mock-tr span:last-child{text-align:right;font-family:'Space Grotesk',sans-serif;font-weight:600}
+
+  section{padding:74px 0}
+  .sec-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .sec-title{font-size:clamp(26px,3.4vw,38px);font-weight:700}
+  .sec-sub{color:var(--ink-2);font-size:17px;max-width:62ch;margin-bottom:46px}
+
+  /* problem — dark section */
+  .problem{background:var(--black);color:#fff}
+  .problem .sec-title{color:#fff}
+  .problem .sec-sub{color:rgba(255,255,255,.62)}
+  .problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:700px){.problem-grid{grid-template-columns:1fr}}
+  .problem-card{border:1px solid rgba(255,255,255,.14);border-radius:var(--r);padding:24px}
+  .problem-card .pc-ico{width:38px;height:38px;border-radius:9px;background:rgba(245,197,24,.14);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+  .problem-card .pc-ico span{width:20px;height:20px;background:var(--gold-bright);-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center}
+  .problem-card h3{font-size:18px;font-weight:600;margin-bottom:7px}
+  .problem-card p{font-size:14px;color:rgba(255,255,255,.6)}
+
+  /* solution */
+  .sol-points{display:grid;grid-template-columns:1fr 1fr;gap:14px 32px;margin-top:8px}
+  @media(max-width:700px){.sol-points{grid-template-columns:1fr}}
+  .sol-point{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--ink-2)}
+  .sol-point .tick{flex:0 0 22px;width:22px;height:22px;border-radius:50%;background:var(--gold-deep);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-top:1px}
+
+  /* modules */
+  .modules{background:var(--paper-2)}
+  .mod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:860px){.mod-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.mod-grid{grid-template-columns:1fr}}
+  .mod{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:26px;transition:box-shadow .16s,border-color .16s}
+  .mod:hover{box-shadow:0 16px 40px -22px rgba(20,20,20,.3);border-color:var(--gold)}
+  .mod img{width:44px;height:44px;margin-bottom:15px}
+  .mod .mod-tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:6px}
+  .mod h3{font-size:20px;font-weight:600;margin-bottom:8px}
+  .mod h3 .b{color:var(--gold-deep)}
+  .mod p{font-size:14px;color:var(--ink-2)}
+  .mod ul{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:7px}
+  .mod ul li{font-size:13px;color:var(--ink-2);padding-left:18px;position:relative}
+  .mod ul li::before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+
+  /* connects flow */
+  .flow-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;align-items:start}
+  @media(max-width:860px){.flow-steps{grid-template-columns:1fr 1fr}}
+  @media(max-width:480px){.flow-steps{grid-template-columns:1fr}}
+  .flow-step{text-align:center;padding:8px}
+  .flow-step .fs-ico{width:52px;height:52px;border-radius:13px;background:var(--paper-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+  .flow-step .fs-ico span{width:26px;height:26px;background:var(--gold-deep);-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center}
+  .flow-step h4{font-size:14px;font-weight:700;margin-bottom:5px}
+  .flow-step p{font-size:12px;color:var(--ink-3)}
+
+  /* why — comparison */
+  .why{background:var(--black);color:#fff}
+  .why .sec-title{color:#fff}
+  .why .sec-sub{color:rgba(255,255,255,.62)}
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:760px){.why-grid{grid-template-columns:1fr}}
+  .why-col{border-radius:var(--r);padding:26px}
+  .why-generic{border:1px solid rgba(255,255,255,.14)}
+  .why-us{background:var(--white);color:var(--ink)}
+  .why-col h3{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px}
+  .why-generic h3{color:rgba(255,255,255,.55)}
+  .why-us h3{color:var(--gold-deep);display:flex;align-items:center;gap:8px}
+  .why-us h3 img{height:18px}
+  .why-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .why-col li{font-size:14px;padding-left:26px;position:relative}
+  .why-generic li{color:rgba(255,255,255,.6)}
+  .why-generic li::before{content:"✕";position:absolute;left:0;color:rgba(255,255,255,.4);font-weight:700}
+  .why-us li::before{content:"✓";position:absolute;left:0;color:var(--gold-deep);font-weight:700}
+
+  /* governance */
+  .gov-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  @media(max-width:860px){.gov-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:480px){.gov-grid{grid-template-columns:1fr}}
+  .gov{padding:4px}
+  .gov .g-ico{width:42px;height:42px;border-radius:10px;background:var(--paper-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin-bottom:13px}
+  .gov .g-ico span{width:22px;height:22px;background:var(--gold-deep);-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center}
+  .gov h4{font-size:16px;font-weight:600;margin-bottom:6px}
+  .gov p{font-size:13px;color:var(--ink-2)}
+
+  /* inquiry */
+  .cta{background:var(--paper-2)}
+  .cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start}
+  @media(max-width:860px){.cta-grid{grid-template-columns:1fr;gap:36px}}
+  .cta h2{font-size:clamp(28px,3.6vw,40px);font-weight:700;margin-bottom:14px}
+  .cta .lede{color:var(--ink-2);font-size:17px;margin-bottom:24px}
+  .cta-points{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .cta-points li{display:flex;gap:11px;align-items:flex-start;font-size:15px}
+  .cta-points .tick{flex:0 0 20px;width:20px;height:20px;border-radius:50%;background:var(--gold-deep);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-top:1px}
+
+  form{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:28px;box-shadow:0 12px 40px -26px rgba(20,20,20,.26)}
+  form h3{font-size:20px;font-weight:600;margin-bottom:4px}
+  form .form-sub{font-size:13px;color:var(--ink-3);margin-bottom:20px}
+  .field{margin-bottom:15px}
+  .field label{display:block;font-size:12.5px;font-weight:600;letter-spacing:.02em;margin-bottom:6px}
+  .field input,.field textarea,.field select{width:100%;font-family:inherit;font-size:14px;color:var(--ink);background:var(--paper);border:1px solid var(--line-2);border-radius:8px;padding:11px 13px;transition:border-color .15s,box-shadow .15s}
+  .field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--gold-deep);box-shadow:0 0 0 3px rgba(154,116,0,.14)}
+  .field textarea{resize:vertical;min-height:88px}
+  form .btn{width:100%;justify-content:center;margin-top:6px}
+  .form-privacy{font-size:11.5px;color:var(--ink-3);margin-top:12px;text-align:center}
+  .form-success{display:none;text-align:center;padding:14px;background:rgba(22,163,74,.1);border:1px solid rgba(22,163,74,.3);border-radius:8px;color:#15803d;font-size:14px;font-weight:500;margin-bottom:16px}
+
+  footer{background:var(--black);color:rgba(255,255,255,.7);padding:46px 0 32px}
+  .foot{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .foot img{height:26px}
+  .foot-links{display:flex;gap:24px;font-size:14px;flex-wrap:wrap}
+  .foot-links a:hover{color:var(--gold-bright)}
+  .foot-copy{font-size:12.5px;color:rgba(255,255,255,.42);margin-top:24px;padding-top:22px;border-top:1px solid rgba(255,255,255,.12)}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+  :focus-visible{outline:2px solid var(--gold-deep);outline-offset:2px}
+</style>
+</head>
+<body id="top">
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top"><img src="assets/presstropic_light.svg" alt="Presstropic"></a>
+    <nav class="nav-links">
+      <a class="navlink" href="#modules">Modules</a>
+      <a class="navlink" href="#why">Why Presstropic</a>
+      <a class="navlink" href="#how">How it works</a>
+      <a class="btn btn-gold" href="#inquiry">Request a demo</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <div class="eyebrow"><span class="regmark"><span></span></span> The operating system for printing presses</div>
+      <h1>Run your whole press from <span class="accent">one system.</span></h1>
+      <p class="lede">Paper, plates, job cards, production and dispatch — tracked end to end, from inward to delivery challan.</p>
+      <p class="sub">A modular, print-first platform that replaces registers, spreadsheets and WhatsApp with one source of truth — built by people who run a press.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#inquiry">Request a demo →</a>
+        <a class="btn btn-ghost" href="#modules">See the modules</a>
+      </div>
+      <div class="hero-modules">
+        <div class="hero-mod"><img src="assets/paperbuddy.svg" alt="">Paper</div>
+        <div class="hero-mod"><img src="assets/rackbuddy.svg" alt="">Rack</div>
+        <div class="hero-mod"><img src="assets/jobbuddy.svg" alt="">Job</div>
+        <div class="hero-mod"><img src="assets/storebuddy.svg" alt="">Store</div>
+        <div class="hero-mod"><img src="assets/dispatchbuddy.svg" alt="">Dispatch</div>
+      </div>
+    </div>
+    <div class="mock reveal" aria-hidden="true">
+      <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / jobbuddy</span></div>
+      <div class="mock-body">
+        <div class="mock-row">
+          <div class="mock-kpi"><div class="k-label">Produced (MTD)</div><div class="k-val gold">248,500</div></div>
+          <div class="mock-kpi"><div class="k-label">Active jobs</div><div class="k-val">32</div></div>
+          <div class="mock-kpi"><div class="k-label">Dispatched</div><div class="k-val">18</div></div>
+        </div>
+        <div class="mock-table">
+          <div class="mock-th"><span>Job</span><span>Party</span><span>Sheets</span></div>
+          <div class="mock-tr"><span>26-27 | J-00184</span><span>Example Printers</span><span>12,000</span></div>
+          <div class="mock-tr"><span>26-27 | J-00183</span><span>Sample Packaging</span><span>8,500</span></div>
+          <div class="mock-tr"><span>26-27 | J-00182</span><span>Demo Traders</span><span>5,200</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <div class="wrap">
+    <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow" style="color:var(--gold-bright)">The problem</div></div>
+    <h2 class="sec-title reveal">A press runs on memory, paper and guesswork.</h2>
+    <p class="sec-sub reveal">The daily reality on most shop floors — and what it quietly costs.</p>
+    <div class="problem-grid">
+      <div class="problem-card reveal"><div class="pc-ico"><span style="-webkit-mask-image:url('assets/icons/inward.svg');mask-image:url('assets/icons/inward.svg')"></span></div><h3>Paper that doesn't add up</h3><p>Reams counted by hand; stock and consumption never reconcile, so reorders are late or blind.</p></div>
+      <div class="problem-card reveal"><div class="pc-ico"><span style="-webkit-mask-image:url('assets/icons/location.svg');mask-image:url('assets/icons/location.svg')"></span></div><h3>Plates that go missing</h3><p>Thousands of plates across racks with no reliable location — re-making lost plates burns money and time.</p></div>
+      <div class="problem-card reveal"><div class="pc-ico"><span style="-webkit-mask-image:url('assets/icons/jobcard.svg');mask-image:url('assets/icons/jobcard.svg')"></span></div><h3>Jobs tracked on WhatsApp</h3><p>Job status lives in chats and people's heads; nobody knows what's running, pending or stuck.</p></div>
+      <div class="problem-card reveal"><div class="pc-ico"><span style="-webkit-mask-image:url('assets/icons/report.svg');mask-image:url('assets/icons/report.svg')"></span></div><h3>No traceability</h3><p>When something goes wrong there's no record of who did what, when — disputes can't be settled with data.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section id="solution">
+  <div class="wrap">
+    <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow">The solution</div></div>
+    <h2 class="sec-title reveal">One platform, built only for print.</h2>
+    <p class="sec-sub reveal">Presstropic turns the whole shop floor into a connected system. Each module is a "Buddy" — focused, simple, and linked to the others so data flows end to end.</p>
+    <div class="sol-points">
+      <div class="sol-point reveal"><span class="tick">✓</span> Purpose-built for printing &amp; job-work — not a generic ERP bent to fit</div>
+      <div class="sol-point reveal"><span class="tick">✓</span> Modular: adopt one Buddy or the whole suite</div>
+      <div class="sol-point reveal"><span class="tick">✓</span> Every record traceable, every create/edit/delete logged</div>
+      <div class="sol-point reveal"><span class="tick">✓</span> Financial-year aware IDs that reset cleanly each year</div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES -->
+<section class="modules" id="modules">
+  <div class="wrap">
+    <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow">The Buddy suite</div></div>
+    <h2 class="sec-title reveal">Five modules that run the whole floor.</h2>
+    <p class="sec-sub reveal">Issue stock to a job, track its plates, run it on the floor, then dispatch — one thread of data.</p>
+    <div class="mod-grid">
+      <div class="mod reveal">
+        <img src="assets/paperbuddy.svg" alt=""><div class="mod-tag">Paper inventory</div>
+        <h3>Paper<span class="b">Buddy</span></h3>
+        <p>Inward, stock and consumption for every paper type &amp; size — always know what you have.</p>
+        <ul><li>Inward register by type, size &amp; supplier</li><li>Live stock, auto-deducted against jobs</li><li>Packaging slips grouped per pack size</li></ul>
+      </div>
+      <div class="mod reveal">
+        <img src="assets/rackbuddy.svg" alt=""><div class="mod-tag">Plate storage</div>
+        <h3>Rack<span class="b">Buddy</span></h3>
+        <p>Every plate mapped to an exact rack location by series rules. Find any plate in seconds.</p>
+        <ul><li>Rack visualization &amp; series masters</li><li>Search a plate ID → exact rack-slot</li><li>Usage logs &amp; misplaced-plate checks</li></ul>
+      </div>
+      <div class="mod reveal">
+        <img src="assets/jobbuddy.svg" alt=""><div class="mod-tag">Job cards &amp; production</div>
+        <h3>Job<span class="b">Buddy</span></h3>
+        <p>Job cards, a process chain, and a live floor monitor showing what's running right now.</p>
+        <ul><li>Process route with machine, operator &amp; finish</li><li>Live floor monitor, auto-refreshing</li><li>Production analysis by party, process &amp; machine</li></ul>
+      </div>
+      <div class="mod reveal">
+        <img src="assets/storebuddy.svg" alt=""><div class="mod-tag">Raw material store</div>
+        <h3>Store<span class="b">Buddy</span></h3>
+        <p>Inward, issue-to-job, reuse returns and scrap tracking for films, inks and consumables.</p>
+        <ul><li>Combination-wise stock per material</li><li>Issue against a Job ID, reuse returns</li><li>Scrap logged per financial year</li></ul>
+      </div>
+      <div class="mod reveal">
+        <img src="assets/dispatchbuddy.svg" alt=""><div class="mod-tag">Dispatch &amp; challans</div>
+        <h3>Dispatch<span class="b">Buddy</span></h3>
+        <p>Delivery challans and dispatch records that close the loop from order to delivery.</p>
+        <ul><li>Raise a challan from a completed job</li><li>FY-prefixed document numbers</li><li>Searchable dispatch register &amp; reports</li></ul>
+      </div>
+      <div class="mod reveal" style="display:flex;flex-direction:column;justify-content:center;background:var(--black);color:#fff;border-color:var(--black)">
+        <div class="mod-tag" style="color:var(--gold-bright)">Masters &amp; rates</div>
+        <h3 style="color:#fff">Everything, defined once</h3>
+        <p style="color:rgba(255,255,255,.7)">Parties, processes, machines and rate lists — down to each process, subtype and finish. Edit a master and choose to apply the change across every existing record.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT CONNECTS -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow">How it connects</div></div>
+    <h2 class="sec-title reveal">One job, end to end.</h2>
+    <p class="sec-sub reveal">Every step writes to the same system — so nothing is re-keyed, and everything is traceable.</p>
+    <div class="flow-steps">
+      <div class="flow-step reveal"><div class="fs-ico"><span style="-webkit-mask-image:url('assets/icons/inward.svg');mask-image:url('assets/icons/inward.svg')"></span></div><h4>Material in</h4><p>Paper &amp; store stock recorded on inward.</p></div>
+      <div class="flow-step reveal"><div class="fs-ico"><span style="-webkit-mask-image:url('assets/icons/jobcard.svg');mask-image:url('assets/icons/jobcard.svg')"></span></div><h4>Job card</h4><p>Created with its full process route.</p></div>
+      <div class="flow-step reveal"><div class="fs-ico"><span style="-webkit-mask-image:url('assets/icons/machine.svg');mask-image:url('assets/icons/machine.svg')"></span></div><h4>On the floor</h4><p>Runs process by process, live.</p></div>
+      <div class="flow-step reveal"><div class="fs-ico"><span style="-webkit-mask-image:url('assets/icons/location.svg');mask-image:url('assets/icons/location.svg')"></span></div><h4>Plates tracked</h4><p>Located &amp; checked by series.</p></div>
+      <div class="flow-step reveal"><div class="fs-ico"><span style="-webkit-mask-image:url('assets/icons/challan.svg');mask-image:url('assets/icons/challan.svg')"></span></div><h4>Dispatched</h4><p>Challan closes the loop.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow" style="color:var(--gold-bright)">Why Presstropic</div></div>
+    <h2 class="sec-title reveal">Generic ERPs weren't built for a press. This is.</h2>
+    <p class="sec-sub reveal">The difference between software you fight and software that fits.</p>
+    <div class="why-grid">
+      <div class="why-col why-generic reveal">
+        <h3>Generic ERP / Spreadsheets</h3>
+        <ul>
+          <li>Plates, paper reams &amp; job-work have no native concept</li>
+          <li>Months of customisation, still an awkward fit</li>
+          <li>Built for accountants, not the shop floor</li>
+          <li>Status scattered across chats and registers</li>
+        </ul>
+      </div>
+      <div class="why-col why-us reveal">
+        <h3><img src="assets/presstropic_light.svg" alt="">Presstropic</h3>
+        <ul>
+          <li>Paper, plates, job cards &amp; scrap are first-class</li>
+          <li>Works out of the box for print job-work</li>
+          <li>Designed for operators: fast, visual, simple</li>
+          <li>One connected trail from inward to dispatch</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GOVERNANCE -->
+<section id="trust">
+  <div class="wrap">
+    <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow">Control &amp; trust</div></div>
+    <h2 class="sec-title reveal">Built-in governance, not bolted on.</h2>
+    <p class="sec-sub reveal">The controls that make one source of truth actually trustworthy.</p>
+    <div class="gov-grid">
+      <div class="gov reveal"><div class="g-ico"><span style="-webkit-mask-image:url('assets/icons/activity.svg');mask-image:url('assets/icons/activity.svg')"></span></div><h4>Activity logs</h4><p>Every create, edit and delete recorded with who and when.</p></div>
+      <div class="gov reveal"><div class="g-ico"><span style="-webkit-mask-image:url('assets/icons/database.svg');mask-image:url('assets/icons/database.svg')"></span></div><h4>Backups &amp; export</h4><p>Database backups and CSV/Excel export keep data safe and portable.</p></div>
+      <div class="gov reveal"><div class="g-ico"><span style="-webkit-mask-image:url('assets/icons/party.svg');mask-image:url('assets/icons/party.svg')"></span></div><h4>Roles &amp; access</h4><p>Screen-level permissions so each person sees only what they should.</p></div>
+      <div class="gov reveal"><div class="g-ico"><span style="-webkit-mask-image:url('assets/icons/check.svg');mask-image:url('assets/icons/check.svg')"></span></div><h4>Master-driven</h4><p>Parties, machines &amp; series defined once and reused everywhere.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- INQUIRY -->
+<section class="cta" id="inquiry">
+  <div class="wrap cta-grid">
+    <div class="reveal">
+      <div class="eyebrow" style="margin-bottom:14px">Request a demo</div>
+      <h2>Let's bring your press online.</h2>
+      <p class="lede">Book a walkthrough on your own shop floor, with your own jobs and plates. We'll show the daily flow in under 30 minutes — no commitment.</p>
+      <ul class="cta-points">
+        <li><span class="tick">✓</span> A guided demo with your kind of jobs</li>
+        <li><span class="tick">✓</span> Answers on setup, data and rollout</li>
+        <li><span class="tick">✓</span> We reach out within one working day</li>
+      </ul>
+    </div>
+    <form name="inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="inquiryForm">
+      <div class="form-success" id="formSuccess">Thanks — your request is in. We'll be in touch within one working day.</div>
+      <h3>Request a demo</h3>
+      <p class="form-sub">Fill this in and we'll get back to you.</p>
+      <input type="hidden" name="form-name" value="inquiry">
+      <p style="display:none"><label>Don't fill this out: <input name="bot-field"></label></p>
+      <div class="field"><label for="name">Your name</label><input id="name" name="name" type="text" required placeholder="e.g. Rahul Sharma"></div>
+      <div class="field"><label for="company">Press / company name</label><input id="company" name="company" type="text" required placeholder="e.g. Example Offset Printers"></div>
+      <div class="field"><label for="phone">Phone / WhatsApp</label><input id="phone" name="phone" type="tel" required placeholder="e.g. +91 98xxx xxxxx"></div>
+      <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="e.g. you@yourpress.com"></div>
+      <div class="field"><label for="machines">Machines on your floor</label>
+        <select id="machines" name="machines">
+          <option value="">Select…</option>
+          <option>1–3 machines</option>
+          <option>4–8 machines</option>
+          <option>9+ machines</option>
+        </select>
+      </div>
+      <div class="field"><label for="msg">Anything specific? (optional)</label><textarea id="msg" name="message" placeholder="e.g. We mainly do carton printing and lamination…"></textarea></div>
+      <button class="btn btn-gold" type="submit">Send request →</button>
+      <p class="form-privacy">We only use these details to contact you about Presstropic.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <img src="assets/presstropic_dark.svg" alt="Presstropic">
+      <div class="foot-links">
+        <a href="#problem">The problem</a>
+        <a href="#modules">Modules</a>
+        <a href="#why">Why Presstropic</a>
+        <a href="#how">How it works</a>
+        <a href="#inquiry">Request a demo</a>
+      </div>
+    </div>
+    <div class="foot-copy">© <span id="yr"></span> Presstropic. An integrated print-production system by Siddhi Enterprises.</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  }, {threshold:.1});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  if (new URLSearchParams(location.search).get('submitted') === 'true') {
+    const s = document.getElementById('formSuccess');
+    if (s) { s.style.display='block'; document.getElementById('inquiry').scrollIntoView(); }
+  }
+</script>
+</body>
+</html>
