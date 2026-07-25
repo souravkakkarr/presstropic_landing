@@ -559,12 +559,11 @@
         <li><span class="tick">✓</span> We reach out within one working day</li>
       </ul>
     </div>
-    <form name="inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="inquiryForm">
+    <form id="inquiryForm" method="POST" action="/submit">
       <div class="form-success" id="formSuccess">Thanks — your request is in. We'll be in touch within one working day.</div>
+      <input type="text" name="bot-field" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true">
       <h3>Request a demo</h3>
       <p class="form-sub">Fill this in and we'll get back to you.</p>
-      <input type="hidden" name="form-name" value="inquiry">
-      <p style="display:none"><label>Don't fill this out: <input name="bot-field"></label></p>
       <div class="field"><label for="name">Your name</label><input id="name" name="name" type="text" required placeholder="e.g. Rahul Sharma"></div>
       <div class="field"><label for="company">Press / company name</label><input id="company" name="company" type="text" required placeholder="e.g. Example Offset Printers"></div>
       <div class="field"><label for="phone">Phone / WhatsApp</label><input id="phone" name="phone" type="tel" required placeholder="e.g. +91 98xxx xxxxx"></div>
@@ -647,7 +646,7 @@
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
   }, {threshold:.1});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-  if (new URLSearchParams(location.search).get('submitted') === 'true') {
+if (new URLSearchParams(location.search).get('submitted') === 'true') {
     const s = document.getElementById('formSuccess');
     if (s) { s.style.display='block'; document.getElementById('inquiry').scrollIntoView(); }
   }
