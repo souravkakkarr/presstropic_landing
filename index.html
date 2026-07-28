@@ -19,7 +19,7 @@
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Presstropic">
+<meta property="og:site_name" content="Welcome to Presstropic">
 <meta property="og:title" content="Presstropic — The operating system for printing presses">
 <meta property="og:description" content="A print-first ERP that runs paper, plates, job cards, production and dispatch from one system — replacing registers, spreadsheets and WhatsApp with one source of truth.">
 <meta property="og:url" content="https://presstropic.com/">
@@ -265,6 +265,15 @@
   .faq-item[open] summary::after{content:"–"}
   .faq-item p{padding:0 44px 20px 2px;margin:0;color:var(--ink-2);font-size:15px;line-height:1.65;max-width:760px;overflow:hidden;transition:height .3s ease, opacity .28s ease, padding-bottom .3s ease}
   @media(max-width:600px){.faq-item summary{font-size:15.5px}.faq-item p{font-size:14px}}
+  /* Success overlay — blocks the page behind, with a close control */
+  .ov-backdrop{position:fixed;inset:0;background:rgba(10,12,16,.72);z-index:9999;display:none;align-items:center;justify-content:center;padding:24px}
+  .ov-backdrop.show{display:flex}
+  .ov-card{background:#fff;border:1px solid rgba(22,163,74,.35);border-radius:16px;max-width:460px;width:100%;padding:32px 28px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.35);position:relative}
+  .ov-tick{width:56px;height:56px;border-radius:50%;background:rgba(22,163,74,.12);color:#15803d;display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 16px}
+  .ov-card h3{margin:0 0 8px;font-size:20px;color:#0f172a}
+  .ov-card p{margin:0 0 20px;font-size:14.5px;color:#475569;line-height:1.5}
+  .ov-close-x{position:absolute;top:12px;right:14px;background:none;border:none;font-size:22px;line-height:1;color:#94a3b8;cursor:pointer;padding:4px}
+  .ov-close-x:hover{color:#0f172a}
 </style>
 <!-- Structured data. When you have a registered address, add an "address" block
      (PostalAddress) to the Organization below and to the hidden footer address. -->
@@ -290,7 +299,7 @@
 {
   "@context":"https://schema.org",
   "@type":"WebSite",
-  "name":"Presstropic",
+  "name":"Welcome to Presstropic",
   "alternateName":"Presstropic Solutions",
   "url":"https://presstropic.com/",
   "logo":"https://presstropic.com/assets/android-chrome-512.png",
@@ -337,7 +346,7 @@
       <a class="navlink" href="#how">How it works</a>
       <a class="navlink" href="#faq">FAQ</a>
       <a class="navlink" href="#contact">Contact</a>
-      <a class="btn btn-ghost" href="https://app.presstropic.com">Sign In</a>
+      <a class="btn btn-ghost" href="https://app.presstropic.com" target="_blank" rel="noopener">Sign In</a>
       <a class="btn btn-gold" href="#inquiry">Request a demo</a>
     </nav>
   </div>
@@ -355,7 +364,7 @@
         <a class="btn btn-primary" href="#inquiry">Request a demo →</a>
         <a class="btn btn-ghost" href="#modules">See the modules</a>
       </div>
-      <p class="hero-signin">Already a customer? <a href="https://app.presstropic.com">Sign in to your account →</a></p>
+      <p class="hero-signin">Already a customer? <a href="https://app.presstropic.com" target="_blank" rel="noopener">Sign in to your account →</a></p>
       <div class="hero-modules">
         <div class="hero-mod"><img src="assets/paperbuddy.svg" alt="">Paper</div>
         <div class="hero-mod"><img src="assets/rackbuddy.svg" alt="">Rack</div>
@@ -557,7 +566,6 @@
       </ul>
     </div>
     <form id="inquiryForm" method="POST" action="/submit">
-      <div class="form-success" id="formSuccess">Thanks — your request is in. We'll be in touch within one working day.</div>
       <input type="text" name="bot-field" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true">
       <h3>Request a demo</h3>
       <p class="form-sub">Fill this in and we'll get back to you.</p>
@@ -638,15 +646,61 @@
 </footer>
 
 <script>
+  // Always land at the top on refresh, wherever the page was scrolled before.
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.addEventListener('load', function(){ window.scrollTo(0, 0); });
+
   document.getElementById('yr').textContent = new Date().getFullYear();
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
   }, {threshold:.1});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-if (new URLSearchParams(location.search).get('submitted') === 'true') {
-    const s = document.getElementById('formSuccess');
-    if (s) { s.style.display='block'; document.getElementById('inquiry').scrollIntoView(); }
-  }
+
+  // Smooth-scroll in-page links WITHOUT pushing #hash into the address bar,
+  // so the URL always stays clean (presstropic.com).
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href').slice(1);
+      e.preventDefault();
+      var target = id ? document.getElementById(id) : null;
+      if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
+      else { window.scrollTo({top:0, behavior:'smooth'}); }   // #top / # -> page top
+    });
+  });
+
+  // Inquiry form: submit in the background and show a blocking overlay on
+  // success. No page reload, so no ?submitted=true ever lands in the URL —
+  // the overlay can only appear after a real submit, never by typing a param.
+  (function(){
+    var form = document.getElementById('inquiryForm');
+    var overlay = document.getElementById('successOverlay');
+    if(!form || !overlay) return;
+    function closeOverlay(){ overlay.classList.remove('show'); }
+    document.getElementById('ovClose').addEventListener('click', closeOverlay);
+    document.getElementById('ovCloseBtn').addEventListener('click', closeOverlay);
+    overlay.addEventListener('click', function(e){ if(e.target === overlay) closeOverlay(); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeOverlay(); });
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var btn = form.querySelector('button[type="submit"]');
+      var original = btn ? btn.textContent : '';
+      if(btn){ btn.disabled = true; btn.textContent = 'Sending…'; }
+      fetch(form.getAttribute('action') || '/submit', {
+        method: 'POST',
+        body: new FormData(form),
+        headers: {'X-Requested-With':'fetch'}
+      }).then(function(res){
+        if(!res.ok) throw new Error('bad status');
+        form.reset();
+        overlay.classList.add('show');
+      }).catch(function(){
+        alert("Sorry — something went wrong sending your request. Please try again, or email info@presstropic.com.");
+      }).finally(function(){
+        if(btn){ btn.disabled = false; btn.textContent = original; }
+      });
+    });
+  })();
 </script>
 <script>
 /* Smooth FAQ accordion — animate <details> open/close (height + bottom padding) */
@@ -681,5 +735,14 @@ document.querySelectorAll('.faq-item').forEach(function(det){
   });
 });
 </script>
+<div class="ov-backdrop" id="successOverlay" role="dialog" aria-modal="true" aria-labelledby="ovTitle">
+  <div class="ov-card">
+    <button type="button" class="ov-close-x" id="ovClose" aria-label="Close">×</button>
+    <div class="ov-tick">✓</div>
+    <h3 id="ovTitle">Thanks — your request is in.</h3>
+    <p>We'll be in touch within one working day.</p>
+    <button type="button" class="btn btn-gold" id="ovCloseBtn">Close</button>
+  </div>
+</div>
 </body>
 </html>
