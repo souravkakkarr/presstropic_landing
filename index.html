@@ -120,6 +120,15 @@
   .mock-dot{width:10px;height:10px;border-radius:50%;background:var(--line-2)}
   .mock-url{margin-left:10px;font-size:11px;color:var(--ink-3);font-family:'Space Grotesk',sans-serif;letter-spacing:.02em}
   .mock-body{padding:18px}
+  /* Real JobBuddy dashboard shown in an isolated iframe, scaled to read like a
+     product screenshot inside the browser frame. */
+  .mock-frame-wrap{position:relative;width:100%;height:420px;overflow:hidden;background:var(--white)}
+  .mock-frame{position:absolute;top:0;left:0;width:166.66%;height:166.66%;border:0;
+    transform:scale(.6);transform-origin:top left;pointer-events:none}
+  @media(max-width:640px){
+    .mock-frame-wrap{height:300px}
+    .mock-frame{width:250%;height:250%;transform:scale(.4)}
+  }
   .mock-row{display:flex;gap:12px;margin-bottom:12px}
   .mock-kpi{flex:1;border:1px solid var(--line);border-radius:8px;padding:12px}
   .mock-kpi .k-label{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
@@ -375,18 +384,8 @@
     </div>
     <div class="mock reveal" aria-hidden="true">
       <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / jobbuddy</span></div>
-      <div class="mock-body">
-        <div class="mock-row">
-          <div class="mock-kpi"><div class="k-label">Produced (MTD)</div><div class="k-val gold">248,500</div></div>
-          <div class="mock-kpi"><div class="k-label">Active jobs</div><div class="k-val">32</div></div>
-          <div class="mock-kpi"><div class="k-label">Dispatched</div><div class="k-val">18</div></div>
-        </div>
-        <div class="mock-table">
-          <div class="mock-th"><span>Job</span><span>Party</span><span>Sheets</span></div>
-          <div class="mock-tr"><span>26-27 | J-00184</span><span>Example Printers</span><span>12,000</span></div>
-          <div class="mock-tr"><span>26-27 | J-00183</span><span>Sample Packaging</span><span>8,500</span></div>
-          <div class="mock-tr"><span>26-27 | J-00182</span><span>Demo Traders</span><span>5,200</span></div>
-        </div>
+      <div class="mock-frame-wrap">
+        <iframe class="mock-frame" src="assets/mockup/jobbuddy.html" title="JobBuddy dashboard preview" loading="lazy" scrolling="no" tabindex="-1"></iframe>
       </div>
     </div>
   </div>
@@ -671,7 +670,10 @@
   // Inquiry form: submit in the background and show a blocking overlay on
   // success. No page reload, so no ?submitted=true ever lands in the URL —
   // the overlay can only appear after a real submit, never by typing a param.
+  // Runs after DOMContentLoaded so the overlay markup (further down the page)
+  // is guaranteed to exist when we wire it up.
   (function(){
+    function initInquiry(){
     var form = document.getElementById('inquiryForm');
     var overlay = document.getElementById('successOverlay');
     if(!form || !overlay) return;
@@ -700,6 +702,12 @@
         if(btn){ btn.disabled = false; btn.textContent = original; }
       });
     });
+    }
+    if(document.readyState === 'loading'){
+      document.addEventListener('DOMContentLoaded', initInquiry);
+    } else {
+      initInquiry();
+    }
   })();
 </script>
 <script>

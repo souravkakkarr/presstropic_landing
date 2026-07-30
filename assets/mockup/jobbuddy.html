@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JobBuddy preview</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Mockup-only: no sidebar rail here, so drop the rail offset and let the
+     dashboard fill the frame. Non-interactive preview. */
+  html,body{background:var(--bg);margin:0;overflow-x:hidden;}
+  .main{padding:20px 22px !important;max-width:100% !important;}
+  a{cursor:default;pointer-events:none;}
+  .page-head .btn-row{display:none;}
+  ::-webkit-scrollbar{width:8px;height:8px;}
+  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+</style>
+</head>
+<body>
+<div class="layout">
+<main id="mainContent" class="main ">
+      <div class="page-head">
+        <h1 class="dash-title">
+          <img class="dash-ico dash-ico-dark" src="jobbuddy_icon_dark.svg" alt="JobBuddy">
+          <img class="dash-ico dash-ico-light" src="jobbuddy_icon_light.svg" alt="JobBuddy">
+          <span class="mh-home-title">Job<span class="buddy">Buddy</span></span>
+        </h1>
+        <div class="btn-row"></div>
+      </div>
+        <!-- Right: stats area (former Production Dashboard content) -->
+        <div class="mh-stats">
+          <div class="stat-cards">
+            <a class="stat-card stat-link" href="#"><div class="sc-label">Produced (July 2026)</div><div class="sc-value">390,669</div><div class="sc-sub">sheets from completed jobs</div></a>
+            <a class="stat-card stat-link" href="#"><div class="sc-label">Completed Jobs (July 2026)</div><div class="sc-value">78 out of 99</div><div class="sc-sub">jobs completed</div></a>
+            <a class="stat-card stat-link" href="#"><div class="sc-label">All-time Produced</div><div class="sc-value">390,669</div><div class="sc-sub">78 of 99 jobs completed</div></a>
+          </div>
+          <div class="mh-table-grid">
+            <div class="card">
+              <h3 style="margin:0 0 10px;font-size:13px;letter-spacing:.05em;"><a href="#" class="stat-head-link">TOP PARTIES BY SHEETS PRODUCED →</a></h3>
+              
+              <table class="mini-table resp-grid" style="width:100%;font-size:12px;border-collapse:collapse;">
+                <thead><tr style="text-align:left;color:var(--text-2);"><th style="padding:4px 6px;">Party</th><th style="padding:4px 6px;text-align:right;">Produced</th><th style="padding:4px 6px;text-align:right;">Jobs</th></tr></thead>
+                <tbody>
+                  <tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Party"><a class="stat-row-link" href="#">BOSTON PRINTOPACK PRIVATE LIMITED</a></td><td style="padding:5px 6px;text-align:right;" data-label="Produced">50,803</td><td style="padding:5px 6px;text-align:right;" data-label="Jobs">5</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Party"><a class="stat-row-link" href="#">ROGER PRINT N PACK</a></td><td style="padding:5px 6px;text-align:right;" data-label="Produced">46,711</td><td style="padding:5px 6px;text-align:right;" data-label="Jobs">5</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Party"><a class="stat-row-link" href="#">VPC PRIVATE LIMITED</a></td><td style="padding:5px 6px;text-align:right;" data-label="Produced">38,982</td><td style="padding:5px 6px;text-align:right;" data-label="Jobs">5</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Party"><a class="stat-row-link" href="#">BROTHERS PACKS</a></td><td style="padding:5px 6px;text-align:right;" data-label="Produced">32,985</td><td style="padding:5px 6px;text-align:right;" data-label="Jobs">6</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Party"><a class="stat-row-link" href="#">HINDON PAPER PRODUCTS</a></td><td style="padding:5px 6px;text-align:right;" data-label="Produced">22,536</td><td style="padding:5px 6px;text-align:right;" data-label="Jobs">2</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Party"><a class="stat-row-link" href="#">PACKING BOX</a></td><td style="padding:5px 6px;text-align:right;" data-label="Produced">22,458</td><td style="padding:5px 6px;text-align:right;" data-label="Jobs">2</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card">
+              <h3 style="margin:0 0 10px;font-size:13px;letter-spacing:.05em;"><a href="#" class="stat-head-link">TOP PROCESSES BY SHEETS PRODUCED →</a></h3>
+              <table class="mini-table resp-grid" style="width:100%;font-size:12px;border-collapse:collapse;">
+                <thead><tr style="text-align:left;color:var(--text-2);"><th style="padding:4px 6px;">Process</th><th style="padding:4px 6px;text-align:right;">Produced</th><th style="padding:4px 6px;text-align:right;">Wasted</th></tr></thead>
+                <tbody>
+                  <tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Process"><a class="stat-row-link" href="#">SPOT UV</a></td><td style="padding:5px 6px;text-align:right;" data-label="Produced">168,574</td><td style="padding:5px 6px;text-align:right;" data-label="Wasted">43</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Process"><a class="stat-row-link" href="#">GOLD LEAFING</a></td><td style="padding:5px 6px;text-align:right;" data-label="Produced">115,839</td><td style="padding:5px 6px;text-align:right;" data-label="Wasted">1,074</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Process"><a class="stat-row-link" href="#">DRY MATTE LAMINATION</a></td><td style="padding:5px 6px;text-align:right;" data-label="Produced">101,737</td><td style="padding:5px 6px;text-align:right;" data-label="Wasted">0</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Process"><a class="stat-row-link" href="#">THERMAL MATTE LAMINATION</a></td><td style="padding:5px 6px;text-align:right;" data-label="Produced">58,963</td><td style="padding:5px 6px;text-align:right;" data-label="Wasted">0</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Process"><a class="stat-row-link" href="#">DRY SILVER LAMINATION</a></td><td style="padding:5px 6px;text-align:right;" data-label="Produced">48,125</td><td style="padding:5px 6px;text-align:right;" data-label="Wasted">0</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Process"><a class="stat-row-link" href="#">COLD FOILING</a></td><td style="padding:5px 6px;text-align:right;" data-label="Produced">30,048</td><td style="padding:5px 6px;text-align:right;" data-label="Wasted">0</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card">
+              <h3 style="margin:0 0 10px;font-size:13px;letter-spacing:.05em;"><a href="#" class="stat-head-link">TOP PROCESSES BY SUBTYPE →</a></h3>
+              <div class="muted" style="font-size:11px;margin:-6px 0 8px;">All finishes merged — e.g. every Dry Lamination together.</div>
+              <table class="mini-table resp-grid" style="width:100%;font-size:12px;border-collapse:collapse;">
+                <thead><tr style="text-align:left;color:var(--text-2);"><th style="padding:4px 6px;">Process</th><th style="padding:4px 6px;text-align:right;">Produced</th><th style="padding:4px 6px;text-align:right;">Wasted</th></tr></thead>
+                <tbody>
+                  <tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Process"><a class="stat-row-link" href="#">SPOT UV</a></td><td style="padding:5px 6px;text-align:right;" data-label="Produced">168,574</td><td style="padding:5px 6px;text-align:right;" data-label="Wasted">43</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Process"><a class="stat-row-link" href="#">DRY LAMINATION</a></td><td style="padding:5px 6px;text-align:right;" data-label="Produced">155,125</td><td style="padding:5px 6px;text-align:right;" data-label="Wasted">0</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Process"><a class="stat-row-link" href="#">LEAFING</a></td><td style="padding:5px 6px;text-align:right;" data-label="Produced">128,100</td><td style="padding:5px 6px;text-align:right;" data-label="Wasted">1,074</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Process"><a class="stat-row-link" href="#">THERMAL LAMINATION</a></td><td style="padding:5px 6px;text-align:right;" data-label="Produced">58,963</td><td style="padding:5px 6px;text-align:right;" data-label="Wasted">0</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Process"><a class="stat-row-link" href="#">COLD FOILING</a></td><td style="padding:5px 6px;text-align:right;" data-label="Produced">30,048</td><td style="padding:5px 6px;text-align:right;" data-label="Wasted">0</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Process"><a class="stat-row-link" href="#">GRAINING (BOARD KNURLING)</a></td><td style="padding:5px 6px;text-align:right;" data-label="Produced">28,950</td><td style="padding:5px 6px;text-align:right;" data-label="Wasted">0</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card">
+              <h3 style="margin:0 0 10px;font-size:13px;letter-spacing:.05em;"><a href="#" class="stat-head-link">TOP PROCESSES BY TYPE →</a></h3>
+              <div class="muted" style="font-size:11px;margin:-6px 0 8px;">Process name only — e.g. all Lamination, all UV.</div>
+              
+              <table class="mini-table resp-grid" style="width:100%;font-size:12px;border-collapse:collapse;">
+                <thead><tr style="text-align:left;color:var(--text-2);"><th style="padding:4px 6px;">Type</th><th style="padding:4px 6px;text-align:right;">Produced</th><th style="padding:4px 6px;text-align:right;">Wasted</th></tr></thead>
+                <tbody>
+                  <tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Type"><a class="stat-row-link" href="#">LAMINATION</a></td><td style="padding:5px 6px;text-align:right;" data-label="Produced">240,769</td><td style="padding:5px 6px;text-align:right;" data-label="Wasted">0</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Type"><a class="stat-row-link" href="#">UV</a></td><td style="padding:5px 6px;text-align:right;" data-label="Produced">171,694</td><td style="padding:5px 6px;text-align:right;" data-label="Wasted">43</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Type"><a class="stat-row-link" href="#">LEAFING</a></td><td style="padding:5px 6px;text-align:right;" data-label="Produced">128,100</td><td style="padding:5px 6px;text-align:right;" data-label="Wasted">1,074</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Type"><a class="stat-row-link" href="#">COLD FOILING</a></td><td style="padding:5px 6px;text-align:right;" data-label="Produced">30,048</td><td style="padding:5px 6px;text-align:right;" data-label="Wasted">0</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Type"><a class="stat-row-link" href="#">GRAINING (BOARD KNURLING)</a></td><td style="padding:5px 6px;text-align:right;" data-label="Produced">28,950</td><td style="padding:5px 6px;text-align:right;" data-label="Wasted">0</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Type"><a class="stat-row-link" href="#">VARNISH</a></td><td style="padding:5px 6px;text-align:right;" data-label="Produced">9,380</td><td style="padding:5px 6px;text-align:right;" data-label="Wasted">0</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+</div>
+</body>
+</html>
