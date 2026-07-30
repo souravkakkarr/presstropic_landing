@@ -120,15 +120,12 @@
   .mock-dot{width:10px;height:10px;border-radius:50%;background:var(--line-2)}
   .mock-url{margin-left:10px;font-size:11px;color:var(--ink-3);font-family:'Space Grotesk',sans-serif;letter-spacing:.02em}
   .mock-body{padding:18px}
-  /* Real JobBuddy dashboard shown in an isolated iframe, scaled to read like a
-     product screenshot inside the browser frame. */
-  .mock-frame-wrap{position:relative;width:100%;height:420px;overflow:hidden;background:var(--white)}
-  .mock-frame{position:absolute;top:0;left:0;width:166.66%;height:166.66%;border:0;
-    transform:scale(.6);transform-origin:top left;pointer-events:none}
-  @media(max-width:640px){
-    .mock-frame-wrap{height:300px}
-    .mock-frame{width:250%;height:250%;transform:scale(.4)}
-  }
+  /* Real JobBuddy dashboard shown in an isolated iframe. Rendered at a fixed
+     desktop design size and scaled by JS to the frame width, so the whole
+     KPI + parties card is always fully visible and crisp. */
+  .mock-frame-wrap{position:relative;width:100%;overflow:hidden;background:var(--white)}
+  .mock-frame{position:absolute;top:0;left:0;width:1000px;height:600px;border:0;
+    transform-origin:top left;pointer-events:none}
   .mock-row{display:flex;gap:12px;margin-bottom:12px}
   .mock-kpi{flex:1;border:1px solid var(--line);border-radius:8px;padding:12px}
   .mock-kpi .k-label{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
@@ -650,6 +647,23 @@
   window.addEventListener('load', function(){ window.scrollTo(0, 0); });
 
   document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Scale the JobBuddy mockup iframe (fixed 1000x600 design) to its frame
+  // width so the whole dashboard preview always fits and stays crisp.
+  (function(){
+    function scaleMock(){
+      var frame = document.querySelector('.mock-frame');
+      var wrap = document.querySelector('.mock-frame-wrap');
+      if(!frame || !wrap) return;
+      var DESIGN_W = 1000, DESIGN_H = 600;
+      var s = wrap.clientWidth / DESIGN_W;
+      frame.style.transform = 'scale(' + s + ')';
+      wrap.style.height = (DESIGN_H * s) + 'px';
+    }
+    window.addEventListener('load', scaleMock);
+    window.addEventListener('resize', scaleMock);
+    scaleMock();
+  })();
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
   }, {threshold:.1});
