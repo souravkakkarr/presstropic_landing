@@ -288,6 +288,13 @@
   .iti input#phone{width:100%;}
   .iti__dropdown-content{font-family:inherit;}
   .iti--separate-dial-code .iti__selected-dial-code{font-weight:500;}
+  /* The site's form-input padding was overriding the country-search field,
+     so its text/placeholder overlapped the magnifying-glass icon. Restore the
+     room the icon needs on the left (and the clear "x" on the right). */
+  .iti__search-input{
+    padding-left: calc(var(--iti-spacer-horizontal) + var(--iti-globe-icon-size) + var(--iti-spacer-horizontal)) !important;
+    padding-right: calc(var(--iti-spacer-horizontal) + var(--iti-clear-icon-size) + var(--iti-spacer-horizontal)) !important;
+  }
 </style>
 <!-- Structured data. When you have a registered address, add an "address" block
      (PostalAddress) to the Organization below and to the hidden footer address. -->
