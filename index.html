@@ -37,6 +37,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/intl-tel-input/css/intlTelInput.min.css">
 <style>
   :root{
     --ink:#141414; --ink-2:#464646; --ink-3:#7a7a7a;
@@ -280,6 +281,13 @@
   .ov-card p{margin:0 0 20px;font-size:14.5px;color:#475569;line-height:1.5}
   .ov-close-x{position:absolute;top:12px;right:14px;background:none;border:none;font-size:22px;line-height:1;color:#94a3b8;cursor:pointer;padding:4px}
   .ov-close-x:hover{color:#0f172a}
+  .ov-card-err{border-color:rgba(220,38,38,.35)}
+  .ov-cross{background:rgba(220,38,38,.12);color:#dc2626;font-weight:800}
+  /* International phone input — make it fill the field like the other inputs */
+  .iti{width:100%;}
+  .iti input#phone{width:100%;}
+  .iti__dropdown-content{font-family:inherit;}
+  .iti--separate-dial-code .iti__selected-dial-code{font-weight:500;}
 </style>
 <!-- Structured data. When you have a registered address, add an "address" block
      (PostalAddress) to the Organization below and to the hidden footer address. -->
@@ -567,7 +575,7 @@
       <p class="form-sub">Fill this in and we'll get back to you.</p>
       <div class="field"><label for="name">Your name</label><input id="name" name="name" type="text" required placeholder="e.g. Rahul Sharma"></div>
       <div class="field"><label for="company">Press / company name</label><input id="company" name="company" type="text" required placeholder="e.g. Example Offset Printers"></div>
-      <div class="field"><label for="phone">Phone / WhatsApp</label><input id="phone" name="phone" type="tel" required placeholder="e.g. +91 98xxx xxxxx"></div>
+      <div class="field"><label for="phone">Phone / WhatsApp</label><input id="phone" name="phone" type="tel" required></div>
       <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required placeholder="e.g. you@yourpress.com"></div>
       <div class="field"><label for="machines">Machines on your floor</label>
         <select id="machines" name="machines" required>
@@ -641,6 +649,28 @@
   </div>
 </footer>
 
+<script src="assets/intl-tel-input/js/intlTelInputWithUtils.min.js"></script>
+<script>
+  // International phone input: country flag + dial-code prefix, auto-formats the
+  // number as you type per the selected country. Existing entries are untouched.
+  (function(){
+    function initPhone(){
+      var input = document.getElementById('phone');
+      if(!input || !window.intlTelInput) return;
+      window.__iti = window.intlTelInput(input, {
+        initialCountry: "in",                 // default India; users can pick any country
+        separateDialCode: true,               // show +91 as a separate chip
+        formatOnDisplay: true,                 // pretty-format as they type
+        nationalMode: false,                   // keep it international
+        countryOrder: ["in","ae","us","gb","np","bd","pk","lk","sg"],
+        loadUtils: function(){ return Promise.resolve(); }   // utils already bundled
+      });
+    }
+    if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', initPhone); }
+    else { initPhone(); }
+  })();
+</script>
+
 <script>
   // Always land at the top on refresh, wherever the page was scrolled before.
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
@@ -697,8 +727,29 @@
     overlay.addEventListener('click', function(e){ if(e.target === overlay) closeOverlay(); });
     document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeOverlay(); });
 
+    // Error dialog
+    var errOverlay = document.getElementById('errorOverlay');
+    function showError(msg){
+      if(msg){ document.getElementById('ovErrMsg').textContent = msg; }
+      errOverlay.classList.add('show');
+    }
+    function closeError(){ errOverlay.classList.remove('show'); }
+    if(errOverlay){
+      document.getElementById('ovErrClose').addEventListener('click', closeError);
+      document.getElementById('ovErrCloseBtn').addEventListener('click', closeError);
+      errOverlay.addEventListener('click', function(e){ if(e.target === errOverlay) closeError(); });
+      document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeError(); });
+    }
+
     form.addEventListener('submit', function(e){
       e.preventDefault();
+      // Put the full international number (e.g. +91 98765 43210) into the field
+      // so the whole number, with country code, is what gets submitted.
+      var phone = document.getElementById('phone');
+      if(window.__iti && phone){
+        var full = window.__iti.getNumber();
+        if(full){ phone.value = full; }
+      }
       var btn = form.querySelector('button[type="submit"]');
       var original = btn ? btn.textContent : '';
       if(btn){ btn.disabled = true; btn.textContent = 'Sending…'; }
@@ -707,11 +758,17 @@
         body: new FormData(form),
         headers: {'X-Requested-With':'fetch'}
       }).then(function(res){
-        if(!res.ok) throw new Error('bad status');
-        form.reset();
-        overlay.classList.add('show');
+        return res.json().catch(function(){ return {ok: res.ok}; })
+          .then(function(data){ return {ok: res.ok && data && data.ok, error: data && data.error}; });
+      }).then(function(result){
+        if(result.ok){
+          form.reset();
+          overlay.classList.add('show');
+        } else {
+          showError(result.error);
+        }
       }).catch(function(){
-        alert("Sorry — something went wrong sending your request. Please try again, or email info@presstropic.com.");
+        showError("Sorry — we couldn't reach the server. Please check your connection and try again, or email info@presstropic.com.");
       }).finally(function(){
         if(btn){ btn.disabled = false; btn.textContent = original; }
       });
@@ -764,6 +821,15 @@ document.querySelectorAll('.faq-item').forEach(function(det){
     <h3 id="ovTitle">Thanks — your request is in.</h3>
     <p>We'll be in touch within one working day.</p>
     <button type="button" class="btn btn-gold" id="ovCloseBtn">Close</button>
+  </div>
+</div>
+<div class="ov-backdrop" id="errorOverlay" role="dialog" aria-modal="true" aria-labelledby="ovErrTitle">
+  <div class="ov-card ov-card-err">
+    <button type="button" class="ov-close-x" id="ovErrClose" aria-label="Close">×</button>
+    <div class="ov-tick ov-cross">!</div>
+    <h3 id="ovErrTitle">Something went wrong.</h3>
+    <p id="ovErrMsg">Sorry — we couldn't send your request. Please try again, or email info@presstropic.com.</p>
+    <button type="button" class="btn btn-gold" id="ovErrCloseBtn">Close</button>
   </div>
 </div>
 </body>
