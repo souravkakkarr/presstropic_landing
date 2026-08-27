@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Presstropic</title>
+<meta name="description" content="How Presstropic collects, uses, stores and protects the data of the printing presses that use it.">
+<link rel="canonical" href="https://presstropic.com/privacy.html">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Presstropic Solutions">
+<meta name="theme-color" content="#0d0d0d">
+<meta name="keywords" content="printing press ERP, printing press software, print job management, job card software, plate management, paper stock register, dispatch challan software, printing MIS, print workflow software, press management system, Presstropic">
+
+<!-- Favicons (a real .ico + sized PNGs so search engines show the brand mark, not a globe) -->
+
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Welcome to Presstropic">
+<meta property="og:title" content="Privacy Policy — Presstropic">
+<meta property="og:description" content="How Presstropic collects, uses, stores and protects the data of the printing presses that use it.">
+<meta property="og:url" content="https://presstropic.com/privacy.html">
+<meta property="og:image" content="https://presstropic.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Presstropic — the operating system for printing presses">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Presstropic — The operating system for printing presses">
+<meta name="twitter:description" content="Run paper, plates, job cards, production and dispatch from one print-first system.">
+<meta name="twitter:image" content="https://presstropic.com/assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/intl-tel-input/css/intlTelInput.min.css">
+<style>
+  :root{
+    --ink:#141414; --ink-2:#464646; --ink-3:#7a7a7a;
+    --paper:#fbfaf7; --paper-2:#f4f1ea; --white:#fff;
+    --line:rgba(20,20,20,.11); --line-2:rgba(20,20,20,.19);
+    --gold:#c9a200; --gold-deep:#9a7400; --gold-bright:#f5c518;
+    --black:#0d0d0d;
+    --r:12px; --maxw:1160px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,.display{font-family:'Space Grotesk',sans-serif;letter-spacing:-.01em;line-height:1.1}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-deep)}
+
+  /* registration-mark motif — the print_mark SVG, tinted to the surrounding
+     accent so it stays visible on any background (deep gold on light, bright
+     gold on dark) */
+  .regmark{
+    width:18px;height:20px;flex:0 0 18px;display:inline-block;vertical-align:middle;
+    background-color:currentColor;
+    -webkit-mask:url(assets/print_mark.svg) center/contain no-repeat;
+            mask:url(assets/print_mark.svg) center/contain no-repeat;
+  }
+  .regmark span{display:none}
+
+  /* buttons — explicit hover colors, never same text/bg */
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;padding:13px 24px;border-radius:var(--r);border:1.5px solid transparent;cursor:pointer;transition:background .16s,color .16s,border-color .16s,transform .16s;white-space:nowrap}
+  .btn-primary{background:var(--black);color:#fff;border-color:var(--black)}
+  .btn-primary:hover{background:var(--gold-deep);border-color:var(--gold-deep);color:#fff;transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line-2)}
+  .btn-ghost:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .btn-gold{background:var(--gold-deep);color:#fff;border-color:var(--gold-deep)}
+  .btn-gold:hover{background:var(--black);color:#fff;border-color:var(--black);transform:translateY(-1px)}
+
+  /* header */
+  header{position:sticky;top:0;z-index:50;background:rgba(251,250,247,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:70px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .brand img{height:30px;width:auto}
+  .nav-links{display:flex;align-items:center;gap:30px}
+  .nav-links a.navlink{font-size:14px;font-weight:500;color:var(--ink-2);transition:color .15s}
+  .nav-links a.navlink:hover{color:var(--gold-deep)}
+  @media(max-width:900px){.nav-links .navlink{display:none}}
+  /* Mobile top bar: compact, evenly balanced — logo left, tight CTAs right */
+  @media(max-width:600px){
+    .wrap{padding:0 16px}
+    .nav{height:58px}
+    .brand img{height:22px}
+    .nav-links{gap:8px}
+    .nav-links .btn{padding:8px 13px;font-size:13px;border-radius:9px}
+  }
+  @media(max-width:380px){
+    .brand img{height:20px}
+    .nav-links .btn{padding:7px 11px;font-size:12px}
+  }
+
+  /* hero */
+  .hero{padding:32px 0 60px}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:40px}}
+  .hero .eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+  .hero h1{font-size:clamp(36px,5.2vw,58px);font-weight:700}
+  .hero h1 .accent{color:var(--gold-deep)}
+  .hero p.lede{font-size:19px;color:var(--ink-2);margin:14px 0 12px;max-width:40ch}
+  .hero p.sub{font-size:15px;color:var(--ink-3);margin-bottom:16px;max-width:44ch}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-signin{margin-top:16px;font-size:14px;color:var(--ink-3)}
+  .hero-signin a{color:var(--gold-deep);font-weight:600;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s}
+  .hero-signin a:hover{border-bottom-color:var(--gold-deep)}
+  .hero-modules{display:flex;gap:18px;margin-top:34px;flex-wrap:wrap}
+  .hero-mod{display:flex;flex-direction:column;align-items:center;gap:7px;font-size:11px;font-weight:600;color:var(--ink-3);letter-spacing:.02em}
+  .hero-mod img{width:30px;height:30px}
+
+  /* mock window */
+  .mock{background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:0 24px 60px -26px rgba(20,20,20,.3);overflow:hidden}
+  .mock-bar{display:flex;align-items:center;gap:7px;padding:12px 14px;border-bottom:1px solid var(--line);background:var(--paper-2)}
+  .mock-dot{width:10px;height:10px;border-radius:50%;background:var(--line-2)}
+  .mock-url{margin-left:10px;font-size:11px;color:var(--ink-3);font-family:'Space Grotesk',sans-serif;letter-spacing:.02em}
+  .mock-body{padding:18px}
+  /* Real JobBuddy dashboard shown in an isolated iframe. Rendered at a fixed
+     desktop design size and scaled by JS to the frame width, so the whole
+     KPI + parties card is always fully visible and crisp. */
+  .mock-frame-wrap{position:relative;width:100%;overflow:hidden;background:var(--white)}
+  .mock-frame{position:absolute;top:0;left:0;width:1000px;height:600px;border:0;
+    transform-origin:top left;pointer-events:none}
+  .mock-row{display:flex;gap:12px;margin-bottom:12px}
+  .mock-kpi{flex:1;border:1px solid var(--line);border-radius:8px;padding:12px}
+  .mock-kpi .k-label{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+  .mock-kpi .k-val{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px;margin-top:4px}
+  .mock-kpi .k-val.gold{color:var(--gold-deep)}
+  .mock-table{border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .mock-th{display:flex;background:var(--paper-2);padding:8px 12px;font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+  .mock-tr{display:flex;padding:9px 12px;border-top:1px solid var(--line);font-size:12px}
+  .mock-th span,.mock-tr span{flex:1}
+  .mock-tr span:last-child{text-align:right;font-family:'Space Grotesk',sans-serif;font-weight:600}
+
+  section{padding:74px 0}
+  .sec-head{display:flex;align-items:center;gap:12px;margin-bottom:12px;color:var(--gold-deep)}
+  .problem .sec-head,.why .sec-head{color:var(--gold-bright)}
+  .sec-title{font-size:clamp(26px,3.4vw,38px);font-weight:700}
+  .sec-sub{color:var(--ink-2);font-size:17px;max-width:62ch;margin-bottom:46px}
+
+  /* problem — dark section */
+  .problem{background:var(--black);color:#fff}
+  .problem .sec-title{color:#fff}
+  .problem .sec-sub{color:rgba(255,255,255,.62)}
+  .problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:700px){.problem-grid{grid-template-columns:1fr}}
+  .problem-card{border:1px solid rgba(255,255,255,.14);border-radius:var(--r);padding:24px}
+  .problem-card .pc-ico{width:38px;height:38px;border-radius:9px;background:rgba(245,197,24,.14);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+  .problem-card .pc-ico span{width:20px;height:20px;background:var(--gold-bright);-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center}
+  .problem-card h3{font-size:18px;font-weight:600;margin-bottom:7px}
+  .problem-card p{font-size:14px;color:rgba(255,255,255,.6)}
+
+  /* solution */
+  .sol-points{display:grid;grid-template-columns:1fr 1fr;gap:14px 32px;margin-top:8px}
+  @media(max-width:700px){.sol-points{grid-template-columns:1fr}}
+  .sol-point{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--ink-2)}
+  .sol-point .tick{flex:0 0 22px;width:22px;height:22px;border-radius:50%;background:var(--gold-deep);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-top:1px}
+
+  /* modules */
+  .modules{background:var(--paper-2)}
+  .mod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:860px){.mod-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.mod-grid{grid-template-columns:1fr}}
+  .mod{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:26px;transition:box-shadow .16s,border-color .16s}
+  .mod:hover{box-shadow:0 16px 40px -22px rgba(20,20,20,.3);border-color:var(--gold)}
+  .mod img{width:44px;height:44px;margin-bottom:15px}
+  .mod .mod-tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:6px}
+  .mod h3{font-size:20px;font-weight:600;margin-bottom:8px}
+  .mod h3 .b{color:var(--gold-deep)}
+  .mod p{font-size:14px;color:var(--ink-2)}
+  .mod ul{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:7px}
+  .mod ul li{font-size:13px;color:var(--ink-2);padding-left:18px;position:relative}
+  .mod ul li::before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+
+  /* connects flow */
+  .flow-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;align-items:start}
+  @media(max-width:860px){.flow-steps{grid-template-columns:1fr 1fr}}
+  @media(max-width:480px){.flow-steps{grid-template-columns:1fr}}
+  .flow-step{text-align:center;padding:8px}
+  .flow-step .fs-ico{width:52px;height:52px;border-radius:13px;background:var(--paper-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+  .flow-step .fs-ico span{width:26px;height:26px;background:var(--gold-deep);-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center}
+  .flow-step h4{font-size:14px;font-weight:700;margin-bottom:5px}
+  .flow-step p{font-size:12px;color:var(--ink-3)}
+
+  /* why — comparison */
+  .why{background:var(--black);color:#fff}
+  .why .sec-title{color:#fff}
+  .why .sec-sub{color:rgba(255,255,255,.62)}
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:760px){.why-grid{grid-template-columns:1fr}}
+  .why-col{border-radius:var(--r);padding:26px}
+  .why-generic{border:1px solid rgba(255,255,255,.14)}
+  .why-us{background:var(--white);color:var(--ink)}
+  .why-col h3{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px}
+  .why-generic h3{color:rgba(255,255,255,.55)}
+  .why-us h3{color:var(--gold-deep);display:flex;align-items:center;gap:8px}
+  .why-us h3 img{height:18px}
+  .why-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .why-col li{font-size:14px;padding-left:26px;position:relative}
+  .why-generic li{color:rgba(255,255,255,.6)}
+  .why-generic li::before{content:"✕";position:absolute;left:0;color:rgba(255,255,255,.4);font-weight:700}
+  .why-us li::before{content:"✓";position:absolute;left:0;color:var(--gold-deep);font-weight:700}
+
+  /* governance */
+  .gov-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  @media(max-width:860px){.gov-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:480px){.gov-grid{grid-template-columns:1fr}}
+  .gov{padding:4px}
+  .gov .g-ico{width:42px;height:42px;border-radius:10px;background:var(--paper-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin-bottom:13px}
+  .gov .g-ico span{width:22px;height:22px;background:var(--gold-deep);-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center}
+  .gov h4{font-size:16px;font-weight:600;margin-bottom:6px}
+  .gov p{font-size:13px;color:var(--ink-2)}
+
+  /* inquiry */
+  .cta{background:var(--paper-2)}
+  .cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start}
+  @media(max-width:860px){.cta-grid{grid-template-columns:1fr;gap:36px}}
+  .cta h2{font-size:clamp(28px,3.6vw,40px);font-weight:700;margin-bottom:14px}
+  .cta .lede{color:var(--ink-2);font-size:17px;margin-bottom:24px}
+  .cta-points{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .cta-points li{display:flex;gap:11px;align-items:flex-start;font-size:15px}
+  .cta-points .tick{flex:0 0 20px;width:20px;height:20px;border-radius:50%;background:var(--gold-deep);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-top:1px}
+
+  form{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:28px;box-shadow:0 12px 40px -26px rgba(20,20,20,.26)}
+  form h3{font-size:20px;font-weight:600;margin-bottom:4px}
+  form .form-sub{font-size:13px;color:var(--ink-3);margin-bottom:20px}
+  .field{margin-bottom:15px}
+  .field label{display:block;font-size:12.5px;font-weight:600;letter-spacing:.02em;margin-bottom:6px}
+  .field input,.field textarea,.field select{width:100%;font-family:inherit;font-size:14px;color:var(--ink);background:var(--paper);border:1px solid var(--line-2);border-radius:8px;padding:11px 13px;transition:border-color .15s,box-shadow .15s}
+  .field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--gold-deep);box-shadow:0 0 0 3px rgba(154,116,0,.14)}
+  .field textarea{resize:none;line-height:1.45;overflow-y:auto}
+  form .btn{width:100%;justify-content:center;margin-top:6px}
+  .form-privacy{font-size:11.5px;color:var(--ink-3);margin-top:12px;text-align:center}
+  .form-success{display:none;text-align:center;padding:14px;background:rgba(22,163,74,.1);border:1px solid rgba(22,163,74,.3);border-radius:8px;color:#15803d;font-size:14px;font-weight:500;margin-bottom:16px}
+
+  footer{background:var(--black);color:rgba(255,255,255,.7);padding:46px 0 32px}
+  .foot{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .foot img{height:26px}
+  .foot-links{display:flex;gap:24px;font-size:14px;flex-wrap:wrap}
+  .foot-links a:hover{color:var(--gold-bright)}
+  .foot-copy{font-size:12.5px;color:rgba(255,255,255,.42);margin-top:24px;padding-top:22px;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr .9fr 1.2fr;gap:34px;align-items:start}
+  @media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr;gap:28px}}
+  @media(max-width:480px){.foot-grid{grid-template-columns:1fr}}
+  .foot-col h4{font-family:'Space Grotesk',sans-serif;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:14px;font-weight:600}
+  .foot-col a,.foot-col p{display:block;font-size:14px;color:rgba(255,255,255,.74);margin-bottom:9px;line-height:1.5}
+  .foot-col a:hover{color:var(--gold-bright)}
+  /* opens-in-a-new-tab marker — same weight as the link text it follows */
+  .foot-col a .ext{display:inline-block;vertical-align:-1px;margin-left:6px;opacity:.65}
+  .foot-col a:hover .ext{opacity:1}
+  .foot-col .ct-sub{font-size:11.5px;color:rgba(255,255,255,.4);letter-spacing:.02em}
+  .foot-brand img{height:28px;margin-bottom:14px}
+  .foot-brand p{font-size:13.5px;color:rgba(255,255,255,.55);max-width:290px;line-height:1.6}
+  .foot-social{display:flex;gap:11px;margin-top:18px;flex-wrap:wrap}
+  .foot-social a{width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.16);border-radius:9px;color:rgba(255,255,255,.7);transition:border-color .16s,color .16s,background .16s;margin:0}
+  .foot-social a:hover{border-color:var(--gold-bright);color:var(--gold-bright);background:rgba(255,255,255,.05)}
+  .foot-social svg{width:19px;height:19px;display:block;fill:currentColor}
+
+
+  /* ── module slider ─────────────────────────────────────────────────────────
+     One module at a time, in full, rather than seven shallow cards. It advances
+     on its own every 5s; touching a chevron slows it to 15s, because someone who
+     has started steering is reading rather than watching. */
+  .slider{position:relative;margin-top:34px}
+  .slide-track{position:relative;background:var(--white);border:1px solid var(--line);
+    border-radius:var(--r);padding:34px 74px;min-height:330px;overflow:hidden}
+  .slide{position:absolute;inset:34px 74px;opacity:0;visibility:hidden;
+    transform:translateY(10px);transition:opacity .45s ease,transform .45s ease}
+  .slide.on{position:relative;inset:auto;opacity:1;visibility:visible;transform:none}
+  .slide-head{display:flex;align-items:center;gap:16px;margin-bottom:14px}
+  .slide-head img{width:46px;height:46px;flex:0 0 46px}
+  .slide .mod-tag{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--gold-deep);margin-bottom:4px}
+  .slide h3{font-size:27px}
+  .slide h3 .b{color:var(--gold-deep)}
+  .slide-lead{color:var(--ink-2);font-size:16px;margin-bottom:16px;max-width:70ch}
+  .slide ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:9px 30px}
+  .slide li{position:relative;padding-left:010px;padding-left:20px;font-size:14.5px;color:var(--ink-2)}
+  .slide li::before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;
+    border-radius:2px;background:var(--gold)}
+
+  .s-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:2;
+    width:42px;height:42px;border-radius:50%;border:1px solid var(--line-2);
+    background:rgba(255,255,255,.92);backdrop-filter:blur(4px);
+    font-size:22px;line-height:1;color:var(--ink-2);cursor:pointer;
+    transition:background .16s,color .16s,border-color .16s}
+  .s-nav:hover{background:var(--black);color:#fff;border-color:var(--black)}
+  .s-nav.prev{left:14px} .s-nav.next{right:14px}
+
+  .dots{display:flex;justify-content:center;gap:8px;margin-top:16px}
+  .dot{width:8px;height:8px;padding:0;border-radius:50%;border:0;cursor:pointer;
+    background:var(--line-2);transition:background .16s,width .16s}
+  .dot.on{background:var(--gold-deep);width:22px;border-radius:4px}
+
+  @media(max-width:820px){
+    .slide-track{padding:26px 20px 30px;min-height:0}
+    .slide{inset:26px 20px 30px}
+    .slide ul{grid-template-columns:1fr}
+    .slide h3{font-size:23px}
+    .s-nav{width:36px;height:36px;font-size:19px}
+    .s-nav.prev{left:4px} .s-nav.next{right:4px}
+  }
+  @media(prefers-reduced-motion:reduce){.slide{transition:none}}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+  :focus-visible{outline:2px solid var(--gold-deep);outline-offset:2px}
+  /* FAQ */
+  .faq-list{max-width:820px;margin-top:8px}
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-item summary{list-style:none;cursor:pointer;padding:20px 44px 20px 2px;position:relative;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px;color:var(--ink);}
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item summary::after{content:"+";position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:22px;color:var(--gold-deep);transition:transform .2s;font-weight:400}
+  .faq-item[open] summary::after{content:"–"}
+  .faq-item p{padding:0 44px 20px 2px;margin:0;color:var(--ink-2);font-size:15px;line-height:1.65;max-width:760px;overflow:hidden;transition:height .3s ease, opacity .28s ease, padding-bottom .3s ease}
+  @media(max-width:600px){.faq-item summary{font-size:15.5px}.faq-item p{font-size:14px}}
+  /* Success overlay — blocks the page behind, with a close control */
+  .ov-backdrop{position:fixed;inset:0;background:rgba(10,12,16,.72);z-index:9999;display:none;align-items:center;justify-content:center;padding:24px}
+  .ov-backdrop.show{display:flex}
+  .ov-card{background:#fff;border:1px solid rgba(22,163,74,.35);border-radius:16px;max-width:460px;width:100%;padding:32px 28px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.35);position:relative}
+  .ov-tick{width:56px;height:56px;border-radius:50%;background:rgba(22,163,74,.12);color:#15803d;display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 16px}
+  .ov-card h3{margin:0 0 8px;font-size:20px;color:#0f172a}
+  .ov-card p{margin:0 0 20px;font-size:14.5px;color:#475569;line-height:1.5}
+  .ov-close-x{position:absolute;top:12px;right:14px;background:none;border:none;font-size:22px;line-height:1;color:#94a3b8;cursor:pointer;padding:4px}
+  .ov-close-x:hover{color:#0f172a}
+  .ov-card-err{border-color:rgba(220,38,38,.35)}
+  .ov-cross{background:rgba(220,38,38,.12);color:#dc2626;font-weight:800}
+  /* International phone input — make it fill the field like the other inputs */
+  .iti{width:100%;}
+  .iti input#phone{width:100%;}
+  .iti__dropdown-content{font-family:inherit;}
+  .iti--separate-dial-code .iti__selected-dial-code{font-weight:500;}
+  /* The site's form-input padding was overriding the country-search field,
+     so its text/placeholder overlapped the magnifying-glass icon. Restore the
+     room the icon needs on the left (and the clear "x" on the right). */
+  .iti__search-input{
+    padding-left: calc(var(--iti-spacer-horizontal) + var(--iti-globe-icon-size) + var(--iti-spacer-horizontal)) !important;
+    padding-right: calc(var(--iti-spacer-horizontal) + var(--iti-clear-icon-size) + var(--iti-spacer-horizontal)) !important;
+  }
+
+  /* ── legal pages ── long-form copy, same tokens as the rest of the site */
+  .legal{padding:56px 0 72px}
+  .legal .lede{color:var(--ink-2);font-size:17px;max-width:72ch;margin-top:10px}
+  .legal .updated{font-size:13px;color:var(--ink-3);margin-top:14px}
+  .legal h2{font-size:22px;margin:38px 0 10px;scroll-margin-top:90px}
+  .legal h3{font-size:16px;margin:22px 0 6px}
+  .legal p, .legal li{color:var(--ink-2);font-size:15.5px;max-width:78ch}
+  .legal p{margin:9px 0}
+  .legal ul{margin:9px 0 9px 20px}
+  .legal li{margin:5px 0}
+  .legal .toc{background:var(--white);border:1px solid var(--line);border-radius:var(--r);
+    padding:18px 22px;margin:26px 0 8px}
+  .legal .toc h4{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--gold-deep);margin-bottom:10px}
+  .legal .toc ol{margin-left:18px;columns:2;column-gap:34px}
+  .legal .toc a{color:var(--ink-2);font-size:14px;line-height:2}
+  .legal .toc a:hover{color:var(--gold-deep)}
+  .legal .box{background:var(--paper-2);border-left:3px solid var(--gold);
+    border-radius:8px;padding:14px 18px;margin:16px 0}
+  .legal .box p{margin:0}
+  @media(max-width:820px){.legal .toc ol{columns:1}}
+</style>
+<!-- Structured data. When you have a registered address, add an "address" block
+     (PostalAddress) to the Organization below and to the hidden footer address. -->
+
+
+
+
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top"><img src="assets/presstropic_brand_light.svg" alt="Presstropic"></a>
+    <nav class="nav-links">
+      <a class="navlink" href="index.html#modules">Modules</a>
+      <a class="navlink" href="index.html#why">Why Presstropic</a>
+      <a class="navlink" href="index.html#how">How it works</a>
+      <a class="navlink" href="index.html#faq">FAQ</a>
+      <a class="navlink" href="index.html#contact">Contact</a>
+      <a class="btn btn-ghost" href="https://app.presstropic.com" target="_blank" rel="noopener">Sign In</a>
+      <a class="btn btn-gold" href="index.html#inquiry">Request a demo</a>
+    </nav>
+  </div>
+</header>
+
+<section class="legal">
+  <div class="wrap">
+    <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow">Legal</div></div>
+    <h1 class="sec-title">Privacy Policy</h1>
+    <p class="lede">Presstropic is used to run a printing press. That means we hold your production
+      records and, through them, information about your customers. This page sets out plainly what we
+      collect, why, how long we keep it, and what you can ask us to do with it.</p>
+    <p class="updated">Last updated: <span class="upd"></span> &middot; Applies to presstropic.com and app.presstropic.com</p>
+
+    <div class="toc">
+      <h4>On this page</h4>
+      <ol>
+        <li><a href="#who">Who we are</a></li>
+        <li><a href="#what">What we collect</a></li>
+        <li><a href="#why">Why we use it</a></li>
+        <li><a href="#yourdata">Your business data</a></li>
+        <li><a href="#sharing">Who we share it with</a></li>
+        <li><a href="#retention">How long we keep it</a></li>
+        <li><a href="#security">How we protect it</a></li>
+        <li><a href="#rights">Your rights</a></li>
+        <li><a href="#cookies">Cookies</a></li>
+        <li><a href="#changes">Changes and contact</a></li>
+      </ol>
+    </div>
+
+    <h2 id="who">1. Who we are</h2>
+    <p>Presstropic Solutions provides Presstropic, software that printing presses use to manage paper,
+      plates, jobs, stock, production and dispatch. In this policy “we” means Presstropic Solutions and
+      “you” means the press that subscribes to the service.</p>
+
+    <h2 id="what">2. What we collect</h2>
+    <h3>Information you give us</h3>
+    <ul>
+      <li>Enquiry details submitted on this website — name, company, phone number and email.</li>
+      <li>Account details for each user you create — name, email, role and permissions.</li>
+      <li>The operational records you enter into the app: parties, jobs, paper, plates, materials,
+        challans, rates and the documents built from them.</li>
+    </ul>
+    <h3>Information collected automatically</h3>
+    <ul>
+      <li>Sign-in activity: the time, the device and browser, and the approximate location derived
+        from the network address — used to show you your own active sessions and to spot access you
+        did not authorise.</li>
+      <li>An activity log of actions taken inside your account: who created, changed or deleted a
+        record, and when.</li>
+    </ul>
+    <div class="box"><p>We do not collect payment card details on our systems, and we do not sell
+      data to anyone, in any form.</p></div>
+
+    <h2 id="why">3. Why we use it</h2>
+    <ul>
+      <li>To provide the service and keep your records available to you.</li>
+      <li>To secure your account — two-factor authentication, session management and the activity log.</li>
+      <li>To support you when you ask for help, and to investigate a problem you report.</li>
+      <li>To respond to a demo request or enquiry you send us.</li>
+      <li>To meet a legal obligation where one applies.</li>
+    </ul>
+
+    <h2 id="yourdata">4. Your business data belongs to you</h2>
+    <p>The records you enter are yours. We hold them to run the service for you, and for no other
+      purpose. Specifically, we do not use your production data, your customer names or your rates to
+      train models, to build benchmarks, or to inform anything we sell to anyone else.</p>
+    <p>Each press's data is kept separate from every other press's, and access inside your account is
+      governed by the permissions you set for each user.</p>
+    <p>You can export your data from the app at any time, and you can ask us for a full copy of your
+      database.</p>
+
+    <h2 id="sharing">5. Who we share it with</h2>
+    <p>We share data only with the service providers needed to run Presstropic, and only to the extent
+      needed:</p>
+    <ul>
+      <li>Our hosting provider, which runs the servers and database.</li>
+      <li>An email provider, for account emails such as verification and password resets.</li>
+      <li>A messaging provider, where you have asked us to send notifications over WhatsApp.</li>
+    </ul>
+    <p>We may disclose data where the law requires it. If we ever receive such a demand and are
+      permitted to tell you, we will.</p>
+
+    <h2 id="retention">6. How long we keep it</h2>
+    <ul>
+      <li><strong>Your operational records</strong> — for as long as your subscription is active.</li>
+      <li><strong>Records of changes to data</strong> (who created, edited or deleted a document, and
+        what changed) — eight years, because these are accounting records and an auditor may need
+        them years later.</li>
+      <li><strong>Sign-in and browsing activity</strong> — 90 days.</li>
+      <li><strong>Enquiries from this website</strong> — up to two years, unless you ask us to delete
+        them sooner.</li>
+    </ul>
+    <p>If your subscription ends, we will make your data available for export for 30 days, and delete
+      it after 90 days unless you ask us to keep it longer or to delete it sooner.</p>
+
+    <h2 id="security">7. How we protect it</h2>
+    <ul>
+      <li>All traffic is encrypted in transit over HTTPS.</li>
+      <li>Passwords are stored hashed, never in a readable form.</li>
+      <li>Two-factor authentication is available, with backup codes and device session management.</li>
+      <li>Access inside your account is limited by per-screen and per-action permissions you control.</li>
+      <li>Backups are taken regularly and restores are tested.</li>
+    </ul>
+    <p>No system is perfectly secure. If a breach ever affects your data, we will tell you what
+      happened, what it affected and what we are doing about it, without delay.</p>
+
+    <h2 id="rights">8. Your rights</h2>
+    <p>You may ask us to:</p>
+    <ul>
+      <li>give you a copy of the personal data we hold about you;</li>
+      <li>correct anything that is wrong;</li>
+      <li>delete data we no longer have a reason to keep;</li>
+      <li>stop sending you marketing messages, at any time.</li>
+    </ul>
+    <p>Write to <a href="mailto:info@presstropic.com" style="color:var(--gold-deep)">info@presstropic.com</a>
+      and we will respond within 30 days.</p>
+
+    <h2 id="cookies">9. Cookies</h2>
+    <p>The app sets a cookie to keep you signed in and, if you choose, to remember your device for
+      two-factor authentication. These are necessary for the service to work and are not used for
+      advertising. This website itself sets no advertising or tracking cookies.</p>
+
+    <h2 id="changes">10. Changes and contact</h2>
+    <p>If we change this policy in a way that materially affects you, we will tell you before it takes
+      effect. The date at the top of this page always reflects the current version.</p>
+    <p>Questions about this policy:
+      <a href="mailto:info@presstropic.com" style="color:var(--gold-deep)">info@presstropic.com</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <!-- Brand + social -->
+      <div class="foot-col foot-brand">
+        <img src="assets/presstropic_brand_dark.svg" alt="Presstropic">
+        <p>The print-first operating system for printing presses — paper, plates, jobs, production and dispatch in one place.</p>
+        <!-- Social links — placeholders. Replace href="#" with your real profile URLs; delete any you don't use. -->
+        <div class="foot-social">
+          <a href="https://www.linkedin.com/company/presstropic" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 87.53 87.53" width="19" height="19" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><polygon points="19.22,87.53 19.22,30.6 2.13,30.6 2.13,87.53 "/><path d="M10.67 21.35c5.9,0 10.67,-4.78 10.67,-10.67 0,-5.9 -4.78,-10.67 -10.67,-10.67 -5.9,0 -10.67,4.78 -10.67,10.67 0,5.9 4.78,10.67 10.67,10.67z"/><path d="M30.6 30.6l0 56.93 17.08 0 0 -27.34c0,-9.54 4.09,-15.36 12.68,-15.36 7.07,0 10.09,6.64 10.09,14.22l0 28.48 17.08 0 0 -31.6c0,-16.91 -4.8,-26.05 -22,-26.05 -8.96,0 -16.21,4.49 -18.66,8.91l-0.18 0 0 -8.2 -16.1 0z"/></svg></a>
+          <a href="https://www.instagram.com/presstropic" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 116.61 116.61" width="19" height="19" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M38.87 58.34c-0.02,-10.73 8.67,-19.45 19.4,-19.47 10.73,-0.02 19.45,8.66 19.47,19.39 0.02,10.73 -8.67,19.45 -19.4,19.47 -10.73,0.02 -19.45,-8.66 -19.47,-19.4zm-10.5 0.02c0.03,16.54 13.46,29.91 29.99,29.88 16.53,-0.03 29.91,-13.46 29.88,-29.99 -0.03,-16.53 -13.46,-29.91 -30,-29.88 -16.53,0.03 -29.91,13.46 -29.88,29.99zm54 -31.22c0.01,3.86 3.15,6.99 7.01,6.98 3.86,-0.01 6.99,-3.15 6.98,-7.01 -0.01,-3.86 -3.15,-6.99 -7.01,-6.98 -3.86,0.01 -6.99,3.15 -6.98,7.01l0 0zm-47.53 78.66c-5.68,-0.25 -8.77,-1.19 -10.83,-1.98 -2.72,-1.05 -4.67,-2.32 -6.71,-4.35 -2.04,-2.04 -3.31,-3.98 -4.37,-6.69 -0.8,-2.06 -1.76,-5.14 -2.03,-10.82 -0.29,-6.15 -0.35,-7.99 -0.38,-23.56 -0.03,-15.56 0.03,-17.41 0.29,-23.56 0.24,-5.68 1.19,-8.77 1.98,-10.83 1.05,-2.73 2.31,-4.67 4.35,-6.71 2.04,-2.05 3.98,-3.31 6.7,-4.37 2.06,-0.8 5.14,-1.76 10.82,-2.03 6.15,-0.29 7.99,-0.35 23.55,-0.38 15.57,-0.03 17.41,0.02 23.56,0.29 5.68,0.25 8.77,1.19 10.82,1.98 2.73,1.05 4.67,2.31 6.71,4.35 2.04,2.04 3.31,3.97 4.37,6.7 0.8,2.05 1.76,5.14 2.03,10.82 0.29,6.15 0.36,7.99 0.39,23.56 0.03,15.57 -0.03,17.41 -0.3,23.56 -0.25,5.68 -1.19,8.77 -1.98,10.83 -1.05,2.72 -2.31,4.67 -4.35,6.71 -2.04,2.04 -3.97,3.31 -6.7,4.37 -2.05,0.8 -5.14,1.76 -10.82,2.03 -6.15,0.29 -7.99,0.35 -23.56,0.38 -15.56,0.03 -17.41,-0.03 -23.56,-0.29l-0 0zm-0.68 -105.4c-6.2,0.29 -10.44,1.29 -14.14,2.74 -3.83,1.49 -7.08,3.5 -10.31,6.74 -3.24,3.25 -5.22,6.5 -6.71,10.34 -1.44,3.71 -2.41,7.95 -2.68,14.16 -0.27,6.22 -0.33,8.2 -0.3,24.03 0.03,15.83 0.1,17.82 0.4,24.04 0.3,6.2 1.29,10.44 2.74,14.14 1.5,3.83 3.5,7.08 6.74,10.31 3.25,3.23 6.5,5.22 10.34,6.7 3.71,1.43 7.95,2.41 14.15,2.68 6.22,0.27 8.2,0.33 24.03,0.3 15.84,-0.03 17.82,-0.1 24.04,-0.39 6.2,-0.3 10.44,-1.29 14.14,-2.74 3.83,-1.5 7.08,-3.5 10.31,-6.74 3.23,-3.25 5.22,-6.5 6.7,-10.34 1.44,-3.71 2.41,-7.95 2.68,-14.15 0.27,-6.22 0.34,-8.21 0.31,-24.04 -0.03,-15.83 -0.1,-17.82 -0.4,-24.03 -0.29,-6.21 -1.29,-10.44 -2.74,-14.15 -1.5,-3.83 -3.5,-7.08 -6.74,-10.31 -3.25,-3.23 -6.5,-5.22 -10.34,-6.7 -3.71,-1.44 -7.95,-2.41 -14.15,-2.68 -6.22,-0.28 -8.2,-0.34 -24.04,-0.31 -15.83,0.03 -17.82,0.1 -24.03,0.4z"/></svg></a>
+          <a href="https://www.facebook.com/people/Presstropic-Solutions/61591797284768/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 204.25 400.45" width="19" height="19" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M66.74 400.45l0 -200.23 -66.74 0 0 -66.74 66.74 0 0 -35.84c0,-67.86 33.05,-97.64 89.45,-97.64 27.01,0 41.3,2 48.05,2.92l0 63.82 -38.46 0c-23.94,0 -32.31,12.63 -32.31,38.23l0 28.52 70.16 0 -9.53 66.74 -60.64 0 0 200.23 -66.74 0z"/></svg></a>
+          <a href="https://x.com/presstropic" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" title="X"><svg viewBox="0 0 161.56 146.04" width="19" height="19" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M127.24 0l24.77 0 -54.12 61.86 63.67 84.18 -49.86 0 -39.05 -51.05 -44.68 51.05 -24.79 0 57.89 -66.17 -61.08 -79.87 51.12 0 35.3 46.66 40.83 -46.66zm-8.7 131.21l13.73 0 -88.61 -117.16 -14.73 0 89.62 117.16z"/></svg></a>
+          <a href="https://www.youtube.com/@presstropic" target="_blank" rel="noopener noreferrer" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 292.05 205.76" width="19" height="19" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M260.13 6.14c12.57,3.38 22.46,13.34 25.82,25.99 6.1,22.92 6.1,70.75 6.1,70.75 0,0 0,47.83 -6.1,70.75 -3.36,12.65 -13.25,22.61 -25.82,25.99 -22.78,6.14 -114.1,6.14 -114.1,6.14 0,0 -91.33,0 -114.1,-6.14 -12.57,-3.38 -22.46,-13.34 -25.82,-25.99 -6.1,-22.93 -6.1,-70.75 -6.1,-70.75 0,0 0,-47.83 6.1,-70.75 3.36,-12.65 13.25,-22.61 25.82,-25.99 22.77,-6.14 114.1,-6.14 114.1,-6.14 0,0 91.33,0 114.1,6.14l0 0zm-143.97 140.16l76.33 -43.42 -76.33 -43.43 0 86.85z"/></svg></a>
+          <a href="https://www.whatsapp.com/channel/0029Vb8SBZDAYlUIzQqlSs2F" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp"><svg viewBox="0 0 216.12 217.16" width="19" height="19" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M184.63 31.56c-20.31,-20.34 -47.33,-31.55 -76.12,-31.56 -59.31,0 -107.59,48.27 -107.61,107.6 -0.01,18.97 4.95,37.48 14.36,53.8l-15.27 55.77 57.04 -14.96c15.72,8.58 33.41,13.09 51.42,13.1l0.05 0c59.31,0 107.58,-48.27 107.61,-107.61 0.01,-28.75 -11.17,-55.79 -31.49,-76.13l0 -0 0 0zm-76.12 165.56l-0.04 0c-16.05,-0 -31.79,-4.32 -45.52,-12.47l-3.27 -1.94 -33.85 8.88 9.04 -33.01 -2.13 -3.38c-8.95,-14.24 -13.68,-30.7 -13.67,-47.6 0.02,-49.31 40.14,-89.43 89.48,-89.43 23.89,0.01 46.35,9.32 63.23,26.23 16.89,16.9 26.18,39.38 26.17,63.27 -0.02,49.32 -40.14,89.44 -89.44,89.44l0 0zm49.06 -66.98c-2.69,-1.35 -15.91,-7.85 -18.37,-8.75 -2.47,-0.9 -4.26,-1.35 -6.05,1.35 -1.79,2.69 -6.94,8.75 -8.51,10.54 -1.57,1.8 -3.14,2.02 -5.83,0.67 -2.69,-1.35 -11.35,-4.18 -21.62,-13.34 -7.99,-7.13 -13.39,-15.93 -14.96,-18.63 -1.57,-2.69 -0.17,-4.15 1.18,-5.48 1.21,-1.21 2.69,-3.14 4.03,-4.71 1.35,-1.57 1.79,-2.69 2.69,-4.48 0.9,-1.8 0.45,-3.36 -0.22,-4.71 -0.67,-1.35 -6.05,-14.58 -8.29,-19.96 -2.18,-5.24 -4.4,-4.53 -6.05,-4.62 -1.57,-0.08 -3.36,-0.09 -5.15,-0.09 -1.8,0 -4.71,0.67 -7.17,3.37 -2.47,2.69 -9.41,9.2 -9.41,22.43 0,13.23 9.63,26.02 10.98,27.82 1.35,1.79 18.96,28.95 45.93,40.6 6.41,2.77 11.42,4.43 15.33,5.67 6.44,2.05 12.3,1.76 16.93,1.07 5.17,-0.77 15.91,-6.51 18.15,-12.79 2.24,-6.28 2.24,-11.67 1.57,-12.78 -0.67,-1.12 -2.47,-1.8 -5.15,-3.14l0 -0.01 -0 0z"/></svg></a>
+        </div>
+      </div>
+
+      <!-- Explore -->
+      <div class="foot-col">
+        <h4>Explore</h4>
+        <div class="foot-links" style="flex-direction:column;gap:0">
+          <a href="index.html#problem">The problem</a>
+          <a href="index.html#modules">Modules</a>
+          <a href="index.html#why">Why Presstropic</a>
+          <a href="index.html#how">How it works</a>
+          <a href="index.html#faq">FAQ</a>
+          <a href="index.html#inquiry">Request a demo</a>
+          <a href="https://app.presstropic.com" target="_blank" rel="noopener">Sign in</a>
+        </div>
+      </div>
+
+
+      <!-- Legal -->
+      <div class="foot-col">
+        <h4>Legal</h4>
+        <div class="foot-links" style="flex-direction:column;gap:0">
+          <a href="privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy<svg class="ext" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+          <a href="terms.html" target="_blank" rel="noopener noreferrer">T&amp;C of Services<svg class="ext" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+        </div>
+      </div>
+      <!-- Contact -->
+      <div class="foot-col" id="contact">
+        <h4>Contact</h4>
+        <a href="tel:+919990050560">+91 99900 50560</a>
+        <a href="tel:+919990050561" style="margin-bottom:16px">+91 99900 50561</a>
+        <a href="mailto:sales@presstropic.com">sales@presstropic.com<br><span class="ct-sub">Sales &amp; demos</span></a>
+        <a href="mailto:help@presstropic.com">help@presstropic.com<br><span class="ct-sub">Support</span></a>
+        <a href="mailto:info@presstropic.com">info@presstropic.com<br><span class="ct-sub">General enquiries</span></a>
+        <a href="mailto:founder@presstropic.com" style="display:none">founder@presstropic.com<br><span class="ct-sub">Founder&rsquo;s office</span></a>
+        <!-- Address — hidden until finalised. Fill the lines below and remove style="display:none" to show it. -->
+        <p class="foot-addr" style="display:none">
+          Presstropic Solutions<br>
+          [Street address]<br>
+          [City], [State] [PIN]<br>
+          India
+        </p>
+      </div>
+    </div>
+    <div class="foot-copy">
+      <span>© <span id="yr"></span> Presstropic. All rights reserved.</span>
+      <span>Made for people who run a press.</span>
+    </div>
+  </div>
+</footer>
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  document.querySelectorAll('.upd').forEach(function(el){
+    el.textContent = new Date(document.lastModified).toLocaleDateString('en-GB',
+      {day:'numeric', month:'long', year:'numeric'});
+  });
+</script>
+</body>
+</html>
