@@ -289,7 +289,8 @@
   .rail-mark{width:16px;height:16px;border:3px solid var(--gold-deep);border-radius:50%}
   .slide-rail .mod-tag{font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
     color:var(--gold-deep);margin-bottom:8px}
-  .slide-rail h3{font-size:30px;line-height:1.08;letter-spacing:-.5px}
+  .slide-rail h3{font-size:clamp(22px,2.1vw,30px);line-height:1.08;letter-spacing:-.5px;
+    overflow-wrap:break-word;hyphens:none}
   .slide-rail h3 .b{color:var(--gold-deep)}
   .slide-lead{color:var(--ink-2);font-size:15px;line-height:1.55;margin-top:12px}
   .rail-n{margin-top:auto;padding-top:22px;font-family:'Space Grotesk',sans-serif;color:var(--ink-3)}
@@ -526,7 +527,7 @@
         <div class="slide-rail">
           <div class="rail-ico"><img src="assets/paperbuddy.svg" alt="PaperBuddy module"></div>
           <div class="mod-tag">Paper inventory</div>
-          <h3>Paper<span class="b">Buddy</span></h3>
+          <h3>Paper<wbr><span class="b">Buddy</span></h3>
           <p class="slide-lead">Every sheet accounted for — from the day it arrives to the job it goes out on.</p>
           <div class="rail-n"><b>01</b><span>/ 07</span></div>
         </div>
@@ -537,7 +538,7 @@
         <div class="slide-rail">
           <div class="rail-ico"><img src="assets/rackbuddy.svg" alt="RackBuddy module"></div>
           <div class="mod-tag">Plate storage</div>
-          <h3>Rack<span class="b">Buddy</span></h3>
+          <h3>Rack<wbr><span class="b">Buddy</span></h3>
           <p class="slide-lead">Every plate mapped to an exact rack location by your own series rules.</p>
           <div class="rail-n"><b>02</b><span>/ 07</span></div>
         </div>
@@ -548,7 +549,7 @@
         <div class="slide-rail">
           <div class="rail-ico"><img src="assets/jobbuddy.svg" alt="JobBuddy module"></div>
           <div class="mod-tag">Job cards &amp; production</div>
-          <h3>Job<span class="b">Buddy</span></h3>
+          <h3>Job<wbr><span class="b">Buddy</span></h3>
           <p class="slide-lead">Job cards, a process route, and a live view of what is running right now.</p>
           <div class="rail-n"><b>03</b><span>/ 07</span></div>
         </div>
@@ -559,7 +560,7 @@
         <div class="slide-rail">
           <div class="rail-ico"><img src="assets/storebuddy.svg" alt="StoreBuddy module"></div>
           <div class="mod-tag">Raw material store</div>
-          <h3>Store<span class="b">Buddy</span></h3>
+          <h3>Store<wbr><span class="b">Buddy</span></h3>
           <p class="slide-lead">Films, inks and consumables — in, out, returned and scrapped.</p>
           <div class="rail-n"><b>04</b><span>/ 07</span></div>
         </div>
@@ -570,7 +571,7 @@
         <div class="slide-rail">
           <div class="rail-ico"><img src="assets/dispatchbuddy.svg" alt="DispatchBuddy module"></div>
           <div class="mod-tag">Dispatch, billing &amp; challans</div>
-          <h3>Dispatch<span class="b">Buddy</span></h3>
+          <h3>Dispatch<wbr><span class="b">Buddy</span></h3>
           <p class="slide-lead">From a finished job to a billed, dispatched challan — and the record that it was invoiced.</p>
           <div class="rail-n"><b>05</b><span>/ 07</span></div>
         </div>
@@ -581,7 +582,7 @@
         <div class="slide-rail">
           <div class="rail-ico"><span class="rail-mark"></span></div>
           <div class="mod-tag">Books &amp; audit</div>
-          <h3>Audit<span class="b">Reports</span></h3>
+          <h3>Audit<wbr><span class="b">Reports</span></h3>
           <p class="slide-lead">The questions an auditor asks first, answered from the data you already have.</p>
           <div class="rail-n"><b>06</b><span>/ 07</span></div>
         </div>
@@ -592,7 +593,7 @@
         <div class="slide-rail">
           <div class="rail-ico"><span class="rail-mark"></span></div>
           <div class="mod-tag">Masters &amp; rates</div>
-          <h3>Master<span class="b">Management</span></h3>
+          <h3>Master<wbr><span class="b">Management</span></h3>
           <p class="slide-lead">Everything defined once, and changed in bulk when it needs to change.</p>
           <div class="rail-n"><b>07</b><span>/ 07</span></div>
         </div>
