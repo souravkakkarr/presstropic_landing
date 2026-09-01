@@ -6,27 +6,27 @@
 /* ── Doto (module name display font) ── */
 @font-face {
   font-family: 'Doto';
-  src: url('fonts/Doto-Regular.ttf') format('truetype');
+  src: url('/static/fonts/Doto-Regular.ttf') format('truetype');
   font-weight: 400; font-style: normal; font-display: swap;
 }
 @font-face {
   font-family: 'Doto';
-  src: url('fonts/Doto-Medium.ttf') format('truetype');
+  src: url('/static/fonts/Doto-Medium.ttf') format('truetype');
   font-weight: 500; font-style: normal; font-display: swap;
 }
 @font-face {
   font-family: 'Doto';
-  src: url('fonts/Doto-SemiBold.ttf') format('truetype');
+  src: url('/static/fonts/Doto-SemiBold.ttf') format('truetype');
   font-weight: 600; font-style: normal; font-display: swap;
 }
 @font-face {
   font-family: 'Doto';
-  src: url('fonts/Doto-Bold.ttf') format('truetype');
+  src: url('/static/fonts/Doto-Bold.ttf') format('truetype');
   font-weight: 700; font-style: normal; font-display: swap;
 }
 @font-face {
   font-family: 'Doto';
-  src: url('fonts/Doto-Black.ttf') format('truetype');
+  src: url('/static/fonts/Doto-Black.ttf') format('truetype');
   font-weight: 800; font-style: normal; font-display: swap;
 }
 
@@ -172,8 +172,8 @@ a { color: inherit; text-decoration: none; }
    (light icon on dark theme, dark icon on light theme) via background-color. */
 .rail-toggle-ico {
   display: block; width: 20px; height: 20px; background-color: var(--text);
-  -webkit-mask: url('icons/../sidebar_toggle_icon.svg') center / contain no-repeat;
-  mask: url('icons/../sidebar_toggle_icon.svg') center / contain no-repeat;
+  -webkit-mask: url('/static/logos/sidebar_toggle_icon.svg') center / contain no-repeat;
+  mask: url('/static/logos/sidebar_toggle_icon.svg') center / contain no-repeat;
   transition: background-color .15s;
 }
 .rail-toggle-btn:hover .rail-toggle-ico { background-color: var(--accent); }
@@ -215,8 +215,8 @@ a { color: inherit; text-decoration: none; }
 /* Exit-company icon in the collapsed rail (mirrors the expanded EXIT COMPANY) */
 .rail-exit-ico {
   width: 22px; height: 22px; display: block; background-color: var(--text-2);
-  -webkit-mask: url('icons/exit_company.svg') center / contain no-repeat;
-  mask: url('icons/exit_company.svg') center / contain no-repeat;
+  -webkit-mask: url('/static/logos/icons/exit_company.svg') center / contain no-repeat;
+  mask: url('/static/logos/icons/exit_company.svg') center / contain no-repeat;
   transition: background-color .15s;
 }
 .rail-bottom-btn.company-logout:hover { background: var(--danger-dim); color: var(--danger); }
@@ -398,7 +398,7 @@ a { color: inherit; text-decoration: none; }
 /* ── Typography ── */
 h1 { font-size: 30px; font-weight: 900; letter-spacing: -.04em; color: var(--text); margin-top: 0; margin-bottom: 0; }
 h2 { font-size: 18px; font-weight: 800; letter-spacing: -.02em; color: var(--text); }
-h3 { font-size: 15px; font-weight: 700; color: var(--text); }
+h3 { font-size: 15px; font-weight: 700; color: var(--text); margin-top: 4px; }
 p {
   margin: 10px 4px;
 }
@@ -490,6 +490,8 @@ textarea {
   resize: none; min-height: 88px; height: 88px; max-height: 88px;
   overflow-y: auto; padding: 8px 10px; line-height: 1.4;
 }
+/* Auto-growing remarks fields: JS drives the height, so lift the fixed cap. */
+textarea.autogrow { height: auto; max-height: none; overflow-y: hidden; }
 /* readonly / auto-generated / locked fields: muted bg + not-allowed cursor */
 input[readonly], textarea[readonly],
 input:disabled, select:disabled, textarea:disabled,
@@ -523,7 +525,7 @@ select option { background: var(--bg-3); }
 
 /* Icon-only action buttons (edit / cancel / print / clear). The glyph inherits
    the button's text colour via currentColor, so it reads on light, gold and
-   danger buttons alike. Swap the SVG files in icons/../icons to restyle. */
+   danger buttons alike. Swap the SVG files in /static/logos/icons to restyle. */
 .btn-ico { padding: 7px 9px; gap: 0; }
 .btn.small.btn-ico { padding: 6px 8px; }
 .btn-ico .ico {
@@ -532,11 +534,11 @@ select option { background: var(--bg-3); }
   -webkit-mask: var(--ico) center / contain no-repeat;
           mask: var(--ico) center / contain no-repeat;
 }
-.ico-edit   { --ico: url('icons/edit.svg'); }
-.ico-cancel { --ico: url('icons/cancel.svg'); }
-.ico-print  { --ico: url('icons/print.svg'); }
-.ico-clear  { --ico: url('icons/clear.svg'); }
-.ico-back   { --ico: url('icons/exit_detail.svg'); }
+.ico-edit   { --ico: url('/static/logos/icons/edit.svg'); }
+.ico-cancel { --ico: url('/static/logos/icons/cancel.svg'); }
+.ico-print  { --ico: url('/static/logos/icons/print.svg'); }
+.ico-clear  { --ico: url('/static/logos/icons/clear.svg'); }
+.ico-back   { --ico: url('/static/logos/icons/exit_detail.svg'); }
 .btn-row, .inline-form { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 .inline-form > * { margin: 0; }
 
@@ -1625,14 +1627,14 @@ tr:has(.row-check:checked) td { background: var(--accent-dim2) !important; }
 .grid-funnel {
   display:inline-block; width:12px; height:12px; margin-left:6px;
   vertical-align:-1px; opacity:.5; background-color:currentColor;
-  -webkit-mask:url('icons/filter.svg') center/contain no-repeat;
-          mask:url('icons/filter.svg') center/contain no-repeat;
+  -webkit-mask:url('/static/logos/icons/filter.svg') center/contain no-repeat;
+          mask:url('/static/logos/icons/filter.svg') center/contain no-repeat;
 }
 .grid-funnel:hover { opacity:1; background-color:var(--accent); }
 th.grid-filtered .grid-funnel {
   opacity:1; background-color:var(--accent);
-  -webkit-mask-image:url('icons/active_filter.svg');
-          mask-image:url('icons/active_filter.svg');
+  -webkit-mask-image:url('/static/logos/icons/active_filter.svg');
+          mask-image:url('/static/logos/icons/active_filter.svg');
 }
 .grid-filterpop-backdrop { position:fixed; inset:0; z-index:8999; background:rgba(0,0,0,.45); backdrop-filter:blur(2px); }
 .grid-filterpop { position:fixed; z-index:9000; background:var(--surface);
@@ -2232,8 +2234,8 @@ input[readonly] { background:var(--bg-2); }
 .notif-bell:hover{ background:var(--accent-dim); border-color:var(--accent); }
 .notif-bell-ico{
   width:22px; height:22px; background-color:var(--text);
-  -webkit-mask:url('icons/bell.svg') center / contain no-repeat;
-  mask:url('icons/bell.svg') center / contain no-repeat;
+  -webkit-mask:url('/static/logos/icons/bell.svg') center / contain no-repeat;
+  mask:url('/static/logos/icons/bell.svg') center / contain no-repeat;
 }
 .notif-bell:hover .notif-bell-ico{ background-color:var(--accent-strong); }
 .notif-badge{
@@ -2302,7 +2304,7 @@ input[readonly] { background:var(--bg-2); }
   width:15px; height:15px; background-color:var(--text-2);
   -webkit-mask-size:contain; mask-size:contain; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; -webkit-mask-position:center; mask-position:center;
 }
-.notif-icon-btn .ni-check{ -webkit-mask-image:url('icons/check.svg'); mask-image:url('icons/check.svg'); }
+.notif-icon-btn .ni-check{ -webkit-mask-image:url('/static/logos/icons/check.svg'); mask-image:url('/static/logos/icons/check.svg'); }
 .notif-icon-btn .ni-x{
   -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M18 6L6 18M6 6l12 12'/%3E%3C/svg%3E");
   mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M18 6L6 18M6 6l12 12'/%3E%3C/svg%3E");
@@ -2321,8 +2323,8 @@ input[readonly] { background:var(--bg-2); }
 /* ── Logout icon (SVG mask — theme-aware, consistent across devices) ─────── */
 .rail-logout-ico {
   width: 22px; height: 22px; display: block; background-color: var(--text-2);
-  -webkit-mask: url('icons/logout.svg') center / contain no-repeat;
-  mask: url('icons/logout.svg') center / contain no-repeat;
+  -webkit-mask: url('/static/logos/icons/logout.svg') center / contain no-repeat;
+  mask: url('/static/logos/icons/logout.svg') center / contain no-repeat;
   transition: background-color .15s;
 }
 .rail-bottom-btn.logout:hover .rail-logout-ico { background-color: var(--danger); }
@@ -2330,16 +2332,16 @@ input[readonly] { background:var(--bg-2); }
 .nav-logout-ico {
   width: 16px; height: 16px; flex: 0 0 16px; display: inline-block;
   background-color: currentColor; margin-right: 9px; vertical-align: -2px;
-  -webkit-mask: url('icons/logout.svg') center / contain no-repeat;
-  mask: url('icons/logout.svg') center / contain no-repeat;
+  -webkit-mask: url('/static/logos/icons/logout.svg') center / contain no-repeat;
+  mask: url('/static/logos/icons/logout.svg') center / contain no-repeat;
 }
 /* Exit-company icon — a building with an arrow leaving it, so signing out of the
    whole company reads differently from the personal power-symbol logout. */
 .nav-exit-ico {
   width: 16px; height: 16px; flex: 0 0 16px; display: inline-block;
   background-color: currentColor; margin-right: 9px; vertical-align: -2px;
-  -webkit-mask: url('icons/exit_company.svg') center / contain no-repeat;
-  mask: url('icons/exit_company.svg') center / contain no-repeat;
+  -webkit-mask: url('/static/logos/icons/exit_company.svg') center / contain no-repeat;
+  mask: url('/static/logos/icons/exit_company.svg') center / contain no-repeat;
 }
 
 /* Category headings inside the Master Management menu (its list is grouped
@@ -2401,8 +2403,8 @@ body.menu-open .sidebar-flap {
   width: 13px;
   height: 13px;
   background-color: var(--text-2);
-  -webkit-mask: url('icons/arrow.svg') center / contain no-repeat;
-  mask: url('icons/arrow.svg') center / contain no-repeat;
+  -webkit-mask: url('/static/logos/icons/arrow.svg') center / contain no-repeat;
+  mask: url('/static/logos/icons/arrow.svg') center / contain no-repeat;
   transition: background-color .15s;
 }
 .sidebar-flap:hover .sidebar-flap-ico { background-color: var(--accent-strong); }
@@ -2414,8 +2416,8 @@ body.menu-open .sidebar-flap {
   height: 12px;
   flex: 0 0 12px;
   background-color: currentColor;
-  -webkit-mask: url('icons/arrow.svg') center / contain no-repeat;
-  mask: url('icons/arrow.svg') center / contain no-repeat;
+  -webkit-mask: url('/static/logos/icons/arrow.svg') center / contain no-repeat;
+  mask: url('/static/logos/icons/arrow.svg') center / contain no-repeat;
 }
 
 /* ── Theme toggle icons (sun / moon) ──────────────────────────────────────
@@ -2426,13 +2428,13 @@ body.menu-open .sidebar-flap {
 .theme-ico {
   width: 20px; height: 20px; display: inline-block; flex: 0 0 20px;
   background-color: var(--text-2);
-  -webkit-mask: url('icons/sun.svg') center / contain no-repeat;
-  mask: url('icons/sun.svg') center / contain no-repeat;
+  -webkit-mask: url('/static/logos/icons/sun.svg') center / contain no-repeat;
+  mask: url('/static/logos/icons/sun.svg') center / contain no-repeat;
   transition: background-color .15s;
 }
 [data-theme="light"] .theme-ico {
-  -webkit-mask-image: url('icons/moon.svg');
-  mask-image: url('icons/moon.svg');
+  -webkit-mask-image: url('/static/logos/icons/moon.svg');
+  mask-image: url('/static/logos/icons/moon.svg');
 }
 .rail-bottom-btn.theme-btn:hover .theme-ico { background-color: var(--accent-strong); }
 
@@ -2548,7 +2550,6 @@ body.menu-open .sidebar-flap {
 #job_table th:nth-child(9) { min-width: 100px; }  /* STATUS */
 #job_table .proc-qty-cell { text-align: right; font-weight: 600; }
 /* A job's processes read as one block: only the last of them gets a full rule. */
-#job_table tr.proc-extra-row > td { border-top: 1px dashed var(--border); }
 
 @media print {
   #job_table .proc-cell { min-width: 0; }
@@ -2770,22 +2771,33 @@ body.menu-open .sidebar-flap {
 .ms-foot { display:flex; justify-content:space-between; align-items:center; gap:8px; margin-top:8px; padding-top:8px; border-top:1px solid var(--border); }
 .ms-foot button { background:none; border:none; color:var(--accent); font-size:12px; font-weight:600; cursor:pointer; padding:2px 4px; }
 
-/* ── Row action kebab (⋮) menu — collapses per-row buttons to free column width ── */
+/* ── Row action kebab (⋮) menu — collapses per-row buttons to free column width.
+      Borderless icon + clean list, matching the reusable .rowmenu look. ── */
 .gt-kebab { position:relative; display:inline-flex; }
 .gt-kebab-btn {
-  width:28px; height:28px; padding:0; border:1px solid var(--border); border-radius:6px;
-  background:var(--bg-2); color:var(--text-2,#8a8a8a); cursor:pointer;
+  width:auto; height:auto; padding:2px 8px; border:none; border-radius:6px;
+  background:none; box-shadow:none; color:var(--text-2,#8a8a8a); cursor:pointer;
   display:inline-flex; align-items:center; justify-content:center;
 }
-.gt-kebab-btn:hover { border-color:var(--accent); color:var(--accent); }
-.gt-kebab.open .gt-kebab-btn { border-color:var(--accent); color:var(--accent); }
+.gt-kebab-btn:hover { background:none; color:var(--text); }
+.gt-kebab.open .gt-kebab-btn { background:none; color:var(--text); }
 .gt-kebab-menu {
-  position:fixed; z-index:1000; min-width:158px; display:none; flex-direction:column; gap:4px;
-  background:var(--bg-2); border:1px solid var(--border-2); border-radius:8px;
-  box-shadow:0 10px 28px rgba(0,0,0,.18); padding:6px;
+  position:fixed; z-index:1000; min-width:160px; display:none; flex-direction:column; gap:2px;
+  background:var(--bg-2); border:1px solid var(--border); border-radius:10px;
+  box-shadow:0 10px 28px rgba(0,0,0,.22); padding:6px;
 }
 .gt-kebab.open .gt-kebab-menu { display:flex; }
-.gt-kebab-menu .btn { width:100%; justify-content:flex-start; gap:8px; }
+/* menu items: no bg / no border, left-aligned, blue highlight on hover */
+.gt-kebab-menu .btn {
+  width:100%; justify-content:flex-start; gap:8px;
+  background:none !important; border:none !important; box-shadow:none !important;
+  color:inherit !important; padding:10px 14px !important; border-radius:7px !important;
+  font-weight:600;
+}
+.gt-kebab-menu .btn:hover { background:var(--accent) !important; color:#fff !important; }
+/* keep destructive actions identifiable */
+.gt-kebab-menu .btn.danger { color:var(--danger,#c0392b) !important; }
+.gt-kebab-menu .btn.danger:hover { background:var(--danger,#c0392b) !important; color:#fff !important; }
 .gt-kebab-menu form { display:block; width:100%; margin:0; }
 .gt-kebab-menu form .btn { width:100%; }
 .gt-kebab-label { font-size:12px; }
@@ -2811,3 +2823,4 @@ a.stat-card:hover { border-color: var(--accent); transform: translateY(-1px); }
 
 /* Challan detail: fixed-width specification column that wraps long UPS size lists */
 .spec-col { max-width: 260px; white-space: normal; word-break: break-word; overflow-wrap: anywhere; }
+.statnum { cursor: help; }

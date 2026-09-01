@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>JobBuddy — module home</title>
+<title>DispatchBuddy — module home</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
@@ -44,9 +44,9 @@
   <main class="main">
 <div class="page-head">
   <h1 class="dash-title">
-    <img class="dash-ico dash-ico-dark" src="logos/jobbuddy_icon_dark.svg" alt="JobBuddy">
-    <img class="dash-ico dash-ico-light" src="logos/jobbuddy_icon_light.svg" alt="JobBuddy">
-    <span class="mh-home-title">Job<span class="buddy">Buddy</span></span>
+    <img class="dash-ico dash-ico-dark" src="logos/dispatchbuddy_icon_dark.svg" alt="DispatchBuddy">
+    <img class="dash-ico dash-ico-light" src="logos/dispatchbuddy_icon_light.svg" alt="DispatchBuddy">
+    <span class="mh-home-title">Dispatch<span class="buddy">Buddy</span></span>
   </h1>
 </div>
 
@@ -54,18 +54,18 @@
   <!-- Left: feature list -->
   <nav class="mh-list">
     <div class="mh-list-title">Menu</div>
-    <a class="mh-item" href="/jobbuddy/job-card"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/create.svg');mask-image:url('logos/icons/create.svg');"></span>Job Card Creation</a>
-    <a class="mh-item" href="/jobbuddy/job-register"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/register.svg');mask-image:url('logos/icons/register.svg');"></span>Job Register</a>
-    <a class="mh-item" href="/jobbuddy/pendency-report"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/job_scheduling.svg');mask-image:url('logos/icons/job_scheduling.svg');"></span>Job Scheduling</a>
-    <a class="mh-item" href="/jobbuddy/machine-schedule"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/machine.svg');mask-image:url('logos/icons/machine.svg');"></span>Machine Wise Schedule</a>
-    <a class="mh-item" href="/jobbuddy/live-floor"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/activity.svg');mask-image:url('logos/icons/activity.svg');"></span>Production Floor Monitoring</a>
-    <a class="mh-item" href="/jobbuddy/production-calendar"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/production_calendar.svg');mask-image:url('logos/icons/production_calendar.svg');"></span>Production Calendar</a>
-    <a class="mh-item" href="/jobbuddy/scheduling"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/time_bound_scheduling.svg');mask-image:url('logos/icons/time_bound_scheduling.svg');"></span>Time Bound Scheduling</a>
-    <a class="mh-item" href="/jobbuddy/operator-records"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/operator.svg');mask-image:url('logos/icons/operator.svg');"></span>Operator Records</a>
-    <a class="mh-item" href="/jobbuddy/production-analysis"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/report.svg');mask-image:url('logos/icons/report.svg');"></span>Production Reports</a>
+    <a class="mh-item" href="/dispatchbuddy/create"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/create.svg');mask-image:url('logos/icons/create.svg');"></span>Challan Creation</a>
+    <a class="mh-item" href="/dispatchbuddy/dispatch-register"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/register.svg');mask-image:url('logos/icons/register.svg');"></span>Challan Register</a>
+    <a class="mh-item" href="/dispatchbuddy/completed-jobs"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/check.svg');mask-image:url('logos/icons/check.svg');"></span>Completed Jobs</a>
+    <a class="mh-item" href="/dispatchbuddy/ready-to-dispatch"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/ready_to_dispatch.svg');mask-image:url('logos/icons/ready_to_dispatch.svg');"></span>Ready-to-Dispatch</a>
+    <a class="mh-item" href="/dispatchbuddy/dispatched"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/dispatched_jobs.svg');mask-image:url('logos/icons/dispatched_jobs.svg');"></span>Dispatched</a>
+    <a class="mh-item" href="/dispatchbuddy/un-invoiced"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/uninvoiced_jobs.svg');mask-image:url('logos/icons/uninvoiced_jobs.svg');"></span>Un-invoiced Jobs</a>
+    <a class="mh-item" href="/dispatchbuddy/reports"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/report.svg');mask-image:url('logos/icons/report.svg');"></span>Dispatch Reports</a>
+    <a class="mh-item" href="/dispatchbuddy/party-ledger"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/party.svg');mask-image:url('logos/icons/party.svg');"></span>Party Ledger</a>
+    <a class="mh-item" href="/dispatchbuddy/rate-update"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/money.svg');mask-image:url('logos/icons/money.svg');"></span>Rate Update</a>
   </nav>
 
-  <!-- Right: stats area (former Production Dashboard content) -->
+  <!-- Right: stats area -->
   <div class="mh-stats">
     <div class="mh-stats-title">Statistics</div>
     <div class="periodbar no-print">
@@ -116,7 +116,7 @@
 
 <script>
 (function(){
-  var HOME = "/jobbuddy";
+  var HOME = "/dispatchbuddy";
   var KIND = "month";
   var VALUE = "08/2026";          // day/week: DD/MM/YYYY, month: MM/YYYY, year: 26-27
   var FYS  = ["26-27"];
@@ -214,29 +214,22 @@
   .pb-current { font-size:12px; font-weight:700; }
 </style>
     <div class="stat-cards">
-      <a class="stat-card stat-link" href="/jobbuddy/stats/mtd_produced"><div class="sc-label">Produced (August 2026)</div><div class="sc-value"><span class="statnum" title="3,27,000">3.27L</span></div><div class="sc-sub">sheets from completed jobs</div></a>
-      <a class="stat-card stat-link" href="/jobbuddy/stats/mtd_jobs"><div class="sc-label">Completed Jobs (August 2026)</div><div class="sc-value">26 out of 27</div><div class="sc-sub">jobs completed</div></a>
-      <a class="stat-card stat-link" href="/jobbuddy/stats/all_produced"><div class="sc-label">Produced &mdash; all jobs (August 2026)</div><div class="sc-value"><span class="statnum" title="3,27,000">3.27L</span></div><div class="sc-sub">26 of 27 jobs completed</div></a>
+      <a class="stat-card" href="/dispatchbuddy/completed-jobs" style="text-decoration:none;">
+        <div class="sc-label">Completed Jobs</div><div class="sc-value">11</div><div class="sc-sub">job(s) ready for challan</div>
+      </a>
+      <a class="stat-card" href="/dispatchbuddy/dispatched" style="text-decoration:none;">
+        <div class="sc-label">Dispatched</div><div class="sc-value">14</div><div class="sc-sub">shipped challans</div>
+      </a>
+      <a class="stat-card" href="/dispatchbuddy/stats/mtd_billed" style="text-decoration:none;"><div class="sc-label">Dispatch Value</div><div class="sc-value"><span class="statnum" title="8,58,650">8.59L</span></div><div class="sc-sub">Rs (this month)</div></a>
     </div>
 
-    <div class="mh-table-grid">
+    <div class="mh-table-grid" style="margin-bottom:16px;">
       <div class="card">
-        <h3 style="margin:0 0 10px;font-size:13px;letter-spacing:.05em;">TOP PARTIES BY SHEETS PRODUCED <a href="/jobbuddy/stats/party" style="float:right;font-size:11px;color:var(--accent);font-weight:600;text-decoration:none;">View all &rarr;</a></h3>
+        <h3 style="margin:0 0 10px;font-size:13px;letter-spacing:.05em;">TOP PARTIES BY BILLING <a href="/dispatchbuddy/stats/party" style="float:right;font-size:11px;color:var(--accent);font-weight:600;">View all →</a></h3>
         
         <table class="mini-table" style="width:100%;font-size:12px;border-collapse:collapse;">
-          <thead><tr style="text-align:left;color:var(--text-2);"><th style="padding:4px 6px;">Party</th><th style="padding:4px 6px;text-align:right;">Produced</th><th style="padding:4px 6px;text-align:right;">Jobs</th></tr></thead>
-          <tbody><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;"><a style="color:var(--accent);font-weight:600;text-decoration:none;" href="/jobbuddy/stats/party?value=HARBOUR%20LINE%20LABELS">HARBOUR LINE LABELS</a></td><td style="padding:5px 6px;text-align:right;"><span class="statnum" title="88,000">88K</span></td><td style="padding:5px 6px;text-align:right;">6</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;"><a style="color:var(--accent);font-weight:600;text-decoration:none;" href="/jobbuddy/stats/party?value=ARCLIGHT%20PRINT%20WORKS">ARCLIGHT PRINT WORKS</a></td><td style="padding:5px 6px;text-align:right;"><span class="statnum" title="77,500">77.5K</span></td><td style="padding:5px 6px;text-align:right;">5</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;"><a style="color:var(--accent);font-weight:600;text-decoration:none;" href="/jobbuddy/stats/party?value=NORTHFIELD%20PACKAGING">NORTHFIELD PACKAGING</a></td><td style="padding:5px 6px;text-align:right;"><span class="statnum" title="59,000">59K</span></td><td style="padding:5px 6px;text-align:right;">4</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;"><a style="color:var(--accent);font-weight:600;text-decoration:none;" href="/jobbuddy/stats/party?value=STONEBRIDGE%20PRINTERS">STONEBRIDGE PRINTERS</a></td><td style="padding:5px 6px;text-align:right;"><span class="statnum" title="46,500">46.5K</span></td><td style="padding:5px 6px;text-align:right;">4</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;"><a style="color:var(--accent);font-weight:600;text-decoration:none;" href="/jobbuddy/stats/party?value=VERMILION%20PRESS">VERMILION PRESS</a></td><td style="padding:5px 6px;text-align:right;"><span class="statnum" title="29,000">29K</span></td><td style="padding:5px 6px;text-align:right;">3</td></tr></tbody>
-        </table>
-        
-      </div>
-
-      <div class="card">
-        <h3 style="margin:0 0 10px;font-size:13px;letter-spacing:.05em;">TOP PROCESSES BY FINISH <a href="/jobbuddy/stats/process" style="float:right;font-size:11px;color:var(--accent);font-weight:600;text-decoration:none;">View all &rarr;</a></h3>
-        <div class="muted" style="font-size:11px;margin:-6px 0 8px;">Each finish (type + subtype + finish) counted separately.</div>
-        
-        <table class="mini-table" style="width:100%;font-size:12px;border-collapse:collapse;">
-          <thead><tr style="text-align:left;color:var(--text-2);"><th style="padding:4px 6px;">Process</th><th style="padding:4px 6px;text-align:right;">Produced</th><th style="padding:4px 6px;text-align:right;">Wasted</th></tr></thead>
-          <tbody><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;"><a style="color:var(--accent);font-weight:600;text-decoration:none;" href="/jobbuddy/stats/process?value=LAMINATION">LAMINATION</a></td><td style="padding:5px 6px;text-align:right;"><span class="statnum" title="2,12,500">2.12L</span></td><td style="padding:5px 6px;text-align:right;"><span class="statnum" title="0">0</span></td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;"><a style="color:var(--accent);font-weight:600;text-decoration:none;" href="/jobbuddy/stats/process?value=DIE%20PUNCHING">DIE PUNCHING</a></td><td style="padding:5px 6px;text-align:right;"><span class="statnum" title="2,04,500">2.04L</span></td><td style="padding:5px 6px;text-align:right;"><span class="statnum" title="0">0</span></td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;"><a style="color:var(--accent);font-weight:600;text-decoration:none;" href="/jobbuddy/stats/process?value=UV%20COATING">UV COATING</a></td><td style="padding:5px 6px;text-align:right;"><span class="statnum" title="1,99,500">2L</span></td><td style="padding:5px 6px;text-align:right;"><span class="statnum" title="0">0</span></td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;"><a style="color:var(--accent);font-weight:600;text-decoration:none;" href="/jobbuddy/stats/process?value=PASTING">PASTING</a></td><td style="padding:5px 6px;text-align:right;"><span class="statnum" title="1,99,500">2L</span></td><td style="padding:5px 6px;text-align:right;"><span class="statnum" title="0">0</span></td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;"><a style="color:var(--accent);font-weight:600;text-decoration:none;" href="/jobbuddy/stats/process?value=PRINTING">PRINTING</a></td><td style="padding:5px 6px;text-align:right;"><span class="statnum" title="1,69,000">1.69L</span></td><td style="padding:5px 6px;text-align:right;"><span class="statnum" title="0">0</span></td></tr></tbody>
+          <thead><tr style="text-align:left;color:var(--text-2);"><th style="padding:4px 6px;">Party</th><th style="padding:4px 6px;text-align:right;">Billed</th><th style="padding:4px 6px;text-align:right;">Challans</th></tr></thead>
+          <tbody><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;"><a href="/dispatchbuddy/stats/party?value=HARBOUR%20LINE%20LABELS" style="color:var(--accent);font-weight:600;">HARBOUR LINE LABELS</a></td><td style="padding:5px 6px;text-align:right;">&#8377;<span class="statnum" title="2,42,250">2.42L</span></td><td style="padding:5px 6px;text-align:right;">4</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;"><a href="/dispatchbuddy/stats/party?value=VERMILION%20PRESS" style="color:var(--accent);font-weight:600;">VERMILION PRESS</a></td><td style="padding:5px 6px;text-align:right;">&#8377;<span class="statnum" title="2,08,650">2.09L</span></td><td style="padding:5px 6px;text-align:right;">3</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;"><a href="/dispatchbuddy/stats/party?value=STONEBRIDGE%20PRINTERS" style="color:var(--accent);font-weight:600;">STONEBRIDGE PRINTERS</a></td><td style="padding:5px 6px;text-align:right;">&#8377;<span class="statnum" title="1,59,150">1.59L</span></td><td style="padding:5px 6px;text-align:right;">3</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;"><a href="/dispatchbuddy/stats/party?value=ARCLIGHT%20PRINT%20WORKS" style="color:var(--accent);font-weight:600;">ARCLIGHT PRINT WORKS</a></td><td style="padding:5px 6px;text-align:right;">&#8377;<span class="statnum" title="1,43,150">1.43L</span></td><td style="padding:5px 6px;text-align:right;">2</td></tr><tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;"><a href="/dispatchbuddy/stats/party?value=CALICO%20PACK%20PVT%20LTD" style="color:var(--accent);font-weight:600;">CALICO PACK PVT LTD</a></td><td style="padding:5px 6px;text-align:right;">&#8377;<span class="statnum" title="74,250">74.25K</span></td><td style="padding:5px 6px;text-align:right;">1</td></tr></tbody>
         </table>
         
       </div>

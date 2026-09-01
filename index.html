@@ -125,8 +125,11 @@
      desktop design size and scaled by JS to the frame width, so the whole
      KPI + parties card is always fully visible and crisp. */
   .mock-frame-wrap{position:relative;width:100%;overflow:hidden;background:var(--white)}
-  .mock-frame{position:absolute;top:0;left:0;width:1000px;height:600px;border:0;
+  .mock-frame{position:absolute;top:0;left:50%;width:1000px;height:600px;border:0;
     transform-origin:top left;pointer-events:none}
+  /* centred once it stops filling the width */
+  .mock-frame-wrap{display:flex;justify-content:center}
+  .mock-frame{left:0;position:absolute}
   .mock-row{display:flex;gap:12px;margin-bottom:12px}
   .mock-kpi{flex:1;border:1px solid var(--line);border-radius:8px;padding:12px}
   .mock-kpi .k-label{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
@@ -262,6 +265,24 @@
   .foot-social a:hover{border-color:var(--gold-bright);color:var(--gold-bright);background:rgba(255,255,255,.05)}
   .foot-social svg{width:19px;height:19px;display:block;fill:currentColor}
 
+
+
+  /* ── in-page screen previews ───────────────────────────────────────────────
+     The same browser frame as the hero, used to show a real screen next to the
+     claim it backs up. Non-interactive; it is a picture of the app, made from
+     the app. */
+  .shots{margin-top:38px;display:grid;gap:26px}
+  .shot{background:var(--white);border:1px solid var(--line);border-radius:14px;
+    overflow:hidden;box-shadow:0 1px 2px rgba(20,20,20,.04),0 18px 44px -22px rgba(20,20,20,.22)}
+  .shot .mock-bar{display:flex;align-items:center;gap:7px;padding:11px 14px;
+    border-bottom:1px solid var(--line);background:var(--paper-2)}
+  .shot-cap{padding:14px 18px 16px;border-top:1px solid var(--line);background:var(--paper)}
+  .shot-cap b{font-family:'Space Grotesk',sans-serif;font-size:14px;display:block;margin-bottom:3px}
+  .shot-cap span{font-size:13.5px;color:var(--ink-2);line-height:1.5}
+  @media(min-width:900px){ .shots.two{grid-template-columns:1fr 1fr} }
+  /* a single preview should not stretch across the full page — the screen was
+     designed at 1000px and looks stranded any wider */
+  .shots:not(.two) .shot{max-width:1000px;margin-inline:auto;width:100%}
 
   /* ── module slider ─────────────────────────────────────────────────────────
      One module at a time. The card is split: a tinted rail carries the module's
@@ -476,7 +497,7 @@
     <div class="mock reveal" aria-hidden="true">
       <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / jobbuddy</span></div>
       <div class="mock-frame-wrap">
-        <iframe class="mock-frame" src="assets/mockup/jobbuddy.html" title="JobBuddy dashboard preview" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        <iframe class="mock-frame" data-w="1280" data-h="612" src="assets/mockup/jobbuddy.html" title="JobBuddy module home preview" loading="lazy" scrolling="no" tabindex="-1"></iframe>
       </div>
     </div>
   </div>
@@ -604,8 +625,25 @@
     </div>
     <div class="s-progress"><span id="modBar"></span></div>
     <div class="dots" id="modDots"><button type="button" class="dot on" data-go="0" aria-label="Go to slide 1"></button><button type="button" class="dot" data-go="1" aria-label="Go to slide 2"></button><button type="button" class="dot" data-go="2" aria-label="Go to slide 3"></button><button type="button" class="dot" data-go="3" aria-label="Go to slide 4"></button><button type="button" class="dot" data-go="4" aria-label="Go to slide 5"></button><button type="button" class="dot" data-go="5" aria-label="Go to slide 6"></button><button type="button" class="dot" data-go="6" aria-label="Go to slide 7"></button></div>
+  
+    <div class="shots two">
+      <figure class="shot reveal" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / paperbuddy/stock-register</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1060" data-h="812" src="assets/mockup/paper_stock.html" title="Paper Stock Register" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Paper Stock Register</b><span>Opening, inward, issued and closing per stock line, for any day, week, month or financial year.</span></figcaption>
+      </figure>
+      <figure class="shot reveal" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / jobbuddy/job-register</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="523" src="assets/mockup/job_register.html" title="Job Register" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Job Register</b><span>Every job with its processes, sizes and quantities — searchable, sortable and printable.</span></figcaption>
+      </figure>
+    </div>
   </div>
-</section>
+  </section>
 
 <!-- HOW IT CONNECTS -->
 <section id="how">
@@ -620,8 +658,18 @@
       <div class="flow-step reveal"><div class="fs-ico"><span style="-webkit-mask-image:url('assets/icons/location.svg');mask-image:url('assets/icons/location.svg')"></span></div><h4>Plates tracked</h4><p>Located &amp; checked by series.</p></div>
       <div class="flow-step reveal"><div class="fs-ico"><span style="-webkit-mask-image:url('assets/icons/challan.svg');mask-image:url('assets/icons/challan.svg')"></span></div><h4>Dispatched</h4><p>Challan closes the loop.</p></div>
     </div>
+  
+    <div class="shots">
+      <figure class="shot reveal" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / dispatchbuddy</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1280" data-h="610" src="assets/mockup/dispatch.html" title="DispatchBuddy" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>DispatchBuddy</b><span>Completed jobs waiting for a challan, what has shipped, and what has been billed — with the money still to invoice in plain sight.</span></figcaption>
+      </figure>
+    </div>
   </div>
-</section>
+  </section>
 
 <!-- WHY -->
 <section class="why" id="why">
@@ -825,14 +873,23 @@
   // Scale the JobBuddy mockup iframe (fixed 1000x600 design) to its frame
   // width so the whole dashboard preview always fits and stays crisp.
   (function(){
+    // Each preview is the real screen rendered at a fixed desktop width and
+    // scaled down to whatever space it has, so it stays crisp and nothing is cut
+    // off. The height it was designed at travels with the frame.
     function scaleMock(){
-      var frame = document.querySelector('.mock-frame');
-      var wrap = document.querySelector('.mock-frame-wrap');
-      if(!frame || !wrap) return;
-      var DESIGN_W = 1000, DESIGN_H = 600;
-      var s = wrap.clientWidth / DESIGN_W;
-      frame.style.transform = 'scale(' + s + ')';
-      wrap.style.height = (DESIGN_H * s) + 'px';
+      document.querySelectorAll('.mock-frame').forEach(function(frame){
+        var wrap = frame.parentElement;
+        if(!wrap) return;
+        var W = parseInt(frame.dataset.w || 1000, 10);
+        var H = parseInt(frame.dataset.h || 600, 10);
+        frame.style.width = W + 'px';
+        frame.style.height = H + 'px';
+        // Never magnify: the screen was designed at W, and blowing it up past
+        // that makes a 1000px screenshot look like a zoomed-in one.
+        var s = Math.min(1, wrap.clientWidth / W);
+        frame.style.transform = 'scale(' + s + ')';
+        wrap.style.height = (H * s) + 'px';
+      });
     }
     window.addEventListener('load', scaleMock);
     window.addEventListener('resize', scaleMock);

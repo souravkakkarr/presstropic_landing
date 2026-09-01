@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Job Register</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Preview only. The page is the real screen; this removes the app chrome that
+     has no meaning outside the app, and makes sure nothing here can be clicked. */
+  html,body{background:var(--bg);margin:0;overflow:hidden}
+  .layout{display:block}
+  .sidebar,.topbar,.fy-badge,.bookmark-flap,#sidebar,.sidebar-toggle{display:none !important}
+  .main{margin:0 !important;padding:26px 30px !important;max-width:100% !important;width:100% !important}
+  a,button,input,select{pointer-events:none !important;cursor:default !important}
+  a{text-decoration:none !important;border-bottom:0 !important}
+  .no-print{}
+  ::-webkit-scrollbar{display:none;width:0;height:0}
+  /* the back button and row menus are chrome, not content */
+  .page-head .btn-row,.rowmenu,.bulkbar,.back-btn{display:none !important}
+  /* The module home sizes its two panels to the viewport (100vh - 210px) and
+     scrolls them. Inside a fixed-height iframe that produces a scrollbar and a
+     block of empty space below, because the panel height no longer follows the
+     content. A preview has no viewport to fill, so both panels are left to take
+     their natural height. */
+  .mh-list,.mh-stats{max-height:none !important;overflow:visible !important}
+  .module-home{align-items:flex-start !important}
+  /* the same applies to any register that scrolls its table area */
+  .table-wrap,.gridwrap{max-height:none !important;overflow:visible !important}
+</style>
+<script>
+  /* The screens call into the app's runtime on load. A preview has no runtime,
+     so these are stubbed rather than left to throw — an error in the frame is
+     still an error in the page that embeds it. */
+  window.bulkDelete = { init: function(){}, start: function(){}, cancel: function(){} };
+  window.rowmenuPost = function(){ return false; };
+  window.askCopies   = function(){};
+  window.gridtools   = window.gridtools || { init: function(){} };
+</script>
+</head>
+<body>
+<div class="layout">
+  <main class="main">
+<div class="page-head"><h1>JOB REGISTER</h1></div>
+
+
+<div class="card">
+  <div class="section-head wrap" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+    <h2 class="muted" style="font-size:13px;letter-spacing:.06em;">64 JOBS</h2>
+    <div class="no-print" style="display:flex;gap:8px;"><button type="button" class="btn" id="bdStart" onclick="bulkDelete.start()">DELETE MULTIPLE</button>
+      <span id="bdBar" style="display:none;gap:8px;align-items:center;">
+        <button type="button" class="btn danger" id="bdGo" onclick="bulkDeleteJobs()">DELETE SELECTED (0)</button>
+        <button type="button" class="btn" onclick="bulkDelete.cancel()">CANCEL</button>
+      </span>
+      <script>bulkDelete.init({tableSel:"#job_table", url:"/jobbuddy/job-register/bulk-delete", noun:"job cards"});</script></div>
+  </div>
+
+  <div class="table-wrap">
+    <table id="job_table" class="gridtable" data-grid-title="Job Register">
+      <thead>
+        <tr>
+          <th>JOB ID</th><th>DATE</th><th>PARTY</th>
+          <th>JOB NAME</th><th>JOB TYPE</th>
+          <th>PROCESS</th><th>SIZE</th><th>QTY PRODUCED</th>
+          <th>STATUS</th><th class="no-print">DETAILS</th>
+        </tr>
+      </thead>
+      <tbody><tr data-id="64">
+          <td rowspan="2" data-label="JOB ID" style="font-size:12px;">26-27 | J-00064</td>
+          <td rowspan="2" data-label="DATE">24/08/2026</td>
+          <td rowspan="2" class="party-name-cell" data-label="PARTY" style="white-space:pre-line;">HARBOUR LINE LABELS</td>
+          <td rowspan="2" class="job-name-cell" data-label="JOB NAME" style="white-space:pre-line;">Tea caddy 250g<br><span class="muted" style="font-size:10px;">(Order: 18000)</span></td>
+          <td rowspan="2" data-label="JOB TYPE">BOTH</td>
+
+          
+            
+            <td class="proc-cell" data-label="PROCESS">LAMINATION</td>
+            <td class="proc-size-cell" data-label="SIZE">—</td>
+            <td class="proc-qty-cell" data-label="QTY PRODUCED">18,000</td>
+          
+
+          <td rowspan="2" data-label="STATUS"><span class="status-badge" data-status="COMPLETE">COMPLETE</span></td>
+          <td rowspan="2" class="no-print">
+              
+              
+              
+              <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="12" cy="19" r="1.7"/></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a href="/jobbuddy/job-register/64/update">SHOW DETAILS</a>
+      
+    
+      
+      
+      
+      
+      
+        
+        <a href="#" onclick="cancelJob(64); return false;">CANCEL</a>
+      
+    
+      
+      
+      
+      
+      
+        
+        <a href="#" onclick="deleteJob(64); return false;">DELETE</a>
+      
+    
+  </div>
+</div>
+              <form id="deleteForm64" method="post" action="/jobbuddy/job-register/64/delete" style="display:none;">
+                <input type="hidden" name="restore_paper" id="restorePaper64" value="YES">
+              </form>
+              <form id="cancelForm64" method="post" action="/jobbuddy/job-register/64/cancel" style="display:none;">
+                <input type="hidden" name="paper_used" id="paperUsed64">
+              </form></td>
+        </tr><tr class="proc-extra-row">
+          <td class="proc-cell" data-label="PROCESS">DIE PUNCHING</td>
+          <td class="proc-size-cell" data-label="SIZE">—</td>
+          <td class="proc-qty-cell" data-label="QTY PRODUCED">18,000</td>
+        </tr><tr data-id="63">
+          <td rowspan="2" data-label="JOB ID" style="font-size:12px;">26-27 | J-00063</td>
+          <td rowspan="2" data-label="DATE">23/07/2026</td>
+          <td rowspan="2" class="party-name-cell" data-label="PARTY" style="white-space:pre-line;">VERMILION PRESS</td>
+          <td rowspan="2" class="job-name-cell" data-label="JOB NAME" style="white-space:pre-line;">Confectionery box<br><span class="muted" style="font-size:10px;">(Order: 4000)</span></td>
+          <td rowspan="2" data-label="JOB TYPE">BOTH</td>
+
+          
+            
+            <td class="proc-cell" data-label="PROCESS">LAMINATION</td>
+            <td class="proc-size-cell" data-label="SIZE">—</td>
+            <td class="proc-qty-cell" data-label="QTY PRODUCED">4,000</td>
+          
+
+          <td rowspan="2" data-label="STATUS"><span class="status-badge" data-status="SHIPPED &amp; INVOICED">SHIPPED &amp; INVOICED</span></td>
+          <td rowspan="2" class="no-print">
+              
+              
+              
+              <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="12" cy="19" r="1.7"/></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a href="/jobbuddy/job-register/63/update">SHOW DETAILS</a>
+      
+    
+      
+      
+      
+      
+      
+        
+        <a href="#" onclick="cancelJob(63); return false;">CANCEL</a>
+      
+    
+      
+      
+      
+      
+      
+        
+        <a href="#" onclick="deleteJob(63); return false;">DELETE</a>
+      
+    
+  </div>
+</div>
+              <form id="deleteForm63" method="post" action="/jobbuddy/job-register/63/delete" style="display:none;">
+                <input type="hidden" name="restore_paper" id="restorePaper63" value="YES">
+              </form>
+              <form id="cancelForm63" method="post" action="/jobbuddy/job-register/63/cancel" style="display:none;">
+                <input type="hidden" name="paper_used" id="paperUsed63">
+              </form></td>
+        </tr><tr class="proc-extra-row">
+          <td class="proc-cell" data-label="PROCESS">PASTING</td>
+          <td class="proc-size-cell" data-label="SIZE">—</td>
+          <td class="proc-qty-cell" data-label="QTY PRODUCED">4,000</td>
+        </tr><tr data-id="62">
+          <td rowspan="4" data-label="JOB ID" style="font-size:12px;">26-27 | J-00062</td>
+          <td rowspan="4" data-label="DATE">23/08/2026</td>
+          <td rowspan="4" class="party-name-cell" data-label="PARTY" style="white-space:pre-line;">HARBOUR LINE LABELS</td>
+          <td rowspan="4" class="job-name-cell" data-label="JOB NAME" style="white-space:pre-line;">Pharma outer 50ml<br><span class="muted" style="font-size:10px;">(Order: 22000)</span></td>
+          <td rowspan="4" data-label="JOB TYPE">POST PRINTING</td>
+
+          
+            
+            <td class="proc-cell" data-label="PROCESS">DIE PUNCHING</td>
+            <td class="proc-size-cell" data-label="SIZE">—</td>
+            <td class="proc-qty-cell" data-label="QTY PRODUCED">22,000</td>
+          
+
+          <td rowspan="4" data-label="STATUS"><span class="status-badge" data-status="COMPLETE">COMPLETE</span></td>
+          <td rowspan="4" class="no-print">
+              
+              
+              
+              <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="12" cy="19" r="1.7"/></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a href="/jobbuddy/job-register/62/update">SHOW DETAILS</a>
+      
+    
+      
+      
+      
+      
+      
+        
+        <a href="#" onclick="cancelJob(62); return false;">CANCEL</a>
+      
+    
+      
+      
+      
+      
+      
+        
+        <a href="#" onclick="deleteJob(62); return false;">DELETE</a>
+      
+    
+  </div>
+</div>
+              <form id="deleteForm62" method="post" action="/jobbuddy/job-register/62/delete" style="display:none;">
+                <input type="hidden" name="restore_paper" id="restorePaper62" value="YES">
+              </form>
+              <form id="cancelForm62" method="post" action="/jobbuddy/job-register/62/cancel" style="display:none;">
+                <input type="hidden" name="paper_used" id="paperUsed62">
+              </form></td>
+        </tr><tr class="proc-extra-row">
+          <td class="proc-cell" data-label="PROCESS">PASTING</td>
+          <td class="proc-size-cell" data-label="SIZE">—</td>
+          <td class="proc-qty-cell" data-label="QTY PRODUCED">22,000</td>
+        </tr></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+function cancelJob(id){
+  const v = prompt('Cancel this job.\n\nHow many sheets of paper were USED before cancellation?\n(The unused remainder will be restored to stock.)', '0');
+  if(v===null) return;
+  const n = parseInt(v); if(isNaN(n) || n<0){ alert('Enter a valid number of sheets.'); return; }
+  document.getElementById('paperUsed'+id).value = n;
+  document.getElementById('cancelForm'+id).submit();
+}
+</script>
+<script>
+// Status color coding (background -> font color chosen for best contrast)
+(function colorStatuses(){
+  function styleFor(s){
+    s=(s||'').toUpperCase();
+    if(s.includes('SCHEDULING PENDING')) return ['#d32f2f','#fff'];   // red
+    if(s.includes('READY-TO-SHIP'))      return ['#2e7d32','#fff'];   // green
+    if(s.includes('SHIPPED')||s.includes('DISPATCHED')) return ['#ffffff','#222','1px solid #bbb']; // white
+    if(s==='SCHEDULED')                  return ['#f57c00','#fff'];   // orange
+    if(s==='COMPLETE'||s==='COMPLETED')  return ['#81d4fa','#073642']; // light blue
+    if(s==='IN PROGRESS'||s.includes('DONE :')||s.includes('NEXT')||s.includes('TO BE DONE')) return ['#fdd835','#3a2f00']; // yellow
+    if(s==='CANCELLED')                  return ['#555','#fff'];
+    return ['var(--bg-4)','var(--text-2)'];
+  }
+  document.querySelectorAll('.status-badge').forEach(b=>{
+    const [bg,fg,border]=styleFor(b.dataset.status);
+    b.style.background=bg; b.style.color=fg; b.style.padding='3px 9px';
+    b.style.borderRadius='10px'; b.style.fontSize='11px'; b.style.fontWeight='600';
+    b.style.display='inline-block'; if(border) b.style.border=border;
+  });
+})();
+</script>
+
+<script>
+// Deleting a job card must not silently decide what happens to its paper.
+// Ask explicitly: return the sheets to stock, or leave them consumed.
+function bulkDeleteJobs(){
+  const ids = Array.from(document.querySelectorAll('#job_table .bd-check:checked')).map(function(cb){ return cb.value; });
+  if(!ids.length){ alert('Select at least one job card to delete.'); return; }
+  if(!confirm('Delete ' + ids.length + ' job cards? This cannot be undone.')) return;
+  const restore = confirm(
+    'Does the paper issued to these jobs need to be RETURNED TO STOCK?\n\n' +
+    'OK  = Yes — delete their paper issues and put the sheets back in stock.\n' +
+    'Cancel = No — the paper was actually used; keep the issues and leave stock as it is.'
+  );
+  const f=document.createElement('form');
+  f.method='post'; f.action='/jobbuddy/job-register/bulk-delete'; f.style.display='none';
+  const a=document.createElement('input'); a.name='ids'; a.value=ids.join(',');
+  const b=document.createElement('input'); b.name='restore_paper'; b.value = restore ? 'YES' : 'NO';
+  f.appendChild(a); f.appendChild(b); document.body.appendChild(f); f.submit();
+}
+function deleteJob(id){
+  const form = document.getElementById('deleteForm'+id);
+  if(!confirm('Delete this job card? This cannot be undone.')) return;
+  const restore = confirm(
+    'Does the paper issued to this job need to be RETURNED TO STOCK?\n\n' +
+    'OK  = Yes — delete the paper issue record and put the sheets back in stock.\n' +
+    'Cancel = No — the paper was actually used; keep the issue record and leave stock as it is.'
+  );
+  document.getElementById('restorePaper'+id).value = restore ? 'YES' : 'NO';
+  form.submit();
+}
+</script>
+
+
+    
+  </main>
+</div>
+</body>
+</html>
