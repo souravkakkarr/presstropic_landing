@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Creator: CorelDRAW -->
-<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="0.217398in" height="0.191787in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
-viewBox="0 0 35.33 31.17"
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="0.218772in" height="0.206268in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 29.13 27.47"
  xmlns:xlink="http://www.w3.org/1999/xlink"
  xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
  <defs>
   <style type="text/css">
    <![CDATA[
-    .str0 {stroke:black;stroke-width:3.05;stroke-miterlimit:2.61313}
-    .str1 {stroke:black;stroke-width:3.05;stroke-linecap:round;stroke-miterlimit:2.61313}
+    .str0 {stroke:black;stroke-width:2.5;stroke-miterlimit:2.61313}
+    .str2 {stroke:black;stroke-width:2.5;stroke-miterlimit:2.61313}
+    .str1 {stroke:black;stroke-width:2.5;stroke-linecap:round;stroke-miterlimit:2.61313}
     .fil0 {fill:none}
    ]]>
   </style>
  </defs>
  <g id="Layer_x0020_1">
   <metadata id="CorelCorpID_0Corel-Layer"/>
-  <g id="_2303293657680">
-   <rect class="fil0 str0" x="1.52" y="1.52" width="32.28" height="28.12" rx="6.11" ry="6.11"/>
-   <line class="fil0 str0" x1="1.53" y1="10.34" x2="33.8" y2= "10.34" />
-   <g>
-    <line class="fil0 str1" x1="7.69" y1="16.91" x2="27.64" y2= "16.91" />
-    <line class="fil0 str1" x1="7.69" y1="21.82" x2="24.6" y2= "21.82" />
-   </g>
+  <g id="_2951915522736">
+   <line class="fil0 str0" x1="1.21" y1="9.08" x2="27.94" y2= "9.08" />
+   <line class="fil0 str1" x1="6.31" y1="14.91" x2="22.83" y2= "14.91" />
+   <line class="fil0 str1" x1="6.31" y1="19.27" x2="20.31" y2= "19.27" />
+   <rect class="fil0 str2" x="1.25" y="1.25" width="26.63" height="24.97" rx="6.2" ry="6.66"/>
   </g>
  </g>
 </svg>
