@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Master Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Reusable three-dot (kebab) row menu for registers. The popup is moved to
+     position:fixed on open so it never gets clipped by a table's overflow. */
+  .rowmenu{ position:relative; display:inline-block; }
+  .rowmenu-btn{ cursor:pointer; background:none; border:none; box-shadow:none;
+    padding:4px 8px; line-height:1; color:var(--text-2, #8a8a8a);
+    display:inline-flex; align-items:center; justify-content:center; }
+  .rowmenu-btn:hover{ color:var(--text, #222); background:none; }
+  .rowmenu-pop{ display:none; position:fixed; z-index:9999; min-width:160px;
+    background:var(--bg-2, #fff); border:1px solid var(--border, #ccc); border-radius:10px;
+    box-shadow:0 10px 28px rgba(0,0,0,.22); padding:6px; }
+  .rowmenu-pop.open{ display:block; }
+  /* little caret pointing up toward the three dots */
+  .rowmenu-pop::before{ content:""; position:absolute; top:-6px; right:14px; width:11px; height:11px;
+    background:var(--bg-2, #fff); border-left:1px solid var(--border, #ccc);
+    border-top:1px solid var(--border, #ccc); transform:rotate(45deg); }
+  .rowmenu-pop a, .rowmenu-pop button{ display:block; width:100%; text-align:left; background:none;
+    border:none; box-shadow:none; cursor:pointer; padding:10px 14px; border-radius:7px; font:inherit;
+    color:inherit; white-space:nowrap; text-decoration:none; }
+  .rowmenu-pop a:hover, .rowmenu-pop button:hover{ background:var(--accent, #3b82f6); color:#fff; }
+  /* Destructive actions (delete / cancel) look the same on every register. */
+  .rowmenu-pop a.rowmenu-danger{ color:#b00020; }
+  .rowmenu-pop a.rowmenu-danger:hover{ background:#b00020; color:#fff; }
+  </style>
+<style>
+  /* Preview only. The page is a snapshot of the real screen, taken from the app
+     with its own data; this removes the app chrome that has no meaning outside
+     the app, and makes sure nothing here can be clicked. */
+  html,body{background:var(--bg);margin:0;overflow:hidden}
+  .layout{display:block}
+  .sidebar,.topbar,.fy-badge,.bookmark-flap,#sidebar,.sidebar-toggle{display:none !important}
+  .main{margin:0 !important;padding:26px 30px !important;max-width:100% !important;width:100% !important}
+  a,button,input,select,textarea,label{pointer-events:none !important;cursor:default !important}
+  a{text-decoration:none !important;border-bottom:0 !important}
+  ::-webkit-scrollbar{display:none;width:0;height:0}
+  /* the back button, row menus and bulk bars are chrome, not content */
+  .page-head .btn-row,.rowmenu,.bulkbar,.back-btn{display:none !important}
+  /* registers and module homes size themselves to the viewport and scroll; a
+     preview has no viewport to fill, so everything takes its natural height */
+  .mh-list,.mh-stats{max-height:none !important;overflow:visible !important}
+  .module-home{align-items:flex-start !important}
+  .table-wrap,.gridwrap{max-height:none !important;overflow:visible !important}
+
+</style>
+</head>
+<body>
+<div class="layout">
+<main id="mainContent" class="main ">
+      
+      
+
+
+
+      
+<div class="page-head">
+  <h1 class="mh-home-title" style="display:flex;align-items:center;gap:12px;">Master <span class="buddy">Management</span></h1>
+<div class="btn-row"><button type="button" class="btn no-print btn-back" title="Go back one level"><span class="btn-back-ico"></span>BACK</button></div></div>
+
+<div class="module-home">
+  <!-- Left: master list, grouped -->
+  <nav class="mh-list" style="flex-basis:230px;width:230px;">
+    
+    <div class="mh-group-title">GENERAL MASTERS</div>
+    
+      
+      <a class="mh-item"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/party.svg');mask-image:url('logos/icons/party.svg');"></span>Party Master <span class="m-badge" style="margin-left:auto;">8</span></a>
+      
+    
+      
+      <a class="mh-item"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/vendor.svg');mask-image:url('logos/icons/vendor.svg');"></span>Vendor Master <span class="m-badge" style="margin-left:auto;">2</span></a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+    <div class="mh-group-title">PLATE MASTERS</div>
+    
+      
+    
+      
+    
+      
+      <a class="mh-item"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/plate_size.svg');mask-image:url('logos/icons/plate_size.svg');"></span>Plate Size Master <span class="m-badge" style="margin-left:auto;">3</span></a>
+      
+    
+      
+      <a class="mh-item"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/series.svg');mask-image:url('logos/icons/series.svg');"></span>Plate Series Master <span class="m-badge" style="margin-left:auto;">1</span></a>
+      
+    
+      
+      <a class="mh-item"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/location.svg');mask-image:url('logos/icons/location.svg');"></span>Plate Location Master <span class="m-badge" style="margin-left:auto;">540</span></a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+    <div class="mh-group-title">PRODUCTION MASTERS</div>
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+      <a class="mh-item"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/process.svg');mask-image:url('logos/icons/process.svg');"></span>Process Master <span class="m-badge" style="margin-left:auto;">7</span></a>
+      
+    
+      
+      <a class="mh-item"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/machine.svg');mask-image:url('logos/icons/machine.svg');"></span>Machine Master <span class="m-badge" style="margin-left:auto;">7</span></a>
+      
+    
+      
+      <a class="mh-item"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/operator.svg');mask-image:url('logos/icons/operator.svg');"></span>Operator Master <span class="m-badge" style="margin-left:auto;">6</span></a>
+      
+    
+      
+      <a class="mh-item"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/tool.svg');mask-image:url('logos/icons/tool.svg');"></span>Chargeable Tool Master <span class="m-badge" style="margin-left:auto;">2</span></a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    <a class="mh-item"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/money.svg');mask-image:url('logos/icons/money.svg');"></span>Process Rate Master</a>
+    
+    
+    <div class="mh-group-title">PAPER MASTERS</div>
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+      <a class="mh-item"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/paper_type.svg');mask-image:url('logos/icons/paper_type.svg');"></span>Paper Type Master <span class="m-badge" style="margin-left:auto;">4</span></a>
+      
+    
+      
+      <a class="mh-item"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/paper_unit.svg');mask-image:url('logos/icons/paper_unit.svg');"></span>Paper Unit Master <span class="m-badge" style="margin-left:auto;">3</span></a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+    <div class="mh-group-title">STORE MASTERS</div>
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+      <a class="mh-item"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/boxes.svg');mask-image:url('logos/icons/boxes.svg');"></span>Store Item Master <span class="m-badge" style="margin-left:auto;">30</span></a>
+      
+    
+      
+      <a class="mh-item"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/masters.svg');mask-image:url('logos/icons/masters.svg');"></span>Store Group Master <span class="m-badge" style="margin-left:auto;">5</span></a>
+      
+    
+      
+      <a class="mh-item"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/vendor.svg');mask-image:url('logos/icons/vendor.svg');"></span>Store Supplier Master <span class="m-badge" style="margin-left:auto;">4</span></a>
+      
+    
+      
+      <a class="mh-item"><span class="mh-item-ico" style="-webkit-mask-image:url('logos/icons/store_department_master.svg');mask-image:url('logos/icons/store_department_master.svg');"></span>Store Department Master <span class="m-badge" style="margin-left:auto;">4</span></a>
+      
+    
+    
+    
+  </nav>
+
+  <!-- Right: stats -->
+  <div class="mh-stats">
+    <div class="mh-stats-title">Statistics</div>
+    <div class="auto-box" style="margin-bottom:16px;">All masters live here — global to every module. View, print, create, edit or delete from one place. Only the OWNER can edit or delete.</div>
+    <div class="stat-cards">
+      <div class="stat-card"><div class="sc-label">Total Masters</div><div class="sc-value">15</div><div class="sc-sub">master types</div></div>
+      <div class="stat-card"><div class="sc-label">Total Records</div><div class="sc-value">626</div><div class="sc-sub">across all masters</div></div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0 0 10px;font-size:13px;letter-spacing:.05em;">RECORDS BY GROUP</h3>
+      <table class="mini-table resp-grid" style="width:100%;font-size:12px;border-collapse:collapse;">
+        <thead><tr style="text-align:left;color:var(--text-2);"><th style="padding:4px 6px;">Group</th><th style="padding:4px 6px;text-align:right;">Masters</th><th style="padding:4px 6px;text-align:right;">Records</th></tr></thead>
+        <tbody>
+        
+        <tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Group">GENERAL MASTERS</td><td style="padding:5px 6px;text-align:right;" data-label="Masters">2</td><td style="padding:5px 6px;text-align:right;" data-label="Records">10</td></tr>
+        
+        <tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Group">PLATE MASTERS</td><td style="padding:5px 6px;text-align:right;" data-label="Masters">3</td><td style="padding:5px 6px;text-align:right;" data-label="Records">544</td></tr>
+        
+        <tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Group">PRODUCTION MASTERS</td><td style="padding:5px 6px;text-align:right;" data-label="Masters">4</td><td style="padding:5px 6px;text-align:right;" data-label="Records">22</td></tr>
+        
+        <tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Group">PAPER MASTERS</td><td style="padding:5px 6px;text-align:right;" data-label="Masters">2</td><td style="padding:5px 6px;text-align:right;" data-label="Records">7</td></tr>
+        
+        <tr style="border-top:1px solid var(--border);"><td style="padding:5px 6px;" data-label="Group">STORE MASTERS</td><td style="padding:5px 6px;text-align:right;" data-label="Masters">4</td><td style="padding:5px 6px;text-align:right;" data-label="Records">43</td></tr>
+        
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+    </main>
+</div>
+</body>
+</html>

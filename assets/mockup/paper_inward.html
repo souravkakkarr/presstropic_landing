@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paper Inward Register</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Reusable three-dot (kebab) row menu for registers. The popup is moved to
+     position:fixed on open so it never gets clipped by a table's overflow. */
+  .rowmenu{ position:relative; display:inline-block; }
+  .rowmenu-btn{ cursor:pointer; background:none; border:none; box-shadow:none;
+    padding:4px 8px; line-height:1; color:var(--text-2, #8a8a8a);
+    display:inline-flex; align-items:center; justify-content:center; }
+  .rowmenu-btn:hover{ color:var(--text, #222); background:none; }
+  .rowmenu-pop{ display:none; position:fixed; z-index:9999; min-width:160px;
+    background:var(--bg-2, #fff); border:1px solid var(--border, #ccc); border-radius:10px;
+    box-shadow:0 10px 28px rgba(0,0,0,.22); padding:6px; }
+  .rowmenu-pop.open{ display:block; }
+  /* little caret pointing up toward the three dots */
+  .rowmenu-pop::before{ content:""; position:absolute; top:-6px; right:14px; width:11px; height:11px;
+    background:var(--bg-2, #fff); border-left:1px solid var(--border, #ccc);
+    border-top:1px solid var(--border, #ccc); transform:rotate(45deg); }
+  .rowmenu-pop a, .rowmenu-pop button{ display:block; width:100%; text-align:left; background:none;
+    border:none; box-shadow:none; cursor:pointer; padding:10px 14px; border-radius:7px; font:inherit;
+    color:inherit; white-space:nowrap; text-decoration:none; }
+  .rowmenu-pop a:hover, .rowmenu-pop button:hover{ background:var(--accent, #3b82f6); color:#fff; }
+  /* Destructive actions (delete / cancel) look the same on every register. */
+  .rowmenu-pop a.rowmenu-danger{ color:#b00020; }
+  .rowmenu-pop a.rowmenu-danger:hover{ background:#b00020; color:#fff; }
+  </style>
+<style>
+  /* Preview only. The page is a snapshot of the real screen, taken from the app
+     with its own data; this removes the app chrome that has no meaning outside
+     the app, and makes sure nothing here can be clicked. */
+  html,body{background:var(--bg);margin:0;overflow:hidden}
+  .layout{display:block}
+  .sidebar,.topbar,.fy-badge,.bookmark-flap,#sidebar,.sidebar-toggle{display:none !important}
+  .main{margin:0 !important;padding:26px 30px !important;max-width:100% !important;width:100% !important}
+  a,button,input,select,textarea,label{pointer-events:none !important;cursor:default !important}
+  a{text-decoration:none !important;border-bottom:0 !important}
+  ::-webkit-scrollbar{display:none;width:0;height:0}
+  /* the back button, row menus and bulk bars are chrome, not content */
+  .page-head .btn-row,.rowmenu,.bulkbar,.back-btn{display:none !important}
+  /* registers and module homes size themselves to the viewport and scroll; a
+     preview has no viewport to fill, so everything takes its natural height */
+  .mh-list,.mh-stats{max-height:none !important;overflow:visible !important}
+  .module-home{align-items:flex-start !important}
+  .table-wrap,.gridwrap{max-height:none !important;overflow:visible !important}
+
+</style>
+</head>
+<body>
+<div class="layout">
+<main id="mainContent" class="main ">
+      
+      
+
+
+
+      
+<div class="page-head wrap-gap">
+  <div><h1>PAPER INWARD REGISTER</h1></div>
+  <div class="btn-row no-print">
+    <button type="button" class="btn" id="msStart">PRINT SLIPS FOR MULTIPLE STOCK</button>
+    <span id="msBar" style="display:none;gap:8px;align-items:center;">
+      <button type="button" class="btn primary">PRINT SELECTED</button>
+      <button type="button" class="btn">CANCEL</button>
+    </span>
+    <button type="button" class="btn" id="bdStart">DELETE MULTIPLE</button>
+<span id="bdBar" style="display:none;gap:8px;align-items:center;">
+  <button type="button" class="btn danger" id="bdGo">DELETE SELECTED (0)</button>
+  <button type="button" class="btn">CANCEL</button>
+</span>
+
+    <a class="btn" title="Adjust packaging slip size &amp; layout for your gumming sheet">SLIP CALIBRATION</a>
+  <button type="button" class="btn no-print btn-back" title="Go back one level"><span class="btn-back-ico"></span>BACK</button></div>
+</div>
+
+
+
+
+<div class="card">
+  
+
+  <div class="table-wrap">
+    <div class="grid-periodbar"><span class="gpb-label">SHOWING</span><div class="gpb-tabs"><button type="button" class="gpb-tab" data-p="day">DAY</button><button type="button" class="gpb-tab" data-p="week">WEEK</button><button type="button" class="gpb-tab" data-p="month">MONTH</button><button type="button" class="gpb-tab" data-p="year">YEAR</button><button type="button" class="gpb-tab on" data-p="all">ALL TIME</button></div><div class="gpb-pick" style="display: none;"><button type="button" class="gpb-step gpb-prev" title="Previous" aria-label="Previous period"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></button><input type="date" class="gpb-day" hidden="" value=""><input type="week" class="gpb-week" hidden="" value=""><input type="month" class="gpb-month" hidden="" value="2026-09"><input type="number" class="gpb-year" hidden="" min="2000" max="2099" step="1" value=""><button type="button" class="gpb-step gpb-next" title="Next" aria-label="Next period"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></button></div><span class="gpb-current">All time</span><span class="gpb-count">22 entries</span></div><div class="grid-toolbar"><input type="text" class="grid-search" placeholder="🔍  Quick search…" value=""><div class="grid-menu-wrap grid-filtermenu-wrap"><button type="button" class="btn small grid-filterbtn">Filter <span class="gt-caret"></span></button><div class="grid-menu grid-filtermenu"><div class="gfm-block"><div class="gfm-label">Group by</div><select class="grid-groupby"><option value="" selected="">No grouping</option><option value="0">INWARD ID</option><option value="1">DATE</option><option value="2">PARTY</option><option value="3">PAPER STOCK KEY</option><option value="4">TOTAL SHEETS RECEIVED</option><option value="5">LOCATION</option><option value="6">ACTIONS</option></select></div></div></div><div class="grid-menu-wrap grid-colmenu-wrap"><button type="button" class="btn small grid-colbtn">Columns <span class="gt-caret"></span></button><div class="grid-menu grid-colmenu"><label><input type="checkbox" checked="" data-col="0"> INWARD ID</label><label><input type="checkbox" checked="" data-col="1"> DATE</label><label><input type="checkbox" checked="" data-col="2"> PARTY</label><label><input type="checkbox" checked="" data-col="3"> PAPER STOCK KEY</label><label><input type="checkbox" checked="" data-col="4"> TOTAL SHEETS RECEIVED</label><label><input type="checkbox" checked="" data-col="5"> LOCATION</label><label><input type="checkbox" checked="" data-col="6"> ACTIONS</label></div></div><button type="button" class="btn small btn-ico grid-print" title="Print" aria-label="Print"><span class="ico ico-print"></span></button><div class="grid-menu-wrap grid-exportmenu-wrap"><button type="button" class="btn small grid-export-btn" title="Export">Export <span class="gt-caret"></span></button><div class="grid-menu grid-exportmenu"><button type="button" class="gxp-opt grid-export">CSV<small>Opens in any spreadsheet or text editor</small></button><button type="button" class="gxp-opt grid-export-xlsx">Excel<small>Formatted .xlsx workbook</small></button></div></div><button type="button" class="btn small btn-ico grid-clear" title="Clear all filters" aria-label="Clear all filters"><span class="ico ico-clear"></span></button></div><table id="reg_table" class="gridtable gt-enhanced" data-grid-title="Paper Inward Register">
+      <thead>
+        <tr>
+          <th title="Click to sort" style="cursor: pointer;">INWARD ID<span class="grid-funnel" title="Filter column"></span></th><th title="Click to sort" style="cursor: pointer;">DATE<span class="grid-funnel" title="Filter column"></span></th><th title="Click to sort" style="cursor: pointer;">PARTY<span class="grid-funnel" title="Filter column"></span></th><th title="Click to sort" style="cursor: pointer;">PAPER STOCK KEY<span class="grid-funnel" title="Filter column"></span></th><th title="Click to sort" style="cursor: pointer;">TOTAL SHEETS RECEIVED<span class="grid-funnel" title="Filter column"></span></th><th title="Click to sort" style="cursor: pointer;">LOCATION<span class="grid-funnel" title="Filter column"></span></th>
+          <th class="no-print">ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr data-id="23" data-gf-filtered="0" style="">
+          <td data-label="INWARD ID">26-27 | P-00023</td><td data-label="DATE">30/08/2026</td><td data-label="PARTY">ARCLIGHT PRINT WORKS</td><td data-label="PAPER STOCK KEY">23 x 33 in  |  ART PAPER  |  350 GSM</td><td data-label="TOTAL SHEETS RECEIVED">8*2*500 = 8000</td><td data-label="LOCATION">GODOWN 1</td>
+          <td class="no-print" data-label="ACTIONS">
+            
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>DETAILED VIEW</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/paperbuddy/paper-inward/23/delete" data-confirm="Delete this inward entry? Its sheets will be removed from stock. Entries already used by jobs cannot be deleted.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+        </tr>
+        
+        <tr data-id="21" data-gf-filtered="0" style="">
+          <td data-label="INWARD ID">26-27 | P-00021</td><td data-label="DATE">15/08/2026</td><td data-label="PARTY">ARCLIGHT PRINT WORKS</td><td data-label="PAPER STOCK KEY">28 x 40 in  |  ART PAPER  |  350 GSM</td><td data-label="TOTAL SHEETS RECEIVED">10*2*500 = 10000</td><td data-label="LOCATION">GODOWN 2</td>
+          <td class="no-print" data-label="ACTIONS">
+            
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>DETAILED VIEW</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/paperbuddy/paper-inward/21/delete" data-confirm="Delete this inward entry? Its sheets will be removed from stock. Entries already used by jobs cannot be deleted.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+        </tr>
+        
+        <tr data-id="20" data-gf-filtered="0">
+          <td data-label="INWARD ID">26-27 | P-00020</td><td data-label="DATE">02/09/2026</td><td data-label="PARTY">STONEBRIDGE PRINTERS</td><td data-label="PAPER STOCK KEY">23 x 36 in  |  DUPLEX  |  270 GSM</td><td data-label="TOTAL SHEETS RECEIVED">8*2*500 = 8000</td><td data-label="LOCATION">GODOWN 1</td>
+          <td class="no-print" data-label="ACTIONS">
+            
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>DETAILED VIEW</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/paperbuddy/paper-inward/20/delete" data-confirm="Delete this inward entry? Its sheets will be removed from stock. Entries already used by jobs cannot be deleted.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+        </tr>
+        
+        <tr data-id="19" data-gf-filtered="0" style="">
+          <td data-label="INWARD ID">26-27 | P-00019</td><td data-label="DATE">27/08/2026</td><td data-label="PARTY">STONEBRIDGE PRINTERS</td><td data-label="PAPER STOCK KEY">28 x 36 in  |  ART PAPER  |  350 GSM</td><td data-label="TOTAL SHEETS RECEIVED">6*2*500 + 2*1*144 = 6288</td><td data-label="LOCATION">GODOWN 2</td>
+          <td class="no-print" data-label="ACTIONS">
+            
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>DETAILED VIEW</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/paperbuddy/paper-inward/19/delete" data-confirm="Delete this inward entry? Its sheets will be removed from stock. Entries already used by jobs cannot be deleted.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+        </tr>
+        
+        <tr data-id="18" data-gf-filtered="0" style="">
+          <td data-label="INWARD ID">26-27 | P-00018</td><td data-label="DATE">22/08/2026</td><td data-label="PARTY">MERIDIAN CARTONS</td><td data-label="PAPER STOCK KEY">23 x 33 in  |  DUPLEX  |  350 GSM</td><td data-label="TOTAL SHEETS RECEIVED">4*2*500 = 4000</td><td data-label="LOCATION">GODOWN 1</td>
+          <td class="no-print" data-label="ACTIONS">
+            
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>DETAILED VIEW</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/paperbuddy/paper-inward/18/delete" data-confirm="Delete this inward entry? Its sheets will be removed from stock. Entries already used by jobs cannot be deleted.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+        </tr>
+        
+        <tr data-id="17" data-gf-filtered="0" style="">
+          <td data-label="INWARD ID">26-27 | P-00017</td><td data-label="DATE">18/08/2026</td><td data-label="PARTY">STONEBRIDGE PRINTERS</td><td data-label="PAPER STOCK KEY">28 x 40 in  |  SBS  |  320 GSM</td><td data-label="TOTAL SHEETS RECEIVED">4*1*500 + 2*1*144 = 2288</td><td data-label="LOCATION">GODOWN 1</td>
+          <td class="no-print" data-label="ACTIONS">
+            
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>DETAILED VIEW</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/paperbuddy/paper-inward/17/delete" data-confirm="Delete this inward entry? Its sheets will be removed from stock. Entries already used by jobs cannot be deleted.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+        </tr>
+        
+        <tr data-id="16" data-gf-filtered="0" style="">
+          <td data-label="INWARD ID">26-27 | P-00016</td><td data-label="DATE">07/08/2026</td><td data-label="PARTY">NORTHFIELD PACKAGING</td><td data-label="PAPER STOCK KEY">23 x 36 in  |  KRAFT  |  250 GSM</td><td data-label="TOTAL SHEETS RECEIVED">6*2*500 + 2*1*144 = 6288</td><td data-label="LOCATION">GODOWN 2</td>
+          <td class="no-print" data-label="ACTIONS">
+            
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>DETAILED VIEW</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/paperbuddy/paper-inward/16/delete" data-confirm="Delete this inward entry? Its sheets will be removed from stock. Entries already used by jobs cannot be deleted.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+        </tr>
+        
+        <tr data-id="15" data-gf-filtered="0" style="">
+          <td data-label="INWARD ID">26-27 | P-00015</td><td data-label="DATE">01/08/2026</td><td data-label="PARTY">MERIDIAN CARTONS</td><td data-label="PAPER STOCK KEY">28 x 36 in  |  DUPLEX  |  320 GSM</td><td data-label="TOTAL SHEETS RECEIVED">10*2*500 + 2*1*144 = 10288</td><td data-label="LOCATION">GODOWN 1</td>
+          <td class="no-print" data-label="ACTIONS">
+            
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>DETAILED VIEW</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/paperbuddy/paper-inward/15/delete" data-confirm="Delete this inward entry? Its sheets will be removed from stock. Entries already used by jobs cannot be deleted.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+        </tr>
+        
+        <tr data-id="14" data-gf-filtered="0" style="">
+          <td data-label="INWARD ID">26-27 | P-00014</td><td data-label="DATE">03/08/2026</td><td data-label="PARTY">HARBOUR LINE LABELS</td><td data-label="PAPER STOCK KEY">30 x 40 in  |  ART PAPER  |  250 GSM</td><td data-label="TOTAL SHEETS RECEIVED">10*2*500 = 10000</td><td data-label="LOCATION">GODOWN 1</td>
+          <td class="no-print" data-label="ACTIONS">
+            
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>DETAILED VIEW</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/paperbuddy/paper-inward/14/delete" data-confirm="Delete this inward entry? Its sheets will be removed from stock. Entries already used by jobs cannot be deleted.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+        </tr>
+        
+        <tr data-id="13" data-gf-filtered="0">
+          <td data-label="INWARD ID">26-27 | P-00013</td><td data-label="DATE">12/09/2026</td><td data-label="PARTY">SEVENOAKS BOXES</td><td data-label="PAPER STOCK KEY">25 x 33 in  |  DUPLEX  |  350 GSM</td><td data-label="TOTAL SHEETS RECEIVED">4*2*500 = 4000</td><td data-label="LOCATION">FLOOR BAY</td>
+          <td class="no-print" data-label="ACTIONS">
+            
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>DETAILED VIEW</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/paperbuddy/paper-inward/13/delete" data-confirm="Delete this inward entry? Its sheets will be removed from stock. Entries already used by jobs cannot be deleted.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+        </tr>
+        
+        <tr data-id="12" data-gf-filtered="0" style="display: none;">
+          <td data-label="INWARD ID">26-27 | P-00012</td><td data-label="DATE">07/09/2026</td><td data-label="PARTY">NORTHFIELD PACKAGING</td><td data-label="PAPER STOCK KEY">20 x 28 in  |  ART PAPER  |  350 GSM</td><td data-label="TOTAL SHEETS RECEIVED">8*1*500 = 4000</td><td data-label="LOCATION">FLOOR BAY</td>
+          <td class="no-print" data-label="ACTIONS">
+            
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>DETAILED VIEW</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/paperbuddy/paper-inward/12/delete" data-confirm="Delete this inward entry? Its sheets will be removed from stock. Entries already used by jobs cannot be deleted.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+        </tr>
+        
+        <tr data-id="11" data-gf-filtered="0" style="display: none;">
+          <td data-label="INWARD ID">26-27 | P-00011</td><td data-label="DATE">09/08/2026</td><td data-label="PARTY">VERMILION PRESS</td><td data-label="PAPER STOCK KEY">25 x 33 in  |  DUPLEX  |  320 GSM</td><td data-label="TOTAL SHEETS RECEIVED">6*2*500 = 6000</td><td data-label="LOCATION">FLOOR BAY</td>
+          <td class="no-print" data-label="ACTIONS">
+            
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>DETAILED VIEW</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/paperbuddy/paper-inward/11/delete" data-confirm="Delete this inward entry? Its sheets will be removed from stock. Entries already used by jobs cannot be deleted.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+        </tr>
+        
+        <tr data-id="10" data-gf-filtered="0" style="display: none;">
+          <td data-label="INWARD ID">26-27 | P-00010</td><td data-label="DATE">28/08/2026</td><td data-label="PARTY">SEVENOAKS BOXES</td><td data-label="PAPER STOCK KEY">28 x 40 in  |  SBS  |  300 GSM</td><td data-label="TOTAL SHEETS RECEIVED">10*1*500 + 2*1*144 = 5288</td><td data-label="LOCATION">GODOWN 1</td>
+          <td class="no-print" data-label="ACTIONS">
+            
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>DETAILED VIEW</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/paperbuddy/paper-inward/10/delete" data-confirm="Delete this inward entry? Its sheets will be removed from stock. Entries already used by jobs cannot be deleted.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+        </tr>
+        
+        <tr data-id="9" data-gf-filtered="0" style="display: none;">
+          <td data-label="INWARD ID">26-27 | P-00009</td><td data-label="DATE">09/09/2026</td><td data-label="PARTY">CALICO PACK PVT LTD</td><td data-label="PAPER STOCK KEY">30 x 40 in  |  ART PAPER  |  320 GSM</td><td data-label="TOTAL SHEETS RECEIVED">6*1*500 = 3000</td><td data-label="LOCATION">GODOWN 1</td>
+          <td class="no-print" data-label="ACTIONS">
+            
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>DETAILED VIEW</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/paperbuddy/paper-inward/9/delete" data-confirm="Delete this inward entry? Its sheets will be removed from stock. Entries already used by jobs cannot be deleted.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+        </tr>
+        
+        <tr data-id="8" data-gf-filtered="0" style="display: none;">
+          <td data-label="INWARD ID">26-27 | P-00008</td><td data-label="DATE">13/08/2026</td><td data-label="PARTY">SEVENOAKS BOXES</td><td data-label="PAPER STOCK KEY">28 x 40 in  |  SBS  |  320 GSM</td><td data-label="TOTAL SHEETS RECEIVED">10*1*500 + 2*1*144 = 5288</td><td data-label="LOCATION">GODOWN 1</td>
+          <td class="no-print" data-label="ACTIONS">
+            
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>DETAILED VIEW</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/paperbuddy/paper-inward/8/delete" data-confirm="Delete this inward entry? Its sheets will be removed from stock. Entries already used by jobs cannot be deleted.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+        </tr>
+        
+        <tr data-id="7" data-gf-filtered="0" style="display: none;">
+          <td data-label="INWARD ID">26-27 | P-00007</td><td data-label="DATE">02/09/2026</td><td data-label="PARTY">HARBOUR LINE LABELS</td><td data-label="PAPER STOCK KEY">20 x 28 in  |  SBS  |  350 GSM</td><td data-label="TOTAL SHEETS RECEIVED">8*2*500 = 8000</td><td data-label="LOCATION">FLOOR BAY</td>
+          <td class="no-print" data-label="ACTIONS">
+            
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>DETAILED VIEW</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/paperbuddy/paper-inward/7/delete" data-confirm="Delete this inward entry? Its sheets will be removed from stock. Entries already used by jobs cannot be deleted.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+        </tr>
+        
+        <tr data-id="6" data-gf-filtered="0" style="display: none;">
+          <td data-label="INWARD ID">26-27 | P-00006</td><td data-label="DATE">11/08/2026</td><td data-label="PARTY">HARBOUR LINE LABELS</td><td data-label="PAPER STOCK KEY">25 x 30 in  |  ART PAPER  |  350 GSM</td><td data-label="TOTAL SHEETS RECEIVED">10*2*500 = 10000</td><td data-label="LOCATION">GODOWN 2</td>
+          <td class="no-print" data-label="ACTIONS">
+            
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>DETAILED VIEW</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/paperbuddy/paper-inward/6/delete" data-confirm="Delete this inward entry? Its sheets will be removed from stock. Entries already used by jobs cannot be deleted.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+        </tr>
+        
+        <tr data-id="5" data-gf-filtered="0" style="display: none;">
+          <td data-label="INWARD ID">26-27 | P-00005</td><td data-label="DATE">31/07/2026</td><td data-label="PARTY">ARCLIGHT PRINT WORKS</td><td data-label="PAPER STOCK KEY">23 x 36 in  |  KRAFT  |  320 GSM</td><td data-label="TOTAL SHEETS RECEIVED">10*2*500 + 2*1*144 = 10288</td><td data-label="LOCATION">GODOWN 2</td>
+          <td class="no-print" data-label="ACTIONS">
+            
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>DETAILED VIEW</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/paperbuddy/paper-inward/5/delete" data-confirm="Delete this inward entry? Its sheets will be removed from stock. Entries already used by jobs cannot be deleted.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+        </tr>
+        
+        <tr data-id="4" data-gf-filtered="0" style="display: none;">
+          <td data-label="INWARD ID">26-27 | P-00004</td><td data-label="DATE">18/08/2026</td><td data-label="PARTY">MERIDIAN CARTONS</td><td data-label="PAPER STOCK KEY">20 x 28 in  |  DUPLEX  |  350 GSM</td><td data-label="TOTAL SHEETS RECEIVED">8*1*500 = 4000</td><td data-label="LOCATION">GODOWN 2</td>
+          <td class="no-print" data-label="ACTIONS">
+            
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>DETAILED VIEW</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/paperbuddy/paper-inward/4/delete" data-confirm="Delete this inward entry? Its sheets will be removed from stock. Entries already used by jobs cannot be deleted.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+        </tr>
+        
+        <tr data-id="3" data-gf-filtered="0" style="display: none;">
+          <td data-label="INWARD ID">26-27 | P-00003</td><td data-label="DATE">12/08/2026</td><td data-label="PARTY">VERMILION PRESS</td><td data-label="PAPER STOCK KEY">23 x 33 in  |  KRAFT  |  250 GSM</td><td data-label="TOTAL SHEETS RECEIVED">6*1*500 = 3000</td><td data-label="LOCATION">GODOWN 1</td>
+          <td class="no-print" data-label="ACTIONS">
+            
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>DETAILED VIEW</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/paperbuddy/paper-inward/3/delete" data-confirm="Delete this inward entry? Its sheets will be removed from stock. Entries already used by jobs cannot be deleted.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+        </tr>
+        
+        <tr data-id="2" data-gf-filtered="0" style="display: none;">
+          <td data-label="INWARD ID">26-27 | P-00002</td><td data-label="DATE">07/08/2026</td><td data-label="PARTY">NORTHFIELD PACKAGING</td><td data-label="PAPER STOCK KEY">28 x 40 in  |  DUPLEX  |  250 GSM</td><td data-label="TOTAL SHEETS RECEIVED">8*1*500 = 4000</td><td data-label="LOCATION">GODOWN 2</td>
+          <td class="no-print" data-label="ACTIONS">
+            
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>DETAILED VIEW</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/paperbuddy/paper-inward/2/delete" data-confirm="Delete this inward entry? Its sheets will be removed from stock. Entries already used by jobs cannot be deleted.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+        </tr>
+        
+        <tr data-id="1" data-gf-filtered="0" style="display: none;">
+          <td data-label="INWARD ID">26-27 | P-00001</td><td data-label="DATE">03/08/2026</td><td data-label="PARTY">CALICO PACK PVT LTD</td><td data-label="PAPER STOCK KEY">25 x 30 in  |  ART PAPER  |  250 GSM</td><td data-label="TOTAL SHEETS RECEIVED">10*2*500 = 10000</td><td data-label="LOCATION">FLOOR BAY</td>
+          <td class="no-print" data-label="ACTIONS">
+            
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>DETAILED VIEW</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/paperbuddy/paper-inward/1/delete" data-confirm="Delete this inward entry? Its sheets will be removed from stock. Entries already used by jobs cannot be deleted.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+        </tr>
+        
+      </tbody>
+    </table><div class="gt-cards"></div><div class="grid-pager" style="display: flex;"><span class="gp-info">Showing 1–10 of 22</span><span class="gp-controls"><button type="button" class="gp-btn" data-p="first" disabled="">« First</button><button type="button" class="gp-btn" data-p="prev" disabled="">‹ Prev</button><button type="button" class="gp-btn gp-num on" data-p="1">1</button><button type="button" class="gp-btn gp-num" data-p="2">2</button><button type="button" class="gp-btn gp-num" data-p="3">3</button><button type="button" class="gp-btn" data-p="next">Next ›</button><button type="button" class="gp-btn" data-p="last">Last »</button></span><span class="gp-size">Rows: <select class="gp-size-sel"><option value="10" selected="">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="all">Show all</option></select></span></div>
+  </div>
+</div>
+
+
+
+    </main>
+</div>
+</body>
+</html>

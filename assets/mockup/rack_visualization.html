@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rack Visualization</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Reusable three-dot (kebab) row menu for registers. The popup is moved to
+     position:fixed on open so it never gets clipped by a table's overflow. */
+  .rowmenu{ position:relative; display:inline-block; }
+  .rowmenu-btn{ cursor:pointer; background:none; border:none; box-shadow:none;
+    padding:4px 8px; line-height:1; color:var(--text-2, #8a8a8a);
+    display:inline-flex; align-items:center; justify-content:center; }
+  .rowmenu-btn:hover{ color:var(--text, #222); background:none; }
+  .rowmenu-pop{ display:none; position:fixed; z-index:9999; min-width:160px;
+    background:var(--bg-2, #fff); border:1px solid var(--border, #ccc); border-radius:10px;
+    box-shadow:0 10px 28px rgba(0,0,0,.22); padding:6px; }
+  .rowmenu-pop.open{ display:block; }
+  /* little caret pointing up toward the three dots */
+  .rowmenu-pop::before{ content:""; position:absolute; top:-6px; right:14px; width:11px; height:11px;
+    background:var(--bg-2, #fff); border-left:1px solid var(--border, #ccc);
+    border-top:1px solid var(--border, #ccc); transform:rotate(45deg); }
+  .rowmenu-pop a, .rowmenu-pop button{ display:block; width:100%; text-align:left; background:none;
+    border:none; box-shadow:none; cursor:pointer; padding:10px 14px; border-radius:7px; font:inherit;
+    color:inherit; white-space:nowrap; text-decoration:none; }
+  .rowmenu-pop a:hover, .rowmenu-pop button:hover{ background:var(--accent, #3b82f6); color:#fff; }
+  /* Destructive actions (delete / cancel) look the same on every register. */
+  .rowmenu-pop a.rowmenu-danger{ color:#b00020; }
+  .rowmenu-pop a.rowmenu-danger:hover{ background:#b00020; color:#fff; }
+  </style>
+<style>
+  /* Preview only. The page is a snapshot of the real screen, taken from the app
+     with its own data; this removes the app chrome that has no meaning outside
+     the app, and makes sure nothing here can be clicked. */
+  html,body{background:var(--bg);margin:0;overflow:hidden}
+  .layout{display:block}
+  .sidebar,.topbar,.fy-badge,.bookmark-flap,#sidebar,.sidebar-toggle{display:none !important}
+  .main{margin:0 !important;padding:26px 30px !important;max-width:100% !important;width:100% !important}
+  a,button,input,select,textarea,label{pointer-events:none !important;cursor:default !important}
+  a{text-decoration:none !important;border-bottom:0 !important}
+  ::-webkit-scrollbar{display:none;width:0;height:0}
+  /* the back button, row menus and bulk bars are chrome, not content */
+  .page-head .btn-row,.rowmenu,.bulkbar,.back-btn{display:none !important}
+  /* registers and module homes size themselves to the viewport and scroll; a
+     preview has no viewport to fill, so everything takes its natural height */
+  .mh-list,.mh-stats{max-height:none !important;overflow:visible !important}
+  .module-home{align-items:flex-start !important}
+  .table-wrap,.gridwrap{max-height:none !important;overflow:visible !important}
+
+</style>
+</head>
+<body>
+<div class="layout">
+<main id="mainContent" class="main ">
+      
+      
+
+
+
+      
+
+
+<div class="page-head wrap-gap">
+  <h1>RACK VISUALIZATION</h1>
+  <div class="btn-row">
+    
+    <button class="btn primary" type="button">RACK MANAGEMENT</button>
+    
+  <button type="button" class="btn no-print btn-back" title="Go back one level"><span class="btn-back-ico"></span>BACK</button></div>
+</div>
+
+
+<div class="rack-management-popover" id="rackManagementMenu" style="display:none;">
+  <button class="rack-menu-item" type="button">ADD RACK</button>
+  <button class="rack-menu-item" type="button">EDIT RACK CONFIG</button>
+  <button class="rack-menu-item" type="button">EMPTY RACK</button>
+  <button class="rack-menu-item danger" type="button">DELETE RACK</button>
+</div>
+
+<div class="modal-lite rack-dialog" id="addRackDialog" style="display:none;">
+  <div class="modal-card fullscreen-modal-card">
+    <div class="modal-head">
+      <h3>ADD RACK</h3>
+      <button class="btn small" type="button">CLOSE</button>
+    </div>
+    <p class="alert alert-warn">Check rack numbering carefully before continuing. New positions will be created empty.</p>
+    <form method="post" class="form-grid one-col" autocomplete="off">
+      <label>Rack No. <input name="rack_no_display" value="R04" readonly="" style="background:var(--bg-4);opacity:.8;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></label>
+      <label>Rack Name <input name="rack_name" placeholder="OPTIONAL LABEL FOR EASE OF ACCESS" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value=""></label>
+      <label>Shelves <input type="number" name="shelves" value="2" min="1" max="26" required="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></label>
+      <label>Slots per shelf <input type="number" name="slots_per_shelf" value="6" min="1" max="20" required="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></label>
+      <label>Plate sets per slot <input type="number" name="plates_per_slot" value="20" min="1" max="100" required="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></label>
+      <div class="btn-row"><button class="btn primary" type="submit">ADD RACK</button><button class="btn btn-ico" type="button" title="Cancel" aria-label="Cancel"><span class="ico ico-cancel"></span></button></div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-lite rack-dialog" id="editRackDialog" style="display:none;">
+  <div class="modal-card fullscreen-modal-card">
+    <div class="modal-head">
+      <h3>EDIT RACK CONFIGURATION</h3>
+      <button class="btn small" type="button">CLOSE</button>
+    </div>
+    <p class="alert alert-warn">Reducing capacity is only allowed if the positions being removed are empty. New positions will be added as free.</p>
+    <form method="post" class="form-grid one-col" autocomplete="off">
+      <label>Rack No.
+        <select name="rack_no" required="" autocomplete="off" autocorrect="off" autocapitalize="off">
+          <option value="R01" selected="">R01</option><option value="R02">R02</option><option value="R03">R03</option>
+        </select>
+      </label>
+      <label>Shelves <input type="number" name="shelves" id="editShelves" value="2" min="1" max="26" required="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></label>
+      <label>Slots per shelf <input type="number" name="slots_per_shelf" id="editSlots" value="6" min="1" max="20" required="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></label>
+      <label>Plate sets per slot <input type="number" name="plates_per_slot" id="editPps" value="20" min="1" max="100" required="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></label>
+      <div class="btn-row"><button class="btn primary" type="submit">SAVE CHANGES</button><button class="btn btn-ico" type="button" title="Cancel" aria-label="Cancel"><span class="ico ico-cancel"></span></button></div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-lite rack-dialog" id="emptyRackDialog" style="display:none;">
+  <div class="modal-card fullscreen-modal-card">
+    <div class="modal-head">
+      <h3>EMPTY RACK</h3>
+      <button class="btn small" type="button">CLOSE</button>
+    </div>
+    <p class="alert alert-error">ARE YOU SURE YOU WANT TO EMPTY THIS RACK? This is owner-only and should be used carefully. The action will be blocked if active plate sets are inside.</p>
+    <form method="post" class="form-grid one-col" autocomplete="off">
+      <label>Rack No.<select name="rack_no" required="" autocomplete="off" autocorrect="off" autocapitalize="off"><option value="R01" selected="">R01</option><option value="R02">R02</option><option value="R03">R03</option></select></label>
+      <div class="btn-row"><button class="btn danger" type="submit">EMPTY RACK</button><button class="btn btn-ico" type="button" title="Cancel" aria-label="Cancel"><span class="ico ico-cancel"></span></button></div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-lite rack-dialog" id="deleteRackDialog" style="display:none;">
+  <div class="modal-card fullscreen-modal-card">
+    <div class="modal-head">
+      <h3>DELETE RACK</h3>
+      <button class="btn small" type="button">CLOSE</button>
+    </div>
+    <p class="alert alert-error">ARE YOU SURE YOU WANT TO DELETE THIS RACK? This removes free rack locations and will be blocked if active plates or series allocation exists.</p>
+    <form method="post" class="form-grid one-col" autocomplete="off">
+      <label>Rack No.<select name="rack_no" required="" autocomplete="off" autocorrect="off" autocapitalize="off"><option value="R01" selected="">R01</option><option value="R02">R02</option><option value="R03">R03</option></select></label>
+      <div class="btn-row"><button class="btn danger" type="submit">DELETE RACK</button><button class="btn btn-ico" type="button" title="Cancel" aria-label="Cancel"><span class="ico ico-cancel"></span></button></div>
+    </form>
+  </div>
+</div>
+
+
+<div class="card rack-visual-card">
+  <div class="section-head wrap">
+    <h2>RACK HEATMAP</h2>
+    <form method="get" class="inline-form rack-picker-form" autocomplete="off">
+      <label>
+        RACK NO
+        <select name="rack" autocomplete="off" autocorrect="off" autocapitalize="off">
+          
+          <option value="R01" selected="">R01</option>
+          
+          <option value="R02">R02</option>
+          
+          <option value="R03">R03</option>
+          
+        </select>
+      </label>
+      <input type="hidden" name="section" value="A2" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    </form>
+  </div>
+  
+  
+  
+  
+  <div class="rack-heatmap-grid" style="grid-template-columns: repeat(6, minmax(0,1fr));">
+    
+      <a class="rack-heatmap-card heat-3 ">
+        <div class="slot-code">A1</div>
+        <div class="slot-count">6/10</div>
+        <div class="slot-free">4 FREE</div>
+      </a>
+    
+      <a class="rack-heatmap-card heat-3 active">
+        <div class="slot-code">A2</div>
+        <div class="slot-count">6/10</div>
+        <div class="slot-free">4 FREE</div>
+      </a>
+    
+      <a class="rack-heatmap-card heat-2 ">
+        <div class="slot-code">A3</div>
+        <div class="slot-count">5/10</div>
+        <div class="slot-free">5 FREE</div>
+      </a>
+    
+      <a class="rack-heatmap-card heat-4 ">
+        <div class="slot-code">A4</div>
+        <div class="slot-count">9/10</div>
+        <div class="slot-free">1 FREE</div>
+      </a>
+    
+      <a class="rack-heatmap-card heat-3 ">
+        <div class="slot-code">A5</div>
+        <div class="slot-count">7/10</div>
+        <div class="slot-free">3 FREE</div>
+      </a>
+    
+      <a class="rack-heatmap-card heat-3 ">
+        <div class="slot-code">A6</div>
+        <div class="slot-count">6/10</div>
+        <div class="slot-free">4 FREE</div>
+      </a>
+    
+      <a class="rack-heatmap-card heat-1 ">
+        <div class="slot-code">B1</div>
+        <div class="slot-count">1/10</div>
+        <div class="slot-free">9 FREE</div>
+      </a>
+    
+      <a class="rack-heatmap-card heat-1 ">
+        <div class="slot-code">B2</div>
+        <div class="slot-count">1/10</div>
+        <div class="slot-free">9 FREE</div>
+      </a>
+    
+      <a class="rack-heatmap-card heat-1 ">
+        <div class="slot-code">B3</div>
+        <div class="slot-count">2/10</div>
+        <div class="slot-free">8 FREE</div>
+      </a>
+    
+      <a class="rack-heatmap-card heat-1 ">
+        <div class="slot-code">B4</div>
+        <div class="slot-count">1/10</div>
+        <div class="slot-free">9 FREE</div>
+      </a>
+    
+      <a class="rack-heatmap-card heat-1 ">
+        <div class="slot-code">B5</div>
+        <div class="slot-count">1/10</div>
+        <div class="slot-free">9 FREE</div>
+      </a>
+    
+      <a class="rack-heatmap-card heat-2 ">
+        <div class="slot-code">B6</div>
+        <div class="slot-count">3/10</div>
+        <div class="slot-free">7 FREE</div>
+      </a>
+    
+      <a class="rack-heatmap-card heat-0 ">
+        <div class="slot-code">C1</div>
+        <div class="slot-count">0/10</div>
+        <div class="slot-free">10 FREE</div>
+      </a>
+    
+      <a class="rack-heatmap-card heat-0 ">
+        <div class="slot-code">C2</div>
+        <div class="slot-count">0/10</div>
+        <div class="slot-free">10 FREE</div>
+      </a>
+    
+      <a class="rack-heatmap-card heat-0 ">
+        <div class="slot-code">C3</div>
+        <div class="slot-count">0/10</div>
+        <div class="slot-free">10 FREE</div>
+      </a>
+    
+      <a class="rack-heatmap-card heat-0 ">
+        <div class="slot-code">C4</div>
+        <div class="slot-count">0/10</div>
+        <div class="slot-free">10 FREE</div>
+      </a>
+    
+      <a class="rack-heatmap-card heat-0 ">
+        <div class="slot-code">C5</div>
+        <div class="slot-count">0/10</div>
+        <div class="slot-free">10 FREE</div>
+      </a>
+    
+      <a class="rack-heatmap-card heat-0 ">
+        <div class="slot-code">C6</div>
+        <div class="slot-count">0/10</div>
+        <div class="slot-free">10 FREE</div>
+      </a>
+    
+  </div>
+</div>
+
+<div class="card" id="slotDetailCard">
+  <div class="section-head wrap">
+    <h2>SLOT DETAILS — R01 / A2</h2>
+    <div class="btn-row">
+      
+      <button class="btn primary no-print" type="button">PRINT SLOT</button>
+      
+      <div class="muted">CLICK ANOTHER SLOT TO CHANGE THE DETAIL VIEW.</div>
+    </div>
+  </div>
+  
+  <div class="slot-detail-header-grid">
+    <div><strong>RACK NO : </strong><span>01</span></div>
+    <div><strong>SHELF : </strong><span>A</span></div>
+    <div><strong>SLOT : </strong><span>2</span></div>
+  </div>
+  <div class="table-wrap">
+    <table id="slotDetailTable" class="resp-grid">
+      <thead>
+        <tr>
+          <th>LOCATION ID</th>
+          <th>JOB NAME</th>
+          <th>PARTY NAME</th>
+          <th>PLATE ID</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td class="location-id" data-label="LOCATION ID">R01-A2-01</td>
+          <td class="field-name" data-label="JOB NAME">SPICE JAR LABEL</td>
+          <td class="field-name" data-label="PARTY NAME">SEVENOAKS BOXES</td>
+          <td class="plate-id" data-label="PLATE ID">SE-0034</td>
+        </tr>
+        
+        <tr>
+          <td class="location-id" data-label="LOCATION ID"></td>
+          <td class="field-name" data-label="JOB NAME"></td>
+          <td class="field-name" data-label="PARTY NAME"></td>
+          <td class="plate-id" data-label="PLATE ID"></td>
+        </tr>
+        
+        <tr>
+          <td class="location-id" data-label="LOCATION ID"></td>
+          <td class="field-name" data-label="JOB NAME"></td>
+          <td class="field-name" data-label="PARTY NAME"></td>
+          <td class="plate-id" data-label="PLATE ID"></td>
+        </tr>
+        
+        <tr>
+          <td class="location-id" data-label="LOCATION ID">R01-A2-04</td>
+          <td class="field-name" data-label="JOB NAME">BISCUIT TRAY V2</td>
+          <td class="field-name" data-label="PARTY NAME">MERIDIAN CARTONS</td>
+          <td class="plate-id" data-label="PLATE ID">SE-0027</td>
+        </tr>
+        
+        <tr>
+          <td class="location-id" data-label="LOCATION ID">R01-A2-05</td>
+          <td class="field-name" data-label="JOB NAME">BISCUIT TRAY</td>
+          <td class="field-name" data-label="PARTY NAME">MERIDIAN CARTONS</td>
+          <td class="plate-id" data-label="PLATE ID">SE-0007</td>
+        </tr>
+        
+        <tr>
+          <td class="location-id" data-label="LOCATION ID">R01-A2-06</td>
+          <td class="field-name" data-label="JOB NAME">TEA CADDY 250G V2</td>
+          <td class="field-name" data-label="PARTY NAME">HARBOUR LINE LABELS</td>
+          <td class="plate-id" data-label="PLATE ID">SE-0022</td>
+        </tr>
+        
+        <tr>
+          <td class="location-id" data-label="LOCATION ID">R01-A2-07</td>
+          <td class="field-name" data-label="JOB NAME">GIFT HAMPER BASE V2</td>
+          <td class="field-name" data-label="PARTY NAME">HARBOUR LINE LABELS</td>
+          <td class="plate-id" data-label="PLATE ID">SE-0031</td>
+        </tr>
+        
+        <tr>
+          <td class="location-id" data-label="LOCATION ID"></td>
+          <td class="field-name" data-label="JOB NAME"></td>
+          <td class="field-name" data-label="PARTY NAME"></td>
+          <td class="plate-id" data-label="PLATE ID"></td>
+        </tr>
+        
+        <tr>
+          <td class="location-id" data-label="LOCATION ID"></td>
+          <td class="field-name" data-label="JOB NAME"></td>
+          <td class="field-name" data-label="PARTY NAME"></td>
+          <td class="plate-id" data-label="PLATE ID"></td>
+        </tr>
+        
+        <tr>
+          <td class="location-id" data-label="LOCATION ID">R01-A2-10</td>
+          <td class="field-name" data-label="JOB NAME">WATCH BOX INSERT</td>
+          <td class="field-name" data-label="PARTY NAME">VERMILION PRESS</td>
+          <td class="plate-id" data-label="PLATE ID">SE-0014</td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+  
+</div>
+
+
+    </main>
+</div>
+</body>
+</html>

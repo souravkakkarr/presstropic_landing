@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Issue Register</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Reusable three-dot (kebab) row menu for registers. The popup is moved to
+     position:fixed on open so it never gets clipped by a table's overflow. */
+  .rowmenu{ position:relative; display:inline-block; }
+  .rowmenu-btn{ cursor:pointer; background:none; border:none; box-shadow:none;
+    padding:4px 8px; line-height:1; color:var(--text-2, #8a8a8a);
+    display:inline-flex; align-items:center; justify-content:center; }
+  .rowmenu-btn:hover{ color:var(--text, #222); background:none; }
+  .rowmenu-pop{ display:none; position:fixed; z-index:9999; min-width:160px;
+    background:var(--bg-2, #fff); border:1px solid var(--border, #ccc); border-radius:10px;
+    box-shadow:0 10px 28px rgba(0,0,0,.22); padding:6px; }
+  .rowmenu-pop.open{ display:block; }
+  /* little caret pointing up toward the three dots */
+  .rowmenu-pop::before{ content:""; position:absolute; top:-6px; right:14px; width:11px; height:11px;
+    background:var(--bg-2, #fff); border-left:1px solid var(--border, #ccc);
+    border-top:1px solid var(--border, #ccc); transform:rotate(45deg); }
+  .rowmenu-pop a, .rowmenu-pop button{ display:block; width:100%; text-align:left; background:none;
+    border:none; box-shadow:none; cursor:pointer; padding:10px 14px; border-radius:7px; font:inherit;
+    color:inherit; white-space:nowrap; text-decoration:none; }
+  .rowmenu-pop a:hover, .rowmenu-pop button:hover{ background:var(--accent, #3b82f6); color:#fff; }
+  /* Destructive actions (delete / cancel) look the same on every register. */
+  .rowmenu-pop a.rowmenu-danger{ color:#b00020; }
+  .rowmenu-pop a.rowmenu-danger:hover{ background:#b00020; color:#fff; }
+  </style>
+<style>
+  /* Preview only. The page is a snapshot of the real screen, taken from the app
+     with its own data; this removes the app chrome that has no meaning outside
+     the app, and makes sure nothing here can be clicked. */
+  html,body{background:var(--bg);margin:0;overflow:hidden}
+  .layout{display:block}
+  .sidebar,.topbar,.fy-badge,.bookmark-flap,#sidebar,.sidebar-toggle{display:none !important}
+  .main{margin:0 !important;padding:26px 30px !important;max-width:100% !important;width:100% !important}
+  a,button,input,select,textarea,label{pointer-events:none !important;cursor:default !important}
+  a{text-decoration:none !important;border-bottom:0 !important}
+  ::-webkit-scrollbar{display:none;width:0;height:0}
+  /* the back button, row menus and bulk bars are chrome, not content */
+  .page-head .btn-row,.rowmenu,.bulkbar,.back-btn{display:none !important}
+  /* registers and module homes size themselves to the viewport and scroll; a
+     preview has no viewport to fill, so everything takes its natural height */
+  .mh-list,.mh-stats{max-height:none !important;overflow:visible !important}
+  .module-home{align-items:flex-start !important}
+  .table-wrap,.gridwrap{max-height:none !important;overflow:visible !important}
+
+</style>
+</head>
+<body>
+<div class="layout">
+<main id="mainContent" class="main ">
+      
+      
+
+
+
+      
+<div class="page-head">
+  <div><h1>OUTWARD REGISTER</h1><p class="muted">All material issue records — department-wise and item-wise.</p></div>
+  <div class="btn-row"><a class="btn primary">+ NEW ISSUE</a><button type="button" class="btn" id="bdStart">DELETE MULTIPLE</button>
+<span id="bdBar" style="display:none;gap:8px;align-items:center;">
+  <button type="button" class="btn danger" id="bdGo">DELETE SELECTED (0)</button>
+  <button type="button" class="btn">CANCEL</button>
+</span>
+<button type="button" class="btn no-print btn-back" title="Go back one level"><span class="btn-back-ico"></span>BACK</button></div>
+</div>
+
+
+
+<div class="card spaced-card">
+  <div class="table-wrap">
+    <div class="grid-periodbar"><span class="gpb-label">SHOWING</span><div class="gpb-tabs"><button type="button" class="gpb-tab" data-p="day">DAY</button><button type="button" class="gpb-tab" data-p="week">WEEK</button><button type="button" class="gpb-tab on" data-p="month">MONTH</button><button type="button" class="gpb-tab" data-p="year">YEAR</button><button type="button" class="gpb-tab" data-p="all">ALL TIME</button></div><div class="gpb-pick"><button type="button" class="gpb-step gpb-prev" title="Previous" aria-label="Previous period"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></button><input type="date" class="gpb-day" hidden="" value=""><input type="week" class="gpb-week" hidden="" value=""><input type="month" class="gpb-month" value="2026-09"><input type="number" class="gpb-year" hidden="" min="2000" max="2099" step="1" value=""><button type="button" class="gpb-step gpb-next" title="Next" aria-label="Next period"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></button></div><span class="gpb-current">September 2026</span><span class="gpb-count">5 entries</span></div><div class="grid-toolbar"><input type="text" class="grid-search" placeholder="🔍  Quick search…" value=""><div class="grid-menu-wrap grid-filtermenu-wrap"><button type="button" class="btn small grid-filterbtn">Filter <span class="gt-caret"></span></button><div class="grid-menu grid-filtermenu"><div class="gfm-block"><div class="gfm-label">Group by</div><select class="grid-groupby"><option value="" selected="">No grouping</option><option value="0">ISSUE ID</option><option value="1">DATE</option><option value="2">DEPARTMENT</option><option value="3">JOB ID</option><option value="4">ISSUED BY</option><option value="5">HANDED OVER TO</option><option value="6">CODE</option><option value="7">ITEM KEY</option><option value="8">MACHINE</option><option value="9">ROLL ID</option><option value="10">QTY OUT</option><option value="11">UNIT</option><option value="12">ACTIONS</option></select></div></div></div><div class="grid-menu-wrap grid-colmenu-wrap"><button type="button" class="btn small grid-colbtn">Columns <span class="gt-caret"></span></button><div class="grid-menu grid-colmenu"><label><input type="checkbox" checked="" data-col="0"> ISSUE ID</label><label><input type="checkbox" checked="" data-col="1"> DATE</label><label><input type="checkbox" checked="" data-col="2"> DEPARTMENT</label><label><input type="checkbox" checked="" data-col="3"> JOB ID</label><label><input type="checkbox" checked="" data-col="4"> ISSUED BY</label><label><input type="checkbox" checked="" data-col="5"> HANDED OVER TO</label><label><input type="checkbox" checked="" data-col="6"> CODE</label><label><input type="checkbox" checked="" data-col="7"> ITEM KEY</label><label><input type="checkbox" checked="" data-col="8"> MACHINE</label><label><input type="checkbox" checked="" data-col="9"> ROLL ID</label><label><input type="checkbox" checked="" data-col="10"> QTY OUT</label><label><input type="checkbox" checked="" data-col="11"> UNIT</label><label><input type="checkbox" checked="" data-col="12"> ACTIONS</label></div></div><button type="button" class="btn small btn-ico grid-print" title="Print" aria-label="Print"><span class="ico ico-print"></span></button><div class="grid-menu-wrap grid-exportmenu-wrap"><button type="button" class="btn small grid-export-btn" title="Export">Export <span class="gt-caret"></span></button><div class="grid-menu grid-exportmenu"><button type="button" class="gxp-opt grid-export">CSV<small>Opens in any spreadsheet or text editor</small></button><button type="button" class="gxp-opt grid-export-xlsx">Excel<small>Formatted .xlsx workbook</small></button></div></div><button type="button" class="btn small btn-ico grid-clear" title="Clear all filters" aria-label="Clear all filters"><span class="ico ico-clear"></span></button></div><table class="gridtable gt-enhanced" id="reg_table" data-gridtools="" data-page-size="50">
+      <thead><tr>
+        <th title="Click to sort" style="cursor: pointer;">ISSUE ID<span class="grid-funnel" title="Filter column"></span></th><th title="Click to sort" style="cursor: pointer;">DATE<span class="grid-funnel" title="Filter column"></span></th><th title="Click to sort" style="cursor: pointer;">DEPARTMENT<span class="grid-funnel" title="Filter column"></span></th><th title="Click to sort" style="cursor: pointer;">JOB ID<span class="grid-funnel" title="Filter column"></span></th><th title="Click to sort" style="cursor: pointer;">ISSUED BY<span class="grid-funnel" title="Filter column"></span></th><th title="Click to sort" style="cursor: pointer;">HANDED OVER TO<span class="grid-funnel" title="Filter column"></span></th>
+        <th title="Click to sort" style="cursor: pointer;">CODE<span class="grid-funnel" title="Filter column"></span></th><th title="Click to sort" style="cursor: pointer;">ITEM KEY<span class="grid-funnel" title="Filter column"></span></th><th title="Click to sort" style="cursor: pointer;">MACHINE<span class="grid-funnel" title="Filter column"></span></th>
+        <th title="Click to sort" style="cursor: pointer;">ROLL ID<span class="grid-funnel" title="Filter column"></span></th><th title="Click to sort" style="cursor: pointer;">QTY OUT<span class="grid-funnel" title="Filter column"></span></th><th title="Click to sort" style="cursor: pointer;">UNIT<span class="grid-funnel" title="Filter column"></span></th><th class="no-print">ACTIONS</th>
+      </tr></thead>
+      <tbody>
+        
+        <tr data-id="11" class="doc-lead" data-gf-filtered="0">
+          <td data-label="ISSUE ID" rowspan="3"><strong>26-27 | SO-00011</strong></td>
+          <td data-label="DATE" rowspan="3">22/09/2026</td>
+          <td data-label="DEPARTMENT" rowspan="3">LAMINATION</td>
+          <td data-label="JOB ID" rowspan="3">26-27 | JOB-00020</td>
+          <td data-label="ISSUED BY" rowspan="3">STORE</td>
+          <td data-label="HANDED OVER TO" rowspan="3">ANIL YADAV</td>
+          <td class="line-cell" data-label="CODE" style="font-family:monospace;font-size:11.5px;">RM-00001</td>
+          <td class="line-cell" data-label="ITEM KEY">BOPP FILM : 12 MIC : GLOSS : 18 INCH</td>
+          <td class="line-cell" data-label="MACHINE">THERMAL LAMINATOR 1</td>
+          <td class="line-cell" data-label="ROLL ID" style="font-family:monospace;font-size:11px;">FF/2702-04092026-RM00001-01</td>
+          <td class="line-cell" data-label="QTY OUT">58</td>
+          <td class="line-cell" data-label="UNIT">Kgs</td>
+          
+          <td class="no-print" data-label="ACTIONS" rowspan="3">
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>SHOW DETAILS</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/storebuddy/outward/11/delete" data-confirm="Delete this issue document and all its lines? The issued stock will return to store.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+          
+        </tr>
+        
+        <tr class="proc-extra-row" data-gf-filtered="0">
+          
+          
+          
+          
+          
+          
+          <td class="line-cell" data-label="CODE" style="font-family:monospace;font-size:11.5px;">RM-00025</td>
+          <td class="line-cell" data-label="ITEM KEY">LAMINATION ADHESIVE</td>
+          <td class="line-cell" data-label="MACHINE">THERMAL LAMINATOR 1</td>
+          <td class="line-cell" data-label="ROLL ID" style="font-family:monospace;font-size:11px;"></td>
+          <td class="line-cell" data-label="QTY OUT">38</td>
+          <td class="line-cell" data-label="UNIT">Kgs</td>
+          
+        </tr>
+        
+        <tr class="proc-extra-row" data-gf-filtered="0">
+          
+          
+          
+          
+          
+          
+          <td class="line-cell" data-label="CODE" style="font-family:monospace;font-size:11.5px;">RM-00026</td>
+          <td class="line-cell" data-label="ITEM KEY">UV VARNISH</td>
+          <td class="line-cell" data-label="MACHINE">THERMAL LAMINATOR 1</td>
+          <td class="line-cell" data-label="ROLL ID" style="font-family:monospace;font-size:11px;"></td>
+          <td class="line-cell" data-label="QTY OUT">34</td>
+          <td class="line-cell" data-label="UNIT">Litres</td>
+          
+        </tr>
+        
+        <tr data-id="10" class="doc-lead" data-gf-filtered="0">
+          <td data-label="ISSUE ID" rowspan="2"><strong>26-27 | SO-00010</strong></td>
+          <td data-label="DATE" rowspan="2">17/09/2026</td>
+          <td data-label="DEPARTMENT" rowspan="2">POST PRESS</td>
+          <td data-label="JOB ID" rowspan="2">26-27 | JOB-00019</td>
+          <td data-label="ISSUED BY" rowspan="2">STORE</td>
+          <td data-label="HANDED OVER TO" rowspan="2">DEEPAK VERMA</td>
+          <td class="line-cell" data-label="CODE" style="font-family:monospace;font-size:11.5px;">RM-00019</td>
+          <td class="line-cell" data-label="ITEM KEY">HOT STAMPING FOIL : SILVER : 12 INCH</td>
+          <td class="line-cell" data-label="MACHINE">BOBST DIE CUTTER</td>
+          <td class="line-cell" data-label="ROLL ID" style="font-family:monospace;font-size:11px;">GLF/331-11082026-RM00019-01</td>
+          <td class="line-cell" data-label="QTY OUT">1</td>
+          <td class="line-cell" data-label="UNIT">Rolls</td>
+          
+          <td class="no-print" data-label="ACTIONS" rowspan="2">
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>SHOW DETAILS</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/storebuddy/outward/10/delete" data-confirm="Delete this issue document and all its lines? The issued stock will return to store.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+          
+        </tr>
+        
+        <tr class="proc-extra-row" data-gf-filtered="0">
+          
+          
+          
+          
+          
+          
+          <td class="line-cell" data-label="CODE" style="font-family:monospace;font-size:11.5px;">RM-00018</td>
+          <td class="line-cell" data-label="ITEM KEY">HOT STAMPING FOIL : GOLD : 24 INCH</td>
+          <td class="line-cell" data-label="MACHINE">BOBST DIE CUTTER</td>
+          <td class="line-cell" data-label="ROLL ID" style="font-family:monospace;font-size:11px;">GLF/331-11082026-RM00018-01</td>
+          <td class="line-cell" data-label="QTY OUT">2</td>
+          <td class="line-cell" data-label="UNIT">Rolls</td>
+          
+        </tr>
+        
+        <tr data-id="9" class="doc-lead" data-gf-filtered="0">
+          <td data-label="ISSUE ID" rowspan="3"><strong>26-27 | SO-00009</strong></td>
+          <td data-label="DATE" rowspan="3">12/09/2026</td>
+          <td data-label="DEPARTMENT" rowspan="3">PRESS</td>
+          <td data-label="JOB ID" rowspan="3">26-27 | JOB-00014</td>
+          <td data-label="ISSUED BY" rowspan="3">STORE</td>
+          <td data-label="HANDED OVER TO" rowspan="3">MOHIT SINGH</td>
+          <td class="line-cell" data-label="CODE" style="font-family:monospace;font-size:11.5px;">RM-00022</td>
+          <td class="line-cell" data-label="ITEM KEY">OFFSET INK : MAGENTA</td>
+          <td class="line-cell" data-label="MACHINE">KOMORI LS 40</td>
+          <td class="line-cell" data-label="ROLL ID" style="font-family:monospace;font-size:11px;"></td>
+          <td class="line-cell" data-label="QTY OUT">16</td>
+          <td class="line-cell" data-label="UNIT">Kgs</td>
+          
+          <td class="no-print" data-label="ACTIONS" rowspan="3">
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>SHOW DETAILS</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/storebuddy/outward/9/delete" data-confirm="Delete this issue document and all its lines? The issued stock will return to store.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+          
+        </tr>
+        
+        <tr class="proc-extra-row" data-gf-filtered="0">
+          
+          
+          
+          
+          
+          
+          <td class="line-cell" data-label="CODE" style="font-family:monospace;font-size:11.5px;">RM-00023</td>
+          <td class="line-cell" data-label="ITEM KEY">OFFSET INK : YELLOW</td>
+          <td class="line-cell" data-label="MACHINE">KOMORI LS 40</td>
+          <td class="line-cell" data-label="ROLL ID" style="font-family:monospace;font-size:11px;"></td>
+          <td class="line-cell" data-label="QTY OUT">18</td>
+          <td class="line-cell" data-label="UNIT">Kgs</td>
+          
+        </tr>
+        
+        <tr class="proc-extra-row" data-gf-filtered="0">
+          
+          
+          
+          
+          
+          
+          <td class="line-cell" data-label="CODE" style="font-family:monospace;font-size:11.5px;">RM-00027</td>
+          <td class="line-cell" data-label="ITEM KEY">FOUNTAIN SOLUTION</td>
+          <td class="line-cell" data-label="MACHINE">KOMORI LS 40</td>
+          <td class="line-cell" data-label="ROLL ID" style="font-family:monospace;font-size:11px;"></td>
+          <td class="line-cell" data-label="QTY OUT">24</td>
+          <td class="line-cell" data-label="UNIT">Litres</td>
+          
+        </tr>
+        
+        <tr data-id="8" class="doc-lead" data-gf-filtered="0" style="display: none;">
+          <td data-label="ISSUE ID" rowspan="2"><strong>26-27 | SO-00008</strong></td>
+          <td data-label="DATE" rowspan="2">08/09/2026</td>
+          <td data-label="DEPARTMENT" rowspan="2">LAMINATION</td>
+          <td data-label="JOB ID" rowspan="2">26-27 | JOB-00013</td>
+          <td data-label="ISSUED BY" rowspan="2">STORE</td>
+          <td data-label="HANDED OVER TO" rowspan="2">ANIL YADAV</td>
+          <td class="line-cell" data-label="CODE" style="font-family:monospace;font-size:11.5px;">RM-00012</td>
+          <td class="line-cell" data-label="ITEM KEY">BOPP FILM : 15 MIC : GLOSS : 25 INCH</td>
+          <td class="line-cell" data-label="MACHINE">THERMAL LAMINATOR 1</td>
+          <td class="line-cell" data-label="ROLL ID" style="font-family:monospace;font-size:11px;">FF/2615-02082026-RM00012-01</td>
+          <td class="line-cell" data-label="QTY OUT">55</td>
+          <td class="line-cell" data-label="UNIT">Kgs</td>
+          
+          <td class="no-print" data-label="ACTIONS" rowspan="2">
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>SHOW DETAILS</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/storebuddy/outward/8/delete" data-confirm="Delete this issue document and all its lines? The issued stock will return to store.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+          
+        </tr>
+        
+        <tr class="proc-extra-row" data-gf-filtered="0" style="display: none;">
+          
+          
+          
+          
+          
+          
+          <td class="line-cell" data-label="CODE" style="font-family:monospace;font-size:11.5px;">RM-00025</td>
+          <td class="line-cell" data-label="ITEM KEY">LAMINATION ADHESIVE</td>
+          <td class="line-cell" data-label="MACHINE">THERMAL LAMINATOR 1</td>
+          <td class="line-cell" data-label="ROLL ID" style="font-family:monospace;font-size:11px;"></td>
+          <td class="line-cell" data-label="QTY OUT">42</td>
+          <td class="line-cell" data-label="UNIT">Kgs</td>
+          
+        </tr>
+        
+        <tr data-id="7" class="doc-lead" data-gf-filtered="0" style="display: none;">
+          <td data-label="ISSUE ID" rowspan="2"><strong>26-27 | SO-00007</strong></td>
+          <td data-label="DATE" rowspan="2">02/09/2026</td>
+          <td data-label="DEPARTMENT" rowspan="2">MAINTENANCE</td>
+          <td data-label="JOB ID" rowspan="2"></td>
+          <td data-label="ISSUED BY" rowspan="2">STORE</td>
+          <td data-label="HANDED OVER TO" rowspan="2">RAMESH KUMAR</td>
+          <td class="line-cell" data-label="CODE" style="font-family:monospace;font-size:11.5px;">SP-00001</td>
+          <td class="line-cell" data-label="ITEM KEY">PRESS BLANKET : 28X40 INCH</td>
+          <td class="line-cell" data-label="MACHINE">HEIDELBERG CD 102</td>
+          <td class="line-cell" data-label="ROLL ID" style="font-family:monospace;font-size:11px;"></td>
+          <td class="line-cell" data-label="QTY OUT">2</td>
+          <td class="line-cell" data-label="UNIT">Pieces</td>
+          
+          <td class="no-print" data-label="ACTIONS" rowspan="2">
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>SHOW DETAILS</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/storebuddy/outward/7/delete" data-confirm="Delete this issue document and all its lines? The issued stock will return to store.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+          
+        </tr>
+        
+        <tr class="proc-extra-row" data-gf-filtered="0" style="display: none;">
+          
+          
+          
+          
+          
+          
+          <td class="line-cell" data-label="CODE" style="font-family:monospace;font-size:11.5px;">SP-00003</td>
+          <td class="line-cell" data-label="ITEM KEY">GRIPPER SPRING</td>
+          <td class="line-cell" data-label="MACHINE">HEIDELBERG CD 102</td>
+          <td class="line-cell" data-label="ROLL ID" style="font-family:monospace;font-size:11px;"></td>
+          <td class="line-cell" data-label="QTY OUT">12</td>
+          <td class="line-cell" data-label="UNIT">Pieces</td>
+          
+        </tr>
+        
+        <tr data-id="6" class="doc-lead" data-gf-filtered="1" style="display: none;">
+          <td data-label="ISSUE ID" rowspan="3"><strong>26-27 | SO-00006</strong></td>
+          <td data-label="DATE" rowspan="3">27/08/2026</td>
+          <td data-label="DEPARTMENT" rowspan="3">PRESS</td>
+          <td data-label="JOB ID" rowspan="3">26-27 | JOB-00008</td>
+          <td data-label="ISSUED BY" rowspan="3">STORE</td>
+          <td data-label="HANDED OVER TO" rowspan="3">SURESH PAL</td>
+          <td class="line-cell" data-label="CODE" style="font-family:monospace;font-size:11.5px;">RM-00024</td>
+          <td class="line-cell" data-label="ITEM KEY">OFFSET INK : BLACK</td>
+          <td class="line-cell" data-label="MACHINE">HEIDELBERG CD 102</td>
+          <td class="line-cell" data-label="ROLL ID" style="font-family:monospace;font-size:11px;"></td>
+          <td class="line-cell" data-label="QTY OUT">14</td>
+          <td class="line-cell" data-label="UNIT">Kgs</td>
+          
+          <td class="no-print" data-label="ACTIONS" rowspan="3">
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>SHOW DETAILS</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/storebuddy/outward/6/delete" data-confirm="Delete this issue document and all its lines? The issued stock will return to store.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+          
+        </tr>
+        
+        <tr class="proc-extra-row" data-gf-filtered="1" style="display: none;">
+          
+          
+          
+          
+          
+          
+          <td class="line-cell" data-label="CODE" style="font-family:monospace;font-size:11.5px;">RM-00021</td>
+          <td class="line-cell" data-label="ITEM KEY">OFFSET INK : CYAN</td>
+          <td class="line-cell" data-label="MACHINE">HEIDELBERG CD 102</td>
+          <td class="line-cell" data-label="ROLL ID" style="font-family:monospace;font-size:11px;"></td>
+          <td class="line-cell" data-label="QTY OUT">10</td>
+          <td class="line-cell" data-label="UNIT">Kgs</td>
+          
+        </tr>
+        
+        <tr class="proc-extra-row" data-gf-filtered="1" style="display: none;">
+          
+          
+          
+          
+          
+          
+          <td class="line-cell" data-label="CODE" style="font-family:monospace;font-size:11.5px;">RM-00026</td>
+          <td class="line-cell" data-label="ITEM KEY">UV VARNISH</td>
+          <td class="line-cell" data-label="MACHINE">HEIDELBERG CD 102</td>
+          <td class="line-cell" data-label="ROLL ID" style="font-family:monospace;font-size:11px;"></td>
+          <td class="line-cell" data-label="QTY OUT">22</td>
+          <td class="line-cell" data-label="UNIT">Litres</td>
+          
+        </tr>
+        
+        <tr data-id="5" class="doc-lead" data-gf-filtered="1" style="display: none;">
+          <td data-label="ISSUE ID" rowspan="2"><strong>26-27 | SO-00005</strong></td>
+          <td data-label="DATE" rowspan="2">21/08/2026</td>
+          <td data-label="DEPARTMENT" rowspan="2">LAMINATION</td>
+          <td data-label="JOB ID" rowspan="2">26-27 | JOB-00005</td>
+          <td data-label="ISSUED BY" rowspan="2">STORE</td>
+          <td data-label="HANDED OVER TO" rowspan="2">ANIL YADAV</td>
+          <td class="line-cell" data-label="CODE" style="font-family:monospace;font-size:11.5px;">RM-00007</td>
+          <td class="line-cell" data-label="ITEM KEY">BOPP FILM : 12 MIC : MATT : 23 INCH</td>
+          <td class="line-cell" data-label="MACHINE">THERMAL LAMINATOR 1</td>
+          <td class="line-cell" data-label="ROLL ID" style="font-family:monospace;font-size:11px;">FF/2615-02082026-RM00007-01</td>
+          <td class="line-cell" data-label="QTY OUT">48</td>
+          <td class="line-cell" data-label="UNIT">Kgs</td>
+          
+          <td class="no-print" data-label="ACTIONS" rowspan="2">
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>SHOW DETAILS</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/storebuddy/outward/5/delete" data-confirm="Delete this issue document and all its lines? The issued stock will return to store.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+          
+        </tr>
+        
+        <tr class="proc-extra-row" data-gf-filtered="1" style="display: none;">
+          
+          
+          
+          
+          
+          
+          <td class="line-cell" data-label="CODE" style="font-family:monospace;font-size:11.5px;">RM-00025</td>
+          <td class="line-cell" data-label="ITEM KEY">LAMINATION ADHESIVE</td>
+          <td class="line-cell" data-label="MACHINE">THERMAL LAMINATOR 1</td>
+          <td class="line-cell" data-label="ROLL ID" style="font-family:monospace;font-size:11px;"></td>
+          <td class="line-cell" data-label="QTY OUT">35</td>
+          <td class="line-cell" data-label="UNIT">Kgs</td>
+          
+        </tr>
+        
+        <tr data-id="4" class="doc-lead" data-gf-filtered="1" style="display: none;">
+          <td data-label="ISSUE ID" rowspan="1"><strong>26-27 | SO-00004</strong></td>
+          <td data-label="DATE" rowspan="1">19/08/2026</td>
+          <td data-label="DEPARTMENT" rowspan="1">POST PRESS</td>
+          <td data-label="JOB ID" rowspan="1">26-27 | JOB-00006</td>
+          <td data-label="ISSUED BY" rowspan="1">STORE</td>
+          <td data-label="HANDED OVER TO" rowspan="1">DEEPAK VERMA</td>
+          <td class="line-cell" data-label="CODE" style="font-family:monospace;font-size:11.5px;">RM-00018</td>
+          <td class="line-cell" data-label="ITEM KEY">HOT STAMPING FOIL : GOLD : 24 INCH</td>
+          <td class="line-cell" data-label="MACHINE">BOBST DIE CUTTER</td>
+          <td class="line-cell" data-label="ROLL ID" style="font-family:monospace;font-size:11px;">GLF/331-11082026-RM00018-01</td>
+          <td class="line-cell" data-label="QTY OUT">2</td>
+          <td class="line-cell" data-label="UNIT">Rolls</td>
+          
+          <td class="no-print" data-label="ACTIONS" rowspan="1">
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>SHOW DETAILS</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/storebuddy/outward/4/delete" data-confirm="Delete this issue document and all its lines? The issued stock will return to store.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+          
+        </tr>
+        
+        <tr data-id="3" class="doc-lead" data-gf-filtered="1" style="display: none;">
+          <td data-label="ISSUE ID" rowspan="2"><strong>26-27 | SO-00003</strong></td>
+          <td data-label="DATE" rowspan="2">14/08/2026</td>
+          <td data-label="DEPARTMENT" rowspan="2">PRESS</td>
+          <td data-label="JOB ID" rowspan="2">26-27 | JOB-00004</td>
+          <td data-label="ISSUED BY" rowspan="2">STORE</td>
+          <td data-label="HANDED OVER TO" rowspan="2">MOHIT SINGH</td>
+          <td class="line-cell" data-label="CODE" style="font-family:monospace;font-size:11.5px;">RM-00022</td>
+          <td class="line-cell" data-label="ITEM KEY">OFFSET INK : MAGENTA</td>
+          <td class="line-cell" data-label="MACHINE">KOMORI LS 40</td>
+          <td class="line-cell" data-label="ROLL ID" style="font-family:monospace;font-size:11px;"></td>
+          <td class="line-cell" data-label="QTY OUT">8</td>
+          <td class="line-cell" data-label="UNIT">Kgs</td>
+          
+          <td class="no-print" data-label="ACTIONS" rowspan="2">
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>SHOW DETAILS</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/storebuddy/outward/3/delete" data-confirm="Delete this issue document and all its lines? The issued stock will return to store.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+          
+        </tr>
+        
+        <tr class="proc-extra-row" data-gf-filtered="1" style="display: none;">
+          
+          
+          
+          
+          
+          
+          <td class="line-cell" data-label="CODE" style="font-family:monospace;font-size:11.5px;">RM-00023</td>
+          <td class="line-cell" data-label="ITEM KEY">OFFSET INK : YELLOW</td>
+          <td class="line-cell" data-label="MACHINE">KOMORI LS 40</td>
+          <td class="line-cell" data-label="ROLL ID" style="font-family:monospace;font-size:11px;"></td>
+          <td class="line-cell" data-label="QTY OUT">7</td>
+          <td class="line-cell" data-label="UNIT">Kgs</td>
+          
+        </tr>
+        
+        <tr data-id="2" class="doc-lead" data-gf-filtered="1" style="display: none;">
+          <td data-label="ISSUE ID" rowspan="1"><strong>26-27 | SO-00002</strong></td>
+          <td data-label="DATE" rowspan="1">12/08/2026</td>
+          <td data-label="DEPARTMENT" rowspan="1">LAMINATION</td>
+          <td data-label="JOB ID" rowspan="1">26-27 | JOB-00001</td>
+          <td data-label="ISSUED BY" rowspan="1">STORE</td>
+          <td data-label="HANDED OVER TO" rowspan="1">ANIL YADAV</td>
+          <td class="line-cell" data-label="CODE" style="font-family:monospace;font-size:11.5px;">RM-00002</td>
+          <td class="line-cell" data-label="ITEM KEY">BOPP FILM : 12 MIC : GLOSS : 20 INCH</td>
+          <td class="line-cell" data-label="MACHINE">THERMAL LAMINATOR 1</td>
+          <td class="line-cell" data-label="ROLL ID" style="font-family:monospace;font-size:11px;">FF/2615-02082026-RM00002-01</td>
+          <td class="line-cell" data-label="QTY OUT">62</td>
+          <td class="line-cell" data-label="UNIT">Kgs</td>
+          
+          <td class="no-print" data-label="ACTIONS" rowspan="1">
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>SHOW DETAILS</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/storebuddy/outward/2/delete" data-confirm="Delete this issue document and all its lines? The issued stock will return to store.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+          
+        </tr>
+        
+        <tr data-id="1" class="doc-lead" data-gf-filtered="1" style="display: none;">
+          <td data-label="ISSUE ID" rowspan="3"><strong>26-27 | SO-00001</strong></td>
+          <td data-label="DATE" rowspan="3">08/08/2026</td>
+          <td data-label="DEPARTMENT" rowspan="3">PRESS</td>
+          <td data-label="JOB ID" rowspan="3">26-27 | JOB-00001</td>
+          <td data-label="ISSUED BY" rowspan="3">STORE</td>
+          <td data-label="HANDED OVER TO" rowspan="3">RAMESH KUMAR</td>
+          <td class="line-cell" data-label="CODE" style="font-family:monospace;font-size:11.5px;">RM-00021</td>
+          <td class="line-cell" data-label="ITEM KEY">OFFSET INK : CYAN</td>
+          <td class="line-cell" data-label="MACHINE">HEIDELBERG CD 102</td>
+          <td class="line-cell" data-label="ROLL ID" style="font-family:monospace;font-size:11px;"></td>
+          <td class="line-cell" data-label="QTY OUT">6</td>
+          <td class="line-cell" data-label="UNIT">Kgs</td>
+          
+          <td class="no-print" data-label="ACTIONS" rowspan="3">
+            
+            
+            
+            <div class="rowmenu">
+  <button type="button" class="rowmenu-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button>
+  <div class="rowmenu-pop">
+    
+      
+      
+      
+      
+      
+        <a>SHOW DETAILS</a>
+      
+    
+      
+      
+      
+      
+      
+        <a>EDIT</a>
+      
+    
+      
+      
+      
+      
+      
+        <a class="rowmenu-danger" data-post="/storebuddy/outward/1/delete" data-confirm="Delete this issue document and all its lines? The issued stock will return to store.">DELETE</a>
+      
+    
+  </div>
+</div>
+          </td>
+          
+        </tr>
+        
+        <tr class="proc-extra-row" data-gf-filtered="1" style="display: none;">
+          
+          
+          
+          
+          
+          
+          <td class="line-cell" data-label="CODE" style="font-family:monospace;font-size:11.5px;">RM-00024</td>
+          <td class="line-cell" data-label="ITEM KEY">OFFSET INK : BLACK</td>
+          <td class="line-cell" data-label="MACHINE">HEIDELBERG CD 102</td>
+          <td class="line-cell" data-label="ROLL ID" style="font-family:monospace;font-size:11px;"></td>
+          <td class="line-cell" data-label="QTY OUT">9</td>
+          <td class="line-cell" data-label="UNIT">Kgs</td>
+          
+        </tr>
+        
+        <tr class="proc-extra-row" data-gf-filtered="1" style="display: none;">
+          
+          
+          
+          
+          
+          
+          <td class="line-cell" data-label="CODE" style="font-family:monospace;font-size:11.5px;">RM-00027</td>
+          <td class="line-cell" data-label="ITEM KEY">FOUNTAIN SOLUTION</td>
+          <td class="line-cell" data-label="MACHINE">HEIDELBERG CD 102</td>
+          <td class="line-cell" data-label="ROLL ID" style="font-family:monospace;font-size:11px;"></td>
+          <td class="line-cell" data-label="QTY OUT">10</td>
+          <td class="line-cell" data-label="UNIT">Litres</td>
+          
+        </tr>
+        
+      </tbody>
+    </table><div class="gt-cards"></div><div class="grid-pager" style="display: flex;"><span class="gp-info">Showing 1–3 of 5</span><span class="gp-controls"><button type="button" class="gp-btn" data-p="first" disabled="">« First</button><button type="button" class="gp-btn" data-p="prev" disabled="">‹ Prev</button><button type="button" class="gp-btn gp-num on" data-p="1">1</button><button type="button" class="gp-btn gp-num" data-p="2">2</button><button type="button" class="gp-btn" data-p="next">Next ›</button><button type="button" class="gp-btn" data-p="last">Last »</button></span><span class="gp-size">Rows: <select class="gp-size-sel"><option value="3" selected="">3</option><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="all">Show all</option></select></span></div>
+  </div>
+</div>
+
+    </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Activity Logs</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Reusable three-dot (kebab) row menu for registers. The popup is moved to
+     position:fixed on open so it never gets clipped by a table's overflow. */
+  .rowmenu{ position:relative; display:inline-block; }
+  .rowmenu-btn{ cursor:pointer; background:none; border:none; box-shadow:none;
+    padding:4px 8px; line-height:1; color:var(--text-2, #8a8a8a);
+    display:inline-flex; align-items:center; justify-content:center; }
+  .rowmenu-btn:hover{ color:var(--text, #222); background:none; }
+  .rowmenu-pop{ display:none; position:fixed; z-index:9999; min-width:160px;
+    background:var(--bg-2, #fff); border:1px solid var(--border, #ccc); border-radius:10px;
+    box-shadow:0 10px 28px rgba(0,0,0,.22); padding:6px; }
+  .rowmenu-pop.open{ display:block; }
+  /* little caret pointing up toward the three dots */
+  .rowmenu-pop::before{ content:""; position:absolute; top:-6px; right:14px; width:11px; height:11px;
+    background:var(--bg-2, #fff); border-left:1px solid var(--border, #ccc);
+    border-top:1px solid var(--border, #ccc); transform:rotate(45deg); }
+  .rowmenu-pop a, .rowmenu-pop button{ display:block; width:100%; text-align:left; background:none;
+    border:none; box-shadow:none; cursor:pointer; padding:10px 14px; border-radius:7px; font:inherit;
+    color:inherit; white-space:nowrap; text-decoration:none; }
+  .rowmenu-pop a:hover, .rowmenu-pop button:hover{ background:var(--accent, #3b82f6); color:#fff; }
+  /* Destructive actions (delete / cancel) look the same on every register. */
+  .rowmenu-pop a.rowmenu-danger{ color:#b00020; }
+  .rowmenu-pop a.rowmenu-danger:hover{ background:#b00020; color:#fff; }
+  </style>
+<style>
+  /* Preview only. The page is a snapshot of the real screen, taken from the app
+     with its own data; this removes the app chrome that has no meaning outside
+     the app, and makes sure nothing here can be clicked. */
+  html,body{background:var(--bg);margin:0;overflow:hidden}
+  .layout{display:block}
+  .sidebar,.topbar,.fy-badge,.bookmark-flap,#sidebar,.sidebar-toggle{display:none !important}
+  .main{margin:0 !important;padding:26px 30px !important;max-width:100% !important;width:100% !important}
+  a,button,input,select,textarea,label{pointer-events:none !important;cursor:default !important}
+  a{text-decoration:none !important;border-bottom:0 !important}
+  ::-webkit-scrollbar{display:none;width:0;height:0}
+  /* the back button, row menus and bulk bars are chrome, not content */
+  .page-head .btn-row,.rowmenu,.bulkbar,.back-btn{display:none !important}
+  /* registers and module homes size themselves to the viewport and scroll; a
+     preview has no viewport to fill, so everything takes its natural height */
+  .mh-list,.mh-stats{max-height:none !important;overflow:visible !important}
+  .module-home{align-items:flex-start !important}
+  .table-wrap,.gridwrap{max-height:none !important;overflow:visible !important}
+
+</style>
+</head>
+<body>
+<div class="layout">
+<main id="mainContent" class="main ">
+      
+      
+
+
+
+      
+<div class="page-head"><h1>ACTIVITY LOGS</h1><div class="btn-row"><button type="button" class="btn no-print btn-back" title="Go back one level"><span class="btn-back-ico"></span>BACK</button></div></div>
+
+
+
+
+<div class="card">
+  <form method="get" class="btn-row" style="gap:10px;flex-wrap:wrap;align-items:flex-end;margin-bottom:14px;" autocomplete="off">
+    <label style="font-size:12px;">ACTION
+      <select name="action" style="display:block;margin-top:3px;" autocomplete="off" autocorrect="off" autocapitalize="off">
+        <option value="" selected="">ALL</option>
+        <option value="DELETE">DELETE</option><option value="EDIT">EDIT</option>
+      </select>
+    </label>
+    <label style="font-size:12px;">SCREEN
+      <select name="screen" style="display:block;margin-top:3px;min-width:200px;" autocomplete="off" autocorrect="off" autocapitalize="off">
+        <option value="" selected="">ALL</option>
+        <option value="DispatchBuddy — Dispatch Register">DispatchBuddy — Dispatch Register</option><option value="Master Management — Store Item Master">Master Management — Store Item Master</option><option value="PaperBuddy — Paper Inward Register">PaperBuddy — Paper Inward Register</option>
+      </select>
+    </label>
+    <label style="font-size:12px;">SEARCH (user / detail)
+      <input type="text" name="q" value="" placeholder="NAME, EMAIL, OR DETAIL" style="display:block;margin-top:3px;min-width:220px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    </label>
+    <button class="btn primary" type="submit">FILTER</button>
+    <a class="btn">RESET</a>
+    <span class="muted" style="font-size:12px;margin-left:auto;">10 entries</span>
+  </form>
+
+  <div class="table-wrap">
+    <div class="grid-toolbar"><input type="text" class="grid-search" placeholder="🔍  Quick search…" value=""><div class="grid-menu-wrap grid-filtermenu-wrap"><button type="button" class="btn small grid-filterbtn">Filter <span class="gt-caret"></span></button><div class="grid-menu grid-filtermenu"><div class="gfm-block"><div class="gfm-label">Group by</div><select class="grid-groupby"><option value="" selected="">No grouping</option><option value="0">WHEN</option><option value="1">WHO</option><option value="2">ROLE</option><option value="3">ACTION</option><option value="4">SCREEN</option><option value="5">DETAIL</option><option value="6">RESTORE</option></select></div></div></div><div class="grid-menu-wrap grid-colmenu-wrap"><button type="button" class="btn small grid-colbtn">Columns <span class="gt-caret"></span></button><div class="grid-menu grid-colmenu"><label><input type="checkbox" checked="" data-col="0"> WHEN</label><label><input type="checkbox" checked="" data-col="1"> WHO</label><label><input type="checkbox" checked="" data-col="2"> ROLE</label><label><input type="checkbox" checked="" data-col="3"> ACTION</label><label><input type="checkbox" checked="" data-col="4"> SCREEN</label><label><input type="checkbox" checked="" data-col="5"> DETAIL</label><label><input type="checkbox" checked="" data-col="6"> RESTORE</label></div></div><button type="button" class="btn small btn-ico grid-print" title="Print" aria-label="Print"><span class="ico ico-print"></span></button><div class="grid-menu-wrap grid-exportmenu-wrap"><button type="button" class="btn small grid-export-btn" title="Export">Export <span class="gt-caret"></span></button><div class="grid-menu grid-exportmenu"><button type="button" class="gxp-opt grid-export">CSV<small>Opens in any spreadsheet or text editor</small></button><button type="button" class="gxp-opt grid-export-xlsx">Excel<small>Formatted .xlsx workbook</small></button></div></div><button type="button" class="btn small btn-ico grid-clear" title="Clear all filters" aria-label="Clear all filters"><span class="ico ico-clear"></span></button></div><table class="gridtable gt-enhanced" data-grid-title="Activity Logs" data-page-size="50">
+      <thead>
+        <tr>
+          <th title="Click to sort" style="cursor: pointer;">WHEN<span class="grid-funnel" title="Filter column"></span></th><th title="Click to sort" style="cursor: pointer;">WHO<span class="grid-funnel" title="Filter column"></span></th><th title="Click to sort" style="cursor: pointer;">ROLE<span class="grid-funnel" title="Filter column"></span></th><th>ACTION</th>
+          <th title="Click to sort" style="cursor: pointer;">SCREEN<span class="grid-funnel" title="Filter column"></span></th><th title="Click to sort" style="cursor: pointer;">DETAIL<span class="grid-funnel" title="Filter column"></span></th><th title="Click to sort" style="cursor: pointer;">RESTORE<span class="grid-funnel" title="Filter column"></span></th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr data-gf-filtered="0">
+          <td data-label="WHEN" style="font-size:11px;white-space:nowrap;">2026-09-22 15:10:19</td>
+          <td data-label="WHO" style="font-size:11px;">PRIYA NAGPAL<br><span class="muted" style="font-size:10px;">PRIYA@PRESSTROPIC</span></td>
+          <td data-label="ROLE" style="font-size:11px;">STAFF</td>
+          <td>
+            <span class="status-badge" style="padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;" data-status="IN PROGRESS">EDIT</span>
+          </td>
+          <td data-label="SCREEN" style="font-size:11px;">Master Management — Store Item Master</td>
+          <td data-label="DETAIL" style="font-size:11px;">Edited store item code SP-00003<br><span class="muted" style="font-size:10px;">StoreItem #30</span></td>
+          <td>
+            
+              <span class="muted" style="font-size:10px;">—</span>
+            
+          </td>
+        </tr>
+        
+        <tr data-gf-filtered="0">
+          <td data-label="WHEN" style="font-size:11px;white-space:nowrap;">2026-09-22 12:17:12</td>
+          <td data-label="WHO" style="font-size:11px;">PRIYA NAGPAL<br><span class="muted" style="font-size:10px;">PRIYA@PRESSTROPIC</span></td>
+          <td data-label="ROLE" style="font-size:11px;">STAFF</td>
+          <td>
+            <span class="status-badge" style="padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;" data-status="IN PROGRESS">EDIT</span>
+          </td>
+          <td data-label="SCREEN" style="font-size:11px;">Master Management — Store Item Master</td>
+          <td data-label="DETAIL" style="font-size:11px;">Edited store item code RM-00022<br><span class="muted" style="font-size:10px;">StoreItem #22</span></td>
+          <td>
+            
+              <span class="muted" style="font-size:10px;">—</span>
+            
+          </td>
+        </tr>
+        
+        <tr data-gf-filtered="0">
+          <td data-label="WHEN" style="font-size:11px;white-space:nowrap;">2026-09-21 15:01:53</td>
+          <td data-label="WHO" style="font-size:11px;">PRIYA NAGPAL<br><span class="muted" style="font-size:10px;">PRIYA@PRESSTROPIC</span></td>
+          <td data-label="ROLE" style="font-size:11px;">STAFF</td>
+          <td>
+            <span class="status-badge" style="padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;" data-status="IN PROGRESS">EDIT</span>
+          </td>
+          <td data-label="SCREEN" style="font-size:11px;">Master Management — Store Item Master</td>
+          <td data-label="DETAIL" style="font-size:11px;">Edited store item code RM-00025<br><span class="muted" style="font-size:10px;">StoreItem #25</span></td>
+          <td>
+            
+              <span class="muted" style="font-size:10px;">—</span>
+            
+          </td>
+        </tr>
+        
+        <tr data-gf-filtered="0">
+          <td data-label="WHEN" style="font-size:11px;white-space:nowrap;">2026-09-21 12:13:59</td>
+          <td data-label="WHO" style="font-size:11px;">OWNER<br><span class="muted" style="font-size:10px;">OWNER@PRESSTROPIC</span></td>
+          <td data-label="ROLE" style="font-size:11px;">OWNER</td>
+          <td>
+            <span class="status-badge" style="padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;" data-status="CANCELLED">DELETE</span>
+          </td>
+          <td data-label="SCREEN" style="font-size:11px;">PaperBuddy — Paper Inward Register</td>
+          <td data-label="DETAIL" style="font-size:11px;">Deleted paper inward 26-27 | P-00022<br><span class="muted" style="font-size:10px;">PaperInward #22</span></td>
+          <td data-kebab-done="1"><div class="gt-kebab"><button type="button" class="gt-kebab-btn" aria-label="Actions"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg></button><div class="gt-kebab-menu">
+            
+              
+                <form method="post" style="display:inline;" autocomplete="off">
+                  <button type="submit" class="btn small" style="padding:3px 9px;font-size:10px;font-weight:700;">RESTORE</button>
+                </form>
+              
+            
+          </div></div></td>
+        </tr>
+        
+        <tr data-gf-filtered="0">
+          <td data-label="WHEN" style="font-size:11px;white-space:nowrap;">2026-09-20 17:11:52</td>
+          <td data-label="WHO" style="font-size:11px;">KUNAL ARORA<br><span class="muted" style="font-size:10px;">KUNAL@PRESSTROPIC</span></td>
+          <td data-label="ROLE" style="font-size:11px;">ADMIN</td>
+          <td>
+            <span class="status-badge" style="padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;" data-status="IN PROGRESS">EDIT</span>
+          </td>
+          <td data-label="SCREEN" style="font-size:11px;">DispatchBuddy — Dispatch Register</td>
+          <td data-label="DETAIL" style="font-size:11px;">Recorded invoice SE/26-27/147 against challan 26-27 | DC-00008<br><span class="muted" style="font-size:10px;">DeliveryChallan #8</span></td>
+          <td>
+            
+              <span class="muted" style="font-size:10px;">—</span>
+            
+          </td>
+        </tr>
+        
+        <tr data-gf-filtered="0">
+          <td data-label="WHEN" style="font-size:11px;white-space:nowrap;">2026-09-20 10:14:33</td>
+          <td data-label="WHO" style="font-size:11px;">OWNER<br><span class="muted" style="font-size:10px;">OWNER@PRESSTROPIC</span></td>
+          <td data-label="ROLE" style="font-size:11px;">OWNER</td>
+          <td>
+            <span class="status-badge" style="padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;" data-status="IN PROGRESS">EDIT</span>
+          </td>
+          <td data-label="SCREEN" style="font-size:11px;">DispatchBuddy — Dispatch Register</td>
+          <td data-label="DETAIL" style="font-size:11px;">Recorded invoice SE/26-27/146 against challan 26-27 | DC-00007<br><span class="muted" style="font-size:10px;">DeliveryChallan #7</span></td>
+          <td>
+            
+              <span class="muted" style="font-size:10px;">—</span>
+            
+          </td>
+        </tr>
+        
+        <tr data-gf-filtered="0">
+          <td data-label="WHEN" style="font-size:11px;white-space:nowrap;">2026-09-19 15:18:51</td>
+          <td data-label="WHO" style="font-size:11px;">KUNAL ARORA<br><span class="muted" style="font-size:10px;">KUNAL@PRESSTROPIC</span></td>
+          <td data-label="ROLE" style="font-size:11px;">ADMIN</td>
+          <td>
+            <span class="status-badge" style="padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;" data-status="IN PROGRESS">EDIT</span>
+          </td>
+          <td data-label="SCREEN" style="font-size:11px;">DispatchBuddy — Dispatch Register</td>
+          <td data-label="DETAIL" style="font-size:11px;">Recorded invoice SE/26-27/144 against challan 26-27 | DC-00005<br><span class="muted" style="font-size:10px;">DeliveryChallan #5</span></td>
+          <td>
+            
+              <span class="muted" style="font-size:10px;">—</span>
+            
+          </td>
+        </tr>
+        
+        <tr data-gf-filtered="0">
+          <td data-label="WHEN" style="font-size:11px;white-space:nowrap;">2026-09-19 10:04:01</td>
+          <td data-label="WHO" style="font-size:11px;">OWNER<br><span class="muted" style="font-size:10px;">OWNER@PRESSTROPIC</span></td>
+          <td data-label="ROLE" style="font-size:11px;">OWNER</td>
+          <td>
+            <span class="status-badge" style="padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;" data-status="IN PROGRESS">EDIT</span>
+          </td>
+          <td data-label="SCREEN" style="font-size:11px;">DispatchBuddy — Dispatch Register</td>
+          <td data-label="DETAIL" style="font-size:11px;">Recorded invoice SE/26-27/142 against challan 26-27 | DC-00003<br><span class="muted" style="font-size:10px;">DeliveryChallan #3</span></td>
+          <td>
+            
+              <span class="muted" style="font-size:10px;">—</span>
+            
+          </td>
+        </tr>
+        
+        <tr data-gf-filtered="0">
+          <td data-label="WHEN" style="font-size:11px;white-space:nowrap;">2026-09-18 17:09:05</td>
+          <td data-label="WHO" style="font-size:11px;">KUNAL ARORA<br><span class="muted" style="font-size:10px;">KUNAL@PRESSTROPIC</span></td>
+          <td data-label="ROLE" style="font-size:11px;">ADMIN</td>
+          <td>
+            <span class="status-badge" style="padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;" data-status="IN PROGRESS">EDIT</span>
+          </td>
+          <td data-label="SCREEN" style="font-size:11px;">DispatchBuddy — Dispatch Register</td>
+          <td data-label="DETAIL" style="font-size:11px;">Recorded invoice SE/26-27/141 against challan 26-27 | DC-00002<br><span class="muted" style="font-size:10px;">DeliveryChallan #2</span></td>
+          <td>
+            
+              <span class="muted" style="font-size:10px;">—</span>
+            
+          </td>
+        </tr>
+        
+        <tr data-gf-filtered="0">
+          <td data-label="WHEN" style="font-size:11px;white-space:nowrap;">2026-09-18 12:06:46</td>
+          <td data-label="WHO" style="font-size:11px;">OWNER<br><span class="muted" style="font-size:10px;">OWNER@PRESSTROPIC</span></td>
+          <td data-label="ROLE" style="font-size:11px;">OWNER</td>
+          <td>
+            <span class="status-badge" style="padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;" data-status="IN PROGRESS">EDIT</span>
+          </td>
+          <td data-label="SCREEN" style="font-size:11px;">DispatchBuddy — Dispatch Register</td>
+          <td data-label="DETAIL" style="font-size:11px;">Recorded invoice SE/26-27/140 against challan 26-27 | DC-00001<br><span class="muted" style="font-size:10px;">DeliveryChallan #1</span></td>
+          <td>
+            
+              <span class="muted" style="font-size:10px;">—</span>
+            
+          </td>
+        </tr>
+        
+      </tbody>
+    </table><div class="gt-cards"></div><div class="grid-pager" style="display: flex;"><span class="gp-info">Showing 1–10 of 10</span><span class="gp-controls"></span><span class="gp-size">Rows: <select class="gp-size-sel"><option value="10">10</option><option value="25">25</option><option value="50" selected="">50</option><option value="100">100</option><option value="all">Show all</option></select></span></div>
+  </div>
+
+  
+</div>
+
+    </main>
+</div>
+</body>
+</html>

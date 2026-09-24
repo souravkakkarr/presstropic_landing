@@ -330,6 +330,19 @@
      designed at 1000px and looks stranded any wider */
   .shots:not(.two) .shot{max-width:1000px;margin-inline:auto;width:100%}
 
+  /* ── module screens under the slider ───────────────────────────────────────
+     One pair per module, stacked in the same spot. Only the pair of the module
+     on show takes up space; the others sit on top of it, invisible, so they are
+     already laid out and loaded by the time the slider reaches them. */
+  .mod-shots{position:relative;margin-top:38px}
+  .mod-shots .shots{margin-top:0}
+  .mod-pair .mock-frame-wrap{background:#fbfaf7}   /* the screens' own page colour, so a shorter one sits seamlessly */
+  .mod-pair .shot-cap span{display:block;min-height:3em}  /* one or two lines — same card height either way */
+  .mod-pair{transition:opacity .5s ease,visibility 0s linear 0s}
+  .mod-pair:not(.on){position:absolute;left:0;right:0;top:0;opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .5s ease,visibility 0s linear .5s}
+  @media(prefers-reduced-motion:reduce){.mod-pair,.mod-pair:not(.on){transition:none}}
+
   /* ── module slider ─────────────────────────────────────────────────────────
      One module at a time. The card is split: a tinted rail carries the module's
      identity, the right side lists what it actually does. That gives the card
@@ -680,21 +693,121 @@
     <div class="s-progress"><span id="modBar"></span></div>
     <div class="dots" id="modDots"><button type="button" class="dot on" data-go="0" aria-label="Go to slide 1"></button><button type="button" class="dot" data-go="1" aria-label="Go to slide 2"></button><button type="button" class="dot" data-go="2" aria-label="Go to slide 3"></button><button type="button" class="dot" data-go="3" aria-label="Go to slide 4"></button><button type="button" class="dot" data-go="4" aria-label="Go to slide 5"></button><button type="button" class="dot" data-go="5" aria-label="Go to slide 6"></button><button type="button" class="dot" data-go="6" aria-label="Go to slide 7"></button></div>
   
-    <div class="shots two">
-      <figure class="shot reveal" style="margin:0">
+    <!-- Two real screens per module. They follow the slider above: whichever
+         module is showing, its pair is showing (see show() in the slider script). -->
+    <div class="mod-shots reveal" id="modShots">
+    <div class="shots two mod-pair on" data-mod="0" aria-label="PaperBuddy screens">
+      <figure class="shot" style="margin:0">
         <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / paperbuddy/stock-register</span></div>
         <div class="mock-frame-wrap">
-          <iframe class="mock-frame" data-w="1060" data-h="812" src="assets/mockup/paper_stock.html" title="Paper Stock Register" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+          <iframe class="mock-frame" data-w="1100" data-h="1060" src="assets/mockup/paper_stock.html" title="Paper Stock Register" loading="lazy" scrolling="no" tabindex="-1"></iframe>
         </div>
         <figcaption class="shot-cap"><b>Paper Stock Register</b><span>Opening, inward, issued and closing per stock line, for any day, week, month or financial year.</span></figcaption>
       </figure>
-      <figure class="shot reveal" style="margin:0">
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / paperbuddy/paper-inward-register</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="694" src="assets/mockup/paper_inward.html" title="Paper Inward Register" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Paper Inward Register</b><span>Every batch by party, type, size and GSM, with the bundle arithmetic behind each sheet count.</span></figcaption>
+      </figure>
+    </div>
+    <div class="shots two mod-pair" data-mod="1" aria-label="RackBuddy screens" aria-hidden="true">
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / rackbuddy/rack-visualization</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="1062" src="assets/mockup/rack_visualization.html" title="Rack Visualization" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Rack Visualization</b><span>How full every slot of a rack is at a glance, and the exact plate sitting in each position.</span></figcaption>
+      </figure>
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / rackbuddy/active-plates</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="677" src="assets/mockup/active_plates.html" title="Active Plates" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Active Plates</b><span>Every plate set on the racks, with its location, the colours present and the plate size.</span></figcaption>
+      </figure>
+    </div>
+    <div class="shots two mod-pair" data-mod="2" aria-label="JobBuddy screens" aria-hidden="true">
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / jobbuddy/live-floor</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="944" src="assets/mockup/live_floor.html" title="Live Floor" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Live Floor</b><span>What each machine is running right now, who is on it and how far the job has got.</span></figcaption>
+      </figure>
+      <figure class="shot" style="margin:0">
         <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / jobbuddy/job-register</span></div>
         <div class="mock-frame-wrap">
-          <iframe class="mock-frame" data-w="1180" data-h="523" src="assets/mockup/job_register.html" title="Job Register" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+          <iframe class="mock-frame" data-w="1280" data-h="1104" src="assets/mockup/job_register.html" title="Job Register" loading="lazy" scrolling="no" tabindex="-1"></iframe>
         </div>
         <figcaption class="shot-cap"><b>Job Register</b><span>Every job with its processes, sizes and quantities — searchable, sortable and printable.</span></figcaption>
       </figure>
+    </div>
+    <div class="shots two mod-pair" data-mod="3" aria-label="StoreBuddy screens" aria-hidden="true">
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / storebuddy/stock-register</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="1227" src="assets/mockup/store_stock.html" title="Store Stock Register" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Store Stock Register</b><span>Combination-wise stock with opening and closing for the period, and anything below its minimum flagged for reorder.</span></figcaption>
+      </figure>
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / storebuddy/outward-register</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="901" src="assets/mockup/store_issue.html" title="Issue Register" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Issue Register</b><span>Every issue slip against a job and machine, with roll IDs picked first in, first out.</span></figcaption>
+      </figure>
+    </div>
+    <div class="shots two mod-pair" data-mod="4" aria-label="DispatchBuddy screens" aria-hidden="true">
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / dispatchbuddy/dispatch-register/1</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="1177" src="assets/mockup/challan.html" title="Delivery Challan" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Delivery Challan</b><span>Several jobs of one party on a single challan, billed process by process, with the tax invoice recorded against it.</span></figcaption>
+      </figure>
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / dispatchbuddy/party-ledger</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="803" src="assets/mockup/party_ledger.html" title="Party Ledger" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Party Ledger</b><span>Billed, dispatched, awaiting dispatch and unbilled work for every customer.</span></figcaption>
+      </figure>
+    </div>
+    <div class="shots two mod-pair" data-mod="5" aria-label="AuditReports screens" aria-hidden="true">
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / global/audit-reports</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="943" src="assets/mockup/audit_reports.html" title="Audit Reports" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Audit Reports</b><span>Stock reconciled line by line, and every break in a document sequence traced to the deletion that caused it.</span></figcaption>
+      </figure>
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / admin/activity-logs</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="996" src="assets/mockup/activity_logs.html" title="Activity Log" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Activity Log</b><span>Who changed what and when, on every screen — with deleted records kept for restore.</span></figcaption>
+      </figure>
+    </div>
+    <div class="shots two mod-pair" data-mod="6" aria-label="MasterManagement screens" aria-hidden="true">
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / master-management</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="961" src="assets/mockup/master_management.html" title="Master Management" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Master Management</b><span>Every master in one place, grouped and counted, reachable from a single screen.</span></figcaption>
+      </figure>
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / master-management/process-rates</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="1037" src="assets/mockup/process_rates.html" title="Process Rate Master" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Process Rate Master</b><span>Party-wise rates for each process, subtype and finish, with minimum per sheet, MOQ and MOV.</span></figcaption>
+      </figure>
+    </div>
     </div>
   </div>
   </section>
@@ -710,14 +823,14 @@
       <div class="flow-step reveal"><div class="fs-ico"><span style="-webkit-mask-image:url('assets/icons/jobcard.svg');mask-image:url('assets/icons/jobcard.svg')"></span></div><h4>Job card</h4><p>Created with its full process route.</p></div>
       <div class="flow-step reveal"><div class="fs-ico"><span style="-webkit-mask-image:url('assets/icons/machine.svg');mask-image:url('assets/icons/machine.svg')"></span></div><h4>On the floor</h4><p>Runs process by process, live.</p></div>
       <div class="flow-step reveal"><div class="fs-ico"><span style="-webkit-mask-image:url('assets/icons/location.svg');mask-image:url('assets/icons/location.svg')"></span></div><h4>Plates tracked</h4><p>Located &amp; checked by series.</p></div>
-      <div class="flow-step reveal"><div class="fs-ico"><span style="-webkit-mask-image:url('assets/icons/challan.svg');mask-image:url('assets/icons/dispatched_jobs.svg')"></span></div><h4>Dispatched</h4><p>Challan closes the loop.</p></div>
+      <div class="flow-step reveal"><div class="fs-ico"><span style="-webkit-mask-image:url('assets/icons/dispatched_jobs.svg');mask-image:url('assets/icons/dispatched_jobs.svg')"></span></div><h4>Dispatched</h4><p>Challan closes the loop.</p></div>
     </div>
   
     <div class="shots">
       <figure class="shot reveal" style="margin:0">
         <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / dispatchbuddy</span></div>
         <div class="mock-frame-wrap">
-          <iframe class="mock-frame" data-w="1280" data-h="610" src="assets/mockup/dispatch.html" title="DispatchBuddy" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+          <iframe class="mock-frame" data-w="1280" data-h="596" src="assets/mockup/dispatch.html" title="DispatchBuddy" loading="lazy" scrolling="no" tabindex="-1"></iframe>
         </div>
         <figcaption class="shot-cap"><b>DispatchBuddy</b><span>Completed jobs waiting for a challan, what has shipped, and what has been billed — with the money still to invoice in plain sight.</span></figcaption>
       </figure>
@@ -951,10 +1064,16 @@
       // short screenshot floating in a lot of dead white space below it. Give
       // every pair the same frame height (the taller one's) and centre the
       // shorter screen inside it, so both cards read as the same size.
+      // The module screens under the slider change with every slide. They all
+      // share one frame height (the tallest of them), so the page below does not
+      // jump up and down as the slider moves from one module to the next.
+      var modFrames = Array.prototype.slice.call(document.querySelectorAll('#modShots .mock-frame'));
+      var modShared = Math.max.apply(null, modFrames.map(fitFrame).concat(0));
       document.querySelectorAll('.shots.two').forEach(function(group){
         var frames = Array.prototype.slice.call(group.querySelectorAll('.mock-frame'));
         var heights = frames.map(fitFrame);
-        var shared = Math.max.apply(null, heights.concat(0));
+        var shared = group.classList.contains('mod-pair') ? modShared
+                   : Math.max.apply(null, heights.concat(0));
         frames.forEach(function(frame, i){
           frame.parentElement.style.height = shared + 'px';
           frame.style.top = ((shared - heights[i]) / 2) + 'px';
@@ -988,6 +1107,7 @@
   if (!root) return;
   var slides = [].slice.call(root.querySelectorAll('.slide'));
   var dots   = [].slice.call(document.querySelectorAll('#modDots .dot'));
+  var pairs  = [].slice.call(document.querySelectorAll('#modShots .mod-pair'));
   if (slides.length < 2) return;
 
   var AUTO = 5000, SLOWED = 15000;
@@ -1017,6 +1137,10 @@
     i = (n + slides.length) % slides.length;
     slides.forEach(function(s, k){ s.classList.toggle('on', k === i); });
     dots.forEach(function(d, k){ d.classList.toggle('on', k === i); });
+    pairs.forEach(function(p, k){          // the module's two screens follow the slide
+      p.classList.toggle('on', k === i);
+      if (k === i) p.removeAttribute('aria-hidden'); else p.setAttribute('aria-hidden', 'true');
+    });
   }
   function schedule(){
     clearTimeout(timer);

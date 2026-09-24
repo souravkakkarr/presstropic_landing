@@ -6,27 +6,27 @@
 /* ── Doto (module name display font) ── */
 @font-face {
   font-family: 'Doto';
-  src: url('/static/fonts/Doto-Regular.ttf') format('truetype');
+  src: url('fonts/Doto-Regular.ttf') format('truetype');
   font-weight: 400; font-style: normal; font-display: swap;
 }
 @font-face {
   font-family: 'Doto';
-  src: url('/static/fonts/Doto-Medium.ttf') format('truetype');
+  src: url('fonts/Doto-Medium.ttf') format('truetype');
   font-weight: 500; font-style: normal; font-display: swap;
 }
 @font-face {
   font-family: 'Doto';
-  src: url('/static/fonts/Doto-SemiBold.ttf') format('truetype');
+  src: url('fonts/Doto-SemiBold.ttf') format('truetype');
   font-weight: 600; font-style: normal; font-display: swap;
 }
 @font-face {
   font-family: 'Doto';
-  src: url('/static/fonts/Doto-Bold.ttf') format('truetype');
+  src: url('fonts/Doto-Bold.ttf') format('truetype');
   font-weight: 700; font-style: normal; font-display: swap;
 }
 @font-face {
   font-family: 'Doto';
-  src: url('/static/fonts/Doto-Black.ttf') format('truetype');
+  src: url('fonts/Doto-Black.ttf') format('truetype');
   font-weight: 800; font-style: normal; font-display: swap;
 }
 
@@ -122,7 +122,7 @@ a { color: inherit; text-decoration: none; }
    Clicking the expand button slides out the full panel with labels/sub-menus. ── */
 :root { --rail-w: 84px; }
 
-.main { padding: 32px 40px; padding-left: calc(var(--rail-w) + 40px); min-width: 0; max-width: 100%; }
+.main { padding: 20px 40px 32px; padding-left: calc(var(--rail-w) + 40px); min-width: 0; max-width: 100%; }
 .main-full { display: flex; align-items: center; justify-content: center; padding: 24px; min-height: 100vh; padding-top: 24px; padding-left: 24px; }
 
 .sidebar {
@@ -172,8 +172,8 @@ a { color: inherit; text-decoration: none; }
    (light icon on dark theme, dark icon on light theme) via background-color. */
 .rail-toggle-ico {
   display: block; width: 20px; height: 20px; background-color: var(--text);
-  -webkit-mask: url('/static/logos/sidebar_toggle_icon.svg') center / contain no-repeat;
-  mask: url('/static/logos/sidebar_toggle_icon.svg') center / contain no-repeat;
+  -webkit-mask: url('logos/sidebar_toggle_icon.svg') center / contain no-repeat;
+  mask: url('logos/sidebar_toggle_icon.svg') center / contain no-repeat;
   transition: background-color .15s;
 }
 .rail-toggle-btn:hover .rail-toggle-ico { background-color: var(--accent); }
@@ -215,8 +215,8 @@ a { color: inherit; text-decoration: none; }
 /* Exit-company icon in the collapsed rail (mirrors the expanded EXIT COMPANY) */
 .rail-exit-ico {
   width: 22px; height: 22px; display: block; background-color: var(--text-2);
-  -webkit-mask: url('/static/logos/icons/exit_company.svg') center / contain no-repeat;
-  mask: url('/static/logos/icons/exit_company.svg') center / contain no-repeat;
+  -webkit-mask: url('logos/icons/exit_company.svg') center / contain no-repeat;
+  mask: url('logos/icons/exit_company.svg') center / contain no-repeat;
   transition: background-color .15s;
 }
 .rail-bottom-btn.company-logout:hover { background: var(--danger-dim); color: var(--danger); }
@@ -408,7 +408,7 @@ p {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
-  padding: 22px;
+  padding: 16px 18px 18px;
   margin-bottom: 18px;
   min-width: 0;            /* let a wide table scroll inside instead of stretching the card */
   max-width: 100%;
@@ -419,8 +419,8 @@ p {
 
 /* ── Section head ── */
 .page-head, .section-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
-.page-head { margin-bottom: 20px; padding-top: 0; }
-.section-head { margin-bottom: 16px; }
+.page-head { margin-bottom: 12px; padding-top: 0; }
+.section-head { margin-bottom: 10px; }
 .wrap-gap { gap: 12px; flex-wrap: wrap; }
 .align-end { align-items: flex-end; }
 
@@ -525,7 +525,7 @@ select option { background: var(--bg-3); }
 
 /* Icon-only action buttons (edit / cancel / print / clear). The glyph inherits
    the button's text colour via currentColor, so it reads on light, gold and
-   danger buttons alike. Swap the SVG files in /static/logos/icons to restyle. */
+   danger buttons alike. Swap the SVG files in logos/icons to restyle. */
 .btn-ico { padding: 7px 9px; gap: 0; }
 .btn.small.btn-ico { padding: 6px 8px; }
 .btn-ico .ico {
@@ -534,11 +534,11 @@ select option { background: var(--bg-3); }
   -webkit-mask: var(--ico) center / contain no-repeat;
           mask: var(--ico) center / contain no-repeat;
 }
-.ico-edit   { --ico: url('/static/logos/icons/edit.svg'); }
-.ico-cancel { --ico: url('/static/logos/icons/cancel.svg'); }
-.ico-print  { --ico: url('/static/logos/icons/print.svg'); }
-.ico-clear  { --ico: url('/static/logos/icons/clear.svg'); }
-.ico-back   { --ico: url('/static/logos/icons/exit_detail.svg'); }
+.ico-edit   { --ico: url('logos/icons/edit.svg'); }
+.ico-cancel { --ico: url('logos/icons/cancel.svg'); }
+.ico-print  { --ico: url('logos/icons/print.svg'); }
+.ico-clear  { --ico: url('logos/icons/clear.svg'); }
+.ico-back   { --ico: url('logos/icons/exit_detail.svg'); }
 .btn-row, .inline-form { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 .inline-form > * { margin: 0; }
 
@@ -566,6 +566,9 @@ select option { background: var(--bg-3); }
   padding: 4px 10px;
   box-sizing: border-box;
 }
+/* A table wrap sitting directly in a card would draw a second frame inside the
+   card. Keep the internal scrolling that freezes the header, drop the box. */
+.card > .table-wrap { border: 0; border-radius: 0; background: transparent; padding: 0; }
 .large-scroll { max-height: 72vh; }
 .notifications-box { max-height: 300px; padding: 8px; }
 table {
@@ -583,14 +586,27 @@ th, td {
 }
 /* Responsive tables: by default allow wrapping so columns fit 15"/24"/mobile
    without forcing a horizontal scroll. Wide registers (plate / replacement
-   inward) keep their nowrap + horizontal scroll. */
-.table-wrap:not(.wide-table-wrap) table { table-layout: auto; }
-.table-wrap:not(.wide-table-wrap) th,
-.table-wrap:not(.wide-table-wrap) td {
+   inward) keep their nowrap + horizontal scroll.
+   This used to apply only inside .table-wrap, so a table that sits directly in a
+   card — the pendency report — kept the nowrap from the base rule above and ran
+   hundreds of pixels off the side on a laptop. Keying it to the table instead
+   covers both. */
+table.gridtable:not(.wide-table) { table-layout: auto; }
+table.gridtable:not(.wide-table) th,
+table.gridtable:not(.wide-table) td {
   white-space: normal;
-  word-break: break-word;
-  overflow-wrap: anywhere;
+  /* break inside a word only when it genuinely cannot fit — `anywhere` splits
+     ordinary words mid-letter and makes columns look shredded */
+  word-break: normal;
+  overflow-wrap: break-word;
 }
+.wide-table-wrap table th, .wide-table-wrap table td { white-space: nowrap; }
+/* On a smaller laptop the widest registers were still a few dozen pixels over.
+   Tightening the cell padding recovers that without hiding or shrinking text. */
+
+/* Figures read as one token: a quantity broken over two lines is unreadable. */
+#job_table th:nth-child(8), #job_table td.proc-qty-cell,
+table.gridtable td.num, table.gridtable th.num { white-space: nowrap; }
 @media (max-width: 1500px) {
   .table-wrap:not(.wide-table-wrap) table { font-size: 12px; }
   .table-wrap:not(.wide-table-wrap) th,
@@ -1611,14 +1627,69 @@ tr:has(.row-check:checked) td { background: var(--accent-dim2) !important; }
   font-size: 12px;
   font-weight: 600;
   letter-spacing: .02em;
-  margin: 8px 0 4px;
+  /* Shown on the home page only, where it has room of its own. */
+  margin: 0 0 12px;
 }
 
 /* ── Excel-style grid tools ── */
-.grid-toolbar { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin:8px 0; }
-.grid-toolbar .grid-search { width:220px; }
+/* Period bar — every register opens on the current month, and is stepped a
+   period at a time. It replaces the old date-range controls entirely. */
+.grid-periodbar { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin:2px 0 0; }
+.gpb-label { font-size:10px; letter-spacing:.09em; color:var(--text-2); font-weight:600; }
+.gpb-tabs { display:inline-flex; border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+.gpb-tab { background:none; border:0; padding:5px 11px; font-size:11px; font-weight:600;
+  letter-spacing:.03em; cursor:pointer; color:var(--text-2); white-space:nowrap; }
+.gpb-tab + .gpb-tab { border-left:1px solid var(--border); }
+.gpb-tab.on { background:var(--accent); color:#fff; }
+.gpb-pick { display:inline-flex; align-items:center; gap:4px; }
+.gpb-step { display:flex; align-items:center; justify-content:center; width:26px; height:28px;
+  padding:0; border:1px solid var(--border); border-radius:6px; background:var(--surface);
+  color:var(--text-2); cursor:pointer; }
+.gpb-step:hover { border-color:var(--accent); color:var(--accent); }
+.grid-periodbar input, .grid-periodbar select { height:28px; padding:3px 7px; font-size:12px; }
+.grid-periodbar .gpb-day, .grid-periodbar .gpb-week { width:148px; }
+.grid-periodbar .gpb-month { width:140px; }
+.grid-periodbar .gpb-year { width:86px; }
+.grid-periodbar .gpb-col { max-width:160px; }
+.gpb-current { font-size:12px; font-weight:700; }
+.gpb-count { font-size:11px; color:var(--text-2); margin-left:auto; white-space:nowrap; }
+.grid-periodbar.has-page-controls { gap:9px; }
+/* the register's own actions, adopted onto the period bar */
+.grid-periodbar > .no-print { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+.grid-periodbar .btn.small, .grid-periodbar .btn { padding:5px 11px; font-size:11.5px; }
+.grid-periodbar #bdBar { display:none; gap:8px; align-items:center; }
+@media(max-width:820px){ .gpb-count { margin-left:0; } }
+
+/* One line on any normal screen: search takes the slack, everything else is
+   sized to its label. The occasional controls (date range, grouping) live inside
+   the Filter menu rather than competing for space on the bar. */
+.grid-toolbar { display:flex; gap:7px; align-items:center; flex-wrap:nowrap; margin:8px 0 6px; }
+.grid-toolbar .grid-search { flex:1 1 180px; min-width:130px; width:auto; }
+.grid-toolbar > .btn, .grid-toolbar .grid-menu-wrap > .btn { flex:0 0 auto; white-space:nowrap; }
+.gt-caret { display:inline-block; width:0; height:0; margin-left:5px; vertical-align:middle;
+  border-left:4px solid transparent; border-right:4px solid transparent;
+  border-top:5px solid currentColor; opacity:.7; }
+
+.grid-menu-wrap { position:relative; }
+.grid-menu { display:none; position:fixed; z-index:9000;
+  background:var(--surface); border:1px solid var(--border); border-radius:9px;
+  box-shadow:0 10px 30px rgba(0,0,0,.14); padding:10px 12px; min-width:210px; }
+.grid-menu.open { display:block; }
+
+.grid-filtermenu { min-width:0; width:max-content; max-width:min(92vw, 640px); }
+.gfm-block + .gfm-block { margin-top:12px; padding-top:12px; border-top:1px solid var(--border); }
+.gfm-label { font-size:10px; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--text-2); font-weight:600; margin-bottom:6px; }
+.grid-filtermenu .grid-groupby { width:100%; }
+
+.gxp-opt { display:block; width:100%; text-align:left; background:none; border:0;
+  padding:8px 10px; border-radius:7px; cursor:pointer; font-size:13px; font-weight:600;
+  color:var(--text); }
+.gxp-opt:hover { background:var(--bg-3); }
+.gxp-opt small { display:block; font-weight:400; font-size:11px; color:var(--text-2); margin-top:1px; }
+
 .grid-colmenu-wrap { position:relative; }
-.grid-colmenu { display:none; position:absolute; z-index:50; top:100%; left:0; background:var(--surface);
+.grid-colmenu { z-index:60; background:var(--surface);
   border:1px solid var(--border); border-radius:8px; padding:8px; min-width:180px; max-height:300px; overflow:auto; box-shadow:0 6px 20px rgba(0,0,0,.3); }
 .grid-colmenu.open { display:block; }
 .grid-colmenu label { display:block; font-size:12px; padding:3px 4px; cursor:pointer; }
@@ -1627,14 +1698,14 @@ tr:has(.row-check:checked) td { background: var(--accent-dim2) !important; }
 .grid-funnel {
   display:inline-block; width:12px; height:12px; margin-left:6px;
   vertical-align:-1px; opacity:.5; background-color:currentColor;
-  -webkit-mask:url('/static/logos/icons/filter.svg') center/contain no-repeat;
-          mask:url('/static/logos/icons/filter.svg') center/contain no-repeat;
+  -webkit-mask:url('logos/icons/filter.svg') center/contain no-repeat;
+          mask:url('logos/icons/filter.svg') center/contain no-repeat;
 }
 .grid-funnel:hover { opacity:1; background-color:var(--accent); }
 th.grid-filtered .grid-funnel {
   opacity:1; background-color:var(--accent);
-  -webkit-mask-image:url('/static/logos/icons/active_filter.svg');
-          mask-image:url('/static/logos/icons/active_filter.svg');
+  -webkit-mask-image:url('logos/icons/active_filter.svg');
+          mask-image:url('logos/icons/active_filter.svg');
 }
 .grid-filterpop-backdrop { position:fixed; inset:0; z-index:8999; background:rgba(0,0,0,.45); backdrop-filter:blur(2px); }
 .grid-filterpop { position:fixed; z-index:9000; background:var(--surface);
@@ -1738,6 +1809,8 @@ table td, table th { overflow-wrap: anywhere; word-break: break-word; }
 .grid-daterange { display:inline-flex; gap:6px; align-items:center; flex-wrap:nowrap;
   padding:4px 8px; border:1px dashed var(--border); border-radius:6px; background:var(--bg-2); }
 .grid-daterange .gdr-col { max-width:170px; }
+.grid-filtermenu .grid-daterange input { width:132px; }
+.grid-filtermenu .grid-daterange { flex-wrap:wrap; }
 .grid-daterange input { height:34px; }
 
 /* ── Reusable post-save success modal (layer, vertically centered) ── */
@@ -2234,8 +2307,8 @@ input[readonly] { background:var(--bg-2); }
 .notif-bell:hover{ background:var(--accent-dim); border-color:var(--accent); }
 .notif-bell-ico{
   width:22px; height:22px; background-color:var(--text);
-  -webkit-mask:url('/static/logos/icons/bell.svg') center / contain no-repeat;
-  mask:url('/static/logos/icons/bell.svg') center / contain no-repeat;
+  -webkit-mask:url('logos/icons/bell.svg') center / contain no-repeat;
+  mask:url('logos/icons/bell.svg') center / contain no-repeat;
 }
 .notif-bell:hover .notif-bell-ico{ background-color:var(--accent-strong); }
 .notif-badge{
@@ -2304,7 +2377,7 @@ input[readonly] { background:var(--bg-2); }
   width:15px; height:15px; background-color:var(--text-2);
   -webkit-mask-size:contain; mask-size:contain; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; -webkit-mask-position:center; mask-position:center;
 }
-.notif-icon-btn .ni-check{ -webkit-mask-image:url('/static/logos/icons/check.svg'); mask-image:url('/static/logos/icons/check.svg'); }
+.notif-icon-btn .ni-check{ -webkit-mask-image:url('logos/icons/check.svg'); mask-image:url('logos/icons/check.svg'); }
 .notif-icon-btn .ni-x{
   -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M18 6L6 18M6 6l12 12'/%3E%3C/svg%3E");
   mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M18 6L6 18M6 6l12 12'/%3E%3C/svg%3E");
@@ -2323,8 +2396,8 @@ input[readonly] { background:var(--bg-2); }
 /* ── Logout icon (SVG mask — theme-aware, consistent across devices) ─────── */
 .rail-logout-ico {
   width: 22px; height: 22px; display: block; background-color: var(--text-2);
-  -webkit-mask: url('/static/logos/icons/logout.svg') center / contain no-repeat;
-  mask: url('/static/logos/icons/logout.svg') center / contain no-repeat;
+  -webkit-mask: url('logos/icons/logout.svg') center / contain no-repeat;
+  mask: url('logos/icons/logout.svg') center / contain no-repeat;
   transition: background-color .15s;
 }
 .rail-bottom-btn.logout:hover .rail-logout-ico { background-color: var(--danger); }
@@ -2332,16 +2405,16 @@ input[readonly] { background:var(--bg-2); }
 .nav-logout-ico {
   width: 16px; height: 16px; flex: 0 0 16px; display: inline-block;
   background-color: currentColor; margin-right: 9px; vertical-align: -2px;
-  -webkit-mask: url('/static/logos/icons/logout.svg') center / contain no-repeat;
-  mask: url('/static/logos/icons/logout.svg') center / contain no-repeat;
+  -webkit-mask: url('logos/icons/logout.svg') center / contain no-repeat;
+  mask: url('logos/icons/logout.svg') center / contain no-repeat;
 }
 /* Exit-company icon — a building with an arrow leaving it, so signing out of the
    whole company reads differently from the personal power-symbol logout. */
 .nav-exit-ico {
   width: 16px; height: 16px; flex: 0 0 16px; display: inline-block;
   background-color: currentColor; margin-right: 9px; vertical-align: -2px;
-  -webkit-mask: url('/static/logos/icons/exit_company.svg') center / contain no-repeat;
-  mask: url('/static/logos/icons/exit_company.svg') center / contain no-repeat;
+  -webkit-mask: url('logos/icons/exit_company.svg') center / contain no-repeat;
+  mask: url('logos/icons/exit_company.svg') center / contain no-repeat;
 }
 
 /* Category headings inside the Master Management menu (its list is grouped
@@ -2403,8 +2476,8 @@ body.menu-open .sidebar-flap {
   width: 13px;
   height: 13px;
   background-color: var(--text-2);
-  -webkit-mask: url('/static/logos/icons/arrow.svg') center / contain no-repeat;
-  mask: url('/static/logos/icons/arrow.svg') center / contain no-repeat;
+  -webkit-mask: url('logos/icons/arrow.svg') center / contain no-repeat;
+  mask: url('logos/icons/arrow.svg') center / contain no-repeat;
   transition: background-color .15s;
 }
 .sidebar-flap:hover .sidebar-flap-ico { background-color: var(--accent-strong); }
@@ -2416,8 +2489,8 @@ body.menu-open .sidebar-flap {
   height: 12px;
   flex: 0 0 12px;
   background-color: currentColor;
-  -webkit-mask: url('/static/logos/icons/arrow.svg') center / contain no-repeat;
-  mask: url('/static/logos/icons/arrow.svg') center / contain no-repeat;
+  -webkit-mask: url('logos/icons/arrow.svg') center / contain no-repeat;
+  mask: url('logos/icons/arrow.svg') center / contain no-repeat;
 }
 
 /* ── Theme toggle icons (sun / moon) ──────────────────────────────────────
@@ -2428,13 +2501,13 @@ body.menu-open .sidebar-flap {
 .theme-ico {
   width: 20px; height: 20px; display: inline-block; flex: 0 0 20px;
   background-color: var(--text-2);
-  -webkit-mask: url('/static/logos/icons/sun.svg') center / contain no-repeat;
-  mask: url('/static/logos/icons/sun.svg') center / contain no-repeat;
+  -webkit-mask: url('logos/icons/sun.svg') center / contain no-repeat;
+  mask: url('logos/icons/sun.svg') center / contain no-repeat;
   transition: background-color .15s;
 }
 [data-theme="light"] .theme-ico {
-  -webkit-mask-image: url('/static/logos/icons/moon.svg');
-  mask-image: url('/static/logos/icons/moon.svg');
+  -webkit-mask-image: url('logos/icons/moon.svg');
+  mask-image: url('logos/icons/moon.svg');
 }
 .rail-bottom-btn.theme-btn:hover .theme-ico { background-color: var(--accent-strong); }
 
@@ -2824,3 +2897,390 @@ a.stat-card:hover { border-color: var(--accent); transform: translateY(-1px); }
 /* Challan detail: fixed-width specification column that wraps long UPS size lists */
 .spec-col { max-width: 260px; white-space: normal; word-break: break-word; overflow-wrap: anywhere; }
 .statnum { cursor: help; }
+
+/* ── Entry lists (store inward / issue / return / opening stock) ──
+   The lines being added to a document: a plain list, not a register, so no
+   grid tools. Click a line to load it back into the entry box; the red ×
+   removes it. The remove column has no header — the button explains itself. */
+.entry-list { width: 100%; }
+.entry-list th.rm, .entry-list td.rm { width: 1%; text-align: right; white-space: nowrap; }
+.entry-list tbody tr { cursor: pointer; }
+.entry-list tbody tr.editing td { background: rgba(245,197,24,.12); }
+.entry-list .btn.small.danger { padding: 1px 8px; font-size: 14px; line-height: 1.4; }
+.entry-count { font-size: 12px; font-weight: 400; color: var(--text-2); margin-left: 6px; }
+
+/* ══ ERP document layout (store inward / issue / return / opening stock) ══
+   A compact business-document look: grouped header panels with label-left
+   fields, a dense bordered line grid typed straight into, totals underneath.
+   Scoped under .erp so nothing else in the app changes. */
+.erp .erp-head {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;
+  margin-bottom: 12px;
+}
+.erp .erp-group {
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--bg-2); padding: 0 0 8px; min-width: 0;
+}
+.erp .erp-group-title {
+  font-size: 10.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--accent); padding: 7px 12px; border-bottom: 1px solid var(--border);
+  margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;
+}
+.erp .erp-group-title .doc-no { color: var(--text); letter-spacing: .02em; font-size: 12px; }
+.erp .erp-f {
+  display: grid; grid-template-columns: 118px minmax(0, 1fr); align-items: center;
+  gap: 8px; padding: 3px 12px; margin: 0;
+  flex-direction: row; text-transform: uppercase;
+}
+.erp .erp-f > span { font-size: 10.5px; font-weight: 700; letter-spacing: .06em; color: var(--text-2); }
+.erp .erp-f > span .req { color: var(--danger); }
+.erp .erp-f input, .erp .erp-f select, .erp .erp-f .ss-wrap input {
+  height: 32px; min-height: 32px; line-height: 30px; font-size: 12.5px; margin: 0;
+}
+.erp .erp-f select { line-height: normal; }
+.erp .erp-f.wide { grid-template-columns: 118px minmax(0, 1fr); }
+.erp .field-bad, .erp .erp-grid td.bad { box-shadow: 0 0 0 2px rgba(239,68,68,.55) inset; }
+.erp .erp-f input.field-bad, .erp .erp-f select.field-bad { border-color: var(--danger); }
+
+.erp .erp-lines { border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-2); }
+.erp .erp-lines-head {
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+  padding: 7px 12px; border-bottom: 1px solid var(--border);
+  font-size: 10.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--accent);
+}
+.erp .erp-lines-head .hint { color: var(--text-3); font-weight: 600; letter-spacing: .02em; text-transform: none; font-size: 11px; }
+.erp .erp-grid-wrap { overflow-x: auto; }
+.erp table.erp-grid { width: 100%; border-collapse: collapse; table-layout: auto; margin: 0; }
+.erp table.erp-grid th {
+  background: var(--bg-3); font-size: 10.5px; font-weight: 800; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--text-2); padding: 6px 8px;
+  border: 1px solid var(--border); white-space: nowrap; text-align: left;
+}
+.erp table.erp-grid td {
+  border: 1px solid var(--border); padding: 0; height: 32px; vertical-align: middle;
+  font-size: 12.5px; white-space: nowrap;
+}
+.erp table.erp-grid tbody tr:hover td { background: transparent; }
+.erp table.erp-grid td.sno { width: 38px; text-align: center; color: var(--text-3); font-size: 11.5px; background: var(--bg-3); }
+.erp table.erp-grid td.ro { padding: 0 8px; color: var(--text-2); }
+.erp table.erp-grid td.num, .erp table.erp-grid th.num { text-align: right; }
+.erp table.erp-grid td.ro.num { padding-right: 8px; }
+.erp table.erp-grid td input, .erp table.erp-grid td select {
+  border: none; border-radius: 0; background: transparent; height: 31px; min-height: 31px;
+  line-height: 31px; padding: 0 8px; font-size: 12.5px; width: 100%; box-shadow: none;
+}
+.erp table.erp-grid td select { line-height: normal; padding-right: 24px; background-position: right 6px center; }
+.erp table.erp-grid td input:focus, .erp table.erp-grid td select:focus {
+  background: rgba(245,197,24,.08); box-shadow: inset 0 0 0 1px var(--accent);
+}
+.erp table.erp-grid td input[type=number] { text-align: right; }
+.erp table.erp-grid td.item { min-width: 220px; }
+.erp table.erp-grid td.variant { min-width: 150px; }
+.erp table.erp-grid td.variant .vwrap { display: flex; gap: 0; }
+.erp table.erp-grid td.variant .vwrap select { min-width: 88px; border-right: 1px solid var(--border); }
+.erp table.erp-grid td.variant .vwrap select:last-child { border-right: none; }
+.erp table.erp-grid td.variant .none { padding: 0 8px; color: var(--text-3); }
+/* Item code + key: looked up from the item and its variant values, never typed. */
+.erp table.erp-grid td.code { min-width: 118px; background: var(--bg-3); }
+.erp table.erp-grid td.code input.code-lock, .erp input.lock-field {
+  font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11.5px; font-weight: 700;
+  color: var(--text-2); cursor: not-allowed; opacity: 1; -webkit-text-fill-color: var(--text-2);
+}
+.erp table.erp-grid td.code input.code-lock { height: 20px; min-height: 20px; line-height: 20px; padding-top: 2px; }
+.erp table.erp-grid td.code input.code-missing { color: var(--danger); -webkit-text-fill-color: var(--danger); }
+.erp table.erp-grid td.code .ckey { padding: 0 8px 2px; font-size: 10px; color: var(--text-3); max-width: 260px; overflow: hidden; text-overflow: ellipsis; }
+.erp table.erp-grid td.code .ckey:empty { display: none; }
+.erp table.erp-grid td.code:has(.ckey:empty) input.code-lock { height: 31px; min-height: 31px; line-height: 31px; padding-top: 0; }
+.erp input.lock-field { background: var(--bg-3) !important; }
+.erp table.erp-grid td input.lock-field { min-width: 225px; font-size: 11px; }
+.erp table.erp-grid td .roll-plan { padding: 2px 8px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 10.5px; color: var(--text-2); line-height: 1.45; white-space: nowrap; min-width: 190px; }
+.erp table.erp-grid td.rm { width: 34px; text-align: center; padding: 0 4px; }
+.erp table.erp-grid td.rm .btn { padding: 0 7px; font-size: 14px; line-height: 1.5; }
+.erp table.erp-grid tr.blank td.rm .btn { visibility: hidden; }
+.erp table.erp-grid tfoot td {
+  background: var(--bg-3); font-weight: 800; font-size: 12px; padding: 0 8px; height: 30px;
+}
+.erp .erp-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+.erp .erp-foot .muted { font-size: 11.5px; }
+@media (max-width: 1100px) { .erp .erp-head { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 720px)  { .erp .erp-head { grid-template-columns: 1fr; } }
+
+/* ══ ERP layout — extensions for the bigger documents (job card, challan,
+   plate inward, paper inward). Same look as the store forms above. ══ */
+.erp .hidden { display: none !important; }
+.erp .erp-head.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.erp .erp-head.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.erp .erp-group.span-2 { grid-column: span 2; }
+.erp .erp-group.span-all { grid-column: 1 / -1; }
+.erp .erp-group.flat { padding-bottom: 0; }
+/* a section: a title strip over its own row(s) of groups */
+.erp .erp-sec { margin: 16px 0 12px; }
+.erp .erp-sec-title {
+  display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;
+  font-size: 11.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--text);
+  padding: 0 2px 6px; margin-bottom: 10px; border-bottom: 2px solid var(--accent);
+}
+.erp .erp-sec-title .tools { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; letter-spacing: normal; text-transform: none; }
+.erp .erp-sec-title .tools label { font-size: 11.5px; font-weight: 700; color: var(--accent); cursor: pointer; }
+/* textarea / multi-control fields */
+.erp .erp-f.top { align-items: start; }
+.erp .erp-f.top > span { padding-top: 8px; }
+.erp .erp-f textarea { min-height: 58px; height: 58px; max-height: 160px; font-size: 12.5px; padding: 6px 10px; margin: 0; }
+.erp .erp-f textarea.autogrow { max-height: none; }
+.erp .erp-f .erp-ctl { display: flex; gap: 6px; align-items: center; min-width: 0; }
+.erp .erp-f .erp-ctl > input, .erp .erp-f .erp-ctl > select { flex: 1 1 0; min-width: 0; }
+.erp .erp-f .erp-ctl .u { font-size: 10.5px; font-weight: 700; color: var(--text-3); letter-spacing: .04em; }
+.erp .erp-f .erp-ctl .btn { height: 32px; padding: 0 10px; white-space: nowrap; flex: 0 0 auto; }
+.erp .erp-f .erp-sub { grid-column: 2; font-size: 11px; text-transform: none; letter-spacing: normal; font-weight: 600; margin-top: -1px; }
+.erp .erp-f .erp-sub:empty { display: none; }
+.erp .erp-f.check { grid-template-columns: 1fr; }
+.erp .erp-f.check > span, .erp label.erp-f.check { font-size: 11.5px; font-weight: 700; letter-spacing: .02em; text-transform: none; color: var(--text-2); }
+.erp .erp-f input[readonly], .erp .erp-f textarea[readonly] { color: var(--text-2); }
+.erp .erp-f input.accent, .erp .erp-show { font-weight: 800; color: var(--accent); }
+.erp .erp-show { display: flex; align-items: center; min-height: 32px; font-size: 12.5px; padding: 0 2px; overflow-wrap: anywhere; }
+.erp .erp-note { font-size: 11px; color: var(--text-3); padding: 4px 12px 2px; line-height: 1.45; }
+.erp .erp-body { padding: 4px 12px 4px; }
+.erp .erp-actions { padding: 6px 12px 2px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+/* compact label-over-field grid used inside line blocks */
+.erp .erp-mini { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px 10px; padding: 8px 12px; }
+.erp .erp-mini > label, .erp .erp-mini .cf { display: flex; flex-direction: column; gap: 3px; margin: 0; font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--text-2); min-width: 0; }
+.erp .erp-mini input, .erp .erp-mini select { height: 32px; min-height: 32px; line-height: 30px; font-size: 12.5px; }
+.erp .erp-mini select { line-height: normal; }
+.erp .erp-mini .wide { grid-column: span 2; }
+.erp .erp-mini .all { grid-column: 1 / -1; }
+/* a repeated block (one process on the job card) */
+.erp .erp-block { border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-2); }
+.erp .erp-block + .erp-block { margin-top: 8px; }
+.erp .erp-block-head {
+  display: flex; justify-content: space-between; align-items: center; gap: 8px;
+  padding: 4px 6px 4px 10px; background: var(--bg-3); border-bottom: 1px solid var(--border);
+  border-radius: var(--radius) var(--radius) 0 0; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+}
+.erp .erp-block-head .btn.small.danger { padding: 0 8px; font-size: 14px; line-height: 1.5; }
+.erp .erp-block-sub { border-top: 1px dashed var(--border); }
+/* colour builder / slot chips sitting inside a group */
+.erp .colour-builder { border: none; background: transparent; box-shadow: none; margin: 0; padding: 2px 12px 6px; }
+.erp .colour-builder > h3 { display: none; }
+.erp .colour-builder .auto-box { padding: 8px 12px; font-size: 12px; }
+.erp .colour-builder .form-grid { gap: 8px 12px; }
+.erp .slot-chip { padding: 4px 10px; font-size: 11.5px; }
+/* rich line grid: cells hold stacked controls, so they pad and wrap */
+.erp table.erp-grid.rich td { height: auto; padding: 5px 8px; white-space: normal; vertical-align: top; }
+.erp table.erp-grid.rich td input, .erp table.erp-grid.rich td select {
+  border: 1px solid var(--border); border-radius: 4px; background: var(--bg-3);
+  height: 28px; min-height: 28px; line-height: 26px; padding: 0 6px; width: auto;
+}
+.erp table.erp-grid.rich td select { line-height: normal; padding-right: 22px; }
+.erp table.erp-grid.rich td input[type=checkbox] { width: 14px; height: 14px; min-height: 0; padding: 0; }
+.erp table.erp-grid.rich td.num, .erp table.erp-grid.rich td.amt { text-align: right; white-space: nowrap; }
+.erp table.erp-grid.rich td .muted { font-size: 10px; }
+.erp table.erp-grid tr.grp td { background: var(--bg-3); font-weight: 800; font-size: 11px; letter-spacing: .05em; padding: 5px 8px; height: auto; }
+/* totals box under a grid */
+.erp .erp-totals { margin-left: auto; min-width: 280px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-2); }
+.erp .erp-totals > div { display: flex; justify-content: space-between; gap: 18px; padding: 6px 12px; font-size: 12.5px; border-bottom: 1px solid var(--border); }
+.erp .erp-totals > div:last-child { border-bottom: none; }
+.erp .erp-totals .grand { font-size: 15px; font-weight: 800; background: var(--bg-3); }
+.erp .erp-totals .grand span:last-child { color: var(--accent); }
+.erp .erp-strip { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; padding: 8px 12px; font-size: 12px; }
+.erp .erp-strip b { color: var(--accent); }
+@media (max-width: 1100px) {
+  .erp .erp-head.cols-4 { grid-template-columns: 1fr 1fr; }
+  .erp .erp-mini { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 720px) {
+  .erp .erp-head.cols-2, .erp .erp-head.cols-4 { grid-template-columns: 1fr; }
+  .erp .erp-group.span-2 { grid-column: auto; }
+  .erp .erp-mini { grid-template-columns: 1fr 1fr; }
+  .erp .erp-f { grid-template-columns: 1fr; gap: 3px; }
+  .erp .erp-f .erp-sub { grid-column: 1; }
+  .erp .erp-totals { min-width: 0; width: 100%; }
+}
+.erp .erp-totals { width: 380px; max-width: 100%; margin-bottom: 4px; }
+.erp table.erp-grid.rich td.rm { width: 34px; text-align: center; vertical-align: middle; }
+.erp textarea[readonly] { background: var(--bg-4); }
+.erp label.erp-f.check { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.erp label.erp-f.check input[type=checkbox] { width: 15px; height: 15px; min-height: 0; margin: 0; flex: 0 0 auto; }
+.erp .erp-mini.six { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.erp .p-size-single { display: contents; }
+.erp .erp-block.dragging { opacity: .5; }
+.erp .erp-mini .slot-chip { width: 100%; }
+@media (max-width: 1100px) { .erp .erp-mini.six { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 720px)  { .erp .erp-mini.six { grid-template-columns: 1fr 1fr; } }
+.erp .p-size-hint { display: none; }
+@media (max-width: 720px) { .erp table.erp-grid { min-width: 680px; } .erp .erp-lines-head { flex-wrap: wrap; } }
+
+/* ══ ERP dialogs (master add / edit / bulk update and similar pop-ups) ══ */
+.card.erp-dlg { padding: 0; overflow: hidden; }
+.erp-dlg-head {
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+  padding: 10px 14px; border-bottom: 1px solid var(--border); background: var(--bg-3);
+  font-size: 11.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--accent);
+}
+.erp-dlg-body { padding: 10px 2px 6px; }
+.card.erp-dlg > .erp-dlg-body { padding: 12px 14px; }
+.erp-dlg-foot {
+  display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 10px 14px; border-top: 1px solid var(--border); background: var(--bg-2);
+}
+.erp-dlg-foot .muted { font-size: 11.5px; }
+.erp .erp-f.top > div { min-width: 0; }
+.erp .erp-f .pill-list { margin-top: 2px; }
+.erp .erp-f .pill-list label { padding: 5px 11px; font-size: 11.5px; }
+.erp .erp-f input[type=file] { height: auto; min-height: 32px; line-height: normal; padding: 5px 8px; }
+.erp .erp-f .finishlist-wrap input { height: 32px; min-height: 32px; }
+.erp .erp-f .erp-sub { font-weight: 500; }
+.erp .erp-group-title form select { background-position: right 6px center; padding-right: 22px; }
+.erp table.erp-grid.perm-grid td, .erp table.erp-grid.perm-grid th { text-align: center; vertical-align: middle; }
+.erp table.erp-grid.perm-grid td:first-child, .erp table.erp-grid.perm-grid th:first-child,
+.erp table.erp-grid.perm-grid td:last-child, .erp table.erp-grid.perm-grid th:last-child,
+.erp table.erp-grid.perm-grid tr.grp td { text-align: left; }
+.erp table.erp-grid.perm-grid td label { flex-direction: row; text-transform: none; letter-spacing: 0; }
+/* label / value table inside an ERP panel (read-only record pages) */
+.erp table.erp-kv { width: 100%; border-collapse: collapse; margin: 0; }
+.erp table.erp-kv th, .erp table.erp-kv td { padding: 7px 0; border: none; border-bottom: 1px solid var(--border); font-size: 12.5px; text-align: left; background: none; }
+.erp table.erp-kv tr:last-child th, .erp table.erp-kv tr:last-child td { border-bottom: none; }
+.erp table.erp-kv th { font-size: 10.5px; font-weight: 700; letter-spacing: .06em; color: var(--text-2); text-transform: uppercase; }
+.erp .erp-f > span.erp-show, .erp .erp-f > strong.erp-show {
+  font-size: 12.5px; font-weight: 600; letter-spacing: normal; text-transform: none; color: var(--text);
+}
+
+/* Store registers: one entry = one block. The entry's own columns (ID, date,
+   invoice, supplier…) span its item lines, like the Job Register. */
+table.gridtable tr.doc-lead > td[rowspan] { vertical-align: top; }
+table.gridtable tr.doc-lead > td { border-top: 2px solid var(--border); }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   ERP SKIN — one uniform, dense business-app look across every screen.
+   Pure presentation: no layout skeleton, field or behaviour depends on it.
+   Screen only, so page prints and the register print windows are unchanged.
+   ══════════════════════════════════════════════════════════════════════════ */
+@media screen {
+  /* ── Controls: compact and consistent ── */
+  input, select, textarea { font-size: 12.5px; border-radius: 6px; }
+  input:not([type=checkbox]):not([type=radio]):not([type=file]):not([type=range]), select {
+    height: 34px; min-height: 34px; line-height: 32px;
+  }
+  select { line-height: normal; }
+  input[type=file] { font-size: 12px; }
+  label { font-size: 10.5px; letter-spacing: .06em; }
+  .form-grid { gap: 8px 12px; }
+  .btn { border-radius: 6px; }
+  .btn:not(.small) { padding: 8px 14px; font-size: 12.5px; }
+  .btn.small { padding: 6px 11px; font-size: 11.5px; }
+
+  /* ── Cards read as ERP panels: a title bar on top when the card starts with one ── */
+  .card { border-radius: var(--radius); padding: 14px 16px 16px; margin-bottom: 14px; }
+  .card > .section-head:first-child,
+  .card > h2:first-child, .card > h3:first-child {
+    padding: 0 0 9px; margin: 0 0 12px; border-bottom: 1px solid var(--border);
+  }
+  .card > h2:first-child, .card > h3:first-child,
+  .card > .section-head:first-child > h2, .card > .section-head:first-child > h3,
+  .card > .section-head:first-child > div > h2, .card > .section-head:first-child > div > h3 {
+    font-size: 11.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--accent); margin: 0; line-height: 1.4;
+  }
+  .card > .section-head:first-child .section-note,
+  .card > .section-head:first-child p.muted { font-size: 11px; margin: 2px 0 0; }
+  /* section strips inside a card (job card, challan and record pages) */
+  h3.jc-section {
+    font-size: 11.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--accent); border-bottom: 2px solid var(--accent); padding: 0 0 5px; margin: 16px 0 8px;
+  }
+  .card > h3.jc-section:first-child { border-bottom: 1px solid var(--border); margin-top: 0; padding-top: 0; }
+
+  /* ── Registers: bordered, dense grid ── */
+  .card > .table-wrap, .table-wrap { padding: 0; }
+  table.gridtable, table.jc-table {
+    border: 1px solid var(--border); border-radius: 6px; font-size: 12.5px;
+  }
+  table.gridtable th, table.gridtable td,
+  table.jc-table th, table.jc-table td {
+    padding: 7px 10px; border-bottom: 1px solid var(--border); border-left: 1px solid var(--border);
+  }
+  table.gridtable tr > :first-child, table.jc-table tr > :first-child { border-left: none; }
+  /* a continuation line starts mid-row, next to the entry's merged cells */
+  table.gridtable tr.proc-extra-row > td:first-child { border-left: 1px solid var(--border); }
+  table.gridtable thead th, table.jc-table thead th, table.jc-table th {
+    background: var(--bg-3); font-size: 10.5px; font-weight: 800; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--text-2); vertical-align: middle;
+  }
+  table.gridtable thead th { box-shadow: inset 0 -2px 0 var(--border); }
+  table.gridtable tbody tr:last-child td { border-bottom: none; }
+  table.gridtable td.num, table.gridtable th.num, table.jc-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  table.gridtable tr.grid-group-row td { background: var(--bg-3); font-weight: 800; color: var(--accent); }
+
+  /* ── Register toolbar and pager: tighter ── */
+  .grid-toolbar { margin: 4px 0 8px; gap: 6px; }
+  .grid-toolbar .grid-search { height: 32px; min-height: 32px; }
+  .grid-pager { margin: 10px 0 2px; padding: 6px 12px; border-radius: var(--radius); }
+
+  /* ── Notices and read-only boxes ── */
+  .auto-box, .auto-preview { border-radius: 6px; padding: 10px 14px; font-size: 12.5px; }
+  .alert { border-radius: 6px; }
+}
+/* Phones: tables that re-flow into stacked cards keep their own card styling */
+@media screen and (max-width: 700px) {
+  table.resp-grid, table.resp-kv { border: none; }
+  table.resp-grid td, table.resp-grid th, table.resp-kv td, table.resp-kv th { border-left: none; }
+}
+
+/* Job card tools: each tool is a full-size card with a NEW / REPEATED switch —
+   NEW is charged on the challan, REPEATED is not. Sized like the other fields
+   so it cannot be missed. */
+.p-tools-wrap { padding: 10px 12px 12px; }
+.p-tools-wrap .tools-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+.p-tools-wrap .tools-title { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--text); }
+.p-tools-wrap .tools-rule { font-size: 11.5px; color: var(--text-2); }
+.p-tools-wrap .tools-rule b.new { color: #2e7d32; } .p-tools-wrap .tools-rule b.rep { color: #b26a00; }
+.p-tools-wrap .p-tools-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
+.p-tools-wrap .p-tools-chips:empty { display: none; }
+/* No box round a tool — the NEW / REPEATED switch carries the colour.
+   Tool content is 80% of the original size; the switch 75%. */
+.tool-chip { display: inline-flex; align-items: center; gap: 10px; min-height: 0; padding: 2px 4px 2px 0;
+  border: none; background: transparent; }
+.tool-chip .tool-name { display: flex; flex-direction: column; line-height: 1.2; min-width: 96px; }
+.tool-chip .tool-name span { font-size: 11.2px; font-weight: 800; letter-spacing: .03em; color: var(--text); }
+.tool-chip .tool-name small { font-size: 8px; font-weight: 800; letter-spacing: .08em; margin-top: 2px; }
+.tool-chip.is-new .tool-name small { color: #2e7d32; }
+.tool-chip.is-rep .tool-name small { color: #b26a00; }
+.tool-chip .tool-seg { display: inline-flex; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+.tool-chip .tool-seg button { height: 26px; min-height: 26px; padding: 0 10px; border: none; border-radius: 0; background: var(--bg-3);
+  color: var(--text-2); font-size: 9px; font-weight: 800; letter-spacing: .06em; cursor: pointer; width: auto; line-height: 26px; }
+.tool-chip .tool-seg button + button { border-left: 1px solid var(--border); }
+.tool-chip .tool-seg button[data-v="0"].on { background: #2e7d32; color: #fff; }
+.tool-chip .tool-seg button[data-v="1"].on { background: #e0a100; color: #1a1a1a; }
+.tool-chip .tool-x { height: 26px; min-height: 26px; width: 26px; border: 1px solid var(--border); border-radius: 6px; background: transparent;
+  color: #e57373; font-size: 14px; font-weight: 700; line-height: 1; cursor: pointer; padding: 0; }
+.tool-chip .tool-x:hover { background: rgba(229,115,115,.12); }
+.p-tools-wrap .p-tools-chips { gap: 8px 22px; }
+.p-tools-wrap .tools-add { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.p-tools-wrap .tools-add select, .p-tools-wrap .tools-add input { width: 260px; }
+.tool-flag { display: inline-block; border: 1px solid var(--border); border-radius: 8px; padding: 2px 8px; font-size: 11px;
+  font-weight: 800; letter-spacing: .05em; margin-left: 6px; vertical-align: middle; }
+.tool-flag.new { color: #fff; background: #2e7d32; border-color: #2e7d32; }
+.tool-flag.rep { color: #1a1a1a; background: #e0a100; border-color: #e0a100; }
+@media (max-width: 700px) {
+  .tool-chip { width: 100%; flex-wrap: wrap; gap: 8px; }
+  .tool-chip .tool-name { flex: 1 1 100%; }
+  .tool-chip .tool-seg { flex: 1 1 auto; }
+  .tool-chip .tool-seg button { flex: 1 1 50%; }
+  .p-tools-wrap .tools-add select, .p-tools-wrap .tools-add input { width: 100%; }
+}
+
+/* Job card: red star on every field the server insists on. */
+.erp .req { color: var(--danger); font-weight: 800; }
+.erp .erp-mini label .req, .erp .erp-sec-title .req { font-size: 1.1em; }
+/* Job card: the figures people act on (IDs, stock, paper to issue, plate) stand out. */
+.erp input.key-field { font-weight: 800 !important; font-size: 14px !important; letter-spacing: .02em;
+  border: 2px solid var(--accent) !important; background: rgba(245,197,24,.10) !important; }
+:root[data-theme="light"] .erp input.key-field { background: rgba(245,197,24,.16) !important; }
+/* Job card: UPS-based calculation — a real checkbox sized like the other fields. */
+.erp .ups-check { display: flex !important; flex-direction: row !important; align-items: center; gap: 10px; height: 36px; min-height: 36px;
+  padding: 0 12px; border: 1px solid var(--border); border-radius: var(--radius, 8px); background: var(--bg-2);
+  cursor: pointer; margin-top: 4px; text-transform: none; letter-spacing: 0; box-sizing: border-box; user-select: none; }
+.erp .ups-check input[type=checkbox] { width: 20px !important; height: 20px !important; min-height: 0 !important; margin: 0;
+  accent-color: var(--accent); cursor: pointer; flex: 0 0 auto; }
+.erp .ups-check span { font-size: 12px; font-weight: 800; letter-spacing: .05em; color: var(--text); white-space: nowrap; }
+.erp .ups-check:has(input:checked) { border: 2px solid var(--accent); background: rgba(245,197,24,.12); }
+.erp .ups-check:focus-within { box-shadow: 0 0 0 2px rgba(245,197,24,.35); }

@@ -7,83 +7,118 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
-  /* Preview only. The page is the real screen; this removes the app chrome that
-     has no meaning outside the app, and makes sure nothing here can be clicked. */
+  .stk-wrap { overflow-x:auto; }
+  .stk-table { width:100%; border-collapse:collapse; font-size:13px; }
+  .stk-table thead th { text-align:left; padding:9px 12px; font-size:11px; letter-spacing:.05em;
+    color:var(--text-2); border-bottom:2px solid var(--border); background:var(--bg-4); }
+  .stk-table tbody td { padding:7px 12px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .stk-table .pcell { font-weight:700; border-right:1px solid var(--border); }
+  .stk-table .skcell { font-size:13px; }
+  .stk-table .numcell { text-align:right; font-weight:700; color:#000; white-space:nowrap; }
+  .stk-table tbody tr:hover td { background:var(--bg-4); }
+  .stk-table th.num, .stk-table td.numcell { text-align:right; white-space:nowrap; }
+  .bal-tiles { display:flex; gap:12px; flex-wrap:wrap; margin:6px 0 2px; }
+  .bal-tile { border:1px solid var(--border); border-radius:8px; padding:9px 15px; min-width:120px; }
+  .bal-tile .n { font-size:19px; font-weight:700; }
+  .bal-tile .l { font-size:10px; letter-spacing:.06em; color:var(--text-2); margin-top:2px; }
+  .bal-tile.strong { border-color:#c9a200; } .bal-tile.strong .n { color:#9a7400; }
+</style>
+<style>
+  /* Reusable three-dot (kebab) row menu for registers. The popup is moved to
+     position:fixed on open so it never gets clipped by a table's overflow. */
+  .rowmenu{ position:relative; display:inline-block; }
+  .rowmenu-btn{ cursor:pointer; background:none; border:none; box-shadow:none;
+    padding:4px 8px; line-height:1; color:var(--text-2, #8a8a8a);
+    display:inline-flex; align-items:center; justify-content:center; }
+  .rowmenu-btn:hover{ color:var(--text, #222); background:none; }
+  .rowmenu-pop{ display:none; position:fixed; z-index:9999; min-width:160px;
+    background:var(--bg-2, #fff); border:1px solid var(--border, #ccc); border-radius:10px;
+    box-shadow:0 10px 28px rgba(0,0,0,.22); padding:6px; }
+  .rowmenu-pop.open{ display:block; }
+  /* little caret pointing up toward the three dots */
+  .rowmenu-pop::before{ content:""; position:absolute; top:-6px; right:14px; width:11px; height:11px;
+    background:var(--bg-2, #fff); border-left:1px solid var(--border, #ccc);
+    border-top:1px solid var(--border, #ccc); transform:rotate(45deg); }
+  .rowmenu-pop a, .rowmenu-pop button{ display:block; width:100%; text-align:left; background:none;
+    border:none; box-shadow:none; cursor:pointer; padding:10px 14px; border-radius:7px; font:inherit;
+    color:inherit; white-space:nowrap; text-decoration:none; }
+  .rowmenu-pop a:hover, .rowmenu-pop button:hover{ background:var(--accent, #3b82f6); color:#fff; }
+  /* Destructive actions (delete / cancel) look the same on every register. */
+  .rowmenu-pop a.rowmenu-danger{ color:#b00020; }
+  .rowmenu-pop a.rowmenu-danger:hover{ background:#b00020; color:#fff; }
+  </style>
+<style>
+  /* Preview only. The page is a snapshot of the real screen, taken from the app
+     with its own data; this removes the app chrome that has no meaning outside
+     the app, and makes sure nothing here can be clicked. */
   html,body{background:var(--bg);margin:0;overflow:hidden}
   .layout{display:block}
   .sidebar,.topbar,.fy-badge,.bookmark-flap,#sidebar,.sidebar-toggle{display:none !important}
   .main{margin:0 !important;padding:26px 30px !important;max-width:100% !important;width:100% !important}
-  a,button,input,select{pointer-events:none !important;cursor:default !important}
+  a,button,input,select,textarea,label{pointer-events:none !important;cursor:default !important}
   a{text-decoration:none !important;border-bottom:0 !important}
-  .no-print{}
   ::-webkit-scrollbar{display:none;width:0;height:0}
-  /* the back button and row menus are chrome, not content */
+  /* the back button, row menus and bulk bars are chrome, not content */
   .page-head .btn-row,.rowmenu,.bulkbar,.back-btn{display:none !important}
-  /* The module home sizes its two panels to the viewport (100vh - 210px) and
-     scrolls them. Inside a fixed-height iframe that produces a scrollbar and a
-     block of empty space below, because the panel height no longer follows the
-     content. A preview has no viewport to fill, so both panels are left to take
-     their natural height. */
+  /* registers and module homes size themselves to the viewport and scroll; a
+     preview has no viewport to fill, so everything takes its natural height */
   .mh-list,.mh-stats{max-height:none !important;overflow:visible !important}
   .module-home{align-items:flex-start !important}
-  /* the same applies to any register that scrolls its table area */
   .table-wrap,.gridwrap{max-height:none !important;overflow:visible !important}
+
 </style>
-<script>
-  /* The screens call into the app's runtime on load. A preview has no runtime,
-     so these are stubbed rather than left to throw — an error in the frame is
-     still an error in the page that embeds it. */
-  window.bulkDelete = { init: function(){}, start: function(){}, cancel: function(){} };
-  window.rowmenuPost = function(){ return false; };
-  window.askCopies   = function(){};
-  window.gridtools   = window.gridtools || { init: function(){} };
-</script>
 </head>
 <body>
 <div class="layout">
-  <main class="main">
-<div class="page-head no-print"><h1>PAPER STOCK REGISTER</h1></div>
+<main id="mainContent" class="main ">
+      
+      
+
+
+
+      
+<div class="page-head no-print"><h1>PAPER STOCK REGISTER</h1><div class="btn-row"><button type="button" class="btn no-print btn-back" title="Go back one level"><span class="btn-back-ico"></span>BACK</button></div></div>
 
 <!-- Period balances: the same stock, seen over a chosen period. Opening is simply
      everything that moved before the period began. -->
 <div class="card no-print" style="margin-bottom:16px;">
   <div class="section-head wrap" style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;">
     <div>
-      <h2 style="margin:0;">OPENING &amp; CLOSING — August 2026</h2>
-      <div class="muted" style="font-size:11px;margin-top:3px;">01/08/2026 to 31/08/2026 · all figures in sheets</div>
+      <h2 style="margin:0;">OPENING &amp; CLOSING — September 2026</h2>
+      <div class="muted" style="font-size:11px;margin-top:3px;">01/09/2026 to 30/09/2026 · all figures in sheets</div>
     </div>
     <div style="display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap;">
       <label style="margin:0;font-size:12px;">PERIOD
-        <select id="pPeriod" onchange="periodChange()">
-          <option value="day"   >DAILY</option>
-          <option value="week"  >WEEKLY</option>
-          <option value="month" selected>MONTHLY</option>
-          <option value="year"  >YEARLY (FINANCIAL YEAR)</option>
+        <select id="pPeriod" autocomplete="off" autocorrect="off" autocapitalize="off">
+          <option value="day">DAILY</option>
+          <option value="week">WEEKLY</option>
+          <option value="month" selected="">MONTHLY</option>
+          <option value="year">YEARLY (FINANCIAL YEAR)</option>
         </select>
       </label>
-      <label style="margin:0;font-size:12px;" id="boxDay">DATE
-        <input type="text" id="pDay" value="01/08/2026" class="flatpickr-input" placeholder="DD/MM/YYYY">
+      <label style="margin: 0px; font-size: 12px; display: none;" id="boxDay">DATE
+        <input type="text" id="pDay" value="" class="datepicker flatpickr-input" placeholder="DD/MM/YYYY" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
       </label>
-      <label style="margin:0;font-size:12px;" id="boxWeek">WEEK
-        <input type="week" id="pWeek">
+      <label style="margin: 0px; font-size: 12px; display: none;" id="boxWeek">WEEK
+        <input type="week" id="pWeek" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
       </label>
       <label style="margin:0;font-size:12px;" id="boxMonth">MONTH
-        <input type="month" id="pMonth">
+        <input type="month" id="pMonth" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
       </label>
-      <label style="margin:0;font-size:12px;" id="boxYear">FINANCIAL YEAR
-        <select id="pFy">
-          <option value="">CURRENT</option>
-          <option value="26-27" >26-27</option>
+      <label style="margin: 0px; font-size: 12px; display: none;" id="boxYear">FINANCIAL YEAR
+        <select id="pFy" autocomplete="off" autocorrect="off" autocapitalize="off">
+          <option value="" selected="">CURRENT</option>
+          <option value="26-27">26-27</option>
         </select>
       </label>
-      <button type="button" class="btn small primary" onclick="applyPeriod()">APPLY</button>
+      <button type="button" class="btn small primary">APPLY</button>
     </div>
   </div>
   <div class="bal-tiles">
-    <div class="bal-tile"><div class="n">120000</div><div class="l">OPENING BALANCE</div></div>
-    <div class="bal-tile"><div class="n">+ 33000</div><div class="l">INWARD</div></div>
-    <div class="bal-tile"><div class="n">&minus; 0</div><div class="l">ISSUED</div></div>
-    <div class="bal-tile strong"><div class="n">153000</div><div class="l">CLOSING BALANCE</div></div>
+    <div class="bal-tile"><div class="n">75516</div><div class="l">OPENING BALANCE</div></div>
+    <div class="bal-tile"><div class="n">+ 27000</div><div class="l">INWARD</div></div>
+    <div class="bal-tile"><div class="n">− 26000</div><div class="l">ISSUED</div></div>
+    <div class="bal-tile strong"><div class="n">76516</div><div class="l">CLOSING BALANCE</div></div>
   </div>
 </div>
 
@@ -91,169 +126,44 @@
   <div class="section-head wrap no-print" style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;">
     <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;">
       <label style="margin:0;font-size:12px;">PARTY
-        <select id="fParty" class="searchable" data-placeholder="All parties" onchange="renderStock()">
-          <option value="">ALL PARTIES</option>
+        <select id="fParty" class="searchable" data-placeholder="All parties" data-searchable-bound="1" autocomplete="off" autocorrect="off" autocapitalize="off" style="display: none;">
+          <option value="" selected="">ALL PARTIES</option>
           <option value="ARCLIGHT PRINT WORKS">ARCLIGHT PRINT WORKS</option><option value="CALICO PACK PVT LTD">CALICO PACK PVT LTD</option><option value="HARBOUR LINE LABELS">HARBOUR LINE LABELS</option><option value="MERIDIAN CARTONS">MERIDIAN CARTONS</option><option value="NORTHFIELD PACKAGING">NORTHFIELD PACKAGING</option><option value="SEVENOAKS BOXES">SEVENOAKS BOXES</option><option value="STONEBRIDGE PRINTERS">STONEBRIDGE PRINTERS</option><option value="VERMILION PRESS">VERMILION PRESS</option>
-        </select>
+        </select><div class="ss-wrap"><input type="text" class="ss-input" autocomplete="off" placeholder="All parties" autocorrect="off" autocapitalize="off" spellcheck="false" value="ALL PARTIES"><div class="ss-panel" style="display: none;"></div></div>
       </label>
       <label style="margin:0;font-size:12px;">PAPER TYPE
-        <select id="fType" class="searchable" data-placeholder="All types" onchange="renderStock()">
-          <option value="">ALL TYPES</option>
+        <select id="fType" class="searchable" data-placeholder="All types" data-searchable-bound="1" autocomplete="off" autocorrect="off" autocapitalize="off" style="display: none;">
+          <option value="" selected="">ALL TYPES</option>
           <option value="ART PAPER">ART PAPER</option><option value="DUPLEX">DUPLEX</option><option value="KRAFT">KRAFT</option><option value="SBS">SBS</option>
-        </select>
+        </select><div class="ss-wrap"><input type="text" class="ss-input" autocomplete="off" placeholder="All types" autocorrect="off" autocapitalize="off" spellcheck="false" value="ALL TYPES"><div class="ss-panel" style="display: none;"></div></div>
       </label>
       <label style="margin:0;font-size:12px;">SIZE
-        <select id="fSize" class="searchable" data-placeholder="All sizes" onchange="renderStock()">
-          <option value="">ALL SIZES</option>
-          <option value="20x28">20x28</option><option value="23x28">23x28</option><option value="23x33">23x33</option><option value="23x36">23x36</option><option value="23x40">23x40</option><option value="25x28">25x28</option><option value="25x30">25x30</option><option value="25x33">25x33</option><option value="28x28">28x28</option><option value="28x33">28x33</option><option value="28x36">28x36</option><option value="28x40">28x40</option><option value="30x33">30x33</option><option value="30x36">30x36</option><option value="30x40">30x40</option>
-        </select>
+        <select id="fSize" class="searchable" data-placeholder="All sizes" data-searchable-bound="1" autocomplete="off" autocorrect="off" autocapitalize="off" style="display: none;">
+          <option value="" selected="">ALL SIZES</option>
+          <option value="20x28">20x28</option><option value="23x33">23x33</option><option value="23x36">23x36</option><option value="25x30">25x30</option><option value="25x33">25x33</option><option value="28x36">28x36</option><option value="28x40">28x40</option><option value="30x40">30x40</option>
+        </select><div class="ss-wrap"><input type="text" class="ss-input" autocomplete="off" placeholder="All sizes" autocorrect="off" autocapitalize="off" spellcheck="false" value="ALL SIZES"><div class="ss-panel" style="display: none;"></div></div>
       </label>
-      <button type="button" class="btn small" onclick="resetStockFilters()">RESET</button>
+      <button type="button" class="btn small">RESET</button>
     </div>
     <div style="display:flex;gap:8px;align-items:center;">
-      <span id="stkCount" class="muted" style="font-size:12px;">26 STOCK KEYS</span>
-      <button type="button" class="btn small" onclick="printStock()">PRINT</button>
+      <span id="stkCount" class="muted" style="font-size:12px;">22 STOCK KEYS</span>
+      <button type="button" class="btn small">PRINT</button>
     </div>
   </div>
 
   <div class="stk-wrap">
-    <table id="stk_table" class="stk-table">
+    <table id="stk_table" class="stk-table resp-grid">
       <thead>
         <tr><th style="width:24%;">PARTY</th><th style="width:36%;">STOCK KEY</th>
             <th class="num">OPENING<br>BALANCE</th><th class="num">INWARD</th><th class="num">ISSUED</th>
             <th class="num">CLOSING<br>BALANCE</th></tr>
       </thead>
-      <tbody id="stkBody"></tbody>
+      <tbody id="stkBody"><tr><td rowspan="3" class="pcell" data-label="PARTY"><strong>ARCLIGHT PRINT WORKS</strong></td><td class="skcell" data-label="STOCK KEY">23x33 | ART PAPER | 350 GSM</td><td class="numcell" data-label="OPENINGBALANCE">8,000</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="ISSUED">4,000</td><td class="numcell" data-label="CLOSINGBALANCE"><b>4,000</b></td></tr><tr><td class="skcell" data-label="PARTY">28x40 | ART PAPER | 350 GSM</td><td class="numcell" data-label="STOCK KEY">5,000</td><td class="numcell" data-label="OPENINGBALANCE">0</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="ISSUED"><b>5,000</b></td></tr><tr><td class="skcell" data-label="PARTY">23x36 | KRAFT | 320 GSM</td><td class="numcell" data-label="STOCK KEY">7,288</td><td class="numcell" data-label="OPENINGBALANCE">0</td><td class="numcell" data-label="INWARD">3,000</td><td class="numcell" data-label="ISSUED"><b>4,288</b></td></tr><tr><td rowspan="2" class="pcell" data-label="PARTY"><strong>CALICO PACK PVT LTD</strong></td><td class="skcell" data-label="STOCK KEY">25x30 | ART PAPER | 250 GSM</td><td class="numcell" data-label="OPENINGBALANCE">3,000</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="ISSUED">1,500</td><td class="numcell" data-label="CLOSINGBALANCE"><b>1,500</b></td></tr><tr><td class="skcell" data-label="PARTY">30x40 | ART PAPER | 320 GSM</td><td class="numcell" data-label="STOCK KEY">0</td><td class="numcell" data-label="OPENINGBALANCE">3,000</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="ISSUED"><b>3,000</b></td></tr><tr><td rowspan="3" class="pcell" data-label="PARTY"><strong>HARBOUR LINE LABELS</strong></td><td class="skcell" data-label="STOCK KEY">25x30 | ART PAPER | 350 GSM</td><td class="numcell" data-label="OPENINGBALANCE">6,000</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="ISSUED">0</td><td class="numcell" data-label="CLOSINGBALANCE"><b>6,000</b></td></tr><tr><td class="skcell" data-label="PARTY">30x40 | ART PAPER | 250 GSM</td><td class="numcell" data-label="STOCK KEY">8,000</td><td class="numcell" data-label="OPENINGBALANCE">0</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="ISSUED"><b>8,000</b></td></tr><tr><td class="skcell" data-label="PARTY">20x28 | SBS | 350 GSM</td><td class="numcell" data-label="STOCK KEY">0</td><td class="numcell" data-label="OPENINGBALANCE">8,000</td><td class="numcell" data-label="INWARD">4,000</td><td class="numcell" data-label="ISSUED"><b>4,000</b></td></tr><tr><td rowspan="3" class="pcell" data-label="PARTY"><strong>MERIDIAN CARTONS</strong></td><td class="skcell" data-label="STOCK KEY">20x28 | DUPLEX | 350 GSM</td><td class="numcell" data-label="OPENINGBALANCE">4,000</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="ISSUED">1,500</td><td class="numcell" data-label="CLOSINGBALANCE"><b>2,500</b></td></tr><tr><td class="skcell" data-label="PARTY">23x33 | DUPLEX | 350 GSM</td><td class="numcell" data-label="STOCK KEY">4,000</td><td class="numcell" data-label="OPENINGBALANCE">0</td><td class="numcell" data-label="INWARD">2,000</td><td class="numcell" data-label="ISSUED"><b>2,000</b></td></tr><tr><td class="skcell" data-label="PARTY">28x36 | DUPLEX | 320 GSM</td><td class="numcell" data-label="STOCK KEY">2,788</td><td class="numcell" data-label="OPENINGBALANCE">0</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="ISSUED"><b>2,788</b></td></tr><tr><td rowspan="3" class="pcell" data-label="PARTY"><strong>NORTHFIELD PACKAGING</strong></td><td class="skcell" data-label="STOCK KEY">20x28 | ART PAPER | 350 GSM</td><td class="numcell" data-label="OPENINGBALANCE">0</td><td class="numcell" data-label="INWARD">4,000</td><td class="numcell" data-label="ISSUED">2,000</td><td class="numcell" data-label="CLOSINGBALANCE"><b>2,000</b></td></tr><tr><td class="skcell" data-label="PARTY">28x40 | DUPLEX | 250 GSM</td><td class="numcell" data-label="STOCK KEY">2,000</td><td class="numcell" data-label="OPENINGBALANCE">0</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="ISSUED"><b>2,000</b></td></tr><tr><td class="skcell" data-label="PARTY">23x36 | KRAFT | 250 GSM</td><td class="numcell" data-label="STOCK KEY">3,288</td><td class="numcell" data-label="OPENINGBALANCE">0</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="ISSUED"><b>3,288</b></td></tr><tr><td rowspan="3" class="pcell" data-label="PARTY"><strong>SEVENOAKS BOXES</strong></td><td class="skcell" data-label="STOCK KEY">25x33 | DUPLEX | 350 GSM</td><td class="numcell" data-label="OPENINGBALANCE">0</td><td class="numcell" data-label="INWARD">4,000</td><td class="numcell" data-label="ISSUED">2,000</td><td class="numcell" data-label="CLOSINGBALANCE"><b>2,000</b></td></tr><tr><td class="skcell" data-label="PARTY">28x40 | SBS | 300 GSM</td><td class="numcell" data-label="STOCK KEY">5,288</td><td class="numcell" data-label="OPENINGBALANCE">0</td><td class="numcell" data-label="INWARD">2,500</td><td class="numcell" data-label="ISSUED"><b>2,788</b></td></tr><tr><td class="skcell" data-label="PARTY">28x40 | SBS | 320 GSM</td><td class="numcell" data-label="STOCK KEY">2,788</td><td class="numcell" data-label="OPENINGBALANCE">0</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="ISSUED"><b>2,788</b></td></tr></tbody>
     </table>
   </div>
 </div>
 
-<script>
-const STK_DATA = [{"gsm": "270", "paper_type": "KRAFT", "party_name": "ARCLIGHT PRINT WORKS", "sheets": 4500, "size": "23x33", "stock_key": "23x33 | KRAFT | 270 GSM"}, {"gsm": "320", "paper_type": "SBS", "party_name": "ARCLIGHT PRINT WORKS", "sheets": 3000, "size": "25x30", "stock_key": "25x30 | SBS | 320 GSM"}, {"gsm": "350", "paper_type": "KRAFT", "party_name": "CALICO PACK PVT LTD", "sheets": 4500, "size": "23x40", "stock_key": "23x40 | KRAFT | 350 GSM"}, {"gsm": "270", "paper_type": "ART PAPER", "party_name": "HARBOUR LINE LABELS", "sheets": 3000, "size": "30x33", "stock_key": "30x33 | ART PAPER | 270 GSM"}, {"gsm": "270", "paper_type": "DUPLEX", "party_name": "HARBOUR LINE LABELS", "sheets": 6000, "size": "20x28", "stock_key": "20x28 | DUPLEX | 270 GSM"}, {"gsm": "250", "paper_type": "KRAFT", "party_name": "HARBOUR LINE LABELS", "sheets": 4500, "size": "20x28", "stock_key": "20x28 | KRAFT | 250 GSM"}, {"gsm": "270", "paper_type": "SBS", "party_name": "HARBOUR LINE LABELS", "sheets": 9000, "size": "23x36", "stock_key": "23x36 | SBS | 270 GSM"}, {"gsm": "300", "paper_type": "ART PAPER", "party_name": "MERIDIAN CARTONS", "sheets": 4500, "size": "30x36", "stock_key": "30x36 | ART PAPER | 300 GSM"}, {"gsm": "270", "paper_type": "DUPLEX", "party_name": "MERIDIAN CARTONS", "sheets": 3000, "size": "28x33", "stock_key": "28x33 | DUPLEX | 270 GSM"}];
-const BAL = [{"closing": 4500, "gsm": "270", "inward": 0, "issued": 0, "opening": 4500, "paper_type": "KRAFT", "party": "ARCLIGHT PRINT WORKS", "size": "23x33"}, {"closing": 3000, "gsm": "320", "inward": 0, "issued": 0, "opening": 3000, "paper_type": "SBS", "party": "ARCLIGHT PRINT WORKS", "size": "25x30"}, {"closing": 4500, "gsm": "350", "inward": 0, "issued": 0, "opening": 4500, "paper_type": "KRAFT", "party": "CALICO PACK PVT LTD", "size": "23x40"}, {"closing": 3000, "gsm": "270", "inward": 0, "issued": 0, "opening": 3000, "paper_type": "ART PAPER", "party": "HARBOUR LINE LABELS", "size": "30x33"}, {"closing": 6000, "gsm": "270", "inward": 6000, "issued": 0, "opening": 0, "paper_type": "DUPLEX", "party": "HARBOUR LINE LABELS", "size": "20x28"}, {"closing": 4500, "gsm": "250", "inward": 0, "issued": 0, "opening": 4500, "paper_type": "KRAFT", "party": "HARBOUR LINE LABELS", "size": "20x28"}, {"closing": 9000, "gsm": "270", "inward": 0, "issued": 0, "opening": 9000, "paper_type": "SBS", "party": "HARBOUR LINE LABELS", "size": "23x36"}, {"closing": 4500, "gsm": "300", "inward": 4500, "issued": 0, "opening": 0, "paper_type": "ART PAPER", "party": "MERIDIAN CARTONS", "size": "30x36"}, {"closing": 3000, "gsm": "270", "inward": 0, "issued": 0, "opening": 3000, "paper_type": "DUPLEX", "party": "MERIDIAN CARTONS", "size": "28x33"}, {"closing": 3000, "gsm": "270", "inward": 3000, "issued": 0, "opening": 0, "paper_type": "SBS", "party": "MERIDIAN CARTONS", "size": "23x40"}, {"closing": 3000, "gsm": "320", "inward": 0, "issued": 0, "opening": 3000, "paper_type": "SBS", "party": "MERIDIAN CARTONS", "size": "25x33"}, {"closing": 12000, "gsm": "270", "inward": 0, "issued": 0, "opening": 12000, "paper_type": "ART PAPER", "party": "NORTHFIELD PACKAGING", "size": "28x33"}, {"closing": 6000, "gsm": "300", "inward": 0, "issued": 0, "opening": 6000, "paper_type": "DUPLEX", "party": "NORTHFIELD PACKAGING", "size": "25x28"}, {"closing": 12000, "gsm": "270", "inward": 0, "issued": 0, "opening": 12000, "paper_type": "DUPLEX", "party": "NORTHFIELD PACKAGING", "size": "28x40"}, {"closing": 7500, "gsm": "350", "inward": 0, "issued": 0, "opening": 7500, "paper_type": "DUPLEX", "party": "SEVENOAKS BOXES", "size": "23x36"}, {"closing": 12000, "gsm": "250", "inward": 12000, "issued": 0, "opening": 0, "paper_type": "DUPLEX", "party": "SEVENOAKS BOXES", "size": "28x36"}, {"closing": 6000, "gsm": "250", "inward": 0, "issued": 0, "opening": 6000, "paper_type": "SBS", "party": "SEVENOAKS BOXES", "size": "23x33"}, {"closing": 6000, "gsm": "320", "inward": 0, "issued": 0, "opening": 6000, "paper_type": "ART PAPER", "party": "STONEBRIDGE PRINTERS", "size": "30x36"}, {"closing": 3000, "gsm": "350", "inward": 0, "issued": 0, "opening": 3000, "paper_type": "KRAFT", "party": "STONEBRIDGE PRINTERS", "size": "23x40"}, {"closing": 4500, "gsm": "250", "inward": 0, "issued": 0, "opening": 4500, "paper_type": "KRAFT", "party": "STONEBRIDGE PRINTERS", "size": "28x36"}, {"closing": 9000, "gsm": "250", "inward": 0, "issued": 0, "opening": 9000, "paper_type": "SBS", "party": "STONEBRIDGE PRINTERS", "size": "20x28"}, {"closing": 3000, "gsm": "270", "inward": 3000, "issued": 0, "opening": 0, "paper_type": "SBS", "party": "STONEBRIDGE PRINTERS", "size": "23x28"}, {"closing": 3000, "gsm": "300", "inward": 0, "issued": 0, "opening": 3000, "paper_type": "SBS", "party": "STONEBRIDGE PRINTERS", "size": "28x28"}, {"closing": 9000, "gsm": "350", "inward": 0, "issued": 0, "opening": 9000, "paper_type": "DUPLEX", "party": "VERMILION PRESS", "size": "23x36"}, {"closing": 4500, "gsm": "320", "inward": 4500, "issued": 0, "opening": 0, "paper_type": "KRAFT", "party": "VERMILION PRESS", "size": "30x40"}, {"closing": 7500, "gsm": "250", "inward": 0, "issued": 0, "opening": 7500, "paper_type": "SBS", "party": "VERMILION PRESS", "size": "28x33"}];
-const BAL_BY = {};
-BAL.forEach(function(b){ BAL_BY[[b.party,b.paper_type,b.size,b.gsm].join('|')] = b; });
-function balFor(r){ return BAL_BY[[r.party_name,r.paper_type,r.size,String(r.gsm)].join('|')] || {opening:0,inward:0,issued:0,closing:0}; }
-function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m])); }
-function fmtSheets(n){ return (Number(n)||0).toLocaleString('en-IN'); }
-function renderStock(){
-  const p=(document.getElementById('fParty').value||''), t=(document.getElementById('fType').value||''), s=(document.getElementById('fSize').value||'');
-  const rows=STK_DATA.filter(r=>(!p||r.party_name===p)&&(!t||r.paper_type===t)&&(!s||r.size===s));
-  let html='', i=0;
-  while(i<rows.length){
-    let j=i; while(j<rows.length && rows[j].party_name===rows[i].party_name) j++;
-    const span=j-i;
-    for(let k=i;k<j;k++){
-      html+='<tr>';
-      if(k===i){ html+=`<td rowspan="${span}" class="pcell"><strong>${esc(rows[k].party_name)}</strong></td>`; }
-      const b=balFor(rows[k]);
-      html+=`<td class="skcell">${esc(rows[k].stock_key)}</td>`
-          + `<td class="numcell">${fmtSheets(b.opening)}</td>`
-          + `<td class="numcell">${fmtSheets(b.inward)}</td>`
-          + `<td class="numcell">${fmtSheets(b.issued)}</td>`
-          + `<td class="numcell"><b>${fmtSheets(b.closing)}</b></td></tr>`;
-    }
-    i=j;
-  }
-  if(!rows.length) html='<tr><td colspan="6" class="muted" style="text-align:center;padding:28px;">'+(STK_DATA.length?'NO STOCK MATCHES THE SELECTED FILTERS.':'NO STOCK YET. ADD PAPER INWARD ENTRIES FIRST.')+'</td></tr>';
-  document.getElementById('stkBody').innerHTML=html;
-  document.getElementById('stkCount').textContent=rows.length+' STOCK KEYS';
-}
-function resetStockFilters(){
-  ['fParty','fType','fSize'].forEach(id=>{ document.getElementById(id).value=''; });
-  renderStock();
-}
-function printStock(){
-  const p=(document.getElementById('fParty').value||''), t=(document.getElementById('fType').value||''), s=(document.getElementById('fSize').value||'');
-  const rows=STK_DATA.filter(r=>(!p||r.party_name===p)&&(!t||r.paper_type===t)&&(!s||r.size===s));
-  // table head + body with party rowspan (matches on-screen grouping)
-  const head='<tr><th>PARTY</th><th>STOCK KEY</th><th class="num">OPENING<br>BALANCE</th>'
-           +'<th class="num">INWARD</th><th class="num">ISSUED</th><th class="num">CLOSING<br>BALANCE</th></tr>';
-  let body='', i=0;
-  while(i<rows.length){
-    let j=i; while(j<rows.length && rows[j].party_name===rows[i].party_name) j++;
-    const span=j-i;
-    body+='<tbody class="rec">';                 // one tbody per party group — rowspan lives inside it
-    for(let k=i;k<j;k++){
-      body+='<tr>';
-      if(k===i){ body+=`<td rowspan="${span}"><b>${esc(rows[k].party_name)}</b></td>`; }
-      const b=balFor(rows[k]);
-      body+=`<td>${esc(rows[k].stock_key)}</td>`
-          + `<td class="num">${fmtSheets(b.opening)}</td>`
-          + `<td class="num">${fmtSheets(b.inward)}</td>`
-          + `<td class="num">${fmtSheets(b.issued)}</td>`
-          + `<td class="num"><b>${fmtSheets(b.closing)}</b></td></tr>`;
-    }
-    body+='</tbody>';
-    i=j;
-  }
-  if(!rows.length) body='<tbody><tr><td colspan="6" style="text-align:center;">No stock matches the selected filters.</td></tr></tbody>';
-  // applied-filters / meta block (same style as the universal register print)
-  // Every filter that shaped this table is named in the header, including the
-  // period, so a printed copy can always be traced back to what produced it.
-  const fsum=[];
-  fsum.push('<b>Period</b>: August 2026 (01/08/2026 to 31/08/2026)');
-  if(p) fsum.push('<b>Party</b>: '+esc(p));
-  if(t) fsum.push('<b>Paper type</b>: '+esc(t));
-  if(s) fsum.push('<b>Size</b>: '+esc(s));
-  const noRowFilters = !p && !t && !s;
-  let meta='<div class="meta"><div><b>Generated:</b> '+new Date().toLocaleString()+'</div>';
-  meta+='<div><b>Stock keys shown:</b> '+rows.length+(noRowFilters?' (all)':'')+'</div>';
-  meta+='<div style="margin-top:4px;"><b>Filters applied:</b><ul>'+fsum.map(f=>'<li>'+f+'</li>').join('')+'</ul></div>';
-  meta+='</div>';
-  const title='Paper Stock Register — August 2026';
-  const w=window.open('','_blank');
-  w.document.write('<html><head><title>'+title+'</title><style>'+
-    'body{font-family:Arial,sans-serif;margin:14mm;color:#000;}h1{font-size:18px;margin-bottom:4px;}'+
-    '.meta{font-size:11px;border:1px solid #999;background:#f7f7f7;padding:8px 10px;margin:8px 0 14px;border-radius:4px;}'+
-    '.meta ul{margin:4px 0 0 16px;padding:0;}.meta li{margin:1px 0;}'+
-    'table{width:100%;border-collapse:collapse;}th,td{border:1px solid #000;padding:5px 7px;font-size:11px;text-align:left;vertical-align:top;}'+
-    'th{background:#e6e6e6;}td.num{text-align:right;font-weight:700;white-space:nowrap;}'+
-    'thead{display:table-header-group;}tbody.rec{break-inside:avoid;page-break-inside:avoid;}'+
-    '</style></head><body>'+
-    '<h1>'+title+'</h1>'+meta+'<table><thead>'+head+'</thead>'+body+'</table></body></html>');
-  w.document.close(); w.focus(); w.print();
-}
-renderStock();
 
-// Period selection. Weeks and months are hard to pick as free-text dates, so the
-// browser's native week and month pickers are used and converted to a date inside
-// that period — which is all the report needs to work out its bounds.
-function periodChange(){
-  const p=document.getElementById('pPeriod').value;
-  document.getElementById('boxDay').style.display   = (p==='day')   ? '' : 'none';
-  document.getElementById('boxWeek').style.display  = (p==='week')  ? '' : 'none';
-  document.getElementById('boxMonth').style.display = (p==='month') ? '' : 'none';
-  document.getElementById('boxYear').style.display  = (p==='year')  ? '' : 'none';
-}
-function applyPeriod(){
-  const p=document.getElementById('pPeriod').value;
-  const q=['period='+encodeURIComponent(p)];
-  if(p==='year'){
-    const fy=document.getElementById('pFy').value;
-    if(fy) q.push('fy='+encodeURIComponent(fy));
-  } else if(p==='day'){
-    const d=document.getElementById('pDay').value.trim();
-    if(d) q.push('as_on='+encodeURIComponent(d));
-  } else if(p==='week'){
-    const w=document.getElementById('pWeek').value;      // e.g. 2026-W34
-    if(w){
-      const [yy,ww]=w.split('-W');
-      // Monday of that ISO week
-      const jan4=new Date(Number(yy),0,4);
-      const mon=new Date(jan4);
-      mon.setDate(jan4.getDate()-((jan4.getDay()+6)%7)+(Number(ww)-1)*7);
-      q.push('as_on='+encodeURIComponent(pad(mon.getDate())+'/'+pad(mon.getMonth()+1)+'/'+mon.getFullYear()));
-    }
-  } else if(p==='month'){
-    const m=document.getElementById('pMonth').value;     // e.g. 2026-08
-    if(m){ const [yy,mm]=m.split('-'); q.push('as_on='+encodeURIComponent('01/'+mm+'/'+yy)); }
-  }
-  location.href='/paperbuddy/stock-register?'+q.join('&');
-}
-function pad(n){ return (n<10?'0':'')+n; }
-periodChange();
-</script>
 
 <style>
   .stk-wrap { overflow-x:auto; }
@@ -273,8 +183,7 @@ periodChange();
   .bal-tile.strong { border-color:#c9a200; } .bal-tile.strong .n { color:#9a7400; }
 </style>
 
-    
-  </main>
+    </main>
 </div>
 </body>
 </html>

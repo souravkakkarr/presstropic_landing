@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Process Rate Master</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .prm-table { width:100%; border-collapse: collapse; font-size: 13px; }
+  .prm-table thead th { text-align:left; padding: 8px 10px; font-weight:700;
+    letter-spacing:.05em; font-size:11px; color: var(--text-2);
+    border-bottom: 2px solid var(--border); background: var(--bg-4); }
+  .prm-table tbody td { padding: 6px 10px; border-bottom: 1px solid var(--border); vertical-align:middle; }
+  .prm-table tbody tr:hover td { background: var(--bg-4); }
+  .prm-proc { font-weight:700; letter-spacing:.02em; color: var(--text); }
+  .prm-unit { font-size:10px; margin-left:6px; letter-spacing:.04em; }
+</style>
+<style>
+  /* Reusable three-dot (kebab) row menu for registers. The popup is moved to
+     position:fixed on open so it never gets clipped by a table's overflow. */
+  .rowmenu{ position:relative; display:inline-block; }
+  .rowmenu-btn{ cursor:pointer; background:none; border:none; box-shadow:none;
+    padding:4px 8px; line-height:1; color:var(--text-2, #8a8a8a);
+    display:inline-flex; align-items:center; justify-content:center; }
+  .rowmenu-btn:hover{ color:var(--text, #222); background:none; }
+  .rowmenu-pop{ display:none; position:fixed; z-index:9999; min-width:160px;
+    background:var(--bg-2, #fff); border:1px solid var(--border, #ccc); border-radius:10px;
+    box-shadow:0 10px 28px rgba(0,0,0,.22); padding:6px; }
+  .rowmenu-pop.open{ display:block; }
+  /* little caret pointing up toward the three dots */
+  .rowmenu-pop::before{ content:""; position:absolute; top:-6px; right:14px; width:11px; height:11px;
+    background:var(--bg-2, #fff); border-left:1px solid var(--border, #ccc);
+    border-top:1px solid var(--border, #ccc); transform:rotate(45deg); }
+  .rowmenu-pop a, .rowmenu-pop button{ display:block; width:100%; text-align:left; background:none;
+    border:none; box-shadow:none; cursor:pointer; padding:10px 14px; border-radius:7px; font:inherit;
+    color:inherit; white-space:nowrap; text-decoration:none; }
+  .rowmenu-pop a:hover, .rowmenu-pop button:hover{ background:var(--accent, #3b82f6); color:#fff; }
+  /* Destructive actions (delete / cancel) look the same on every register. */
+  .rowmenu-pop a.rowmenu-danger{ color:#b00020; }
+  .rowmenu-pop a.rowmenu-danger:hover{ background:#b00020; color:#fff; }
+  </style>
+<style>
+  /* Preview only. The page is a snapshot of the real screen, taken from the app
+     with its own data; this removes the app chrome that has no meaning outside
+     the app, and makes sure nothing here can be clicked. */
+  html,body{background:var(--bg);margin:0;overflow:hidden}
+  .layout{display:block}
+  .sidebar,.topbar,.fy-badge,.bookmark-flap,#sidebar,.sidebar-toggle{display:none !important}
+  .main{margin:0 !important;padding:26px 30px !important;max-width:100% !important;width:100% !important}
+  a,button,input,select,textarea,label{pointer-events:none !important;cursor:default !important}
+  a{text-decoration:none !important;border-bottom:0 !important}
+  ::-webkit-scrollbar{display:none;width:0;height:0}
+  /* the back button, row menus and bulk bars are chrome, not content */
+  .page-head .btn-row,.rowmenu,.bulkbar,.back-btn{display:none !important}
+  /* registers and module homes size themselves to the viewport and scroll; a
+     preview has no viewport to fill, so everything takes its natural height */
+  .mh-list,.mh-stats{max-height:none !important;overflow:visible !important}
+  .module-home{align-items:flex-start !important}
+  .table-wrap,.gridwrap{max-height:none !important;overflow:visible !important}
+
+</style>
+</head>
+<body>
+<div class="layout">
+<main id="mainContent" class="main ">
+      
+      
+
+
+
+      
+<div class="page-head wrap-gap">
+  <div>
+    <h1>PROCESS RATE MASTER</h1>
+    <p class="muted">Every process, subtype and finish combination has its own rate. Set default rates first, then pick a party to override any rate for that party. Tick "min per sheet" to allow a minimum Rs/sheet rate that can be applied while billing a small job.</p>
+  </div>
+<div class="btn-row"><button type="button" class="btn no-print btn-back" title="Go back one level"><span class="btn-back-ico"></span>BACK</button></div></div>
+
+<form method="get" class="erp" style="margin-bottom:12px;" autocomplete="off">
+  <div class="erp-head cols-2">
+    <div class="erp-group">
+      <div class="erp-group-title">Rate List</div>
+      <label class="erp-f"><span>Edit Rates For</span>
+        <select name="party" class="searchable" data-placeholder="Search party…" data-searchable-bound="1" autocomplete="off" autocorrect="off" autocapitalize="off" style="display: none;">
+          <option value="">-- DEFAULT (fallback for all parties) --</option>
+          <option value="ARCLIGHT PRINT WORKS">ARCLIGHT PRINT WORKS</option><option value="CALICO PACK PVT LTD">CALICO PACK PVT LTD</option><option value="HARBOUR LINE LABELS">HARBOUR LINE LABELS</option><option value="MERIDIAN CARTONS" selected="">MERIDIAN CARTONS</option><option value="NORTHFIELD PACKAGING">NORTHFIELD PACKAGING</option><option value="SEVENOAKS BOXES">SEVENOAKS BOXES</option><option value="STONEBRIDGE PRINTERS">STONEBRIDGE PRINTERS</option><option value="VERMILION PRESS">VERMILION PRESS</option>
+        </select><div class="ss-wrap"><input type="text" class="ss-input" autocomplete="off" placeholder="Search party…" autocorrect="off" autocapitalize="off" spellcheck="false" value="MERIDIAN CARTONS"><div class="ss-panel" style="display: none;"></div></div>
+      </label>
+    </div>
+    <div class="erp-group">
+      <div class="erp-group-title">Editing</div>
+      <div class="erp-note" style="font-size:12px;padding-top:6px;">
+        Party-specific rates for <strong style="color:var(--accent);">MERIDIAN CARTONS</strong>. Leave a rate blank to use the default.
+        
+      </div>
+    </div>
+  </div>
+</form>
+
+
+
+<form method="post" class="card" autocomplete="off">
+  <input type="hidden" name="party" value="MERIDIAN CARTONS" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  
+  <div class="grid-toolbar"><input type="text" class="grid-search" placeholder="🔍  Quick search…" value=""><div class="grid-menu-wrap grid-filtermenu-wrap"><button type="button" class="btn small grid-filterbtn">Filter <span class="gt-caret"></span></button><div class="grid-menu grid-filtermenu"><div class="gfm-block"><div class="gfm-label">Group by</div><select class="grid-groupby"><option value="" selected="">No grouping</option><option value="0">PROCESS</option><option value="1">STANDARD RATE</option><option value="2">MIN/SHEET?</option><option value="3">MIN PER SHEET RATE</option><option value="4">MOQ?</option><option value="5">MINIMUM ORDER QUANTITY</option><option value="6">MOV?</option><option value="7">MINIMUM ORDER VALUE</option></select></div></div></div><div class="grid-menu-wrap grid-colmenu-wrap"><button type="button" class="btn small grid-colbtn">Columns <span class="gt-caret"></span></button><div class="grid-menu grid-colmenu"><label><input type="checkbox" checked="" data-col="0"> PROCESS</label><label><input type="checkbox" checked="" data-col="1"> STANDARD RATE</label><label><input type="checkbox" checked="" data-col="2"> MIN/SHEET?</label><label><input type="checkbox" checked="" data-col="3"> MIN PER SHEET RATE</label><label><input type="checkbox" checked="" data-col="4"> MOQ?</label><label><input type="checkbox" checked="" data-col="5"> MINIMUM ORDER QUANTITY</label><label><input type="checkbox" checked="" data-col="6"> MOV?</label><label><input type="checkbox" checked="" data-col="7"> MINIMUM ORDER VALUE</label></div></div><button type="button" class="btn small btn-ico grid-print" title="Print" aria-label="Print"><span class="ico ico-print"></span></button><div class="grid-menu-wrap grid-exportmenu-wrap"><button type="button" class="btn small grid-export-btn" title="Export">Export <span class="gt-caret"></span></button><div class="grid-menu grid-exportmenu"><button type="button" class="gxp-opt grid-export">CSV<small>Opens in any spreadsheet or text editor</small></button><button type="button" class="gxp-opt grid-export-xlsx">Excel<small>Formatted .xlsx workbook</small></button></div></div><button type="button" class="btn small btn-ico grid-clear" title="Clear all filters" aria-label="Clear all filters"><span class="ico ico-clear"></span></button></div><table class="prm-table gridtable gt-enhanced" data-grid-title="Process Rates" data-page-size="50">
+    <thead>
+      <tr>
+        <th style="width: 22%; cursor: pointer;" title="Click to sort">PROCESS<span class="grid-funnel" title="Filter column"></span></th>
+        <th style="width: 14%; cursor: pointer;" title="Click to sort">STANDARD RATE<span class="grid-funnel" title="Filter column"></span></th>
+        <th style="width:8%;text-align:center;">MIN/SHEET?</th>
+        <th style="width: 13%; cursor: pointer;" title="Click to sort">MIN PER SHEET RATE<span class="grid-funnel" title="Filter column"></span></th>
+        <th style="width:8%;text-align:center;">MOQ?</th>
+        <th style="width: 14%; cursor: pointer;" title="Click to sort">MINIMUM ORDER QUANTITY<span class="grid-funnel" title="Filter column"></span></th>
+        <th style="width:8%;text-align:center;">MOV?</th>
+        <th style="width: 13%; cursor: pointer;" title="Click to sort">MINIMUM ORDER VALUE<span class="grid-funnel" title="Filter column"></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr data-gf-filtered="0">
+        <td class="prm-proc">DIE PUNCHING</td>
+        <td>
+          <input type="number" step="any" min="0" name="rate_DIE PUNCHING" value="0.43" placeholder="default: 0.45" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">RS/SHEET</span>
+        </td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="minchk_DIE PUNCHING" value="YES" style="width:17px;height:17px;cursor:pointer;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </td>
+        <td>
+          <input type="number" step="any" min="0" name="minrate_DIE PUNCHING" value="" disabled="" placeholder="Rs / sheet" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">RS/SHEET</span>
+        </td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="moqchk_DIE PUNCHING" value="YES" checked="" style="width:17px;height:17px;cursor:pointer;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </td>
+        <td>
+          <input type="number" step="1" min="0" name="moqqty_DIE PUNCHING" value="2000" placeholder="Sheets" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">SHEETS</span>
+        </td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="movchk_DIE PUNCHING" value="YES" style="width:17px;height:17px;cursor:pointer;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </td>
+        <td>
+          <input type="number" step="any" min="0" name="movamt_DIE PUNCHING" value="" disabled="" placeholder="Amount" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">RUPEES</span>
+        </td>
+      </tr>
+      
+      <tr data-gf-filtered="0">
+        <td class="prm-proc">GOLD FOIL STAMPING</td>
+        <td>
+          <input type="number" step="any" min="0" name="rate_GOLD FOIL STAMPING" value="0.81" placeholder="default: 0.85" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">RS/SHEET</span>
+        </td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="minchk_GOLD FOIL STAMPING" value="YES" style="width:17px;height:17px;cursor:pointer;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </td>
+        <td>
+          <input type="number" step="any" min="0" name="minrate_GOLD FOIL STAMPING" value="" disabled="" placeholder="Rs / sheet" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">RS/SHEET</span>
+        </td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="moqchk_GOLD FOIL STAMPING" value="YES" style="width:17px;height:17px;cursor:pointer;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </td>
+        <td>
+          <input type="number" step="1" min="0" name="moqqty_GOLD FOIL STAMPING" value="" disabled="" placeholder="Sheets" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">SHEETS</span>
+        </td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="movchk_GOLD FOIL STAMPING" value="YES" style="width:17px;height:17px;cursor:pointer;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </td>
+        <td>
+          <input type="number" step="any" min="0" name="movamt_GOLD FOIL STAMPING" value="" disabled="" placeholder="Amount" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">RUPEES</span>
+        </td>
+      </tr>
+      
+      <tr data-gf-filtered="0">
+        <td class="prm-proc">OFFSET PRINTING</td>
+        <td>
+          <input type="number" step="any" min="0" name="rate_OFFSET PRINTING" value="0.85" placeholder="default: 0.90" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">RS/SHEET</span>
+        </td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="minchk_OFFSET PRINTING" value="YES" checked="" style="width:17px;height:17px;cursor:pointer;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </td>
+        <td>
+          <input type="number" step="any" min="0" name="minrate_OFFSET PRINTING" value="1500" placeholder="Rs / sheet" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">RS/SHEET</span>
+        </td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="moqchk_OFFSET PRINTING" value="YES" style="width:17px;height:17px;cursor:pointer;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </td>
+        <td>
+          <input type="number" step="1" min="0" name="moqqty_OFFSET PRINTING" value="" disabled="" placeholder="Sheets" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">SHEETS</span>
+        </td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="movchk_OFFSET PRINTING" value="YES" style="width:17px;height:17px;cursor:pointer;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </td>
+        <td>
+          <input type="number" step="any" min="0" name="movamt_OFFSET PRINTING" value="" disabled="" placeholder="Amount" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">RUPEES</span>
+        </td>
+      </tr>
+      
+      <tr data-gf-filtered="0">
+        <td class="prm-proc">PASTING</td>
+        <td>
+          <input type="number" step="any" min="0" name="rate_PASTING" value="0.33" placeholder="default: 0.35" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">RS/SHEET</span>
+        </td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="minchk_PASTING" value="YES" style="width:17px;height:17px;cursor:pointer;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </td>
+        <td>
+          <input type="number" step="any" min="0" name="minrate_PASTING" value="" disabled="" placeholder="Rs / sheet" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">RS/SHEET</span>
+        </td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="moqchk_PASTING" value="YES" style="width:17px;height:17px;cursor:pointer;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </td>
+        <td>
+          <input type="number" step="1" min="0" name="moqqty_PASTING" value="" disabled="" placeholder="Sheets" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">SHEETS</span>
+        </td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="movchk_PASTING" value="YES" checked="" style="width:17px;height:17px;cursor:pointer;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </td>
+        <td>
+          <input type="number" step="any" min="0" name="movamt_PASTING" value="1000" placeholder="Amount" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">RUPEES</span>
+        </td>
+      </tr>
+      
+      <tr data-gf-filtered="0">
+        <td class="prm-proc">SILVER FOIL STAMPING</td>
+        <td>
+          <input type="number" step="any" min="0" name="rate_SILVER FOIL STAMPING" value="0.76" placeholder="default: 0.80" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">RS/SHEET</span>
+        </td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="minchk_SILVER FOIL STAMPING" value="YES" style="width:17px;height:17px;cursor:pointer;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </td>
+        <td>
+          <input type="number" step="any" min="0" name="minrate_SILVER FOIL STAMPING" value="" disabled="" placeholder="Rs / sheet" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">RS/SHEET</span>
+        </td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="moqchk_SILVER FOIL STAMPING" value="YES" style="width:17px;height:17px;cursor:pointer;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </td>
+        <td>
+          <input type="number" step="1" min="0" name="moqqty_SILVER FOIL STAMPING" value="" disabled="" placeholder="Sheets" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">SHEETS</span>
+        </td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="movchk_SILVER FOIL STAMPING" value="YES" style="width:17px;height:17px;cursor:pointer;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </td>
+        <td>
+          <input type="number" step="any" min="0" name="movamt_SILVER FOIL STAMPING" value="" disabled="" placeholder="Amount" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">RUPEES</span>
+        </td>
+      </tr>
+      
+      <tr data-gf-filtered="0">
+        <td class="prm-proc">SPOT UV</td>
+        <td>
+          <input type="number" step="any" min="0" name="rate_SPOT UV" value="0.57" placeholder="default: 0.60" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">RS/SHEET</span>
+        </td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="minchk_SPOT UV" value="YES" style="width:17px;height:17px;cursor:pointer;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </td>
+        <td>
+          <input type="number" step="any" min="0" name="minrate_SPOT UV" value="" disabled="" placeholder="Rs / sheet" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">RS/SHEET</span>
+        </td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="moqchk_SPOT UV" value="YES" style="width:17px;height:17px;cursor:pointer;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </td>
+        <td>
+          <input type="number" step="1" min="0" name="moqqty_SPOT UV" value="" disabled="" placeholder="Sheets" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">SHEETS</span>
+        </td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="movchk_SPOT UV" value="YES" style="width:17px;height:17px;cursor:pointer;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </td>
+        <td>
+          <input type="number" step="any" min="0" name="movamt_SPOT UV" value="" disabled="" placeholder="Amount" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">RUPEES</span>
+        </td>
+      </tr>
+      
+      <tr data-gf-filtered="0">
+        <td class="prm-proc">THERMAL GLOSS LAMINATION</td>
+        <td>
+          <input type="number" step="any" min="0" name="rate_THERMAL GLOSS LAMINATION" value="0.15" placeholder="default: 0.16" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">PAISE/SQ IN</span>
+        </td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="minchk_THERMAL GLOSS LAMINATION" value="YES" style="width:17px;height:17px;cursor:pointer;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </td>
+        <td>
+          <input type="number" step="any" min="0" name="minrate_THERMAL GLOSS LAMINATION" value="" disabled="" placeholder="Rs / sheet" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">RS/SHEET</span>
+        </td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="moqchk_THERMAL GLOSS LAMINATION" value="YES" style="width:17px;height:17px;cursor:pointer;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </td>
+        <td>
+          <input type="number" step="1" min="0" name="moqqty_THERMAL GLOSS LAMINATION" value="" disabled="" placeholder="Sheets" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">SHEETS</span>
+        </td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="movchk_THERMAL GLOSS LAMINATION" value="YES" style="width:17px;height:17px;cursor:pointer;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </td>
+        <td>
+          <input type="number" step="any" min="0" name="movamt_THERMAL GLOSS LAMINATION" value="" disabled="" placeholder="Amount" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">RUPEES</span>
+        </td>
+      </tr>
+      
+      <tr data-gf-filtered="0">
+        <td class="prm-proc">THERMAL MATT LAMINATION</td>
+        <td>
+          <input type="number" step="any" min="0" name="rate_THERMAL MATT LAMINATION" value="0.17" placeholder="default: 0.18" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">PAISE/SQ IN</span>
+        </td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="minchk_THERMAL MATT LAMINATION" value="YES" style="width:17px;height:17px;cursor:pointer;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </td>
+        <td>
+          <input type="number" step="any" min="0" name="minrate_THERMAL MATT LAMINATION" value="" disabled="" placeholder="Rs / sheet" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">RS/SHEET</span>
+        </td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="moqchk_THERMAL MATT LAMINATION" value="YES" style="width:17px;height:17px;cursor:pointer;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </td>
+        <td>
+          <input type="number" step="1" min="0" name="moqqty_THERMAL MATT LAMINATION" value="" disabled="" placeholder="Sheets" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">SHEETS</span>
+        </td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="movchk_THERMAL MATT LAMINATION" value="YES" style="width:17px;height:17px;cursor:pointer;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </td>
+        <td>
+          <input type="number" step="any" min="0" name="movamt_THERMAL MATT LAMINATION" value="" disabled="" placeholder="Amount" style="width:110px;padding:5px 7px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <span class="muted prm-unit">RUPEES</span>
+        </td>
+      </tr>
+      
+    </tbody>
+  </table><div class="gt-cards"></div><div class="grid-pager" style="display: flex;"><span class="gp-info">Showing 1–8 of 8</span><span class="gp-controls"></span><span class="gp-size">Rows: <select class="gp-size-sel"><option value="10">10</option><option value="25">25</option><option value="50" selected="">50</option><option value="100">100</option><option value="all">Show all</option></select></span></div>
+  
+
+  <div class="erp-foot" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px;">
+    <div class="btn-row"><button class="btn primary" type="submit">SAVE RATES</button></div>
+    <span class="muted" style="font-size:11.5px;">Tick MIN/SHEET, MOQ or MOV to unlock its value.</span>
+  </div>
+</form>
+
+
+
+<style>
+  .prm-table { width:100%; border-collapse: collapse; font-size: 13px; }
+  .prm-table thead th { text-align:left; padding: 8px 10px; font-weight:700;
+    letter-spacing:.05em; font-size:11px; color: var(--text-2);
+    border-bottom: 2px solid var(--border); background: var(--bg-4); }
+  .prm-table tbody td { padding: 6px 10px; border-bottom: 1px solid var(--border); vertical-align:middle; }
+  .prm-table tbody tr:hover td { background: var(--bg-4); }
+  .prm-proc { font-weight:700; letter-spacing:.02em; color: var(--text); }
+  .prm-unit { font-size:10px; margin-left:6px; letter-spacing:.04em; }
+</style>
+
+    </main>
+</div>
+</body>
+</html>

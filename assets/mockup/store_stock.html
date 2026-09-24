@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Store Stock Register</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .stk-wrap { overflow-x:auto; }
+  .stk-table { width:100%; border-collapse:collapse; font-size:13px; }
+  .stk-table thead th { text-align:left; padding:9px 10px; font-size:11px; letter-spacing:.05em;
+    color:var(--text-2); border-bottom:2px solid var(--border); background:var(--bg-4); white-space:nowrap; }
+  .stk-table tbody td { padding:7px 10px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .stk-table .pcell { font-weight:700; border-right:1px solid var(--border); }
+  .stk-table .codecell { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; white-space:nowrap; }
+  .stk-table .skcell { font-size:13px; }
+  .stk-table .numcell { text-align:right; font-weight:700; white-space:nowrap; }
+  .stk-table tr.low td:not(.pcell) { background:rgba(231,76,60,.08); }
+  .stk-table tbody tr:hover td { background:var(--bg-4); }
+  .stk-table th.num, .stk-table td.numcell { text-align:right; white-space:nowrap; }
+  .bal-tiles { display:flex; gap:12px; flex-wrap:wrap; margin:6px 0 2px; }
+  .bal-tile { border:1px solid var(--border); border-radius:8px; padding:9px 15px; min-width:130px; }
+  .bal-tile .n { font-size:17px; font-weight:700; line-height:1.3; }
+  .bal-tile .n small { font-size:10px; font-weight:600; color:var(--text-2); }
+  .bal-tile .l { font-size:10px; letter-spacing:.06em; color:var(--text-2); margin-top:2px; }
+  .bal-tile.strong { border-color:#c9a200; } .bal-tile.strong .n { color:#9a7400; }
+</style>
+<style>
+  /* Reusable three-dot (kebab) row menu for registers. The popup is moved to
+     position:fixed on open so it never gets clipped by a table's overflow. */
+  .rowmenu{ position:relative; display:inline-block; }
+  .rowmenu-btn{ cursor:pointer; background:none; border:none; box-shadow:none;
+    padding:4px 8px; line-height:1; color:var(--text-2, #8a8a8a);
+    display:inline-flex; align-items:center; justify-content:center; }
+  .rowmenu-btn:hover{ color:var(--text, #222); background:none; }
+  .rowmenu-pop{ display:none; position:fixed; z-index:9999; min-width:160px;
+    background:var(--bg-2, #fff); border:1px solid var(--border, #ccc); border-radius:10px;
+    box-shadow:0 10px 28px rgba(0,0,0,.22); padding:6px; }
+  .rowmenu-pop.open{ display:block; }
+  /* little caret pointing up toward the three dots */
+  .rowmenu-pop::before{ content:""; position:absolute; top:-6px; right:14px; width:11px; height:11px;
+    background:var(--bg-2, #fff); border-left:1px solid var(--border, #ccc);
+    border-top:1px solid var(--border, #ccc); transform:rotate(45deg); }
+  .rowmenu-pop a, .rowmenu-pop button{ display:block; width:100%; text-align:left; background:none;
+    border:none; box-shadow:none; cursor:pointer; padding:10px 14px; border-radius:7px; font:inherit;
+    color:inherit; white-space:nowrap; text-decoration:none; }
+  .rowmenu-pop a:hover, .rowmenu-pop button:hover{ background:var(--accent, #3b82f6); color:#fff; }
+  /* Destructive actions (delete / cancel) look the same on every register. */
+  .rowmenu-pop a.rowmenu-danger{ color:#b00020; }
+  .rowmenu-pop a.rowmenu-danger:hover{ background:#b00020; color:#fff; }
+  </style>
+<style>
+  /* Preview only. The page is a snapshot of the real screen, taken from the app
+     with its own data; this removes the app chrome that has no meaning outside
+     the app, and makes sure nothing here can be clicked. */
+  html,body{background:var(--bg);margin:0;overflow:hidden}
+  .layout{display:block}
+  .sidebar,.topbar,.fy-badge,.bookmark-flap,#sidebar,.sidebar-toggle{display:none !important}
+  .main{margin:0 !important;padding:26px 30px !important;max-width:100% !important;width:100% !important}
+  a,button,input,select,textarea,label{pointer-events:none !important;cursor:default !important}
+  a{text-decoration:none !important;border-bottom:0 !important}
+  ::-webkit-scrollbar{display:none;width:0;height:0}
+  /* the back button, row menus and bulk bars are chrome, not content */
+  .page-head .btn-row,.rowmenu,.bulkbar,.back-btn{display:none !important}
+  /* registers and module homes size themselves to the viewport and scroll; a
+     preview has no viewport to fill, so everything takes its natural height */
+  .mh-list,.mh-stats{max-height:none !important;overflow:visible !important}
+  .module-home{align-items:flex-start !important}
+  .table-wrap,.gridwrap{max-height:none !important;overflow:visible !important}
+
+</style>
+</head>
+<body>
+<div class="layout">
+<main id="mainContent" class="main ">
+      
+      
+
+
+
+      
+<div class="page-head no-print"><div><h1>STORE STOCK REGISTER</h1>
+  <p class="muted">One line per item code. Closing = opening + inward + returned − issued. Items that raise reorders are flagged in red when below Min Qty; Job-Specific items only show a quiet LOW hint.</p></div><div class="btn-row"><button type="button" class="btn no-print btn-back" title="Go back one level"><span class="btn-back-ico"></span>BACK</button></div></div>
+
+
+<div class="alert alert-error no-print" style="margin-bottom:16px;">
+  ⚠ <strong>4 ITEM CODES BELOW MINIMUM QUANTITY:</strong>
+  
+    RM-00025 (LAMINATION ADHESIVE) — 35 Kgs / min 50, 
+  
+    RM-00026 (UV VARNISH) — 24 Litres / min 30, 
+  
+    RM-00022 (OFFSET INK : MAGENTA) — 16 Kgs / min 25, 
+  
+    RM-00023 (OFFSET INK : YELLOW) — 15 Kgs / min 20
+  
+   · <a style="color:inherit;text-decoration:underline;">REORDER REGISTER</a>
+</div>
+
+
+<!-- Period balances: the same stock, seen over a chosen period. Opening is simply
+     everything that moved before the period began. -->
+<div class="card no-print" style="margin-bottom:16px;">
+  <div class="section-head wrap" style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;">
+    <div>
+      <h2 style="margin:0;">OPENING &amp; CLOSING — September 2026</h2>
+      <div class="muted" style="font-size:11px;margin-top:3px;">01/09/2026 to 30/09/2026 · totals per unit</div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap;">
+      <label style="margin:0;font-size:12px;">PERIOD
+        <select id="pPeriod" autocomplete="off" autocorrect="off" autocapitalize="off">
+          <option value="day">DAILY</option>
+          <option value="week">WEEKLY</option>
+          <option value="month" selected="">MONTHLY</option>
+          <option value="year">YEARLY (FINANCIAL YEAR)</option>
+        </select>
+      </label>
+      <label style="margin: 0px; font-size: 12px; display: none;" id="boxDay">DATE
+        <input type="text" id="pDay" value="" class="datepicker flatpickr-input" placeholder="DD/MM/YYYY" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      </label>
+      <label style="margin: 0px; font-size: 12px; display: none;" id="boxWeek">WEEK
+        <input type="week" id="pWeek" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+      </label>
+      <label style="margin:0;font-size:12px;" id="boxMonth">MONTH
+        <input type="month" id="pMonth" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+      </label>
+      <label style="margin: 0px; font-size: 12px; display: none;" id="boxYear">FINANCIAL YEAR
+        <select id="pFy" autocomplete="off" autocorrect="off" autocapitalize="off">
+          <option value="" selected="">CURRENT</option>
+          <option value="26-27">26-27</option>
+        </select>
+      </label>
+      <button type="button" class="btn small primary">APPLY</button>
+    </div>
+  </div>
+  <div class="bal-tiles">
+    
+    <div class="bal-tile"><div class="n"><div>581 <small>Kgs</small></div><div>108 <small>Litres</small></div><div>8 <small>Rolls</small></div><div>34 <small>Pieces</small></div></div><div class="l">OPENING BALANCE</div></div>
+    <div class="bal-tile"><div class="n"><div>+ 310 <small>Kgs</small></div><div>+ 0 <small>Litres</small></div><div>+ 0 <small>Rolls</small></div><div>+ 0 <small>Pieces</small></div></div><div class="l">INWARD</div></div>
+    <div class="bal-tile"><div class="n"><div>+ 0 <small>Kgs</small></div><div>+ 0 <small>Litres</small></div><div>+ 0 <small>Rolls</small></div><div>+ 0 <small>Pieces</small></div></div><div class="l">RETURNED</div></div>
+    <div class="bal-tile"><div class="n"><div>− 227 <small>Kgs</small></div><div>− 58 <small>Litres</small></div><div>− 3 <small>Rolls</small></div><div>− 14 <small>Pieces</small></div></div><div class="l">ISSUED</div></div>
+    <div class="bal-tile strong"><div class="n"><div>664 <small>Kgs</small></div><div>50 <small>Litres</small></div><div>5 <small>Rolls</small></div><div>20 <small>Pieces</small></div></div><div class="l">CLOSING BALANCE</div></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="section-head wrap no-print" style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;">
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;">
+      <label style="margin:0;font-size:12px;">GROUP
+        <select id="fGroup" class="searchable" data-placeholder="All groups" data-searchable-bound="1" autocomplete="off" autocorrect="off" autocapitalize="off" style="display: none;">
+          <option value="" selected="">ALL GROUPS</option>
+          <option value="ADHESIVES &amp; COATINGS">ADHESIVES &amp; COATINGS</option><option value="BOPP FILM">BOPP FILM</option><option value="HOT FOIL">HOT FOIL</option><option value="INKS">INKS</option><option value="PRESS SPARES">PRESS SPARES</option>
+        </select><div class="ss-wrap"><input type="text" class="ss-input" autocomplete="off" placeholder="All groups" autocorrect="off" autocapitalize="off" spellcheck="false" value="ALL GROUPS"><div class="ss-panel" style="display: none;"></div></div>
+      </label>
+      <label style="margin:0;font-size:12px;">TYPE
+        <select id="fType" autocomplete="off" autocorrect="off" autocapitalize="off">
+          <option value="" selected="">ALL TYPES</option>
+          <option value="RAW MATERIAL">RAW MATERIAL</option><option value="SPARE PART">SPARE PART</option>
+        </select>
+      </label>
+      <label style="margin:0;font-size:12px;">ITEM
+        <select id="fItem" class="searchable" data-placeholder="All items" data-searchable-bound="1" autocomplete="off" autocorrect="off" autocapitalize="off" style="display: none;">
+          <option value="" selected="">ALL ITEMS</option>
+          <option value="BOPP FILM">BOPP FILM</option><option value="FOUNTAIN SOLUTION">FOUNTAIN SOLUTION</option><option value="GRIPPER SPRING">GRIPPER SPRING</option><option value="HOT STAMPING FOIL">HOT STAMPING FOIL</option><option value="LAMINATION ADHESIVE">LAMINATION ADHESIVE</option><option value="OFFSET INK">OFFSET INK</option><option value="PRESS BLANKET">PRESS BLANKET</option><option value="UV VARNISH">UV VARNISH</option>
+        </select><div class="ss-wrap"><input type="text" class="ss-input" autocomplete="off" placeholder="All items" autocorrect="off" autocapitalize="off" spellcheck="false" value="ALL ITEMS"><div class="ss-panel" style="display: none;"></div></div>
+      </label>
+      <label style="margin:0;font-size:12px;">SHOW
+        <select id="fShow" autocomplete="off" autocorrect="off" autocapitalize="off">
+          <option value="" selected="">ALL CODES</option>
+          <option value="stock">IN STOCK ONLY</option>
+          <option value="low">LOW STOCK ONLY</option>
+        </select>
+      </label>
+      <button type="button" class="btn small">RESET</button>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <span id="stkCount" class="muted" style="font-size:12px;">16 ITEM CODES</span>
+      <button type="button" class="btn small">PRINT</button>
+    </div>
+  </div>
+
+  <div class="stk-wrap">
+    <table id="stk_table" class="stk-table resp-grid">
+      <thead>
+        <tr><th style="width:14%;">GROUP</th><th>CODE</th><th style="width:34%;">ITEM KEY</th><th>UNIT</th>
+            <th class="num">OPENING<br>BALANCE</th><th class="num">INWARD</th><th class="num">RETURNED</th><th class="num">ISSUED</th>
+            <th class="num">CLOSING<br>BALANCE</th><th class="num">MIN QTY</th><th>STATUS</th></tr>
+      </thead>
+      <tbody id="stkBody"><tr class="low"><td rowspan="2" class="pcell" data-label="GROUP"><strong>ADHESIVES &amp; COATINGS</strong><div class="muted" style="font-size:10.5px;font-weight:600;">RAW MATERIAL</div></td><td class="codecell" data-label="CODE">RM-00025</td><td class="skcell" data-label="ITEM KEY">LAMINATION ADHESIVE</td><td data-label="UNIT">Kgs</td><td class="numcell" data-label="OPENINGBALANCE">115</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="RETURNED">0</td><td class="numcell" data-label="ISSUED">80</td><td class="numcell" data-label="CLOSINGBALANCE"><b>35</b></td><td class="numcell" data-label="MIN QTY">50</td><td data-label="STATUS"><span style="color:#e74c3c;font-weight:700;font-size:11px;">⚠ LOW STOCK</span></td></tr><tr class="low"><td class="codecell" data-label="GROUP">RM-00026</td><td class="skcell" data-label="CODE">UV VARNISH</td><td data-label="ITEM KEY">Litres</td><td class="numcell" data-label="UNIT">58</td><td class="numcell" data-label="OPENINGBALANCE">0</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="RETURNED">34</td><td class="numcell" data-label="ISSUED"><b>24</b></td><td class="numcell" data-label="CLOSINGBALANCE">30</td><td data-label="MIN QTY"><span style="color:#e74c3c;font-weight:700;font-size:11px;">⚠ LOW STOCK</span></td></tr><tr><td rowspan="5" class="pcell" data-label="GROUP"><strong>BOPP FILM</strong><div class="muted" style="font-size:10.5px;font-weight:600;">RAW MATERIAL</div></td><td class="codecell" data-label="CODE">RM-00001</td><td class="skcell" data-label="ITEM KEY">BOPP FILM : 12 MIC : GLOSS : 18 INCH</td><td data-label="UNIT">Kgs</td><td class="numcell" data-label="OPENINGBALANCE">0</td><td class="numcell" data-label="INWARD">140</td><td class="numcell" data-label="RETURNED">0</td><td class="numcell" data-label="ISSUED">58</td><td class="numcell" data-label="CLOSINGBALANCE"><b>82</b></td><td class="numcell" data-label="MIN QTY">—</td><td data-label="STATUS"><span style="color:#27ae60;font-size:11px;">OK</span></td></tr><tr><td class="codecell" data-label="GROUP">RM-00002</td><td class="skcell" data-label="CODE">BOPP FILM : 12 MIC : GLOSS : 20 INCH</td><td data-label="ITEM KEY">Kgs</td><td class="numcell" data-label="UNIT">118</td><td class="numcell" data-label="OPENINGBALANCE">0</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="RETURNED">0</td><td class="numcell" data-label="ISSUED"><b>118</b></td><td class="numcell" data-label="CLOSINGBALANCE">—</td><td data-label="MIN QTY"><span style="color:#27ae60;font-size:11px;">OK</span></td></tr><tr><td class="codecell" data-label="GROUP">RM-00007</td><td class="skcell" data-label="CODE">BOPP FILM : 12 MIC : MATT : 23 INCH</td><td data-label="ITEM KEY">Kgs</td><td class="numcell" data-label="UNIT">102</td><td class="numcell" data-label="OPENINGBALANCE">0</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="RETURNED">0</td><td class="numcell" data-label="ISSUED"><b>102</b></td><td class="numcell" data-label="CLOSINGBALANCE">—</td><td data-label="MIN QTY"><span style="color:#27ae60;font-size:11px;">OK</span></td></tr><tr><td class="codecell" data-label="GROUP">RM-00012</td><td class="skcell" data-label="CODE">BOPP FILM : 15 MIC : GLOSS : 25 INCH</td><td data-label="ITEM KEY">Kgs</td><td class="numcell" data-label="UNIT">120</td><td class="numcell" data-label="OPENINGBALANCE">0</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="RETURNED">55</td><td class="numcell" data-label="ISSUED"><b>65</b></td><td class="numcell" data-label="CLOSINGBALANCE">—</td><td data-label="MIN QTY"><span style="color:#27ae60;font-size:11px;">OK</span></td></tr><tr><td class="codecell" data-label="GROUP">RM-00014</td><td class="skcell" data-label="CODE">BOPP FILM : 15 MIC : MATT : 20 INCH</td><td data-label="ITEM KEY">Kgs</td><td class="numcell" data-label="UNIT">0</td><td class="numcell" data-label="OPENINGBALANCE">110</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="RETURNED">0</td><td class="numcell" data-label="ISSUED"><b>110</b></td><td class="numcell" data-label="CLOSINGBALANCE">—</td><td data-label="MIN QTY"><span style="color:#27ae60;font-size:11px;">OK</span></td></tr><tr><td rowspan="2" class="pcell" data-label="GROUP"><strong>HOT FOIL</strong><div class="muted" style="font-size:10.5px;font-weight:600;">RAW MATERIAL</div></td><td class="codecell" data-label="CODE">RM-00018</td><td class="skcell" data-label="ITEM KEY">HOT STAMPING FOIL : GOLD : 24 INCH</td><td data-label="UNIT">Rolls</td><td class="numcell" data-label="OPENINGBALANCE">4</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="RETURNED">0</td><td class="numcell" data-label="ISSUED">2</td><td class="numcell" data-label="CLOSINGBALANCE"><b>2</b></td><td class="numcell" data-label="MIN QTY">—</td><td data-label="STATUS"><span style="color:#27ae60;font-size:11px;">OK</span></td></tr><tr><td class="codecell" data-label="GROUP">RM-00019</td><td class="skcell" data-label="CODE">HOT STAMPING FOIL : SILVER : 12 INCH</td><td data-label="ITEM KEY">Rolls</td><td class="numcell" data-label="UNIT">4</td><td class="numcell" data-label="OPENINGBALANCE">0</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="RETURNED">1</td><td class="numcell" data-label="ISSUED"><b>3</b></td><td class="numcell" data-label="CLOSINGBALANCE">—</td><td data-label="MIN QTY"><span style="color:#27ae60;font-size:11px;">OK</span></td></tr><tr><td rowspan="5" class="pcell" data-label="GROUP"><strong>INKS</strong><div class="muted" style="font-size:10.5px;font-weight:600;">RAW MATERIAL</div></td><td class="codecell" data-label="CODE">RM-00027</td><td class="skcell" data-label="ITEM KEY">FOUNTAIN SOLUTION</td><td data-label="UNIT">Litres</td><td class="numcell" data-label="OPENINGBALANCE">50</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="RETURNED">0</td><td class="numcell" data-label="ISSUED">24</td><td class="numcell" data-label="CLOSINGBALANCE"><b>26</b></td><td class="numcell" data-label="MIN QTY">25</td><td data-label="STATUS"><span style="color:#27ae60;font-size:11px;">OK</span></td></tr><tr><td class="codecell" data-label="GROUP">RM-00024</td><td class="skcell" data-label="CODE">OFFSET INK : BLACK</td><td data-label="ITEM KEY">Kgs</td><td class="numcell" data-label="UNIT">37</td><td class="numcell" data-label="OPENINGBALANCE">40</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="RETURNED">0</td><td class="numcell" data-label="ISSUED"><b>77</b></td><td class="numcell" data-label="CLOSINGBALANCE">20</td><td data-label="MIN QTY"><span style="color:#27ae60;font-size:11px;">OK</span></td></tr><tr><td class="codecell" data-label="GROUP">RM-00021</td><td class="skcell" data-label="CODE">OFFSET INK : CYAN</td><td data-label="ITEM KEY">Kgs</td><td class="numcell" data-label="UNIT">24</td><td class="numcell" data-label="OPENINGBALANCE">20</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="RETURNED">0</td><td class="numcell" data-label="ISSUED"><b>44</b></td><td class="numcell" data-label="CLOSINGBALANCE">20</td><td data-label="MIN QTY"><span style="color:#27ae60;font-size:11px;">OK</span></td></tr><tr class="low"><td class="codecell" data-label="GROUP">RM-00022</td><td class="skcell" data-label="CODE">OFFSET INK : MAGENTA</td><td data-label="ITEM KEY">Kgs</td><td class="numcell" data-label="UNIT">32</td><td class="numcell" data-label="OPENINGBALANCE">0</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="RETURNED">16</td><td class="numcell" data-label="ISSUED"><b>16</b></td><td class="numcell" data-label="CLOSINGBALANCE">25</td><td data-label="MIN QTY"><span style="color:#e74c3c;font-weight:700;font-size:11px;">⚠ LOW STOCK</span></td></tr><tr class="low"><td class="codecell" data-label="GROUP">RM-00023</td><td class="skcell" data-label="CODE">OFFSET INK : YELLOW</td><td data-label="ITEM KEY">Kgs</td><td class="numcell" data-label="UNIT">33</td><td class="numcell" data-label="OPENINGBALANCE">0</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="RETURNED">18</td><td class="numcell" data-label="ISSUED"><b>15</b></td><td class="numcell" data-label="CLOSINGBALANCE">20</td><td data-label="MIN QTY"><span style="color:#e74c3c;font-weight:700;font-size:11px;">⚠ LOW STOCK</span></td></tr><tr><td rowspan="2" class="pcell" data-label="GROUP"><strong>PRESS SPARES</strong><div class="muted" style="font-size:10.5px;font-weight:600;">SPARE PART</div></td><td class="codecell" data-label="CODE">SP-00003</td><td class="skcell" data-label="ITEM KEY">GRIPPER SPRING</td><td data-label="UNIT">Pieces</td><td class="numcell" data-label="OPENINGBALANCE">30</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="RETURNED">0</td><td class="numcell" data-label="ISSUED">12</td><td class="numcell" data-label="CLOSINGBALANCE"><b>18</b></td><td class="numcell" data-label="MIN QTY">12</td><td data-label="STATUS"><span style="color:#27ae60;font-size:11px;">OK</span></td></tr><tr><td class="codecell" data-label="GROUP">SP-00001</td><td class="skcell" data-label="CODE">PRESS BLANKET : 28X40 INCH</td><td data-label="ITEM KEY">Pieces</td><td class="numcell" data-label="UNIT">4</td><td class="numcell" data-label="OPENINGBALANCE">0</td><td class="numcell" data-label="INWARD">0</td><td class="numcell" data-label="RETURNED">2</td><td class="numcell" data-label="ISSUED"><b>2</b></td><td class="numcell" data-label="CLOSINGBALANCE">2</td><td data-label="MIN QTY"><span style="color:#27ae60;font-size:11px;">OK</span></td></tr></tbody>
+    </table>
+  </div>
+</div>
+
+
+
+<style>
+  .stk-wrap { overflow-x:auto; }
+  .stk-table { width:100%; border-collapse:collapse; font-size:13px; }
+  .stk-table thead th { text-align:left; padding:9px 10px; font-size:11px; letter-spacing:.05em;
+    color:var(--text-2); border-bottom:2px solid var(--border); background:var(--bg-4); white-space:nowrap; }
+  .stk-table tbody td { padding:7px 10px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .stk-table .pcell { font-weight:700; border-right:1px solid var(--border); }
+  .stk-table .codecell { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; white-space:nowrap; }
+  .stk-table .skcell { font-size:13px; }
+  .stk-table .numcell { text-align:right; font-weight:700; white-space:nowrap; }
+  .stk-table tr.low td:not(.pcell) { background:rgba(231,76,60,.08); }
+  .stk-table tbody tr:hover td { background:var(--bg-4); }
+  .stk-table th.num, .stk-table td.numcell { text-align:right; white-space:nowrap; }
+  .bal-tiles { display:flex; gap:12px; flex-wrap:wrap; margin:6px 0 2px; }
+  .bal-tile { border:1px solid var(--border); border-radius:8px; padding:9px 15px; min-width:130px; }
+  .bal-tile .n { font-size:17px; font-weight:700; line-height:1.3; }
+  .bal-tile .n small { font-size:10px; font-weight:600; color:var(--text-2); }
+  .bal-tile .l { font-size:10px; letter-spacing:.06em; color:var(--text-2); margin-top:2px; }
+  .bal-tile.strong { border-color:#c9a200; } .bal-tile.strong .n { color:#9a7400; }
+</style>
+
+    </main>
+</div>
+</body>
+</html>
