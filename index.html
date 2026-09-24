@@ -1255,37 +1255,56 @@
   })();
 </script>
 <script>
-/* Smooth FAQ accordion — animate <details> open/close (height + bottom padding) */
-document.querySelectorAll('.faq-item').forEach(function(det){
-  var sum=det.querySelector('summary'), content=det.querySelector('p');
-  if(!sum||!content) return;
+/* Smooth FAQ accordion — animate <details> open/close (height + bottom padding).
+   Only one answer is open at a time: opening a question closes whichever one was
+   open before, with the same animation. */
+(function(){
+  var items=[].slice.call(document.querySelectorAll('.faq-item'));
   var PAD='20px';
-  sum.addEventListener('click',function(e){
-    e.preventDefault();
-    if(det.dataset.animating) return;
+  function part(det){ return det.querySelector('p'); }
+
+  function closeItem(det){
+    var content=part(det);
+    if(!det.open) return;
+    if(det.dataset.animating){ det.dataset.closeAfter='1'; return; }   // still opening — close when done
     det.dataset.animating='1';
-    if(det.open){
-      var start=content.offsetHeight;
-      content.style.height=start+'px'; content.style.paddingBottom=PAD; content.style.opacity='1';
-      requestAnimationFrame(function(){ content.style.height='0px'; content.style.paddingBottom='0px'; content.style.opacity='0'; });
-      content.addEventListener('transitionend',function te(ev){
-        if(ev.propertyName!=='height') return;
-        det.open=false; content.style.opacity=''; delete det.dataset.animating;
-        content.removeEventListener('transitionend',te);
-      });
-    } else {
-      det.open=true;
-      var target=content.scrollHeight;
-      content.style.height='0px'; content.style.paddingBottom='0px'; content.style.opacity='0';
-      requestAnimationFrame(function(){ content.style.height=target+'px'; content.style.paddingBottom=PAD; content.style.opacity='1'; });
-      content.addEventListener('transitionend',function te(ev){
-        if(ev.propertyName!=='height') return;
-        content.style.height=''; content.style.paddingBottom=''; content.style.opacity='';
-        delete det.dataset.animating; content.removeEventListener('transitionend',te);
-      });
-    }
+    var start=content.offsetHeight;
+    content.style.height=start+'px'; content.style.paddingBottom=PAD; content.style.opacity='1';
+    requestAnimationFrame(function(){ content.style.height='0px'; content.style.paddingBottom='0px'; content.style.opacity='0'; });
+    content.addEventListener('transitionend',function te(ev){
+      if(ev.propertyName!=='height') return;
+      det.open=false; content.style.opacity=''; delete det.dataset.animating;
+      content.removeEventListener('transitionend',te);
+    });
+  }
+
+  function openItem(det){
+    var content=part(det);
+    items.forEach(function(other){ if(other!==det) closeItem(other); });
+    delete det.dataset.closeAfter;
+    det.dataset.animating='1';
+    det.open=true;
+    var target=content.scrollHeight;
+    content.style.height='0px'; content.style.paddingBottom='0px'; content.style.opacity='0';
+    requestAnimationFrame(function(){ content.style.height=target+'px'; content.style.paddingBottom=PAD; content.style.opacity='1'; });
+    content.addEventListener('transitionend',function te(ev){
+      if(ev.propertyName!=='height') return;
+      content.style.height=''; content.style.paddingBottom=''; content.style.opacity='';
+      delete det.dataset.animating; content.removeEventListener('transitionend',te);
+      if(det.dataset.closeAfter){ delete det.dataset.closeAfter; closeItem(det); }
+    });
+  }
+
+  items.forEach(function(det){
+    var sum=det.querySelector('summary');
+    if(!sum||!part(det)) return;
+    sum.addEventListener('click',function(e){
+      e.preventDefault();
+      if(det.dataset.animating) return;
+      if(det.open) closeItem(det); else openItem(det);
+    });
   });
-});
+})();
 </script>
 <div class="ov-backdrop" id="successOverlay" role="dialog" aria-modal="true" aria-labelledby="ovTitle">
   <div class="ov-card">
