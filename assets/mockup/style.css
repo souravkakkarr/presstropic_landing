@@ -3,31 +3,24 @@
    Theme: Black base · Yellow gold accent · Sharp modern type
    ============================================================ */
 
-/* ── Doto (module name display font) ── */
+/* ── Inter (UI font), self-hosted — same as the app ── */
 @font-face {
-  font-family: 'Doto';
-  src: url('fonts/Doto-Regular.ttf') format('truetype');
-  font-weight: 400; font-style: normal; font-display: swap;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../fonts/Inter-Variable-latin.woff2') format('woff2-variations'),
+       url('../fonts/Inter-Variable-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 @font-face {
-  font-family: 'Doto';
-  src: url('fonts/Doto-Medium.ttf') format('truetype');
-  font-weight: 500; font-style: normal; font-display: swap;
-}
-@font-face {
-  font-family: 'Doto';
-  src: url('fonts/Doto-SemiBold.ttf') format('truetype');
-  font-weight: 600; font-style: normal; font-display: swap;
-}
-@font-face {
-  font-family: 'Doto';
-  src: url('fonts/Doto-Bold.ttf') format('truetype');
-  font-weight: 700; font-style: normal; font-display: swap;
-}
-@font-face {
-  font-family: 'Doto';
-  src: url('fonts/Doto-Black.ttf') format('truetype');
-  font-weight: 800; font-style: normal; font-display: swap;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../fonts/Inter-Variable-latin-ext.woff2') format('woff2-variations'),
+       url('../fonts/Inter-Variable-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
 }
 
 :root {
@@ -109,7 +102,7 @@ html { scroll-behavior: smooth; }
 [data-theme="light"] th { background: var(--bg-3); color: var(--text-2); }
 [data-theme="light"] td { border-color: var(--border); color: var(--text); }
 body {
-  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.5;
@@ -301,7 +294,7 @@ a { color: inherit; text-decoration: none; }
   object-fit: contain;
 }
 .nav-module-name {
-  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 800;
   font-size: 13px;
   letter-spacing: .02em;
@@ -340,7 +333,7 @@ a { color: inherit; text-decoration: none; }
 /* Bottom group pinned to the base of the panel, mirroring the rail layout */
 .nav-bottom { margin-top: auto; padding-top: 10px; border-top: 1px solid var(--border);
   display: flex; flex-direction: column; gap: 2px; }
-.sidebar, .sidebar * { font-family: 'Space Grotesk', system-ui, sans-serif; }
+.sidebar, .sidebar * { font-family: 'Inter', system-ui, sans-serif; }
 .nav-link {
   color: var(--text-2);
   padding: 10px 14px;
@@ -1461,7 +1454,7 @@ tr:has(.row-check:checked) td { background: var(--accent-dim2) !important; }
 .module-tile.soon { opacity: .5; pointer-events: none; }
 .module-tile .m-icon { width: 88px; height: 88px; flex-shrink: 0; object-fit: contain; image-rendering: -webkit-optimize-contrast; }
 .module-tile .m-name {
-  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-size: 30px;
   font-weight: 800;
   letter-spacing: .02em;
@@ -1975,7 +1968,7 @@ table.gridtable tbody tr:hover td { background:var(--accent-dim2); }
 .m-icon, .nav-module-icon, .dash-ico, .feature-icon,
 .m-icon-dark, .m-icon-light, .nav-icon-dark, .nav-icon-light,
 .dash-ico-dark, .dash-ico-light { border-radius: 0 !important; }
-.dash-title .dash-name { font-family:'Space Grotesk', system-ui, sans-serif; font-weight:800; }
+.dash-title .dash-name { font-family:'Inter', system-ui, sans-serif; font-weight:800; }
 .dash-title .dash-name .buddy { color:var(--accent-strong); }
 
 /* StoreBuddy multi-line forms — consistent sub-card line items */
@@ -3284,3 +3277,6 @@ table.gridtable tr.doc-lead > td { border-top: 2px solid var(--border); }
 .erp .ups-check span { font-size: 12px; font-weight: 800; letter-spacing: .05em; color: var(--text); white-space: nowrap; }
 .erp .ups-check:has(input:checked) { border: 2px solid var(--accent); background: rgba(245,197,24,.12); }
 .erp .ups-check:focus-within { box-shadow: 0 0 0 2px rgba(245,197,24,.35); }
+
+/* fixed-width figures, as in the app */
+table td, table th, .sc-value, .stat-value, .statnum, .home-stat, .slot-count, .slot-code, .slot-free, .rec-stat .v, .gp-info, .gpb-count, .gp-btn, .lf-n, .lf-prog-meta, .lf-row .v { font-variant-numeric: tabular-nums; }

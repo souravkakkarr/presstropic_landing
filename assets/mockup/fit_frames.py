@@ -10,7 +10,7 @@ import pathlib, re
 BASE = pathlib.Path("/home/claude/lp3/presstropic_landing-main")
 # the width each screen is rendered at — wide enough that its own layout does
 # not collapse into a stacked, very tall arrangement
-DESIGN_W = {"jobbuddy": 1280, "dispatch": 1280, "paper_stock": 1060, "job_register": 1180}
+DESIGN_W = {"jobbuddy": 1280, "paper_stock": 1060, "job_register": 1180}
 
 sizes = {}
 with sync_playwright() as p:
