@@ -1,7 +1,0 @@
-[build]
-  publish = "."
-
-[[redirects]]
-  from = "/inquiry-success"
-  to = "/index.html?submitted=true"
-  status = 302

@@ -437,7 +437,7 @@
     <h3>Information you give us</h3>
     <ul>
       <li><strong>Enquiries from this website</strong> — name, company, phone number, email, the number
-        of machines you run and any message you write.</li>
+        of machines you run and any message you write. These go straight to our own server.</li>
       <li><strong>Your company account</strong> — company name, the company sign-in email and password,
         and your company's time zone.</li>
       <li><strong>User accounts you create</strong> — each person's name, username, role, permissions and
@@ -449,7 +449,7 @@
       <li><strong>Your operational records</strong> — parties, jobs, paper, plates, materials, machines,
         challans, rates and the documents built from them. These can include your customers' and
         operators' names, addresses, phone and WhatsApp numbers, job images you upload, and the PINs
-        operators use on the shop-floor screen.</li>
+        operators use on the shop-floor screen (stored encrypted — see section 8).</li>
     </ul>
     <h3>Information collected automatically</h3>
     <ul>
@@ -521,18 +521,16 @@
     <p>We share data only with the service providers needed to run Presstropic, and only to the extent
       needed:</p>
     <ul>
-      <li><strong>DigitalOcean</strong>, which hosts the app's servers and database in India.</li>
-      <li><strong>Cloudflare</strong>, which provides our domain name service and network protection, and
-        so handles connection details such as network addresses.</li>
-      <li><strong>Netlify</strong>, which hosts this website and receives the enquiry form when you
-        submit it.</li>
-      <li><strong>jsDelivr and the jQuery CDN</strong>, public content networks from which the app loads
-        two standard interface libraries; your browser's network address is visible to them when it
-        fetches those files.</li>
+      <li><strong>DigitalOcean</strong>, which hosts our servers in India — the app, its database, this
+        website, and the enquiries you send through it.</li>
+      <li><strong>Cloudflare</strong>, which provides our domain name service, content delivery and
+        network protection for both the app and this website, and so handles connection details such as
+        network addresses.</li>
     </ul>
-    <p>The app's fonts, and this website's fonts, are served from our own servers — no font or
-      analytics service sees your visit. If we add another provider, such as for account emails or
-      WhatsApp notifications, we will list it here before we start using it.</p>
+    <p>Everything your browser loads from the app and from this website — pages, fonts, scripts and
+      images — is served by us through these two providers. No other company, font service, advertising
+      network or analytics service sees your visit. If we add another provider, such as for account
+      emails or WhatsApp notifications, we will list it here before we start using it.</p>
     <p>We may disclose data where the law requires it. If we ever receive such a demand and are
       permitted to tell you, we will.</p>
 
@@ -554,6 +552,10 @@
     <ul>
       <li>All traffic is encrypted in transit over HTTPS.</li>
       <li>Passwords and backup codes are stored only in one-way hashed form, never in a readable form.</li>
+      <li>Shop-floor PINs are stored encrypted, with a key kept separately from the database, so a copy
+        of the database on its own does not reveal them. Your owner can still look a PIN up in the app.</li>
+      <li>The shop-floor screen works only on a device signed in to your company, and pauses after
+        repeated wrong PINs.</li>
       <li>Signing in takes two steps — company, then user — and two-step verification with an
         authenticator app is available for the company sign-in.</li>
       <li>Repeated failed sign-ins pause further attempts, and responses do not reveal whether an account
