@@ -513,8 +513,85 @@
   ]
 }
 </script>
+
+<!-- ── Skeleton loading ────────────────────────────────────────────────────
+     Painted before anything else and kept until the WHOLE page has loaded
+     (every image, font, stylesheet and script — the window "load" event, plus
+     fonts ready), then faded out. Without JavaScript it never appears, so the
+     page (and search engines) always see the real content. -->
+<style>
+  .pt-skel{display:none}
+  html.pt-loading{overflow:hidden}
+  html.pt-loading .pt-skel{display:block;position:fixed;inset:0;z-index:9999;background:#fbfaf7;overflow:hidden;
+    transition:opacity .35s ease}
+  .pt-skel.out{opacity:0;pointer-events:none}
+  .pt-skel .sk{background:#ece7dc;border-radius:8px;position:relative;overflow:hidden}
+  .pt-skel .sk::after{content:"";position:absolute;inset:0;transform:translateX(-100%);
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);animation:ptSk 1.25s ease-in-out infinite}
+  @keyframes ptSk{to{transform:translateX(100%)}}
+  @media(prefers-reduced-motion:reduce){.pt-skel .sk::after{animation:none}}
+  .pt-skel .sk-wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+  .pt-skel .sk-head{height:70px;border-bottom:1px solid rgba(20,20,20,.08);background:rgba(251,250,247,.9)}
+  .pt-skel .sk-nav{height:70px;display:flex;align-items:center;justify-content:space-between}
+  .pt-skel .sk-links{display:flex;align-items:center;gap:26px}
+  .pt-skel .sk-hero{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center;padding:44px 0 56px}
+  .pt-skel .sk-row{display:flex;gap:12px;flex-wrap:wrap}
+  .pt-skel .sk-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .pt-skel .sk-lines>.sk{height:14px;margin:0 0 12px}
+  @media(max-width:900px){.pt-skel .sk-hero{grid-template-columns:1fr;gap:34px}.pt-skel .sk-cards{grid-template-columns:1fr 1fr}
+    .pt-skel .sk-hide-sm{display:none}}
+  @media(max-width:600px){.pt-skel .sk-head,.pt-skel .sk-nav{height:58px}.pt-skel .sk-cards{grid-template-columns:1fr}
+    .pt-skel .sk-links{gap:8px}.pt-skel .sk-nav>.sk{width:110px!important;flex:0 0 110px}
+    .pt-skel .sk-links>.sk{height:34px!important;border-radius:9px!important}
+    .pt-skel .sk-links>.sk:nth-last-child(2){width:64px!important}.pt-skel .sk-links>.sk:last-child{width:112px!important}}
+</style>
+<script>
+(function(){
+  var root = document.documentElement, done = false;
+  root.classList.add('pt-loading');
+  function finish(){
+    if (done) return; done = true;
+    var s = document.getElementById('ptSkel');
+    if (s) s.classList.add('out');
+    setTimeout(function(){
+      root.classList.remove('pt-loading');
+      window.__ptReady = true;
+      window.dispatchEvent(new Event('pt-ready'));   // reveal animations start now
+    }, 350);
+  }
+  window.addEventListener('load', function(){
+    var f = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+    f.then(finish, finish);
+  });
+  setTimeout(finish, 10000);          // safety net: never keep a visitor waiting on a stuck resource
+})();
+</script>
 </head>
 <body id="top">
+<div class="pt-skel" id="ptSkel" aria-hidden="true">
+  <div class="sk-head"><div class="sk-wrap sk-nav">
+    <div class="sk" style="width:150px;height:26px"></div>
+    <div class="sk-links"><div class="sk sk-hide-sm" style="width:60px;height:12px"></div><div class="sk sk-hide-sm" style="width:36px;height:12px"></div><div class="sk sk-hide-sm" style="width:56px;height:12px"></div>
+      <div class="sk" style="width:84px;height:40px;border-radius:12px"></div><div class="sk" style="width:140px;height:40px;border-radius:12px"></div></div>
+  </div></div>
+  <div class="sk-wrap">
+    <div class="sk-hero">
+      <div>
+        <div class="sk" style="width:300px;max-width:80%;height:12px;margin-bottom:24px"></div>
+        <div class="sk" style="width:92%;height:52px;margin-bottom:14px"></div>
+        <div class="sk" style="width:64%;height:52px;margin-bottom:26px"></div>
+        <div class="sk-lines" style="max-width:440px"><div class="sk" style="width:100%"></div><div class="sk" style="width:86%"></div><div class="sk" style="width:70%;margin-bottom:26px"></div></div>
+        <div class="sk-row" style="margin-bottom:22px"><div class="sk" style="width:190px;height:48px;border-radius:12px"></div><div class="sk" style="width:170px;height:48px;border-radius:12px"></div></div>
+        <div class="sk-row"><div class="sk" style="width:84px;height:34px;border-radius:20px"></div><div class="sk" style="width:84px;height:34px;border-radius:20px"></div><div class="sk" style="width:84px;height:34px;border-radius:20px"></div><div class="sk" style="width:84px;height:34px;border-radius:20px"></div><div class="sk sk-hide-sm" style="width:84px;height:34px;border-radius:20px"></div></div>
+      </div>
+      <div class="sk" style="height:360px;border-radius:16px"></div>
+    </div>
+    <div class="sk" style="width:420px;max-width:90%;height:34px;margin:10px 0 14px"></div>
+    <div class="sk" style="width:300px;max-width:70%;height:14px;margin-bottom:28px"></div>
+    <div class="sk-cards"><div class="sk" style="height:170px;border-radius:14px"></div><div class="sk" style="height:170px;border-radius:14px"></div><div class="sk" style="height:170px;border-radius:14px"></div><div class="sk" style="height:170px;border-radius:14px"></div></div>
+  </div>
+</div>
+
 
 <header>
   <div class="wrap nav">
@@ -1082,7 +1159,9 @@
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
   }, {threshold:.1});
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  const _startReveal = ()=>document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  if (window.__ptReady || !document.documentElement.classList.contains('pt-loading')) _startReveal();
+  else window.addEventListener('pt-ready', _startReveal, {once:true});
 
 /* ── module slider ──────────────────────────────────────────────────────────
    Advances every 5s on its own. Once someone uses a chevron or a dot they are
