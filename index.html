@@ -342,12 +342,13 @@
      One pair per module, stacked in the same spot. Only the pair of the module
      on show takes up space; the others sit on top of it, invisible, so they are
      already laid out and loaded by the time the slider reaches them. */
-  .mod-shots{position:relative;margin-top:38px}
+  .mod-shots{position:relative;margin-top:38px;display:grid}
+  .mod-shots > .mod-pair{grid-area:1/1}   /* stacked: height = tallest pair, never changes */
   .mod-shots .shots{margin-top:0}
   .mod-pair .mock-frame-wrap{background:#fbfaf7}   /* the screens' own page colour, so a shorter one sits seamlessly */
   .mod-pair .shot-cap span{display:block;min-height:3em}  /* one or two lines — same card height either way */
   .mod-pair{transition:opacity .5s ease,visibility 0s linear 0s}
-  .mod-pair:not(.on){position:absolute;left:0;right:0;top:0;opacity:0;visibility:hidden;pointer-events:none;
+  .mod-pair:not(.on){opacity:0;visibility:hidden;pointer-events:none;
     transition:opacity .5s ease,visibility 0s linear .5s}
   @media(prefers-reduced-motion:reduce){.mod-pair,.mod-pair:not(.on){transition:none}}
 
@@ -362,8 +363,12 @@
   .slide-track{position:relative;background:var(--white);border:1px solid var(--line);
     border-radius:var(--r);overflow:hidden;box-shadow:0 1px 2px rgba(20,20,20,.04),0 12px 34px rgba(20,20,20,.06)}
 
-  .slide{display:grid;grid-template-columns:300px 1fr;min-height:376px}
-  .slide:not(.on){display:none}
+  /* Every slide sits in the same grid cell, so the card is always as tall as the
+     TALLEST slide and never changes height between modules (it used to, and the
+     page below — including the demo form — jumped up and down every 5 seconds). */
+  .slide-track{display:grid}
+  .slide{display:grid;grid-template-columns:300px 1fr;min-height:376px;grid-area:1/1}
+  .slide:not(.on){visibility:hidden;pointer-events:none}
   .slide.on{animation:slideIn .5s ease both}
   @keyframes slideIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 
@@ -415,7 +420,7 @@
   .dot.on{background:var(--gold-deep);width:24px;border-radius:4px}
 
   @media(max-width:960px){
-    .slide{grid-template-columns:1fr;min-height:0}
+    .slide{grid-template-columns:1fr;min-height:0;align-content:start}   /* spare height goes below the list, not into the rail */
     .slide-rail{border-right:0;border-bottom:1px solid var(--line);padding:28px 24px 22px}
     .slide-rail::before{right:0;bottom:auto;width:auto;height:3px}
     .rail-n{display:none}
