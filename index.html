@@ -284,6 +284,15 @@
   .field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--gold-deep);box-shadow:0 0 0 3px rgba(154,116,0,.14)}
   .field textarea{resize:none;line-height:1.45;overflow-y:auto}
   form .btn{width:100%;justify-content:center;margin-top:6px}
+  .consent{margin:4px 0 16px;display:flex;flex-direction:column;gap:10px}
+  .consent-row{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--ink-2);line-height:1.45;cursor:pointer}
+  .consent-row input{flex:0 0 auto;width:17px;height:17px;margin:1px 0 0;accent-color:var(--gold-deep);cursor:pointer}
+  .consent-row a{color:var(--gold-deep);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+  .consent-row a:hover{color:var(--ink)}
+  .ts-widget:empty{display:none}
+  .ts-widget{margin:0 0 14px;min-height:65px}
+  .consent-row.err{color:#b91c1c}
+  .consent-row.err input{outline:2px solid rgba(220,38,38,.55);outline-offset:1px}
   .form-privacy{font-size:11.5px;color:var(--ink-3);margin-top:12px;text-align:center}
   .form-success{display:none;text-align:center;padding:14px;background:rgba(22,163,74,.1);border:1px solid rgba(22,163,74,.3);border-radius:8px;color:#15803d;font-size:14px;font-weight:500;margin-bottom:16px}
 
@@ -308,7 +317,7 @@
   .foot-social{display:flex;gap:11px;margin-top:18px;flex-wrap:wrap}
   .foot-social a{width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.16);border-radius:9px;color:rgba(255,255,255,.7);transition:border-color .16s,color .16s,background .16s;margin:0}
   .foot-social a:hover{border-color:var(--gold-bright);color:var(--gold-bright);background:rgba(255,255,255,.05)}
-  .foot-social svg{width:19px;height:19px;display:block;fill:currentColor}
+  .foot-social svg{width:19px;height:19px;display:block;fill:currentColor;overflow:visible;flex:0 0 auto}
 
 
 
@@ -1001,6 +1010,17 @@
         </select>
       </div>
       <div class="field"><label for="msg">Anything specific? (optional)</label><textarea id="msg" name="message" placeholder="e.g. We mainly do carton printing and lamination…" rows="5"></textarea></div>
+      <div class="consent">
+        <label class="consent-row"><input type="checkbox" id="accept_terms" name="accept_terms" value="yes" required>
+          <span>I accept the <a href="terms.html" target="_blank" rel="noopener noreferrer">Terms &amp; Conditions of Service</a></span></label>
+        <label class="consent-row"><input type="checkbox" id="accept_privacy" name="accept_privacy" value="yes" required>
+          <span>I have read the <a href="privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a></span></label>
+        <!-- Which version of the legal pages was agreed to — keep in sync with "Last updated" on terms.html / privacy.html -->
+        <input type="hidden" name="consent_version" value="2026-09-28">
+      </div>
+      <!-- Anti-spam: page-load time (bots submit in under a second) + optional Cloudflare Turnstile -->
+      <input type="hidden" name="started" id="formStarted" value="">
+      <div id="tsWidget" class="ts-widget"></div>
       <button class="btn btn-gold" type="submit">Send request →</button>
       <p class="form-privacy">We only use these details to contact you about Presstropic.</p>
     </form>
@@ -1280,8 +1300,44 @@
       document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeError(); });
     }
 
+    // ── Anti-spam ──
+    // Page-load time: the server ignores anything submitted within 4 seconds.
+    var started = document.getElementById('formStarted');
+    function stampStart(){ if(started) started.value = String(Date.now()); }
+    stampStart();
+    // Cloudflare Turnstile — OFF while this is empty. To turn it on, paste the
+    // SITE key here AND put the SECRET key in the server's .env (TURNSTILE_SECRET).
+    var TURNSTILE_SITEKEY = '';
+    var tsId = null;
+    if(TURNSTILE_SITEKEY){
+      window.__ptTsLoad = function(){
+        tsId = window.turnstile.render('#tsWidget', {sitekey: TURNSTILE_SITEKEY, theme: 'light'});
+      };
+      var tsScript = document.createElement('script');
+      tsScript.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=__ptTsLoad';
+      tsScript.async = true; tsScript.defer = true;
+      document.head.appendChild(tsScript);
+    }
+    function resetTurnstile(){ if(tsId !== null && window.turnstile){ window.turnstile.reset(tsId); } }
+
+    // Consent checkboxes: both must be ticked. "required" already blocks the
+    // browser submit; this guard also covers browsers that skip validation
+    // and marks the unticked box(es) in red.
+    var consentBoxes = [document.getElementById('accept_terms'), document.getElementById('accept_privacy')];
+    consentBoxes.forEach(function(cb){
+      if(!cb) return;
+      cb.addEventListener('change', function(){ cb.closest('.consent-row').classList.toggle('err', !cb.checked); });
+      cb.addEventListener('invalid', function(){ cb.closest('.consent-row').classList.add('err'); });
+    });
+
     form.addEventListener('submit', function(e){
       e.preventDefault();
+      var missing = consentBoxes.filter(function(cb){ return cb && !cb.checked; });
+      if(missing.length){
+        missing.forEach(function(cb){ cb.closest('.consent-row').classList.add('err'); });
+        missing[0].focus();
+        return;
+      }
       // Put the full international number (e.g. +91 98765 43210) into the field
       // so the whole number, with country code, is what gets submitted.
       var phone = document.getElementById('phone');
@@ -1302,6 +1358,7 @@
       }).then(function(result){
         if(result.ok){
           form.reset();
+          stampStart();
           overlay.classList.add('show');
         } else {
           showError(result.error);
@@ -1309,6 +1366,7 @@
       }).catch(function(){
         showError("Sorry — we couldn't reach the server. Please check your connection and try again, or email info@presstropic.com.");
       }).finally(function(){
+        resetTurnstile();   // a Turnstile token works only once
         if(btn){ btn.disabled = false; btn.textContent = original; }
       });
     });
