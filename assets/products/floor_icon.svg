@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="1008px" height="1008px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 1008 1008"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str4 {stroke:#5C4D19;stroke-width:75;stroke-linecap:round;stroke-miterlimit:22.9256}
+    .str3 {stroke:#887019;stroke-width:75;stroke-linecap:round;stroke-miterlimit:22.9256}
+    .str1 {stroke:#C9A318;stroke-width:75;stroke-linecap:round;stroke-miterlimit:22.9256}
+    .str2 {stroke:#F5C518;stroke-width:75;stroke-linecap:round;stroke-miterlimit:22.9256}
+    .str0 {stroke:#2A2A2A;stroke-width:8;stroke-miterlimit:22.9256}
+    .fil3 {fill:none}
+    .fil2 {fill:#0D0D0D;fill-rule:nonzero}
+    .fil0 {fill:#1A1A1A;fill-rule:nonzero}
+    .fil1 {fill:#F5C518;fill-rule:nonzero}
+   ]]>
+  </style>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_2338556502016">
+   <path class="fil0 str0" d="M220.73 4l566.53 0c119.68,0 216.74,97.05 216.74,216.73l0 566.53c0,119.68 -97.06,216.74 -216.74,216.74l-566.53 0c-119.67,0 -216.73,-97.06 -216.73,-216.74l0 -566.53c0,-119.68 97.06,-216.73 216.73,-216.73z"/>
+   <g>
+    <circle class="fil1" cx="502.82" cy="285.05" r="184.21"/>
+    <path class="fil2" d="M572.56 264.05c-1.41,-4.71 -3.29,-9.21 -5.58,-13.46l18.71 -18.71c3.44,-3.44 3.44,-9.02 0,-12.45l-17.25 -17.25 0 0c-3.43,-3.43 -9.01,-3.43 -12.45,0l-18.71 18.71c-4.25,-2.29 -8.75,-4.17 -13.46,-5.58l0 -26.45c0,-4.86 -3.94,-8.81 -8.8,-8.8l-24.39 0 0 -0.01c-4.86,0 -8.81,3.95 -8.81,8.81l0 26.45c-4.7,1.41 -9.21,3.29 -13.46,5.58l-18.71 -18.71c-3.43,-3.43 -9.01,-3.43 -12.45,0l-17.24 17.25 0 0c-3.44,3.43 -3.44,9.01 0,12.45l18.71 18.71c-2.29,4.25 -4.17,8.75 -5.59,13.46l-26.45 0c-4.86,0 -8.8,3.94 -8.8,8.8l0 24.39 0 0c0,4.86 3.94,8.8 8.8,8.8l26.45 0c1.42,4.71 3.29,9.22 5.58,13.47l-18.7 18.7c-3.44,3.44 -3.44,9.02 0,12.46l17.24 17.24 0 0c3.44,3.44 9.02,3.44 12.46,0l18.7 -18.71c4.25,2.29 8.76,4.17 13.46,5.59l0 26.44c0,4.87 3.95,8.81 8.81,8.81l24.39 0 -0.01 0c4.87,0 8.81,-3.94 8.81,-8.81l0 -26.44c4.71,-1.42 9.21,-3.3 13.47,-5.59l18.7 18.71c3.44,3.44 9.02,3.44 12.45,0l17.25 -17.24 0 0c3.44,-3.44 3.44,-9.02 0,-12.46l-18.71 -18.7c2.29,-4.25 4.17,-8.76 5.58,-13.47l26.45 0c4.87,0 8.81,-3.94 8.81,-8.8l0 -24.39c0,-4.86 -3.94,-8.8 -8.81,-8.8l-26.45 0zm-40.61 21c0,-16.09 -13.04,-29.13 -29.13,-29.13 -16.08,0 -29.12,13.04 -29.12,29.13 0,16.08 13.04,29.12 29.12,29.12 16.09,0 29.13,-13.04 29.13,-29.12z"/>
+    <circle class="fil1" cx="502.82" cy="285.05" r="29.13"/>
+    <line class="fil3 str1" x1="427.93" y1="838.32" x2="427.93" y2= "703.03" />
+    <line class="fil3 str2" x1="278.15" y1="838.33" x2="278.15" y2= "488.82" />
+    <line class="fil3 str3" x1="577.71" y1="838.32" x2="577.71" y2= "557.52" />
+    <line class="fil3 str4" x1="727.5" y1="838.32" x2="727.5" y2= "557.52" />
+   </g>
+  </g>
+ </g>
+</svg>

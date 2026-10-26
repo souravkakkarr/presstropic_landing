@@ -3,562 +3,159 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Presstropic — Printing Press ERP &amp; Job Card Software (India)</title>
-<meta name="description" content="Presstropic is a print-first ERP that runs paper, plates, jobs, stock and dispatch from one system — replacing registers, spreadsheets and WhatsApp with one source of truth.">
+<title>Presstropic — Printing Press ERP, Shop Floor App &amp; CRM</title>
+<meta name="description" content="Presstropic is the complete platform for printing presses: an ERP for the office, a ShopFloor tablet app for the production floor and a CRM for customer orders — all on one database.">
 <link rel="canonical" href="https://presstropic.com/">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="author" content="Presstropic Solutions">
 <meta name="theme-color" content="#0d0d0d">
-<meta name="keywords" content="printing press ERP, printing press software, print job management, job card software, plate management, paper stock register, dispatch challan software, printing MIS, print workflow software, press management system, Presstropic">
+<meta name="keywords" content="printing press software, printing press ERP, print shop floor app, printing press CRM, job card software, plate management, paper stock register, dispatch challan software, printing MIS, Presstropic">
 
-<!-- Favicons (a real .ico + sized PNGs so search engines show the brand mark, not a globe) -->
-
+<link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Welcome to Presstropic">
-<meta property="og:title" content="Presstropic — The operating system for printing presses">
-<meta property="og:description" content="A print-first ERP that runs paper, plates, job cards, production and dispatch from one system — replacing registers, spreadsheets and WhatsApp with one source of truth.">
+<meta property="og:site_name" content="Presstropic">
+<meta property="og:title" content="Presstropic — The complete platform for printing presses">
+<meta property="og:description" content="Presstropic is the complete platform for printing presses: an ERP for the office, a ShopFloor tablet app for the production floor and a CRM for customer orders — all on one database.">
 <meta property="og:url" content="https://presstropic.com/">
 <meta property="og:image" content="https://presstropic.com/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Presstropic — the operating system for printing presses">
+<meta property="og:image:alt" content="Presstropic — the complete platform for printing presses">
 <meta property="og:locale" content="en_IN">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Presstropic — The operating system for printing presses">
-<meta name="twitter:description" content="Run paper, plates, job cards, production and dispatch from one print-first system.">
+<meta name="twitter:title" content="Presstropic — The complete platform for printing presses">
+<meta name="twitter:description" content="Presstropic is the complete platform for printing presses: an ERP for the office, a ShopFloor tablet app for the production floor and a CRM for customer orders — all on one database.">
 <meta name="twitter:image" content="https://presstropic.com/assets/og-image.png">
-<link rel="preload" href="assets/fonts/Inter-Variable-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/fonts/inter.css">
-<link rel="stylesheet" href="assets/intl-tel-input/css/intlTelInput.min.css">
-<style>
-  :root{
-    --ink:#141414; --ink-2:#464646; --ink-3:#7a7a7a;
-    --paper:#fbfaf7; --paper-2:#f4f1ea; --white:#fff;
-    --line:rgba(20,20,20,.11); --line-2:rgba(20,20,20,.19);
-    --gold:#c9a200; --gold-deep:#9a7400; --gold-bright:#f5c518;
-    --black:#0d0d0d;
-    --r:12px; --maxw:1160px;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
-  h1,h2,h3,.display{font-family:'Inter',system-ui,sans-serif;letter-spacing:-.02em;line-height:1.1}
-  a{color:inherit;text-decoration:none}
-  img{max-width:100%;display:block}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-  .eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-deep)}
 
-  /* registration-mark motif — the print_mark SVG, tinted to the surrounding
-     accent so it stays visible on any background (deep gold on light, bright
-     gold on dark) */
-  .regmark{
-    width:18px;height:20px;flex:0 0 18px;display:inline-block;vertical-align:middle;
-    background-color:currentColor;
-    -webkit-mask:url(assets/print_mark.svg) center/contain no-repeat;
-            mask:url(assets/print_mark.svg) center/contain no-repeat;
-  }
-  .regmark span{display:none}
-
-  /* buttons — explicit hover colors, never same text/bg */
-  .btn{display:inline-flex;align-items:center;gap:9px;font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:15px;padding:13px 24px;border-radius:var(--r);border:1.5px solid transparent;cursor:pointer;transition:background .16s,color .16s,border-color .16s,transform .16s;white-space:nowrap}
-  .btn-primary{background:var(--black);color:#fff;border-color:var(--black)}
-  .btn-primary:hover{background:var(--gold-deep);border-color:var(--gold-deep);color:#fff;transform:translateY(-1px)}
-  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line-2)}
-  .btn-ghost:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
-  .btn-gold{background:var(--gold-deep);color:#fff;border-color:var(--gold-deep)}
-  .btn-gold:hover{background:var(--black);color:#fff;border-color:var(--black);transform:translateY(-1px)}
-
-  /* header */
-  header{position:sticky;top:0;z-index:50;background:rgba(251,250,247,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  .nav{display:flex;align-items:center;justify-content:space-between;height:70px}
-  .brand{display:flex;align-items:center;gap:10px}
-  .brand img{height:38px;width:auto}
-  .nav-links{display:flex;align-items:center;gap:30px}
-  .nav-links a.navlink{font-size:14px;font-weight:500;color:var(--ink-2);transition:color .15s}
-  .nav-links a.navlink:hover{color:var(--gold-deep)}
-  @media(max-width:900px){.nav-links .navlink{display:none}}
-  /* Mobile top bar: compact, evenly balanced — logo left, tight CTAs right */
-  @media(max-width:600px){
-    .wrap{padding:0 16px}
-    .nav{height:58px}
-    .brand img{height:28px}
-    .nav-links{gap:8px}
-    .nav-links .btn{padding:8px 13px;font-size:13px;border-radius:9px}
-  }
-  @media(max-width:380px){
-    .brand img{height:25px}
-    .nav-links .btn{padding:7px 11px;font-size:12px}
-  }
-
-  /* hero */
-  .hero{padding:32px 0 60px}
-  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
-  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:40px}}
-  .hero .eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:20px}
-  .hero h1{font-size:clamp(36px,5.2vw,58px);font-weight:700}
-  .hero h1 .accent{color:var(--gold-deep)}
-  .hero p.lede{font-size:19px;color:var(--ink-2);margin:14px 0 12px;max-width:40ch}
-  .hero p.sub{font-size:15px;color:var(--ink-3);margin-bottom:16px;max-width:44ch}
-  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
-  .hero-signin{margin-top:16px;font-size:14px;color:var(--ink-3)}
-  .hero-signin a{color:var(--gold-deep);font-weight:600;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s}
-  .hero-signin a:hover{border-bottom-color:var(--gold-deep)}
-  .hero-modules{display:flex;gap:18px;margin-top:34px;flex-wrap:wrap}
-  .hero-mod{display:flex;flex-direction:column;align-items:center;gap:7px;font-size:11px;font-weight:600;color:var(--ink-3);letter-spacing:.02em}
-  .hero-mod img{width:30px;height:30px}
-
-  /* mock window */
-  .mock{background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:0 24px 60px -26px rgba(20,20,20,.3);overflow:hidden}
-  .mock-bar{display:flex;align-items:center;gap:7px;padding:12px 14px;border-bottom:1px solid var(--line);background:var(--paper-2)}
-  .mock-dot{width:10px;height:10px;border-radius:50%;background:var(--line-2)}
-  .mock-url{margin-left:10px;font-size:11px;color:var(--ink-3);font-family:'Inter',system-ui,sans-serif;letter-spacing:.02em}
-  .mock-body{padding:18px}
-  /* Real JobBuddy dashboard shown in an isolated iframe. Rendered at a fixed
-     desktop design size and scaled by JS to the frame width, so the whole
-     KPI + parties card is always fully visible and crisp. */
-  .mock-frame-wrap{position:relative;width:100%;overflow:hidden;background:var(--white)}
-  .mock-frame{position:absolute;top:0;left:50%;width:1000px;height:600px;border:0;
-    transform-origin:top left;pointer-events:none}
-  /* centred once it stops filling the width */
-  .mock-frame-wrap{display:flex;justify-content:center}
-  .mock-frame{left:0;position:absolute}
-  /* ── hero visual ───────────────────────────────────────────────────────────
-     A real screenshot here was too dense to read at hero size and felt like a
-     generic SaaS dashboard shot. This is an original piece instead: the same
-     five modules as one connected line, with a job's status moving across it
-     on a loop — dramatising "one system" rather than showing a data table. */
-  .hero-visual{padding:24px 26px 22px}
-  .hv-head{display:flex;align-items:center;gap:10px;font-size:10.5px;font-weight:700;
-    letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:36px}
-  .hv-flow{position:relative}
-  .hv-line{position:absolute;left:27px;right:27px;top:27px;height:2px;background:var(--line-2);border-radius:2px}
-  .hv-fill{position:absolute;top:0;left:0;height:100%;border-radius:2px;width:0;
-    background:linear-gradient(90deg,var(--gold),var(--gold-deep));animation:hvFill 8s linear infinite}
-  .hv-dot{position:absolute;top:50%;left:0;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;
-    background:var(--gold-deep);box-shadow:0 0 0 5px rgba(154,116,0,.16);animation:hvDot 8s linear infinite}
-  .hv-nodes{position:relative;display:flex;justify-content:space-between;gap:4px}
-  .hv-node{display:flex;flex-direction:column;align-items:center;text-align:center;width:20%}
-  .hv-ring{width:54px;height:54px;border-radius:50%;background:var(--white);border:1px solid var(--line);
-    display:flex;align-items:center;justify-content:center;margin-bottom:10px;box-sizing:border-box;
-    animation:hvPulse 8s linear infinite;animation-delay:calc(var(--i) * 2s)}
-  .hv-ring img{width:24px;height:24px}
-  .hv-node b{font-size:12px;font-weight:600;line-height:1.25;color:var(--ink)}
-  .hv-node small{font-size:10.5px;color:var(--ink-3);margin-top:2px}
-  .hv-foot{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:28px;
-    padding-top:16px;border-top:1px solid var(--line);flex-wrap:wrap}
-  .hv-id{font-family:'Inter',system-ui,sans-serif;font-size:12px;font-weight:700;color:var(--ink)}
-  .hv-status{font-size:12.5px;color:var(--ink-3)}
-  @keyframes hvFill{0%{width:0}100%{width:100%}}
-  @keyframes hvDot{0%{left:0}100%{left:100%}}
-  @keyframes hvPulse{
-    0%{border-color:var(--line);box-shadow:none}
-    4%{border-color:var(--gold-deep);box-shadow:0 0 0 6px rgba(154,116,0,.14)}
-    16%{border-color:var(--gold-deep);box-shadow:0 0 0 6px rgba(154,116,0,.14)}
-    22%,100%{border-color:var(--line);box-shadow:none}
-  }
-  @media (prefers-reduced-motion: reduce){
-    .hv-fill,.hv-dot,.hv-ring{animation:none}
-    .hv-fill{width:100%}
-  }
-  @media(max-width:520px){
-    .hv-node b{font-size:10.5px}
-    .hv-node small{display:none}
-    .hv-ring{width:42px;height:42px}
-    .hv-ring img{width:19px;height:19px}
-  }
-
-  .mock-row{display:flex;gap:12px;margin-bottom:12px}
-  .mock-kpi{flex:1;border:1px solid var(--line);border-radius:8px;padding:12px}
-  .mock-kpi .k-label{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
-  .mock-kpi .k-val{font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:22px;margin-top:4px}
-  .mock-kpi .k-val.gold{color:var(--gold-deep)}
-  .mock-table{border:1px solid var(--line);border-radius:8px;overflow:hidden}
-  .mock-th{display:flex;background:var(--paper-2);padding:8px 12px;font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
-  .mock-tr{display:flex;padding:9px 12px;border-top:1px solid var(--line);font-size:12px}
-  .mock-th span,.mock-tr span{flex:1}
-  .mock-tr span:last-child{text-align:right;font-family:'Inter',system-ui,sans-serif;font-weight:600}
-
-  section{padding:74px 0}
-  .sec-head{display:flex;align-items:center;gap:12px;margin-bottom:12px;color:var(--gold-deep)}
-  .problem .sec-head,.why .sec-head{color:var(--gold-bright)}
-  .sec-title{font-size:clamp(26px,3.4vw,38px);font-weight:700}
-  .sec-sub{color:var(--ink-2);font-size:17px;max-width:62ch;margin-bottom:46px}
-
-  /* problem — dark section */
-  .problem{background:var(--black);color:#fff}
-  .problem .sec-title{color:#fff}
-  .problem .sec-sub{color:rgba(255,255,255,.62)}
-  .problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-  @media(max-width:700px){.problem-grid{grid-template-columns:1fr}}
-  .problem-card{border:1px solid rgba(255,255,255,.14);border-radius:var(--r);padding:24px}
-  .problem-card .pc-ico{width:38px;height:38px;border-radius:9px;background:rgba(245,197,24,.14);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
-  .problem-card .pc-ico span{width:20px;height:20px;background:var(--gold-bright);-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center}
-  .problem-card h3{font-size:18px;font-weight:600;margin-bottom:7px}
-  .problem-card p{font-size:14px;color:rgba(255,255,255,.6)}
-
-  /* solution */
-  .sol-points{display:grid;grid-template-columns:1fr 1fr;gap:14px 32px;margin-top:8px}
-  @media(max-width:700px){.sol-points{grid-template-columns:1fr}}
-  .sol-point{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--ink-2)}
-  .sol-point .tick{flex:0 0 22px;width:22px;height:22px;border-radius:50%;background:var(--gold-deep);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-top:1px}
-
-  /* modules */
-  .modules{background:var(--paper-2)}
-  .mod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  @media(max-width:860px){.mod-grid{grid-template-columns:1fr 1fr}}
-  @media(max-width:560px){.mod-grid{grid-template-columns:1fr}}
-  .mod{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:26px;transition:box-shadow .16s,border-color .16s}
-  .mod:hover{box-shadow:0 16px 40px -22px rgba(20,20,20,.3);border-color:var(--gold)}
-  .mod img{width:44px;height:44px;margin-bottom:15px}
-  .mod .mod-tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:6px}
-  .mod h3{font-size:20px;font-weight:600;margin-bottom:8px}
-  .mod h3 .b{color:var(--gold-deep)}
-  .mod p{font-size:14px;color:var(--ink-2)}
-  .mod ul{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:7px}
-  .mod ul li{font-size:13px;color:var(--ink-2);padding-left:18px;position:relative}
-  .mod ul li::before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
-
-  /* connects flow */
-  .flow-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;align-items:start}
-  @media(max-width:860px){.flow-steps{grid-template-columns:1fr 1fr}}
-  @media(max-width:480px){.flow-steps{grid-template-columns:1fr}}
-  .flow-step{text-align:center;padding:8px}
-  .flow-step .fs-ico{width:52px;height:52px;border-radius:13px;background:var(--paper-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
-  .flow-step .fs-ico span{width:26px;height:26px;background:var(--gold-deep);-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center}
-  .flow-step h4{font-size:14px;font-weight:700;margin-bottom:5px}
-  .flow-step p{font-size:12px;color:var(--ink-3)}
-
-  /* why — comparison */
-  .why{background:var(--black);color:#fff}
-  .why .sec-title{color:#fff}
-  .why .sec-sub{color:rgba(255,255,255,.62)}
-  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-  @media(max-width:760px){.why-grid{grid-template-columns:1fr}}
-  .why-col{border-radius:var(--r);padding:26px}
-  .why-generic{border:1px solid rgba(255,255,255,.14)}
-  .why-us{background:var(--white);color:var(--ink)}
-  .why-col h3{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px}
-  .why-generic h3{color:rgba(255,255,255,.55)}
-  .why-us h3{color:var(--gold-deep);display:flex;align-items:center;gap:8px}
-  .why-us h3 img{height:18px}
-  .why-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
-  .why-col li{font-size:14px;padding-left:26px;position:relative}
-  .why-generic li{color:rgba(255,255,255,.6)}
-  .why-generic li::before{content:"✕";position:absolute;left:0;color:rgba(255,255,255,.4);font-weight:700}
-  .why-us li::before{content:"✓";position:absolute;left:0;color:var(--gold-deep);font-weight:700}
-
-  /* governance */
-  .gov-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
-  @media(max-width:980px){.gov-grid{grid-template-columns:1fr 1fr 1fr}}
-  @media(max-width:640px){.gov-grid{grid-template-columns:1fr 1fr}}
-  @media(max-width:400px){.gov-grid{grid-template-columns:1fr}}
-  .gov{padding:4px}
-  .gov .g-ico{width:42px;height:42px;border-radius:10px;background:var(--paper-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin-bottom:13px}
-  .gov .g-ico span{width:22px;height:22px;background:var(--gold-deep);-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center}
-  .gov h4{font-size:16px;font-weight:600;margin-bottom:6px}
-  .gov p{font-size:13px;color:var(--ink-2)}
-
-  /* inquiry */
-  .cta{background:var(--paper-2)}
-  .cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start}
-  @media(max-width:860px){.cta-grid{grid-template-columns:1fr;gap:36px}}
-  .cta h2{font-size:clamp(28px,3.6vw,40px);font-weight:700;margin-bottom:14px}
-  .cta .lede{color:var(--ink-2);font-size:17px;margin-bottom:24px}
-  .cta-points{list-style:none;display:flex;flex-direction:column;gap:12px}
-  .cta-points li{display:flex;gap:11px;align-items:flex-start;font-size:15px}
-  .cta-points .tick{flex:0 0 20px;width:20px;height:20px;border-radius:50%;background:var(--gold-deep);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-top:1px}
-
-  form{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:28px;box-shadow:0 12px 40px -26px rgba(20,20,20,.26)}
-  form h3{font-size:20px;font-weight:600;margin-bottom:4px}
-  form .form-sub{font-size:13px;color:var(--ink-3);margin-bottom:20px}
-  .field{margin-bottom:15px}
-  .field label{display:block;font-size:12.5px;font-weight:600;letter-spacing:.02em;margin-bottom:6px}
-  .field input,.field textarea,.field select{width:100%;font-family:inherit;font-size:14px;color:var(--ink);background:var(--paper);border:1px solid var(--line-2);border-radius:8px;padding:11px 13px;transition:border-color .15s,box-shadow .15s}
-  .field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--gold-deep);box-shadow:0 0 0 3px rgba(154,116,0,.14)}
-  .field textarea{resize:none;line-height:1.45;overflow-y:auto}
-  form .btn{width:100%;justify-content:center;margin-top:6px}
-  .consent{margin:4px 0 16px;display:flex;flex-direction:column;gap:10px}
-  .consent-row{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--ink-2);line-height:1.45;cursor:pointer}
-  .consent-row input{flex:0 0 auto;width:17px;height:17px;margin:1px 0 0;accent-color:var(--gold-deep);cursor:pointer}
-  .consent-row a{color:var(--gold-deep);font-weight:600;text-decoration:underline;text-underline-offset:2px}
-  .consent-row a:hover{color:var(--ink)}
-  .ts-widget:empty{display:none}
-  .ts-widget{margin:0 0 14px;min-height:65px}
-  .consent-row.err{color:#b91c1c}
-  .consent-row.err input{outline:2px solid rgba(220,38,38,.55);outline-offset:1px}
-  .form-privacy{font-size:11.5px;color:var(--ink-3);margin-top:12px;text-align:center}
-  .form-success{display:none;text-align:center;padding:14px;background:rgba(22,163,74,.1);border:1px solid rgba(22,163,74,.3);border-radius:8px;color:#15803d;font-size:14px;font-weight:500;margin-bottom:16px}
-
-  footer{background:var(--black);color:rgba(255,255,255,.7);padding:46px 0 32px}
-  .foot{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
-  .foot img{height:26px}
-  .foot-links{display:flex;gap:24px;font-size:14px;flex-wrap:wrap}
-  .foot-links a:hover{color:var(--gold-bright)}
-  .foot-copy{font-size:12.5px;color:rgba(255,255,255,.42);margin-top:24px;padding-top:22px;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
-  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr .9fr 1.2fr;gap:34px;align-items:start}
-  @media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr;gap:28px}}
-  @media(max-width:480px){.foot-grid{grid-template-columns:1fr}}
-  .foot-col h4{font-family:'Inter',system-ui,sans-serif;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:14px;font-weight:600}
-  .foot-col a,.foot-col p{display:block;font-size:14px;color:rgba(255,255,255,.74);margin-bottom:9px;line-height:1.5}
-  .foot-col a:hover{color:var(--gold-bright)}
-  /* opens-in-a-new-tab marker — same weight as the link text it follows */
-  .foot-col a .ext{display:inline-block;vertical-align:-1px;margin-left:6px;opacity:.65}
-  .foot-col a:hover .ext{opacity:1}
-  .foot-col .ct-sub{font-size:11.5px;color:rgba(255,255,255,.4);letter-spacing:.02em}
-  .foot-brand img{height:36px;margin-bottom:14px}
-  .foot-brand p{font-size:13.5px;color:rgba(255,255,255,.55);max-width:290px;line-height:1.6}
-  .foot-social{display:flex;gap:11px;margin-top:18px;flex-wrap:wrap}
-  .foot-social a{width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.16);border-radius:9px;color:rgba(255,255,255,.7);transition:border-color .16s,color .16s,background .16s;margin:0}
-  .foot-social a:hover{border-color:var(--gold-bright);color:var(--gold-bright);background:rgba(255,255,255,.05)}
-  .foot-social svg{width:19px;height:19px;display:block;fill:currentColor;overflow:visible;flex:0 0 auto}
-
-
-
-  /* ── in-page screen previews ───────────────────────────────────────────────
-     The same browser frame as the hero, used to show a real screen next to the
-     claim it backs up. Non-interactive; it is a picture of the app, made from
-     the app. */
-  .shots{margin-top:38px;display:grid;gap:26px}
-  .shot{background:var(--white);border:1px solid var(--line);border-radius:14px;
-    overflow:hidden;box-shadow:0 1px 2px rgba(20,20,20,.04),0 18px 44px -22px rgba(20,20,20,.22)}
-  .shot .mock-bar{display:flex;align-items:center;gap:7px;padding:11px 14px;
-    border-bottom:1px solid var(--line);background:var(--paper-2)}
-  .shot-cap{padding:14px 18px 16px;border-top:1px solid var(--line);background:var(--paper)}
-  .shot-cap b{font-family:'Inter',system-ui,sans-serif;font-size:14px;display:block;margin-bottom:3px}
-  .shot-cap span{font-size:13.5px;color:var(--ink-2);line-height:1.5}
-  @media(min-width:900px){ .shots.two{grid-template-columns:1fr 1fr} }
-  /* a single preview should not stretch across the full page — the screen was
-     designed at 1000px and looks stranded any wider */
-  .shots:not(.two) .shot{max-width:1000px;margin-inline:auto;width:100%}
-
-  /* ── module screens under the slider ───────────────────────────────────────
-     One pair per module, stacked in the same spot. Only the pair of the module
-     on show takes up space; the others sit on top of it, invisible, so they are
-     already laid out and loaded by the time the slider reaches them. */
-  .mod-shots{position:relative;margin-top:38px;display:grid}
-  .mod-shots > .mod-pair{grid-area:1/1}   /* stacked: height = tallest pair, never changes */
-  .mod-shots .shots{margin-top:0}
-  .mod-pair .mock-frame-wrap{background:#fbfaf7}   /* the screens' own page colour, so a shorter one sits seamlessly */
-  .mod-pair .shot-cap span{display:block;min-height:3em}  /* one or two lines — same card height either way */
-  .mod-pair{transition:opacity .5s ease,visibility 0s linear 0s}
-  .mod-pair:not(.on){opacity:0;visibility:hidden;pointer-events:none;
-    transition:opacity .5s ease,visibility 0s linear .5s}
-  @media(prefers-reduced-motion:reduce){.mod-pair,.mod-pair:not(.on){transition:none}}
-
-  /* ── module slider ─────────────────────────────────────────────────────────
-     One module at a time. The card is split: a tinted rail carries the module's
-     identity, the right side lists what it actually does. That gives the card
-     height to stand on — as one wide band it read as an afterthought — and lets
-     the eye land on the module name before the detail.
-     It advances every 5s; using a chevron slows it to 15s, because someone who
-     has started steering is reading rather than watching. */
-  .slider{position:relative;margin-top:36px}
-  .slide-track{position:relative;background:var(--white);border:1px solid var(--line);
-    border-radius:var(--r);overflow:hidden;box-shadow:0 1px 2px rgba(20,20,20,.04),0 12px 34px rgba(20,20,20,.06)}
-
-  /* Every slide sits in the same grid cell, so the card is always as tall as the
-     TALLEST slide and never changes height between modules (it used to, and the
-     page below — including the demo form — jumped up and down every 5 seconds). */
-  .slide-track{display:grid}
-  .slide{display:grid;grid-template-columns:300px 1fr;min-height:376px;grid-area:1/1}
-  .slide:not(.on){visibility:hidden;pointer-events:none}
-  .slide.on{animation:slideIn .5s ease both}
-  @keyframes slideIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-
-  /* identity rail */
-  .slide-rail{position:relative;background:var(--paper-2);border-right:1px solid var(--line);
-    padding:38px 30px 30px;display:flex;flex-direction:column}
-  .slide-rail::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold)}
-  .rail-ico{width:56px;height:56px;display:flex;align-items:center;justify-content:center;
-    background:var(--white);border:1px solid var(--line);border-radius:14px;margin-bottom:20px}
-  .rail-ico img{width:34px;height:34px;display:block}
-  .rail-mark{width:16px;height:16px;border:3px solid var(--gold-deep);border-radius:50%}
-  .slide-rail .mod-tag{font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
-    color:var(--gold-deep);margin-bottom:8px}
-  .slide-rail h3{font-size:clamp(22px,2.1vw,30px);line-height:1.08;letter-spacing:-.5px;
-    overflow-wrap:break-word;hyphens:none}
-  .slide-rail h3 .b{color:var(--gold-deep)}
-  .slide-lead{color:var(--ink-2);font-size:15px;line-height:1.55;margin-top:12px}
-  .rail-n{margin-top:auto;padding-top:22px;font-family:'Inter',system-ui,sans-serif;color:var(--ink-3)}
-  .rail-n b{font-size:26px;color:var(--ink);letter-spacing:-1px}
-  .rail-n span{font-size:13px;margin-left:5px}
-
-  /* capabilities */
-  .slide-caps{list-style:none;padding:38px 74px 34px 40px;margin:0;
-    display:flex;flex-direction:column;justify-content:center;gap:15px}
-  .slide-caps li{position:relative;padding-left:26px;font-size:15.5px;line-height:1.5;color:var(--ink-2)}
-  .slide-caps li::before{content:"";position:absolute;left:0;top:8px;width:9px;height:9px;
-    border-radius:2px;background:var(--gold);transform:rotate(45deg)}
-
-  /* chevrons — flex-centred around an SVG; the text glyph sat above the middle */
-  .s-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;
-    width:44px;height:44px;padding:0;border-radius:50%;border:1px solid var(--line-2);
-    background:var(--white);color:var(--ink-2);cursor:pointer;
-    display:flex;align-items:center;justify-content:center;
-    box-shadow:0 2px 10px rgba(20,20,20,.10);
-    transition:background .18s,color .18s,border-color .18s,transform .18s}
-  .s-nav:hover{background:var(--black);color:#fff;border-color:var(--black)}
-  .s-nav:active{transform:translateY(-50%) scale(.94)}
-  .s-nav:focus-visible{outline:2px solid var(--gold-deep);outline-offset:3px}
-  .s-nav.prev{left:-22px} .s-nav.next{right:-22px}
-
-  /* how far through the dwell we are — makes the auto-advance legible */
-  .s-progress{height:2px;background:var(--line);border-radius:2px;margin-top:18px;overflow:hidden}
-  .s-progress span{display:block;height:100%;width:0;background:var(--gold)}
-
-  .dots{display:flex;justify-content:center;gap:8px;margin-top:14px}
-  .dot{width:8px;height:8px;padding:0;border-radius:50%;border:0;cursor:pointer;
-    background:var(--line-2);transition:background .16s,width .16s}
-  .dot:hover{background:var(--gold-deep)}
-  .dot.on{background:var(--gold-deep);width:24px;border-radius:4px}
-
-  @media(max-width:960px){
-    .slide{grid-template-columns:1fr;min-height:0;align-content:start}   /* spare height goes below the list, not into the rail */
-    .slide-rail{border-right:0;border-bottom:1px solid var(--line);padding:28px 24px 22px}
-    .slide-rail::before{right:0;bottom:auto;width:auto;height:3px}
-    .rail-n{display:none}
-    .slide-caps{padding:24px 24px 28px}
-    .slide-rail h3{font-size:25px}
-    .s-nav{width:38px;height:38px}
-    .s-nav.prev{left:8px} .s-nav.next{right:8px}
-  }
-  @media(prefers-reduced-motion:reduce){.slide.on{animation:none}.s-progress{display:none}}
-
-  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
-  .reveal.in{opacity:1;transform:none}
-  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
-  :focus-visible{outline:2px solid var(--gold-deep);outline-offset:2px}
-  /* FAQ */
-  .faq-list{max-width:820px;margin-top:8px}
-  .faq-item{border-bottom:1px solid var(--line);}
-  .faq-item summary{list-style:none;cursor:pointer;padding:20px 44px 20px 2px;position:relative;font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:17px;color:var(--ink);}
-  .faq-item summary::-webkit-details-marker{display:none}
-  .faq-item summary::after{content:"+";position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:22px;color:var(--gold-deep);transition:transform .2s;font-weight:400}
-  .faq-item[open] summary::after{content:"–"}
-  .faq-item p{padding:0 44px 20px 2px;margin:0;color:var(--ink-2);font-size:15px;line-height:1.65;max-width:760px;overflow:hidden;transition:height .3s ease, opacity .28s ease, padding-bottom .3s ease}
-  @media(max-width:600px){.faq-item summary{font-size:15.5px}.faq-item p{font-size:14px}}
-  /* Success overlay — blocks the page behind, with a close control */
-  .ov-backdrop{position:fixed;inset:0;background:rgba(10,12,16,.72);z-index:9999;display:none;align-items:center;justify-content:center;padding:24px}
-  .ov-backdrop.show{display:flex}
-  .ov-card{background:#fff;border:1px solid rgba(22,163,74,.35);border-radius:16px;max-width:460px;width:100%;padding:32px 28px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.35);position:relative}
-  .ov-tick{width:56px;height:56px;border-radius:50%;background:rgba(22,163,74,.12);color:#15803d;display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 16px}
-  .ov-card h3{margin:0 0 8px;font-size:20px;color:#0f172a}
-  .ov-card p{margin:0 0 20px;font-size:14.5px;color:#475569;line-height:1.5}
-  .ov-close-x{position:absolute;top:12px;right:14px;background:none;border:none;font-size:22px;line-height:1;color:#94a3b8;cursor:pointer;padding:4px}
-  .ov-close-x:hover{color:#0f172a}
-  .ov-card-err{border-color:rgba(220,38,38,.35)}
-  .ov-cross{background:rgba(220,38,38,.12);color:#dc2626;font-weight:800}
-  /* International phone input — make it fill the field like the other inputs */
-  .iti{width:100%;}
-  .iti input#phone{width:100%;}
-  .iti__dropdown-content{font-family:inherit;}
-  .iti--separate-dial-code .iti__selected-dial-code{font-weight:500;}
-  /* The site's form-input padding was overriding the country-search field,
-     so its text/placeholder overlapped the magnifying-glass icon. Restore the
-     room the icon needs on the left (and the clear "x" on the right). */
-  .iti__search-input{
-    padding-left: calc(var(--iti-spacer-horizontal) + var(--iti-globe-icon-size) + var(--iti-spacer-horizontal)) !important;
-    padding-right: calc(var(--iti-spacer-horizontal) + var(--iti-clear-icon-size) + var(--iti-spacer-horizontal)) !important;
-  }
-</style>
-<!-- Structured data. When you have a registered address, add an "address" block
-     (PostalAddress) to the Organization below and to the hidden footer address. -->
+<link rel="preload" href="/assets/fonts/Inter-Variable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts/inter.css">
+<link rel="stylesheet" href="/assets/intl-tel-input/css/intlTelInput.min.css">
+<link rel="stylesheet" href="/assets/css/site.css?v=2">
 <script type="application/ld+json">
 {
-  "@context":"https://schema.org",
-  "@type":"Organization",
-  "name":"Presstropic",
-  "legalName":"Presstropic Solutions",
-  "url":"https://presstropic.com/",
-  "logo":"https://presstropic.com/assets/android-chrome-512.png",
-  "image":"https://presstropic.com/assets/og-image.png",
-  "description":"Print-first ERP for printing presses — paper, plates, job cards, production and dispatch in one system.",
-  "email":"info@presstropic.com",
-  "telephone":"+91-9990050560",
-  "contactPoint":[
-    {"@type":"ContactPoint","contactType":"sales","telephone":"+91-9990050560","email":"sales@presstropic.com","areaServed":"IN","availableLanguage":["en","hi"]},
-    {"@type":"ContactPoint","contactType":"customer support","telephone":"+91-9990050561","email":"help@presstropic.com","areaServed":"IN","availableLanguage":["en","hi"]}
-  ]
+ "@context": "https://schema.org",
+ "@type": "Organization",
+ "name": "Presstropic",
+ "legalName": "Presstropic Solutions",
+ "url": "https://presstropic.com/",
+ "logo": "https://presstropic.com/assets/android-chrome-512.png",
+ "image": "https://presstropic.com/assets/og-image.png",
+ "description": "The complete platform for printing presses: an ERP for the office, a ShopFloor app for the production floor and a CRM for customer orders, sharing one database.",
+ "email": "info@presstropic.com",
+ "telephone": "+91-9990050560",
+ "sameAs": [
+  "https://www.linkedin.com/company/presstropic",
+  "https://www.instagram.com/presstropic",
+  "https://www.facebook.com/presstropic",
+  "https://x.com/presstropic",
+  "https://www.youtube.com/@presstropic"
+ ],
+ "contactPoint": [
+  {
+   "@type": "ContactPoint",
+   "contactType": "sales",
+   "telephone": "+91-9990050560",
+   "email": "sales@presstropic.com",
+   "areaServed": "IN",
+   "availableLanguage": [
+    "en",
+    "hi"
+   ]
+  },
+  {
+   "@type": "ContactPoint",
+   "contactType": "customer support",
+   "telephone": "+91-9990050561",
+   "email": "help@presstropic.com",
+   "areaServed": "IN",
+   "availableLanguage": [
+    "en",
+    "hi"
+   ]
+  }
+ ]
 }
 </script>
 <script type="application/ld+json">
 {
-  "@context":"https://schema.org",
-  "@type":"WebSite",
-  "name":"Welcome to Presstropic",
-  "alternateName":"Presstropic Solutions",
-  "url":"https://presstropic.com/",
-  "logo":"https://presstropic.com/assets/android-chrome-512.png",
-  "publisher":{"@type":"Organization","name":"Presstropic"},
-  "description":"The operating system for printing presses: paper, plates, job cards, production and dispatch, tracked end to end from inward to dispatch."
+ "@context": "https://schema.org",
+ "@type": "WebSite",
+ "name": "Presstropic",
+ "alternateName": "Presstropic Solutions",
+ "url": "https://presstropic.com/"
 }
 </script>
 <script type="application/ld+json">
 {
-  "@context":"https://schema.org",
-  "@type":"SoftwareApplication",
-  "name":"Presstropic",
-  "alternateName":"Presstropic ERP",
-  "applicationCategory":"BusinessApplication",
-  "operatingSystem":"Web-based",
-  "url":"https://app.presstropic.com",
-  "description":"The operating system for printing presses: paper, plates, job cards, production and dispatch, tracked end to end from inward to delivery challan."
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is Presstropic?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Presstropic is a complete software platform for printing presses. It is made of three apps that share one database: the Presstropic ERP for the office (paper, plates, job cards, store and dispatch), the ShopFloor app that operators use on the production floor, and the Presstropic CRM for customer orders. Together they replace paper registers, spreadsheets and WhatsApp updates with one source of truth."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Which products are available today?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The Presstropic ERP and the ShopFloor Android app are available now. The Presstropic CRM is coming soon — you can join the early-access list from the CRM page or the form below."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Do we need all three apps?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. Most presses start with the ERP, which runs the office on its own. The ShopFloor app and the CRM plug into the same data when you are ready, so nothing has to be migrated or typed again."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Which printing presses is it built for?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Print and job-work presses — offset, screen, digital, packaging and finishing units — that handle many jobs, parties and processes at once. It is made for presses in India, with financial-year numbering and challan formats that fit local practice."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does the ShopFloor app work without internet?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. Today's scheduled work can be started, completed and cancelled on the tablet without a connection. Everything done offline is sent to the server, in order, as soon as the connection is back."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is our data safe and private?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Each company's data is fully isolated, with screen-level roles so people see only what they should. Company logins are protected by authenticator-app 2FA with backup codes, every signed-in device is named and can be revoked instantly, and every create, edit and delete is logged with who and when. Each app has its own login, so a floor tablet can never open the office ERP."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do we get started?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Request a demo and we will walk you through the daily flow with your own kind of jobs and plates, usually in under 30 minutes. We help with setup, data and rollout, and reach out within one working day."
+   }
+  }
+ ]
 }
 </script>
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"FAQPage",
-  "mainEntity":[
-    {"@type":"Question","name":"What is Presstropic?","acceptedAnswer":{"@type":"Answer","text":"Presstropic is a printing press ERP and job-work management software. It runs the whole floor — paper inward, plate/screen tracking, job cards, production and dispatch challans — from one system, so a print press can replace paper registers, spreadsheets and WhatsApp updates with a single source of truth."}},
-    {"@type":"Question","name":"Which printing presses is it built for?","acceptedAnswer":{"@type":"Answer","text":"It's built for print and job-work presses — offset, screen, digital, packaging and finishing units — that handle many jobs, parties and processes at once. If you make job cards, track plates or screens, record production and raise delivery challans, Presstropic fits your daily flow. It's made for presses in India, with financial-year job numbering and challan formats that fit local practice."}},
-    {"@type":"Question","name":"Does it handle job cards and job work?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every job gets a job card with its processes, sizes, quantities, machines and operators. You can track production and wastage per process, see live floor status, and know exactly where each job stands from scheduling to finishing."}},
-    {"@type":"Question","name":"Can it generate dispatch challans?","acceptedAnswer":{"@type":"Answer","text":"Yes. Presstropic creates delivery/dispatch challans with party, job and rate details, tracks ready-to-ship and dispatched status, and lets you revise rates on existing challans party-wise — for one challan or in bulk. Party-, process- and month-wise dispatch reports are built in."}},
-    {"@type":"Question","name":"Does it replace registers and spreadsheets?","acceptedAnswer":{"@type":"Answer","text":"Yes. Paper registers, Excel sheets and scattered WhatsApp messages get replaced by one connected system covering masters, paper stock, plates, jobs, production and dispatch, with activity logs, role-based access and backups."}},
-    {"@type":"Question","name":"Is my data safe and private?","acceptedAnswer":{"@type":"Answer","text":"Each company's data is fully isolated, with screen-level roles so people see only what they should. Company logins are protected by authenticator-app 2FA with backup codes, and you can name every signed-in device and revoke one instantly if it's lost. Every create, edit and delete is logged with who and when, and you can take database backups and export to CSV/Excel any time."}},
-    {"@type":"Question","name":"How do we get started?","acceptedAnswer":{"@type":"Answer","text":"Request a demo and we'll walk you through the daily flow with your own kind of jobs and plates, usually in under 30 minutes. We help with setup, data and rollout, and reach out within one working day."}}
-  ]
-}
-</script>
-
-<!-- ── Skeleton loading ────────────────────────────────────────────────────
-     Painted before anything else and kept until the WHOLE page has loaded
-     (every image, font, stylesheet and script — the window "load" event, plus
-     fonts ready), then faded out. Without JavaScript it never appears, so the
-     page (and search engines) always see the real content. -->
-<style>
-  .pt-skel{display:none}
-  html.pt-loading{overflow:hidden}
-  html.pt-loading .pt-skel{display:block;position:fixed;inset:0;z-index:9999;background:#fbfaf7;overflow:hidden;
-    transition:opacity .35s ease}
-  .pt-skel.out{opacity:0;pointer-events:none}
-  .pt-skel .sk{background:#ece7dc;border-radius:8px;position:relative;overflow:hidden}
-  .pt-skel .sk::after{content:"";position:absolute;inset:0;transform:translateX(-100%);
-    background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);animation:ptSk 1.25s ease-in-out infinite}
-  @keyframes ptSk{to{transform:translateX(100%)}}
-  @media(prefers-reduced-motion:reduce){.pt-skel .sk::after{animation:none}}
-  .pt-skel .sk-wrap{max-width:1160px;margin:0 auto;padding:0 24px}
-  .pt-skel .sk-head{height:70px;border-bottom:1px solid rgba(20,20,20,.08);background:rgba(251,250,247,.9)}
-  .pt-skel .sk-nav{height:70px;display:flex;align-items:center;justify-content:space-between}
-  .pt-skel .sk-links{display:flex;align-items:center;gap:26px}
-  .pt-skel .sk-hero{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center;padding:44px 0 56px}
-  .pt-skel .sk-row{display:flex;gap:12px;flex-wrap:wrap}
-  .pt-skel .sk-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-  .pt-skel .sk-lines>.sk{height:14px;margin:0 0 12px}
-  @media(max-width:900px){.pt-skel .sk-hero{grid-template-columns:1fr;gap:34px}.pt-skel .sk-cards{grid-template-columns:1fr 1fr}
-    .pt-skel .sk-hide-sm{display:none}}
-  @media(max-width:600px){.pt-skel .sk-head,.pt-skel .sk-nav{height:58px}.pt-skel .sk-cards{grid-template-columns:1fr}
-    .pt-skel .sk-links{gap:8px}.pt-skel .sk-nav>.sk{width:110px!important;flex:0 0 110px}
-    .pt-skel .sk-links>.sk{height:34px!important;border-radius:9px!important}
-    .pt-skel .sk-links>.sk:nth-last-child(2){width:64px!important}.pt-skel .sk-links>.sk:last-child{width:112px!important}}
-</style>
 <script>
 (function(){
   var root = document.documentElement, done = false;
@@ -606,54 +203,146 @@
   </div>
 </div>
 
-
 <header>
   <div class="wrap nav">
-    <a class="brand" href="#top"><img src="assets/presstropic_solutions_light.svg" alt="Presstropic Solutions"></a>
-    <nav class="nav-links">
-      <a class="navlink" href="#modules">Modules</a>
+    <a class="brand" href="/" aria-label="Presstropic Solutions home"><img src="/assets/presstropic_solutions_light.svg" alt="Presstropic Solutions"></a>
+    <nav class="nav-links" aria-label="Main">
+      <div class="nav-dd">
+        <button type="button" class="navlink" aria-expanded="false" aria-haspopup="true">Products <svg class="chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="dd-panel" role="menu">
+          <a class="dd-item" href="/erp/"><img src="/assets/products/erp_icon.svg" alt=""><span><b>Presstropic ERP <span class="badge badge-live">Live</span></b><small>Paper, plates, job cards, store and dispatch for the office.</small></span></a>
+          <a class="dd-item" href="/shopfloor/"><img src="/assets/products/floor_icon.svg" alt=""><span><b>ShopFloor <span class="badge badge-live">Android</span></b><small>The tablet app operators use to run the day's work, online or offline.</small></span></a>
+          <a class="dd-item" href="/crm/"><img src="/assets/products/crm_icon.svg" alt=""><span><b>Presstropic CRM <span class="badge badge-soon">Coming soon</span></b><small>Branded order forms that turn customer orders into jobs.</small></span></a>
+          <div class="dd-foot"><span>Three apps. One database.</span><a href="/#platform">How they connect →</a></div>
+        </div>
+      </div>
+      <a class="navlink" href="/#platform">Platform</a>
       <a class="navlink" href="#faq">FAQ</a>
       <a class="navlink" href="#contact">Contact</a>
-      <a class="btn btn-ghost" href="https://app.presstropic.com" target="_blank" rel="noopener">Sign In</a>
+      <div class="nav-dd">
+        <button type="button" class="btn btn-ghost" aria-expanded="false" aria-haspopup="true">Sign In <svg class="chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="dd-panel right" role="menu">
+          <a class="dd-item" href="https://app.presstropic.com" target="_blank" rel="noopener"><img src="/assets/products/erp_icon.svg" alt=""><span><b>Presstropic ERP</b><small>app.presstropic.com</small></span><svg class="ext" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+          <a class="dd-item" href="https://shopfloor.presstropic.com" target="_blank" rel="noopener"><img src="/assets/products/floor_icon.svg" alt=""><span><b>ShopFloor</b><small>shopfloor.presstropic.com</small></span><svg class="ext" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+        </div>
+      </div>
       <a class="btn btn-gold" href="#inquiry">Request a demo</a>
+      <button type="button" class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mSheet"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </nav>
   </div>
 </header>
+<div class="m-sheet" id="mSheet">
+  <h5>Products</h5>
+          <a class="dd-item" href="/erp/"><img src="/assets/products/erp_icon.svg" alt=""><span><b>Presstropic ERP <span class="badge badge-live">Live</span></b><small>Paper, plates, job cards, store and dispatch for the office.</small></span></a>
+          <a class="dd-item" href="/shopfloor/"><img src="/assets/products/floor_icon.svg" alt=""><span><b>ShopFloor <span class="badge badge-live">Android</span></b><small>The tablet app operators use to run the day's work, online or offline.</small></span></a>
+          <a class="dd-item" href="/crm/"><img src="/assets/products/crm_icon.svg" alt=""><span><b>Presstropic CRM <span class="badge badge-soon">Coming soon</span></b><small>Branded order forms that turn customer orders into jobs.</small></span></a>
+  <h5>Explore</h5>
+  <a class="m-link" href="/#platform">The platform</a>
+  <a class="m-link" href="#faq">FAQ</a>
+  <a class="m-link" href="#contact">Contact</a>
+  <h5>Sign in</h5>
+          <a class="dd-item" href="https://app.presstropic.com" target="_blank" rel="noopener"><img src="/assets/products/erp_icon.svg" alt=""><span><b>Presstropic ERP</b><small>app.presstropic.com</small></span><svg class="ext" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+          <a class="dd-item" href="https://shopfloor.presstropic.com" target="_blank" rel="noopener"><img src="/assets/products/floor_icon.svg" alt=""><span><b>ShopFloor</b><small>shopfloor.presstropic.com</small></span><svg class="ext" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+</div>
+
+<main>
 
 <!-- HERO -->
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="reveal">
-      <div class="eyebrow"><span class="regmark"><span></span></span> The operating system for printing presses</div>
-      <h1>Run your whole press from <span class="accent">one system.</span></h1>
-      <p class="lede">Paper, plates, job cards, production and dispatch — tracked end to end, from inward to delivery challan.</p>
-      <p class="sub">A modular, print-first platform that replaces registers, spreadsheets and WhatsApp with one source of truth — built by people who run a press.</p>
+      <div class="eyebrow"><span class="regmark"><span></span></span> The complete platform for printing presses</div>
+      <h1>The whole press, <span class="accent">connected.</span></h1>
+      <p class="lede">Orders, production, plates, stock and dispatch — run across three apps that share one database, from the office to the shop floor.</p>
+      <p class="sub">Presstropic replaces registers, spreadsheets and WhatsApp with one platform, built by people who run a press.</p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="#inquiry">Request a demo →</a>
-        <a class="btn btn-ghost" href="#modules">See the modules</a>
+        <a class="btn btn-ghost" href="#products">Explore the products</a>
       </div>
       <p class="hero-signin">Already a customer? <a href="https://app.presstropic.com" target="_blank" rel="noopener">Sign in to your account →</a></p>
-      <div class="hero-modules">
-        <div class="hero-mod"><img src="assets/paperbuddy.svg" alt="">Paper</div>
-        <div class="hero-mod"><img src="assets/rackbuddy.svg" alt="">Rack</div>
-        <div class="hero-mod"><img src="assets/jobbuddy.svg" alt="">Job</div>
-        <div class="hero-mod"><img src="assets/storebuddy.svg" alt="">Store</div>
-        <div class="hero-mod"><img src="assets/dispatchbuddy.svg" alt="Dispatch challan and delivery module">Dispatch</div>
+      <div class="hero-products">
+        <a class="hp-chip" href="/erp/"><img src="/assets/products/erp_icon.svg" alt="">ERP</a>
+        <a class="hp-chip" href="/shopfloor/"><img src="/assets/products/floor_icon.svg" alt="">ShopFloor</a>
+        <a class="hp-chip" href="/crm/"><img src="/assets/products/crm_icon.svg" alt="">CRM <span class="badge badge-soon">Soon</span></a>
       </div>
     </div>
-    <div class="mock hero-visual reveal" aria-hidden="true">
-      <div class="hv-head"><span class="regmark"><span></span></span>ONE JOB, TRACKED END TO END</div>
-      <div class="hv-flow">
-        <div class="hv-line"><span class="hv-fill"></span><span class="hv-dot"></span></div>
-        <div class="hv-nodes">
-          <div class="hv-node" style="--i:0"><span class="hv-ring"><img src="assets/paperbuddy.svg" alt=""></span><b>Paper in</b><small>Stock recorded</small></div>
-          <div class="hv-node" style="--i:1"><span class="hv-ring"><img src="assets/rackbuddy.svg" alt=""></span><b>Plate found</b><small>Rack &amp; slot</small></div>
-          <div class="hv-node" style="--i:2"><span class="hv-ring"><img src="assets/jobbuddy.svg" alt=""></span><b>Job running</b><small>On the floor</small></div>
-          <div class="hv-node" style="--i:3"><span class="hv-ring"><img src="assets/storebuddy.svg" alt=""></span><b>Material used</b><small>Store issued</small></div>
-          <div class="hv-node" style="--i:4"><span class="hv-ring"><img src="assets/dispatchbuddy.svg" alt=""></span><b>Dispatched</b><small>Challan raised</small></div>
+    <div class="mock pv reveal" aria-hidden="true">
+      <div class="hv-head"><span class="regmark"><span></span></span>ONE ORDER, THREE APPS, ONE RECORD</div>
+      <div class="pv-apps">
+        <div class="pv-app" style="--i:0">
+          <div class="pv-h"><img src="/assets/products/crm_icon.svg" alt=""><b>CRM</b><span class="badge badge-soon">Soon</span></div>
+          <div class="pv-line w80"></div><div class="pv-line w60"></div>
+          <div class="pv-card"><b>26-27 | OR-00142</b><span>Stonebridge Printers<br>5,000 gift boxes</span><br><span class="pv-st">Order received</span></div>
+        </div>
+        <div class="pv-app" style="--i:1">
+          <div class="pv-h"><img src="/assets/products/erp_icon.svg" alt=""><b>ERP</b></div>
+          <div class="pv-line w60"></div><div class="pv-line w80"></div>
+          <div class="pv-card"><b>26-27 | JC-00065</b><span>Dry fruit gift box<br>4 processes routed</span><br><span class="pv-st">Job card ready</span></div>
+        </div>
+        <div class="pv-app" style="--i:2">
+          <div class="pv-h"><img src="/assets/products/floor_icon.svg" alt=""><b>ShopFloor</b></div>
+          <div class="pv-line w80"></div><div class="pv-line w40"></div>
+          <div class="pv-card"><b>Heidelberg CD 102</b><span>Printing<br>3,120 / 5,000 sheets</span><br><span class="pv-st">Running</span></div>
         </div>
       </div>
-      <div class="hv-foot"><span class="hv-id">26-27 | J-00065</span><span class="hv-status">Every step writes to the same system — nothing re-keyed</span></div>
+      <div class="pv-db"><span class="db-ico"><span></span></span><div><b>One database.</b> Every app reads and writes the same record — nothing is typed twice.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section class="proof" aria-label="Platform at a glance">
+  <div class="wrap proof-grid">
+    <div class="proof-item reveal"><b>3 apps</b><span>Office, floor and customers on one database</span></div>
+    <div class="proof-item reveal"><b>Offline</b><span>The floor keeps working when the internet drops</span></div>
+    <div class="proof-item reveal"><b>2FA</b><span>Authenticator-app sign-in for every company</span></div>
+    <div class="proof-item reveal"><b>Every change</b><span>Logged with who, what and when</span></div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="wrap">
+    <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow">The products</div></div>
+    <h2 class="sec-title reveal">One platform. An app for every part of the press.</h2>
+    <p class="sec-sub reveal">Start with the office, bring in the floor, then open the door to your customers. Each app stands on its own and gets stronger with the others.</p>
+    <div class="prod-grid">
+      <a class="prod-card reveal" href="/erp/">
+        <div class="prod-top">
+          <div class="pt-row"><img class="lockup" src="/assets/products/presstropic_light.svg" alt="Presstropic ERP"><span class="badge badge-live">Available</span></div>
+          <div class="kind">For the office · Web app</div>
+          <h3>Presstropic ERP</h3>
+        </div>
+        <div class="prod-body">
+          <p>The print-first ERP that runs paper, plates, job cards, store and dispatch from one system.</p>
+          <ul><li>Paper, plate, job, store and dispatch modules</li><li>Challans, party ledgers and dispatch analysis</li><li>Audit reports and a complete activity trail</li></ul>
+          <span class="prod-link">Explore the ERP <span class="arr">→</span></span>
+        </div>
+      </a>
+      <a class="prod-card reveal" href="/shopfloor/">
+        <div class="prod-top">
+          <div class="pt-row"><img class="lockup" src="/assets/products/presstropic_shopfloor_light.svg" alt="Presstropic ShopFloor"><span class="badge badge-live">Available</span></div>
+          <div class="kind">For the production floor · Android</div>
+          <h3>ShopFloor</h3>
+        </div>
+        <div class="prod-body">
+          <p>The tablet app operators use to run the day's schedule on their machine — even when the internet drops.</p>
+          <ul><li>4-digit PIN sign-in for operators</li><li>Start, complete and cancel work offline</li><li>Production and wastage recorded as the run goes</li></ul>
+          <span class="prod-link">Explore ShopFloor <span class="arr">→</span></span>
+        </div>
+      </a>
+      <a class="prod-card reveal" href="/crm/">
+        <div class="prod-top">
+          <div class="pt-row"><img class="lockup" src="/assets/products/presstropic_crm_light.svg" alt="Presstropic CRM"><span class="badge badge-soon">Coming soon</span></div>
+          <div class="kind">For customers &amp; orders · Web app</div>
+          <h3>Presstropic CRM</h3>
+        </div>
+        <div class="prod-body">
+          <p>Give every customer one link to place an order, and turn each order into a job without retyping it.</p>
+          <ul><li>Order Request Form on your own letterhead</li><li>Embed the form on your own website</li><li>Order Inward Register that feeds job cards</li></ul>
+          <span class="prod-link">Join early access <span class="arr">→</span></span>
+        </div>
+      </a>
     </div>
   </div>
 </section>
@@ -663,264 +352,37 @@
   <div class="wrap">
     <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow" style="color:var(--gold-bright)">The problem</div></div>
     <h2 class="sec-title reveal">A press runs on memory, paper and guesswork.</h2>
-    <p class="sec-sub reveal">The daily reality on most shop floors — and what it quietly costs.</p>
+    <p class="sec-sub reveal">The daily reality in most presses — and what it quietly costs.</p>
     <div class="problem-grid">
-      <div class="problem-card reveal"><div class="pc-ico"><span style="-webkit-mask-image:url('assets/icons/inward.svg');mask-image:url('assets/icons/inward.svg')"></span></div><h3>Paper that doesn't add up</h3><p>Reams counted by hand; stock and consumption never reconcile, so reorders are late or blind.</p></div>
-      <div class="problem-card reveal"><div class="pc-ico"><span style="-webkit-mask-image:url('assets/icons/location.svg');mask-image:url('assets/icons/location.svg')"></span></div><h3>Plates that go missing</h3><p>Thousands of plates across racks with no reliable location — re-making lost plates burns money and time.</p></div>
-      <div class="problem-card reveal"><div class="pc-ico"><span style="-webkit-mask-image:url('assets/icons/jobcard.svg');mask-image:url('assets/icons/jobcard.svg')"></span></div><h3>Jobs tracked on WhatsApp</h3><p>Job status lives in chats and people's heads; nobody knows what's running, pending or stuck.</p></div>
-      <div class="problem-card reveal"><div class="pc-ico"><span style="-webkit-mask-image:url('assets/icons/report.svg');mask-image:url('assets/icons/report.svg')"></span></div><h3>No traceability</h3><p>When something goes wrong there's no record of who did what, when — disputes can't be settled with data.</p></div>
+      <div class="problem-card reveal"><div class="pc-ico"><span style="-webkit-mask-image:url('/assets/icons/inward.svg');mask-image:url('/assets/icons/inward.svg')"></span></div><h3>Orders lost in chats</h3><p>Customer orders arrive on WhatsApp and phone calls, then get retyped by hand — and sometimes not at all.</p></div>
+      <div class="problem-card reveal"><div class="pc-ico"><span style="-webkit-mask-image:url('/assets/icons/location.svg');mask-image:url('/assets/icons/location.svg')"></span></div><h3>Plates and paper that go missing</h3><p>Stock never reconciles and plates have no reliable location, so reorders are late and lost plates are remade.</p></div>
+      <div class="problem-card reveal"><div class="pc-ico"><span style="-webkit-mask-image:url('/assets/icons/machine.svg');mask-image:url('/assets/icons/machine.svg')"></span></div><h3>A floor nobody can see</h3><p>What each machine is running lives in people's heads; the office only finds out when someone walks over and asks.</p></div>
+      <div class="problem-card reveal"><div class="pc-ico"><span style="-webkit-mask-image:url('/assets/icons/report.svg');mask-image:url('/assets/icons/report.svg')"></span></div><h3>No traceability</h3><p>When something goes wrong there is no record of who did what, when — so disputes cannot be settled with data.</p></div>
     </div>
   </div>
 </section>
 
-<!-- SOLUTION -->
-<section id="solution">
+<!-- PLATFORM -->
+<section id="platform">
   <div class="wrap">
-    <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow">The solution</div></div>
-    <h2 class="sec-title reveal">One platform, built only for print.</h2>
-    <p class="sec-sub reveal">Presstropic turns the whole shop floor into a connected system. Each module is a "Buddy" — focused, simple, and linked to the others so data flows end to end.</p>
-    <div class="sol-points">
-      <div class="sol-point reveal"><span class="tick">✓</span> Purpose-built for printing &amp; job-work — not a generic ERP bent to fit</div>
-      <div class="sol-point reveal"><span class="tick">✓</span> Modular: adopt one Buddy or the whole suite</div>
-      <div class="sol-point reveal"><span class="tick">✓</span> Every record traceable, every create/edit/delete logged</div>
-      <div class="sol-point reveal"><span class="tick">✓</span> Financial-year aware IDs that reset cleanly each year</div>
+    <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow">How the platform connects</div></div>
+    <h2 class="sec-title reveal">From order to dispatch, without re-keying a thing.</h2>
+    <p class="sec-sub reveal">Each step happens in the app built for the person doing it — and lands in the same record everyone else sees.</p>
+    <div class="pf">
+      <div class="pf-step reveal"><div class="pf-ico"><span style="-webkit-mask-image:url('/assets/icons/create.svg');mask-image:url('/assets/icons/create.svg')"></span></div><h4>Order in</h4><p>Customers send orders on your branded form.</p><span class="app-tag"><img src="/assets/products/crm_icon.svg" alt="">CRM</span></div>
+      <div class="pf-step reveal"><div class="pf-ico"><span style="-webkit-mask-image:url('/assets/icons/jobcard.svg');mask-image:url('/assets/icons/jobcard.svg')"></span></div><h4>Job card</h4><p>The order becomes a job with its full process route.</p><span class="app-tag"><img src="/assets/products/erp_icon.svg" alt="">ERP</span></div>
+      <div class="pf-step reveal"><div class="pf-ico"><span style="-webkit-mask-image:url('/assets/icons/plate.svg');mask-image:url('/assets/icons/plate.svg')"></span></div><h4>Material &amp; plates</h4><p>Paper and store stock issued, plates found by rack.</p><span class="app-tag"><img src="/assets/products/erp_icon.svg" alt="">ERP</span></div>
+      <div class="pf-step reveal"><div class="pf-ico"><span style="-webkit-mask-image:url('/assets/icons/machine.svg');mask-image:url('/assets/icons/machine.svg')"></span></div><h4>On the floor</h4><p>Operators start and complete each process on a tablet.</p><span class="app-tag"><img src="/assets/products/floor_icon.svg" alt="">ShopFloor</span></div>
+      <div class="pf-step reveal"><div class="pf-ico"><span style="-webkit-mask-image:url('/assets/icons/dispatched_jobs.svg');mask-image:url('/assets/icons/dispatched_jobs.svg')"></span></div><h4>Dispatched</h4><p>Challan raised, job billed, party ledger updated.</p><span class="app-tag"><img src="/assets/products/erp_icon.svg" alt="">ERP</span></div>
     </div>
   </div>
 </section>
-
-<!-- MODULES -->
-<section class="modules" id="modules">
-  <div class="wrap">
-    <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow">The Buddy suite</div></div>
-    <h2 class="sec-title reveal">Modules that run the whole floor.</h2>
-    <p class="sec-sub reveal">Issue stock to a job, track its plates, run it on the floor, bill it and dispatch — one thread of data.</p>
-
-    <div class="slider reveal" id="modSlider">
-      <button type="button" class="s-nav prev" aria-label="Previous module"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-      <div class="slide-track">
-      <article class="slide on" data-i="0" role="group"
-               aria-roledescription="slide" aria-label="PaperBuddy, 1 of 7">
-        <div class="slide-rail">
-          <div class="rail-ico"><img src="assets/paperbuddy.svg" alt="PaperBuddy module"></div>
-          <div class="mod-tag">Paper inventory</div>
-          <h3>Paper<wbr><span class="b">Buddy</span></h3>
-          <p class="slide-lead">Every sheet accounted for — from the day it arrives to the job it goes out on.</p>
-          <div class="rail-n"><b>01</b><span>/ 07</span></div>
-        </div>
-        <ul class="slide-caps"><li>Inward register by party, type, size and GSM, with multi-bundle entry</li><li>Paper Stock Register with opening and closing balances for any day, week, month or financial year</li><li>Stock issued against a job automatically, with a negative balance recorded when a party supplies its own paper</li><li>Stock adjustments for a recount, damage or write-off — dated, with a reason and the person who made it</li><li>Packaging slips grouped per pack size, printed single, duplicate or triplicate</li></ul>
-      </article>
-      <article class="slide" data-i="1" role="group"
-               aria-roledescription="slide" aria-label="RackBuddy, 2 of 7">
-        <div class="slide-rail">
-          <div class="rail-ico"><img src="assets/rackbuddy.svg" alt="RackBuddy module"></div>
-          <div class="mod-tag">Plate storage</div>
-          <h3>Rack<wbr><span class="b">Buddy</span></h3>
-          <p class="slide-lead">Every plate mapped to an exact rack location by your own series rules.</p>
-          <div class="rail-n"><b>02</b><span>/ 07</span></div>
-        </div>
-        <ul class="slide-caps"><li>Rack visualisation and series masters</li><li>Search a plate ID and get the exact rack and slot</li><li>Active, missing, scrapped and incomplete-entry registers</li><li>Usage logs showing every time a plate left the rack</li><li>Replacement plates tracked against the original set</li></ul>
-      </article>
-      <article class="slide" data-i="2" role="group"
-               aria-roledescription="slide" aria-label="JobBuddy, 3 of 7">
-        <div class="slide-rail">
-          <div class="rail-ico"><img src="assets/jobbuddy.svg" alt="JobBuddy module"></div>
-          <div class="mod-tag">Job cards &amp; production</div>
-          <h3>Job<wbr><span class="b">Buddy</span></h3>
-          <p class="slide-lead">Job cards, a process route, and a live view of what is running right now.</p>
-          <div class="rail-n"><b>03</b><span>/ 07</span></div>
-        </div>
-        <ul class="slide-caps"><li>Process route with machine, operator, finish and quantity produced</li><li>Live floor monitoring that refreshes on its own</li><li>Day scheduling, machine-wise schedule and a production calendar</li><li>Operator records and production reports by party, process and machine</li><li>Deleting a job asks whether its paper returns to stock — nothing moves silently</li></ul>
-      </article>
-      <article class="slide" data-i="3" role="group"
-               aria-roledescription="slide" aria-label="StoreBuddy, 4 of 7">
-        <div class="slide-rail">
-          <div class="rail-ico"><img src="assets/storebuddy.svg" alt="StoreBuddy module"></div>
-          <div class="mod-tag">Raw material store</div>
-          <h3>Store<wbr><span class="b">Buddy</span></h3>
-          <p class="slide-lead">Films, inks and consumables — in, out, returned and scrapped.</p>
-          <div class="rail-n"><b>04</b><span>/ 07</span></div>
-        </div>
-        <ul class="slide-caps"><li>Combination-wise stock for every material variant</li><li>Issue against a Job ID, with reuse returns booked back in</li><li>Inward, issue and return documents all editable and deletable, with stock corrected automatically</li><li>Scrap list kept per financial year</li><li>Deletions blocked when they would drive stock negative</li></ul>
-      </article>
-      <article class="slide" data-i="4" role="group"
-               aria-roledescription="slide" aria-label="DispatchBuddy, 5 of 7">
-        <div class="slide-rail">
-          <div class="rail-ico"><img src="assets/dispatchbuddy.svg" alt="DispatchBuddy module"></div>
-          <div class="mod-tag">Dispatch, billing &amp; challans</div>
-          <h3>Dispatch<wbr><span class="b">Buddy</span></h3>
-          <p class="slide-lead">From a finished job to a billed, dispatched challan — and the record that it was invoiced.</p>
-          <div class="rail-n"><b>05</b><span>/ 07</span></div>
-        </div>
-        <ul class="slide-caps"><li>One challan can bill several jobs of a party, grouped job by job</li><li>Charge a set of processes together at one rate, or bill on a minimum rate, minimum order quantity or minimum order value</li><li>Job status follows the work: complete, ready-to-ship, shipped, and invoiced</li><li>Un-invoiced Jobs screen shows work that has been dispatched but never billed</li><li>Party ledger: billed, dispatched, awaiting dispatch and unbilled, per customer</li><li>Pivot-style dispatch analysis — slice billed quantity and value by party, process or month</li></ul>
-      </article>
-      <article class="slide" data-i="5" role="group"
-               aria-roledescription="slide" aria-label="AuditReports, 6 of 7">
-        <div class="slide-rail">
-          <div class="rail-ico"><span class="rail-mark"></span></div>
-          <div class="mod-tag">Books &amp; audit</div>
-          <h3>Audit<wbr><span class="b">Reports</span></h3>
-          <p class="slide-lead">The questions an auditor asks first, answered from the data you already have.</p>
-          <div class="rail-n"><b>06</b><span>/ 07</span></div>
-        </div>
-        <ul class="slide-caps"><li>Document numbering gaps found and cross-checked against the audit trail</li><li>Stock reconciliation: received less issued equals closing, on every line</li><li>Audit trail recording who changed what, with each field's old and new value</li><li>Financial year close that freezes a completed year against further edits</li><li>Every register searchable, sortable, filterable, printable and exportable</li></ul>
-      </article>
-      <article class="slide" data-i="6" role="group"
-               aria-roledescription="slide" aria-label="MasterManagement, 7 of 7">
-        <div class="slide-rail">
-          <div class="rail-ico"><span class="rail-mark"></span></div>
-          <div class="mod-tag">Masters &amp; rates</div>
-          <h3>Master<wbr><span class="b">Management</span></h3>
-          <p class="slide-lead">Everything defined once, and changed in bulk when it needs to change.</p>
-          <div class="rail-n"><b>07</b><span>/ 07</span></div>
-        </div>
-        <ul class="slide-caps"><li>Parties, processes, machines, tools, operators and paper types</li><li>Rate lists down to each process, subtype and finish — per party, with a default</li><li>Download a master as a spreadsheet, edit it, upload it back</li><li>Permissions per screen and per action — view, create, edit, delete, print, export</li><li>Every screen reachable from both the sidebar and its module home</li></ul>
-      </article>
-      </div>
-      <button type="button" class="s-nav next" aria-label="Next module"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
-    </div>
-    <div class="s-progress"><span id="modBar"></span></div>
-    <div class="dots" id="modDots"><button type="button" class="dot on" data-go="0" aria-label="Go to slide 1"></button><button type="button" class="dot" data-go="1" aria-label="Go to slide 2"></button><button type="button" class="dot" data-go="2" aria-label="Go to slide 3"></button><button type="button" class="dot" data-go="3" aria-label="Go to slide 4"></button><button type="button" class="dot" data-go="4" aria-label="Go to slide 5"></button><button type="button" class="dot" data-go="5" aria-label="Go to slide 6"></button><button type="button" class="dot" data-go="6" aria-label="Go to slide 7"></button></div>
-  
-    <!-- Two real screens per module. They follow the slider above: whichever
-         module is showing, its pair is showing (see show() in the slider script). -->
-    <div class="mod-shots reveal" id="modShots">
-    <div class="shots two mod-pair on" data-mod="0" aria-label="PaperBuddy screens">
-      <figure class="shot" style="margin:0">
-        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / paperbuddy/stock-register</span></div>
-        <div class="mock-frame-wrap">
-          <iframe class="mock-frame" data-w="1100" data-h="1060" src="assets/mockup/paper_stock.html" title="Paper Stock Register" loading="lazy" scrolling="no" tabindex="-1"></iframe>
-        </div>
-        <figcaption class="shot-cap"><b>Paper Stock Register</b><span>Opening, inward, issued and closing per stock line, for any day, week, month or financial year.</span></figcaption>
-      </figure>
-      <figure class="shot" style="margin:0">
-        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / paperbuddy/paper-inward-register</span></div>
-        <div class="mock-frame-wrap">
-          <iframe class="mock-frame" data-w="1180" data-h="694" src="assets/mockup/paper_inward.html" title="Paper Inward Register" loading="lazy" scrolling="no" tabindex="-1"></iframe>
-        </div>
-        <figcaption class="shot-cap"><b>Paper Inward Register</b><span>Every batch by party, type, size and GSM, with the bundle arithmetic behind each sheet count.</span></figcaption>
-      </figure>
-    </div>
-    <div class="shots two mod-pair" data-mod="1" aria-label="RackBuddy screens" aria-hidden="true">
-      <figure class="shot" style="margin:0">
-        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / rackbuddy/rack-visualization</span></div>
-        <div class="mock-frame-wrap">
-          <iframe class="mock-frame" data-w="1180" data-h="1062" src="assets/mockup/rack_visualization.html" title="Rack Visualization" loading="lazy" scrolling="no" tabindex="-1"></iframe>
-        </div>
-        <figcaption class="shot-cap"><b>Rack Visualization</b><span>How full every slot of a rack is at a glance, and the exact plate sitting in each position.</span></figcaption>
-      </figure>
-      <figure class="shot" style="margin:0">
-        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / rackbuddy/active-plates</span></div>
-        <div class="mock-frame-wrap">
-          <iframe class="mock-frame" data-w="1180" data-h="677" src="assets/mockup/active_plates.html" title="Active Plates" loading="lazy" scrolling="no" tabindex="-1"></iframe>
-        </div>
-        <figcaption class="shot-cap"><b>Active Plates</b><span>Every plate set on the racks, with its location, the colours present and the plate size.</span></figcaption>
-      </figure>
-    </div>
-    <div class="shots two mod-pair" data-mod="2" aria-label="JobBuddy screens" aria-hidden="true">
-      <figure class="shot" style="margin:0">
-        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / jobbuddy/live-floor</span></div>
-        <div class="mock-frame-wrap">
-          <iframe class="mock-frame" data-w="1180" data-h="944" src="assets/mockup/live_floor.html" title="Live Floor" loading="lazy" scrolling="no" tabindex="-1"></iframe>
-        </div>
-        <figcaption class="shot-cap"><b>Live Floor</b><span>What each machine is running right now, who is on it and how far the job has got.</span></figcaption>
-      </figure>
-      <figure class="shot" style="margin:0">
-        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / jobbuddy/job-register</span></div>
-        <div class="mock-frame-wrap">
-          <iframe class="mock-frame" data-w="1280" data-h="1104" src="assets/mockup/job_register.html" title="Job Register" loading="lazy" scrolling="no" tabindex="-1"></iframe>
-        </div>
-        <figcaption class="shot-cap"><b>Job Register</b><span>Every job with its processes, sizes and quantities — searchable, sortable and printable.</span></figcaption>
-      </figure>
-    </div>
-    <div class="shots two mod-pair" data-mod="3" aria-label="StoreBuddy screens" aria-hidden="true">
-      <figure class="shot" style="margin:0">
-        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / storebuddy/stock-register</span></div>
-        <div class="mock-frame-wrap">
-          <iframe class="mock-frame" data-w="1180" data-h="1227" src="assets/mockup/store_stock.html" title="Store Stock Register" loading="lazy" scrolling="no" tabindex="-1"></iframe>
-        </div>
-        <figcaption class="shot-cap"><b>Store Stock Register</b><span>Combination-wise stock with opening and closing for the period, and anything below its minimum flagged for reorder.</span></figcaption>
-      </figure>
-      <figure class="shot" style="margin:0">
-        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / storebuddy/outward-register</span></div>
-        <div class="mock-frame-wrap">
-          <iframe class="mock-frame" data-w="1180" data-h="901" src="assets/mockup/store_issue.html" title="Issue Register" loading="lazy" scrolling="no" tabindex="-1"></iframe>
-        </div>
-        <figcaption class="shot-cap"><b>Issue Register</b><span>Every issue slip against a job and machine, with roll IDs picked first in, first out.</span></figcaption>
-      </figure>
-    </div>
-    <div class="shots two mod-pair" data-mod="4" aria-label="DispatchBuddy screens" aria-hidden="true">
-      <figure class="shot" style="margin:0">
-        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / dispatchbuddy/dispatch-register/1</span></div>
-        <div class="mock-frame-wrap">
-          <iframe class="mock-frame" data-w="1180" data-h="1177" src="assets/mockup/challan.html" title="Delivery Challan" loading="lazy" scrolling="no" tabindex="-1"></iframe>
-        </div>
-        <figcaption class="shot-cap"><b>Delivery Challan</b><span>Several jobs of one party on a single challan, billed process by process, with the tax invoice recorded against it.</span></figcaption>
-      </figure>
-      <figure class="shot" style="margin:0">
-        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / dispatchbuddy/party-ledger</span></div>
-        <div class="mock-frame-wrap">
-          <iframe class="mock-frame" data-w="1180" data-h="803" src="assets/mockup/party_ledger.html" title="Party Ledger" loading="lazy" scrolling="no" tabindex="-1"></iframe>
-        </div>
-        <figcaption class="shot-cap"><b>Party Ledger</b><span>Billed, dispatched, awaiting dispatch and unbilled work for every customer.</span></figcaption>
-      </figure>
-    </div>
-    <div class="shots two mod-pair" data-mod="5" aria-label="AuditReports screens" aria-hidden="true">
-      <figure class="shot" style="margin:0">
-        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / global/audit-reports</span></div>
-        <div class="mock-frame-wrap">
-          <iframe class="mock-frame" data-w="1180" data-h="943" src="assets/mockup/audit_reports.html" title="Audit Reports" loading="lazy" scrolling="no" tabindex="-1"></iframe>
-        </div>
-        <figcaption class="shot-cap"><b>Audit Reports</b><span>Stock reconciled line by line, and every break in a document sequence traced to the deletion that caused it.</span></figcaption>
-      </figure>
-      <figure class="shot" style="margin:0">
-        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / admin/activity-logs</span></div>
-        <div class="mock-frame-wrap">
-          <iframe class="mock-frame" data-w="1180" data-h="996" src="assets/mockup/activity_logs.html" title="Activity Log" loading="lazy" scrolling="no" tabindex="-1"></iframe>
-        </div>
-        <figcaption class="shot-cap"><b>Activity Log</b><span>Who changed what and when, on every screen — with deleted records kept for restore.</span></figcaption>
-      </figure>
-    </div>
-    <div class="shots two mod-pair" data-mod="6" aria-label="MasterManagement screens" aria-hidden="true">
-      <figure class="shot" style="margin:0">
-        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / master-management</span></div>
-        <div class="mock-frame-wrap">
-          <iframe class="mock-frame" data-w="1180" data-h="961" src="assets/mockup/master_management.html" title="Master Management" loading="lazy" scrolling="no" tabindex="-1"></iframe>
-        </div>
-        <figcaption class="shot-cap"><b>Master Management</b><span>Every master in one place, grouped and counted, reachable from a single screen.</span></figcaption>
-      </figure>
-      <figure class="shot" style="margin:0">
-        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / master-management/process-rates</span></div>
-        <div class="mock-frame-wrap">
-          <iframe class="mock-frame" data-w="1180" data-h="1037" src="assets/mockup/process_rates.html" title="Process Rate Master" loading="lazy" scrolling="no" tabindex="-1"></iframe>
-        </div>
-        <figcaption class="shot-cap"><b>Process Rate Master</b><span>Party-wise rates for each process, subtype and finish, with minimum per sheet, MOQ and MOV.</span></figcaption>
-      </figure>
-    </div>
-    </div>
-  </div>
-  </section>
-
-<!-- HOW IT CONNECTS -->
-<section id="how">
-  <div class="wrap">
-    <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow">How it connects</div></div>
-    <h2 class="sec-title reveal">One job, end to end.</h2>
-    <p class="sec-sub reveal">Every step writes to the same system — so nothing is re-keyed, and everything is traceable.</p>
-    <div class="flow-steps">
-      <div class="flow-step reveal"><div class="fs-ico"><span style="-webkit-mask-image:url('assets/icons/inward.svg');mask-image:url('assets/icons/inward.svg')"></span></div><h4>Material in</h4><p>Paper &amp; store stock recorded on inward.</p></div>
-      <div class="flow-step reveal"><div class="fs-ico"><span style="-webkit-mask-image:url('assets/icons/jobcard.svg');mask-image:url('assets/icons/jobcard.svg')"></span></div><h4>Job card</h4><p>Created with its full process route.</p></div>
-      <div class="flow-step reveal"><div class="fs-ico"><span style="-webkit-mask-image:url('assets/icons/machine.svg');mask-image:url('assets/icons/machine.svg')"></span></div><h4>On the floor</h4><p>Runs process by process, live.</p></div>
-      <div class="flow-step reveal"><div class="fs-ico"><span style="-webkit-mask-image:url('assets/icons/location.svg');mask-image:url('assets/icons/location.svg')"></span></div><h4>Plates tracked</h4><p>Located &amp; checked by series.</p></div>
-      <div class="flow-step reveal"><div class="fs-ico"><span style="-webkit-mask-image:url('assets/icons/dispatched_jobs.svg');mask-image:url('assets/icons/dispatched_jobs.svg')"></span></div><h4>Dispatched</h4><p>Challan closes the loop.</p></div>
-    </div>
-  </div>
-  </section>
 
 <!-- WHY -->
 <section class="why" id="why">
   <div class="wrap">
     <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow" style="color:var(--gold-bright)">Why Presstropic</div></div>
-    <h2 class="sec-title reveal">Generic ERPs weren't built for a press. This is.</h2>
+    <h2 class="sec-title reveal">Generic software wasn't built for a press. This is.</h2>
     <p class="sec-sub reveal">The difference between software you fight and software that fits.</p>
     <div class="why-grid">
       <div class="why-col why-generic reveal">
@@ -928,35 +390,35 @@
         <ul>
           <li>Plates, paper reams &amp; job-work have no native concept</li>
           <li>Months of customisation, still an awkward fit</li>
-          <li>Built for accountants, not the shop floor</li>
-          <li>Status scattered across chats and registers</li>
+          <li>Built for accountants, never for the shop floor</li>
+          <li>Orders, status and stock scattered across chats and registers</li>
         </ul>
       </div>
       <div class="why-col why-us reveal">
-        <h3><img src="assets/presstropic_brand_light.svg" alt="PRESSTROPIC"></h3>
+        <h3><img src="/assets/presstropic_solutions_light.svg" alt="Presstropic Solutions" style="height:22px"></h3>
         <ul>
           <li>Paper, plates, job cards &amp; scrap are first-class</li>
           <li>Works out of the box for print job-work</li>
-          <li>Designed for operators: fast, visual, simple</li>
-          <li>One connected trail from inward to dispatch</li>
+          <li>An app for the office, the floor and your customers</li>
+          <li>One connected trail from order to dispatch</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- GOVERNANCE -->
+<!-- TRUST -->
 <section id="trust">
   <div class="wrap">
     <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow">Control &amp; trust</div></div>
     <h2 class="sec-title reveal">Built-in governance, not bolted on.</h2>
-    <p class="sec-sub reveal">The controls that make one source of truth actually trustworthy.</p>
+    <p class="sec-sub reveal">The controls that make one source of truth actually trustworthy — across every app.</p>
     <div class="gov-grid">
-      <div class="gov reveal"><div class="g-ico"><span style="-webkit-mask-image:url('assets/icons/security.svg');mask-image:url('assets/icons/security.svg')"></span></div><h4>2FA &amp; device control</h4><p>Company login with authenticator-app 2FA, backup codes, and named devices you can revoke on the spot.</p></div>
-      <div class="gov reveal"><div class="g-ico"><span style="-webkit-mask-image:url('assets/icons/activity.svg');mask-image:url('assets/icons/activity.svg')"></span></div><h4>Activity logs</h4><p>Every create, edit and delete recorded with who and when.</p></div>
-      <div class="gov reveal"><div class="g-ico"><span style="-webkit-mask-image:url('assets/icons/database.svg');mask-image:url('assets/icons/database.svg')"></span></div><h4>Backups &amp; export</h4><p>Database backups and CSV/Excel export keep data safe and portable.</p></div>
-      <div class="gov reveal"><div class="g-ico"><span style="-webkit-mask-image:url('assets/icons/party.svg');mask-image:url('assets/icons/party.svg')"></span></div><h4>Roles &amp; access</h4><p>Screen-level permissions so each person sees only what they should.</p></div>
-      <div class="gov reveal"><div class="g-ico"><span style="-webkit-mask-image:url('assets/icons/check.svg');mask-image:url('assets/icons/check.svg')"></span></div><h4>Master-driven</h4><p>Parties, machines &amp; series defined once and reused everywhere.</p></div>
+      <div class="gov reveal"><div class="g-ico"><span style="-webkit-mask-image:url('/assets/icons/security.svg');mask-image:url('/assets/icons/security.svg')"></span></div><h4>2FA &amp; device control</h4><p>Company login with authenticator-app 2FA, backup codes, and named devices you can revoke on the spot.</p></div>
+      <div class="gov reveal"><div class="g-ico"><span style="-webkit-mask-image:url('/assets/icons/activity.svg');mask-image:url('/assets/icons/activity.svg')"></span></div><h4>Activity logs</h4><p>Every create, edit and delete recorded with who and when.</p></div>
+      <div class="gov reveal"><div class="g-ico"><span style="-webkit-mask-image:url('/assets/icons/database.svg');mask-image:url('/assets/icons/database.svg')"></span></div><h4>Backups &amp; export</h4><p>Database backups and CSV/Excel export keep data safe and portable.</p></div>
+      <div class="gov reveal"><div class="g-ico"><span style="-webkit-mask-image:url('/assets/icons/party.svg');mask-image:url('/assets/icons/party.svg')"></span></div><h4>Roles &amp; access</h4><p>Screen-level permissions so each person sees only what they should.</p></div>
+      <div class="gov reveal"><div class="g-ico"><span style="-webkit-mask-image:url('/assets/icons/check.svg');mask-image:url('/assets/icons/check.svg')"></span></div><h4>Separate app logins</h4><p>ERP, ShopFloor and CRM each sign in on their own, so the floor never reaches the office.</p></div>
     </div>
   </div>
 </section>
@@ -965,26 +427,27 @@
 <section id="faq">
   <div class="wrap">
     <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow">FAQ</div></div>
-    <h2 class="sec-title reveal">Printing press software — common questions.</h2>
-    <p class="sec-sub reveal">What Presstropic does, who it's for, and how it fits a working press.</p>
+    <h2 class="sec-title reveal">Presstropic — common questions.</h2>
+    <p class="sec-sub reveal">What the platform does, who it is for, and how it fits a working press.</p>
     <div class="faq-list">
       <details class="faq-item reveal"><summary>What is Presstropic?</summary>
-        <p>Presstropic is a printing press ERP and job-work management software. It runs the whole floor — paper inward, plate/screen tracking, job cards, production and dispatch challans — from one system, so a print press can replace its paper registers, spreadsheets and WhatsApp updates with a single source of truth.</p></details>
+        <p>Presstropic is a complete software platform for printing presses. It is made of three apps that share one database: the Presstropic ERP for the office (paper, plates, job cards, store and dispatch), the ShopFloor app that operators use on the production floor, and the Presstropic CRM for customer orders. Together they replace paper registers, spreadsheets and WhatsApp updates with one source of truth.</p></details>
+      <details class="faq-item reveal"><summary>Which products are available today?</summary>
+        <p>The Presstropic ERP and the ShopFloor Android app are available now. The Presstropic CRM is coming soon — you can join the early-access list from the CRM page or the form below.</p></details>
+      <details class="faq-item reveal"><summary>Do we need all three apps?</summary>
+        <p>No. Most presses start with the ERP, which runs the office on its own. The ShopFloor app and the CRM plug into the same data when you are ready, so nothing has to be migrated or typed again.</p></details>
       <details class="faq-item reveal"><summary>Which printing presses is it built for?</summary>
-        <p>It's built for print and job-work presses — offset, screen, digital, packaging and finishing units — that juggle many jobs, parties and processes at once. If you make job cards, track plates or screens, record production and raise delivery challans, Presstropic is designed for your daily flow. It's made for presses in India, with financial-year job numbering and challan formats that fit local practice.</p></details>
-      <details class="faq-item reveal"><summary>Does it handle job cards and job work?</summary>
-        <p>Yes. Every job gets a job card with its processes, sizes, quantities, machines and operators. You can track production and wastage per process, see live floor status, and know exactly where each job stands — from scheduling to finishing — without chasing anyone on the shop floor.</p></details>
-      <details class="faq-item reveal"><summary>Can it generate dispatch challans?</summary>
-        <p>Yes. Presstropic creates delivery/dispatch challans with party, job and rate details, tracks ready-to-ship and dispatched status, and lets you revise rates on existing challans party-wise — for one challan or in bulk. Party-, process- and month-wise dispatch reports are built in.</p></details>
-      <details class="faq-item reveal"><summary>Does it replace registers and spreadsheets?</summary>
-        <p>That's the point. Paper registers, Excel sheets and scattered WhatsApp messages get replaced by one connected system. Everything — masters, paper stock, plates, jobs, production and dispatch — lives in one place with activity logs, role-based access and backups, so nothing is lost and everyone sees the same numbers.</p></details>
-      <details class="faq-item reveal"><summary>Is my data safe and private?</summary>
-        <p>Each company's data is fully isolated, with screen-level roles so people see only what they should. Company logins are protected by authenticator-app 2FA with backup codes, and every signed-in device is named and can be revoked instantly if it's lost. Every create, edit and delete is logged with who and when, and you can take database backups and export to CSV/Excel any time — your data stays yours and portable.</p></details>
+        <p>Print and job-work presses — offset, screen, digital, packaging and finishing units — that handle many jobs, parties and processes at once. It is made for presses in India, with financial-year numbering and challan formats that fit local practice.</p></details>
+      <details class="faq-item reveal"><summary>Does the ShopFloor app work without internet?</summary>
+        <p>Yes. Today's scheduled work can be started, completed and cancelled on the tablet without a connection. Everything done offline is sent to the server, in order, as soon as the connection is back.</p></details>
+      <details class="faq-item reveal"><summary>Is our data safe and private?</summary>
+        <p>Each company's data is fully isolated, with screen-level roles so people see only what they should. Company logins are protected by authenticator-app 2FA with backup codes, every signed-in device is named and can be revoked instantly, and every create, edit and delete is logged with who and when. Each app has its own login, so a floor tablet can never open the office ERP.</p></details>
       <details class="faq-item reveal"><summary>How do we get started?</summary>
-        <p>Request a demo and we'll walk you through the daily flow with your own kind of jobs and plates — usually in under 30 minutes. We help with setup, data and rollout, and reach out within one working day.</p></details>
+        <p>Request a demo and we will walk you through the daily flow with your own kind of jobs and plates, usually in under 30 minutes. We help with setup, data and rollout, and reach out within one working day.</p></details>
     </div>
   </div>
 </section>
+
 
 <!-- INQUIRY -->
 <section class="cta" id="inquiry">
@@ -1017,9 +480,9 @@
       <div class="field"><label for="msg">Anything specific? (optional)</label><textarea id="msg" name="message" placeholder="e.g. We mainly do carton printing and lamination…" rows="5"></textarea></div>
       <div class="consent">
         <label class="consent-row"><input type="checkbox" id="accept_terms" name="accept_terms" value="yes" required>
-          <span>I accept the <a href="terms.html" target="_blank" rel="noopener noreferrer">Terms &amp; Conditions of Service</a></span></label>
+          <span>I accept the <a href="/terms.html" target="_blank" rel="noopener noreferrer">Terms &amp; Conditions of Service</a></span></label>
         <label class="consent-row"><input type="checkbox" id="accept_privacy" name="accept_privacy" value="yes" required>
-          <span>I have read the <a href="privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a></span></label>
+          <span>I have read the <a href="/privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a></span></label>
         <!-- Which version of the legal pages was agreed to — keep in sync with "Last updated" on terms.html / privacy.html -->
         <input type="hidden" name="consent_version" value="2026-09-28">
       </div>
@@ -1032,14 +495,16 @@
   </div>
 </section>
 
+
+</main>
+
 <footer>
   <div class="wrap">
     <div class="foot-grid">
       <!-- Brand + social -->
       <div class="foot-col foot-brand">
-        <img src="assets/presstropic_solutions_dark.svg" alt="Presstropic Solutions">
-        <p>The print-first operating system for printing presses — paper, plates, jobs, production and dispatch in one place.</p>
-        <!-- Social links — placeholders. Replace href="#" with your real profile URLs; delete any you don't use. -->
+        <img src="/assets/presstropic_solutions_dark.svg" alt="Presstropic Solutions">
+        <p>The complete platform for printing presses — orders, production, plates, stock and dispatch, connected end to end.</p>
         <div class="foot-social">
           <a href="https://www.linkedin.com/company/presstropic" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 87.53 87.53" width="19" height="19" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><polygon points="19.22,87.53 19.22,30.6 2.13,30.6 2.13,87.53 "/><path d="M10.67 21.35c5.9,0 10.67,-4.78 10.67,-10.67 0,-5.9 -4.78,-10.67 -10.67,-10.67 -5.9,0 -10.67,4.78 -10.67,10.67 0,5.9 4.78,10.67 10.67,10.67z"/><path d="M30.6 30.6l0 56.93 17.08 0 0 -27.34c0,-9.54 4.09,-15.36 12.68,-15.36 7.07,0 10.09,6.64 10.09,14.22l0 28.48 17.08 0 0 -31.6c0,-16.91 -4.8,-26.05 -22,-26.05 -8.96,0 -16.21,4.49 -18.66,8.91l-0.18 0 0 -8.2 -16.1 0z"/></svg></a>
           <a href="https://www.instagram.com/presstropic" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 116.61 116.61" width="19" height="19" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M38.87 58.34c-0.02,-10.73 8.67,-19.45 19.4,-19.47 10.73,-0.02 19.45,8.66 19.47,19.39 0.02,10.73 -8.67,19.45 -19.4,19.47 -10.73,0.02 -19.45,-8.66 -19.47,-19.4zm-10.5 0.02c0.03,16.54 13.46,29.91 29.99,29.88 16.53,-0.03 29.91,-13.46 29.88,-29.99 -0.03,-16.53 -13.46,-29.91 -30,-29.88 -16.53,0.03 -29.91,13.46 -29.88,29.99zm54 -31.22c0.01,3.86 3.15,6.99 7.01,6.98 3.86,-0.01 6.99,-3.15 6.98,-7.01 -0.01,-3.86 -3.15,-6.99 -7.01,-6.98 -3.86,0.01 -6.99,3.15 -6.98,7.01l0 0zm-47.53 78.66c-5.68,-0.25 -8.77,-1.19 -10.83,-1.98 -2.72,-1.05 -4.67,-2.32 -6.71,-4.35 -2.04,-2.04 -3.31,-3.98 -4.37,-6.69 -0.8,-2.06 -1.76,-5.14 -2.03,-10.82 -0.29,-6.15 -0.35,-7.99 -0.38,-23.56 -0.03,-15.56 0.03,-17.41 0.29,-23.56 0.24,-5.68 1.19,-8.77 1.98,-10.83 1.05,-2.73 2.31,-4.67 4.35,-6.71 2.04,-2.05 3.98,-3.31 6.7,-4.37 2.06,-0.8 5.14,-1.76 10.82,-2.03 6.15,-0.29 7.99,-0.35 23.55,-0.38 15.57,-0.03 17.41,0.02 23.56,0.29 5.68,0.25 8.77,1.19 10.82,1.98 2.73,1.05 4.67,2.31 6.71,4.35 2.04,2.04 3.31,3.97 4.37,6.7 0.8,2.05 1.76,5.14 2.03,10.82 0.29,6.15 0.36,7.99 0.39,23.56 0.03,15.57 -0.03,17.41 -0.3,23.56 -0.25,5.68 -1.19,8.77 -1.98,10.83 -1.05,2.72 -2.31,4.67 -4.35,6.71 -2.04,2.04 -3.97,3.31 -6.7,4.37 -2.05,0.8 -5.14,1.76 -10.82,2.03 -6.15,0.29 -7.99,0.35 -23.56,0.38 -15.56,0.03 -17.41,-0.03 -23.56,-0.29l-0 0zm-0.68 -105.4c-6.2,0.29 -10.44,1.29 -14.14,2.74 -3.83,1.49 -7.08,3.5 -10.31,6.74 -3.24,3.25 -5.22,6.5 -6.71,10.34 -1.44,3.71 -2.41,7.95 -2.68,14.16 -0.27,6.22 -0.33,8.2 -0.3,24.03 0.03,15.83 0.1,17.82 0.4,24.04 0.3,6.2 1.29,10.44 2.74,14.14 1.5,3.83 3.5,7.08 6.74,10.31 3.25,3.23 6.5,5.22 10.34,6.7 3.71,1.43 7.95,2.41 14.15,2.68 6.22,0.27 8.2,0.33 24.03,0.3 15.84,-0.03 17.82,-0.1 24.04,-0.39 6.2,-0.3 10.44,-1.29 14.14,-2.74 3.83,-1.5 7.08,-3.5 10.31,-6.74 3.23,-3.25 5.22,-6.5 6.7,-10.34 1.44,-3.71 2.41,-7.95 2.68,-14.15 0.27,-6.22 0.34,-8.21 0.31,-24.04 -0.03,-15.83 -0.1,-17.82 -0.4,-24.03 -0.29,-6.21 -1.29,-10.44 -2.74,-14.15 -1.5,-3.83 -3.5,-7.08 -6.74,-10.31 -3.25,-3.23 -6.5,-5.22 -10.34,-6.7 -3.71,-1.44 -7.95,-2.41 -14.15,-2.68 -6.22,-0.28 -8.2,-0.34 -24.04,-0.31 -15.83,0.03 -17.82,0.1 -24.03,0.4z"/></svg></a>
@@ -1054,10 +519,10 @@
       <div class="foot-col">
         <h4>Explore</h4>
         <div class="foot-links" style="flex-direction:column;gap:0">
-          <a href="#problem">The problem</a>
-          <a href="#modules">Modules</a>
-          <a href="#why">Why Presstropic</a>
-          <a href="#how">How it works</a>
+          <a href="/erp/">Presstropic ERP</a>
+          <a href="/shopfloor/">ShopFloor app</a>
+          <a href="/crm/">Presstropic CRM</a>
+          <a href="/#platform">The platform</a>
           <a href="#faq">FAQ</a>
           <a href="#inquiry">Request a demo</a>
           <a href="https://app.presstropic.com" target="_blank" rel="noopener">Sign in</a>
@@ -1069,8 +534,8 @@
       <div class="foot-col">
         <h4>Legal</h4>
         <div class="foot-links" style="flex-direction:column;gap:0">
-          <a href="privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy<svg class="ext" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
-          <a href="terms.html" target="_blank" rel="noopener noreferrer">T&amp;C of Services<svg class="ext" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+          <a href="/privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy<svg class="ext" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+          <a href="/terms.html" target="_blank" rel="noopener noreferrer">T&amp;C of Services<svg class="ext" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
         </div>
       </div>
       <!-- Contact -->
@@ -1098,343 +563,6 @@
   </div>
 </footer>
 
-<script src="assets/intl-tel-input/js/intlTelInputWithUtils.min.js"></script>
-<script>
-  // International phone input: country flag + dial-code prefix, auto-formats the
-  // number as you type per the selected country. Existing entries are untouched.
-  (function(){
-    function initPhone(){
-      var input = document.getElementById('phone');
-      if(!input || !window.intlTelInput) return;
-      window.__iti = window.intlTelInput(input, {
-        initialCountry: "in",                 // default India; users can pick any country
-        separateDialCode: true,               // show +91 as a separate chip
-        formatOnDisplay: true,                 // pretty-format as they type
-        nationalMode: false,                   // keep it international
-        countryOrder: ["in","ae","us","gb","np","bd","pk","lk","sg"],
-        loadUtils: function(){ return Promise.resolve(); }   // utils already bundled
-      });
-    }
-    if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', initPhone); }
-    else { initPhone(); }
-  })();
-</script>
-
-<script>
-  // Always land at the top on refresh, wherever the page was scrolled before.
-  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-  window.addEventListener('load', function(){ window.scrollTo(0, 0); });
-
-  document.getElementById('yr').textContent = new Date().getFullYear();
-
-  // Scale the JobBuddy mockup iframe (fixed 1000x600 design) to its frame
-  // width so the whole dashboard preview always fits and stays crisp.
-  (function(){
-    // Each preview is the real screen rendered at a fixed desktop width and
-    // scaled down to whatever space it has, so it stays crisp and nothing is cut
-    // off. The height it was designed at travels with the frame.
-    function fitFrame(frame){
-      var wrap = frame.parentElement;
-      if(!wrap) return 0;
-      var W = parseInt(frame.dataset.w || 1000, 10);
-      var H = parseInt(frame.dataset.h || 600, 10);
-      frame.style.width = W + 'px';
-      frame.style.height = H + 'px';
-      // Never magnify: the screen was designed at W, and blowing it up past
-      // that makes a 1000px screenshot look like a zoomed-in one.
-      var s = Math.min(1, wrap.clientWidth / W);
-      frame.style.transform = 'scale(' + s + ')';
-      return H * s;
-    }
-    function scaleMock(){
-      // Two screens shown side by side (".shots.two") share a row, but each
-      // was designed at its own width/height — a short register next to a
-      // long one otherwise gives one card a tall screenshot and the other a
-      // short screenshot floating in a lot of dead white space below it. Give
-      // every pair the same frame height (the taller one's) and centre the
-      // shorter screen inside it, so both cards read as the same size.
-      // The module screens under the slider change with every slide. They all
-      // share one frame height (the tallest of them), so the page below does not
-      // jump up and down as the slider moves from one module to the next.
-      var modFrames = Array.prototype.slice.call(document.querySelectorAll('#modShots .mock-frame'));
-      var modShared = Math.max.apply(null, modFrames.map(fitFrame).concat(0));
-      document.querySelectorAll('.shots.two').forEach(function(group){
-        var frames = Array.prototype.slice.call(group.querySelectorAll('.mock-frame'));
-        var heights = frames.map(fitFrame);
-        var shared = group.classList.contains('mod-pair') ? modShared
-                   : Math.max.apply(null, heights.concat(0));
-        frames.forEach(function(frame, i){
-          frame.parentElement.style.height = shared + 'px';
-          frame.style.top = ((shared - heights[i]) / 2) + 'px';
-        });
-      });
-      // Every other preview (hero, single shots) scales independently, sized
-      // to its own content as before.
-      document.querySelectorAll('.mock-frame').forEach(function(frame){
-        if(frame.closest('.shots.two')) return;
-        var h = fitFrame(frame);
-        frame.style.top = '0';
-        frame.parentElement.style.height = h + 'px';
-      });
-    }
-    window.addEventListener('load', scaleMock);
-    window.addEventListener('resize', scaleMock);
-    scaleMock();
-  })();
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
-  }, {threshold:.1});
-  const _startReveal = ()=>document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-  if (window.__ptReady || !document.documentElement.classList.contains('pt-loading')) _startReveal();
-  else window.addEventListener('pt-ready', _startReveal, {once:true});
-
-/* ── module slider ──────────────────────────────────────────────────────────
-   Advances every 5s on its own. Once someone uses a chevron or a dot they are
-   reading rather than watching, so the interval relaxes to 15s. It also pauses
-   on hover and while the tab is hidden, and does not animate at all for anyone
-   who has asked for reduced motion. */
-(function(){
-  var root = document.getElementById('modSlider');
-  if (!root) return;
-  var slides = [].slice.call(root.querySelectorAll('.slide'));
-  var dots   = [].slice.call(document.querySelectorAll('#modDots .dot'));
-  var pairs  = [].slice.call(document.querySelectorAll('#modShots .mod-pair'));
-  if (slides.length < 2) return;
-
-  var AUTO = 5000, SLOWED = 15000;
-  var i = 0, delay = AUTO, timer = null, paused = false;
-  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var bar = document.getElementById('modBar');
-
-  // The bar restarts on every slide and runs for exactly the current dwell, so
-  // it stays honest after a chevron press stretches that dwell to 15s.
-  function runBar(){
-    if (!bar) return;
-    bar.style.transition = 'none';
-    bar.style.width = '0';
-    if (still || paused) return;
-    void bar.offsetWidth;                       // commit the reset before animating
-    bar.style.transition = 'width ' + delay + 'ms linear';
-    bar.style.width = '100%';
-  }
-  function holdBar(){
-    if (!bar) return;
-    var w = getComputedStyle(bar).width;        // freeze where it got to
-    bar.style.transition = 'none';
-    bar.style.width = w;
-  }
-
-  function show(n){
-    i = (n + slides.length) % slides.length;
-    slides.forEach(function(s, k){ s.classList.toggle('on', k === i); });
-    dots.forEach(function(d, k){ d.classList.toggle('on', k === i); });
-    pairs.forEach(function(p, k){          // the module's two screens follow the slide
-      p.classList.toggle('on', k === i);
-      if (k === i) p.removeAttribute('aria-hidden'); else p.setAttribute('aria-hidden', 'true');
-    });
-  }
-  function schedule(){
-    clearTimeout(timer);
-    if (still || paused) return;
-    runBar();
-    timer = setTimeout(function(){ show(i + 1); schedule(); }, delay);
-  }
-  function steer(n){          // a deliberate move — slow the carousel down
-    delay = SLOWED;
-    show(n);
-    schedule();
-  }
-
-  root.querySelector('.s-nav.prev').addEventListener('click', function(){ steer(i - 1); });
-  root.querySelector('.s-nav.next').addEventListener('click', function(){ steer(i + 1); });
-  dots.forEach(function(d){
-    d.addEventListener('click', function(){ steer(parseInt(d.dataset.go, 10)); });
-  });
-
-  root.addEventListener('mouseenter', function(){ paused = true;  clearTimeout(timer); holdBar(); });
-  root.addEventListener('mouseleave', function(){ paused = false; schedule(); });
-  document.addEventListener('visibilitychange', function(){
-    paused = document.hidden;
-    if (paused) { clearTimeout(timer); holdBar(); } else schedule();
-  });
-
-  show(0);
-  schedule();
-})();
-
-
-  // Smooth-scroll in-page links WITHOUT pushing #hash into the address bar,
-  // so the URL always stays clean (presstropic.com).
-  document.querySelectorAll('a[href^="#"]').forEach(function(a){
-    a.addEventListener('click', function(e){
-      var id = a.getAttribute('href').slice(1);
-      e.preventDefault();
-      var target = id ? document.getElementById(id) : null;
-      if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
-      else { window.scrollTo({top:0, behavior:'smooth'}); }   // #top / # -> page top
-    });
-  });
-
-  // Inquiry form: submit in the background and show a blocking overlay on
-  // success. No page reload, so no ?submitted=true ever lands in the URL —
-  // the overlay can only appear after a real submit, never by typing a param.
-  // Runs after DOMContentLoaded so the overlay markup (further down the page)
-  // is guaranteed to exist when we wire it up.
-  (function(){
-    function initInquiry(){
-    var form = document.getElementById('inquiryForm');
-    var overlay = document.getElementById('successOverlay');
-    if(!form || !overlay) return;
-    function closeOverlay(){ overlay.classList.remove('show'); }
-    document.getElementById('ovClose').addEventListener('click', closeOverlay);
-    document.getElementById('ovCloseBtn').addEventListener('click', closeOverlay);
-    overlay.addEventListener('click', function(e){ if(e.target === overlay) closeOverlay(); });
-    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeOverlay(); });
-
-    // Error dialog
-    var errOverlay = document.getElementById('errorOverlay');
-    function showError(msg){
-      if(msg){ document.getElementById('ovErrMsg').textContent = msg; }
-      errOverlay.classList.add('show');
-    }
-    function closeError(){ errOverlay.classList.remove('show'); }
-    if(errOverlay){
-      document.getElementById('ovErrClose').addEventListener('click', closeError);
-      document.getElementById('ovErrCloseBtn').addEventListener('click', closeError);
-      errOverlay.addEventListener('click', function(e){ if(e.target === errOverlay) closeError(); });
-      document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeError(); });
-    }
-
-    // ── Anti-spam ──
-    // Page-load time: the server ignores anything submitted within 4 seconds.
-    var started = document.getElementById('formStarted');
-    function stampStart(){ if(started) started.value = String(Date.now()); }
-    stampStart();
-    // Cloudflare Turnstile — OFF while this is empty. To turn it on, paste the
-    // SITE key here AND put the SECRET key in the server's .env (TURNSTILE_SECRET).
-    var TURNSTILE_SITEKEY = '';
-    var tsId = null;
-    if(TURNSTILE_SITEKEY){
-      window.__ptTsLoad = function(){
-        tsId = window.turnstile.render('#tsWidget', {sitekey: TURNSTILE_SITEKEY, theme: 'light'});
-      };
-      var tsScript = document.createElement('script');
-      tsScript.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=__ptTsLoad';
-      tsScript.async = true; tsScript.defer = true;
-      document.head.appendChild(tsScript);
-    }
-    function resetTurnstile(){ if(tsId !== null && window.turnstile){ window.turnstile.reset(tsId); } }
-
-    // Consent checkboxes: both must be ticked. "required" already blocks the
-    // browser submit; this guard also covers browsers that skip validation
-    // and marks the unticked box(es) in red.
-    var consentBoxes = [document.getElementById('accept_terms'), document.getElementById('accept_privacy')];
-    consentBoxes.forEach(function(cb){
-      if(!cb) return;
-      cb.addEventListener('change', function(){ cb.closest('.consent-row').classList.toggle('err', !cb.checked); });
-      cb.addEventListener('invalid', function(){ cb.closest('.consent-row').classList.add('err'); });
-    });
-
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      var missing = consentBoxes.filter(function(cb){ return cb && !cb.checked; });
-      if(missing.length){
-        missing.forEach(function(cb){ cb.closest('.consent-row').classList.add('err'); });
-        missing[0].focus();
-        return;
-      }
-      // Put the full international number (e.g. +91 98765 43210) into the field
-      // so the whole number, with country code, is what gets submitted.
-      var phone = document.getElementById('phone');
-      if(window.__iti && phone){
-        var full = window.__iti.getNumber();
-        if(full){ phone.value = full; }
-      }
-      var btn = form.querySelector('button[type="submit"]');
-      var original = btn ? btn.textContent : '';
-      if(btn){ btn.disabled = true; btn.textContent = 'Sending…'; }
-      fetch(form.getAttribute('action') || '/submit', {
-        method: 'POST',
-        body: new FormData(form),
-        headers: {'X-Requested-With':'fetch'}
-      }).then(function(res){
-        return res.json().catch(function(){ return {ok: res.ok}; })
-          .then(function(data){ return {ok: res.ok && data && data.ok, error: data && data.error}; });
-      }).then(function(result){
-        if(result.ok){
-          form.reset();
-          stampStart();
-          overlay.classList.add('show');
-        } else {
-          showError(result.error);
-        }
-      }).catch(function(){
-        showError("Sorry — we couldn't reach the server. Please check your connection and try again, or email info@presstropic.com.");
-      }).finally(function(){
-        resetTurnstile();   // a Turnstile token works only once
-        if(btn){ btn.disabled = false; btn.textContent = original; }
-      });
-    });
-    }
-    if(document.readyState === 'loading'){
-      document.addEventListener('DOMContentLoaded', initInquiry);
-    } else {
-      initInquiry();
-    }
-  })();
-</script>
-<script>
-/* Smooth FAQ accordion — animate <details> open/close (height + bottom padding).
-   Only one answer is open at a time: opening a question closes whichever one was
-   open before, with the same animation. */
-(function(){
-  var items=[].slice.call(document.querySelectorAll('.faq-item'));
-  var PAD='20px';
-  function part(det){ return det.querySelector('p'); }
-
-  function closeItem(det){
-    var content=part(det);
-    if(!det.open) return;
-    if(det.dataset.animating){ det.dataset.closeAfter='1'; return; }   // still opening — close when done
-    det.dataset.animating='1';
-    var start=content.offsetHeight;
-    content.style.height=start+'px'; content.style.paddingBottom=PAD; content.style.opacity='1';
-    requestAnimationFrame(function(){ content.style.height='0px'; content.style.paddingBottom='0px'; content.style.opacity='0'; });
-    content.addEventListener('transitionend',function te(ev){
-      if(ev.propertyName!=='height') return;
-      det.open=false; content.style.opacity=''; delete det.dataset.animating;
-      content.removeEventListener('transitionend',te);
-    });
-  }
-
-  function openItem(det){
-    var content=part(det);
-    items.forEach(function(other){ if(other!==det) closeItem(other); });
-    delete det.dataset.closeAfter;
-    det.dataset.animating='1';
-    det.open=true;
-    var target=content.scrollHeight;
-    content.style.height='0px'; content.style.paddingBottom='0px'; content.style.opacity='0';
-    requestAnimationFrame(function(){ content.style.height=target+'px'; content.style.paddingBottom=PAD; content.style.opacity='1'; });
-    content.addEventListener('transitionend',function te(ev){
-      if(ev.propertyName!=='height') return;
-      content.style.height=''; content.style.paddingBottom=''; content.style.opacity='';
-      delete det.dataset.animating; content.removeEventListener('transitionend',te);
-      if(det.dataset.closeAfter){ delete det.dataset.closeAfter; closeItem(det); }
-    });
-  }
-
-  items.forEach(function(det){
-    var sum=det.querySelector('summary');
-    if(!sum||!part(det)) return;
-    sum.addEventListener('click',function(e){
-      e.preventDefault();
-      if(det.dataset.animating) return;
-      if(det.open) closeItem(det); else openItem(det);
-    });
-  });
-})();
-</script>
 <div class="ov-backdrop" id="successOverlay" role="dialog" aria-modal="true" aria-labelledby="ovTitle">
   <div class="ov-card">
     <button type="button" class="ov-close-x" id="ovClose" aria-label="Close">×</button>
@@ -1453,5 +581,7 @@
     <button type="button" class="btn btn-gold" id="ovErrCloseBtn">Close</button>
   </div>
 </div>
+<script src="/assets/intl-tel-input/js/intlTelInputWithUtils.min.js"></script>
+<script src="/assets/js/site.js?v=2"></script>
 </body>
 </html>

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShopFloor by Presstropic — Production Floor App for Printing Presses</title>
+<meta name="description" content="ShopFloor is the Android tablet app operators use to run the day's schedule, record production and wastage, and keep working offline — connected live to the Presstropic ERP.">
+<link rel="canonical" href="https://presstropic.com/shopfloor/">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Presstropic Solutions">
+<meta name="theme-color" content="#0d0d0d">
+<meta name="keywords" content="shop floor app, production tracking app, printing press production software, operator tablet app, offline production app, Presstropic ShopFloor">
+
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Presstropic">
+<meta property="og:title" content="ShopFloor — The production floor, on a tablet">
+<meta property="og:description" content="ShopFloor is the Android tablet app operators use to run the day's schedule, record production and wastage, and keep working offline — connected live to the Presstropic ERP.">
+<meta property="og:url" content="https://presstropic.com/shopfloor/">
+<meta property="og:image" content="https://presstropic.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Presstropic — the complete platform for printing presses">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ShopFloor — The production floor, on a tablet">
+<meta name="twitter:description" content="ShopFloor is the Android tablet app operators use to run the day's schedule, record production and wastage, and keep working offline — connected live to the Presstropic ERP.">
+<meta name="twitter:image" content="https://presstropic.com/assets/og-image.png">
+
+<link rel="preload" href="/assets/fonts/Inter-Variable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts/inter.css">
+<link rel="stylesheet" href="/assets/intl-tel-input/css/intlTelInput.min.css">
+<link rel="stylesheet" href="/assets/css/site.css?v=2">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "MobileApplication",
+ "name": "ShopFloor - Presstropic",
+ "applicationCategory": "BusinessApplication",
+ "operatingSystem": "Android 7.0 or later",
+ "url": "https://presstropic.com/shopfloor/",
+ "publisher": {
+  "@type": "Organization",
+  "name": "Presstropic Solutions"
+ },
+ "description": "Tablet app for printing press operators: today's schedule, PIN sign-in, offline start and complete, production and wastage recording."
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://presstropic.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "ShopFloor",
+   "item": "https://presstropic.com/shopfloor/"
+  }
+ ]
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Does ShopFloor need the internet?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Only for some things. Today's scheduled work can be started, completed and cancelled with no connection, and is sent to the server in order as soon as the connection is back. Picking up unscheduled pending work and viewing other days need the internet, so nothing is ever double-booked."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What happens if something done offline cannot be recorded?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The work is never thrown away. The job is marked NEEDS ACTION in the ERP and shown on the job's detail view until a supervisor sorts it out; the operator sees the same notice on the tablet."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Which devices does it run on?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Any Android tablet or phone running Android 7.0 or newer. A tablet mounted at each machine works best."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do operators sign in?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The company signs in once on each tablet with its email, password and authenticator code. After that, operators sign in with their own 4-digit PIN — no passwords on the floor."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can operators open the ERP from the tablet?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. ShopFloor has its own login and shows only the floor: the machines assigned to the operator, today's work and their completed tasks. The office ERP is never reachable from it."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Do we need the Presstropic ERP to use it?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. ShopFloor shows the work scheduled in the ERP and sends production back to it, so the two always agree."
+   }
+  }
+ ]
+}
+</script>
+<script>
+(function(){
+  var root = document.documentElement, done = false;
+  root.classList.add('pt-loading');
+  function finish(){
+    if (done) return; done = true;
+    var s = document.getElementById('ptSkel');
+    if (s) s.classList.add('out');
+    setTimeout(function(){
+      root.classList.remove('pt-loading');
+      window.__ptReady = true;
+      window.dispatchEvent(new Event('pt-ready'));   // reveal animations start now
+    }, 350);
+  }
+  window.addEventListener('load', function(){
+    var f = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+    f.then(finish, finish);
+  });
+  setTimeout(finish, 10000);          // safety net: never keep a visitor waiting on a stuck resource
+})();
+</script>
+</head>
+<body id="top">
+<div class="pt-skel" id="ptSkel" aria-hidden="true">
+  <div class="sk-head"><div class="sk-wrap sk-nav">
+    <div class="sk" style="width:150px;height:26px"></div>
+    <div class="sk-links"><div class="sk sk-hide-sm" style="width:60px;height:12px"></div><div class="sk sk-hide-sm" style="width:36px;height:12px"></div><div class="sk sk-hide-sm" style="width:56px;height:12px"></div>
+      <div class="sk" style="width:84px;height:40px;border-radius:12px"></div><div class="sk" style="width:140px;height:40px;border-radius:12px"></div></div>
+  </div></div>
+  <div class="sk-wrap">
+    <div class="sk-hero">
+      <div>
+        <div class="sk" style="width:300px;max-width:80%;height:12px;margin-bottom:24px"></div>
+        <div class="sk" style="width:92%;height:52px;margin-bottom:14px"></div>
+        <div class="sk" style="width:64%;height:52px;margin-bottom:26px"></div>
+        <div class="sk-lines" style="max-width:440px"><div class="sk" style="width:100%"></div><div class="sk" style="width:86%"></div><div class="sk" style="width:70%;margin-bottom:26px"></div></div>
+        <div class="sk-row" style="margin-bottom:22px"><div class="sk" style="width:190px;height:48px;border-radius:12px"></div><div class="sk" style="width:170px;height:48px;border-radius:12px"></div></div>
+        <div class="sk-row"><div class="sk" style="width:84px;height:34px;border-radius:20px"></div><div class="sk" style="width:84px;height:34px;border-radius:20px"></div><div class="sk" style="width:84px;height:34px;border-radius:20px"></div><div class="sk" style="width:84px;height:34px;border-radius:20px"></div><div class="sk sk-hide-sm" style="width:84px;height:34px;border-radius:20px"></div></div>
+      </div>
+      <div class="sk" style="height:360px;border-radius:16px"></div>
+    </div>
+    <div class="sk" style="width:420px;max-width:90%;height:34px;margin:10px 0 14px"></div>
+    <div class="sk" style="width:300px;max-width:70%;height:14px;margin-bottom:28px"></div>
+    <div class="sk-cards"><div class="sk" style="height:170px;border-radius:14px"></div><div class="sk" style="height:170px;border-radius:14px"></div><div class="sk" style="height:170px;border-radius:14px"></div><div class="sk" style="height:170px;border-radius:14px"></div></div>
+  </div>
+</div>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="/" aria-label="Presstropic Solutions home"><img src="/assets/presstropic_solutions_light.svg" alt="Presstropic Solutions"></a>
+    <nav class="nav-links" aria-label="Main">
+      <div class="nav-dd">
+        <button type="button" class="navlink active" aria-expanded="false" aria-haspopup="true">Products <svg class="chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="dd-panel" role="menu">
+          <a class="dd-item" href="/erp/"><img src="/assets/products/erp_icon.svg" alt=""><span><b>Presstropic ERP <span class="badge badge-live">Live</span></b><small>Paper, plates, job cards, store and dispatch for the office.</small></span></a>
+          <a class="dd-item" href="/shopfloor/"><img src="/assets/products/floor_icon.svg" alt=""><span><b>ShopFloor <span class="badge badge-live">Android</span></b><small>The tablet app operators use to run the day's work, online or offline.</small></span></a>
+          <a class="dd-item" href="/crm/"><img src="/assets/products/crm_icon.svg" alt=""><span><b>Presstropic CRM <span class="badge badge-soon">Coming soon</span></b><small>Branded order forms that turn customer orders into jobs.</small></span></a>
+          <div class="dd-foot"><span>Three apps. One database.</span><a href="/#platform">How they connect →</a></div>
+        </div>
+      </div>
+      <a class="navlink" href="/#platform">Platform</a>
+      <a class="navlink" href="#faq">FAQ</a>
+      <a class="navlink" href="#contact">Contact</a>
+      <div class="nav-dd">
+        <button type="button" class="btn btn-ghost" aria-expanded="false" aria-haspopup="true">Sign In <svg class="chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="dd-panel right" role="menu">
+          <a class="dd-item" href="https://app.presstropic.com" target="_blank" rel="noopener"><img src="/assets/products/erp_icon.svg" alt=""><span><b>Presstropic ERP</b><small>app.presstropic.com</small></span><svg class="ext" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+          <a class="dd-item" href="https://shopfloor.presstropic.com" target="_blank" rel="noopener"><img src="/assets/products/floor_icon.svg" alt=""><span><b>ShopFloor</b><small>shopfloor.presstropic.com</small></span><svg class="ext" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+        </div>
+      </div>
+      <a class="btn btn-gold" href="#inquiry">Request a demo</a>
+      <button type="button" class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mSheet"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </nav>
+  </div>
+</header>
+<div class="m-sheet" id="mSheet">
+  <h5>Products</h5>
+          <a class="dd-item" href="/erp/"><img src="/assets/products/erp_icon.svg" alt=""><span><b>Presstropic ERP <span class="badge badge-live">Live</span></b><small>Paper, plates, job cards, store and dispatch for the office.</small></span></a>
+          <a class="dd-item" href="/shopfloor/"><img src="/assets/products/floor_icon.svg" alt=""><span><b>ShopFloor <span class="badge badge-live">Android</span></b><small>The tablet app operators use to run the day's work, online or offline.</small></span></a>
+          <a class="dd-item" href="/crm/"><img src="/assets/products/crm_icon.svg" alt=""><span><b>Presstropic CRM <span class="badge badge-soon">Coming soon</span></b><small>Branded order forms that turn customer orders into jobs.</small></span></a>
+  <h5>Explore</h5>
+  <a class="m-link" href="/#platform">The platform</a>
+  <a class="m-link" href="#faq">FAQ</a>
+  <a class="m-link" href="#contact">Contact</a>
+  <h5>Sign in</h5>
+          <a class="dd-item" href="https://app.presstropic.com" target="_blank" rel="noopener"><img src="/assets/products/erp_icon.svg" alt=""><span><b>Presstropic ERP</b><small>app.presstropic.com</small></span><svg class="ext" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+          <a class="dd-item" href="https://shopfloor.presstropic.com" target="_blank" rel="noopener"><img src="/assets/products/floor_icon.svg" alt=""><span><b>ShopFloor</b><small>shopfloor.presstropic.com</small></span><svg class="ext" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+</div>
+
+<main>
+
+<!-- HERO -->
+<section class="hero p-hero">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <img class="lockup" src="/assets/products/presstropic_shopfloor_light.svg" alt="Presstropic ShopFloor">
+      <div class="eyebrow"><span class="regmark"><span></span></span> Android app for the production floor</div>
+      <h1>The production floor, <span class="accent">on a tablet.</span></h1>
+      <p class="lede">Operators see today's work for their machine, start and complete each process, and record what they produced — even when the internet drops.</p>
+      <p class="sub">Built for the people who run the machines: big, clear controls, a PIN instead of a password, and nothing from the office they do not need.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#inquiry">Request a demo →</a>
+        <a class="btn btn-ghost" href="#how">How it works</a>
+      </div>
+      <p class="hero-signin">Using the web version? <a href="https://shopfloor.presstropic.com" target="_blank" rel="noopener">Open ShopFloor →</a></p>
+    </div>
+    <div class="reveal" aria-hidden="true">
+      <div class="tablet">
+        <div class="tab-screen">
+          <div class="tab-top"><img src="/assets/products/floor_icon.svg" alt=""><b>HEIDELBERG CD 102</b><div class="tt-r"><span>Deepak Verma</span><span class="net off">OFFLINE</span></div></div>
+          <div class="tab-body">
+            <div>
+              <div class="tab-tabs"><span class="on">TODAY</span><span>PENDING WORK</span><span>COMPLETED</span></div>
+              <div class="job run"><span class="j-st">RUNNING</span><div class="j-id">26-27 | JC-00065</div><div class="j-name">Dry fruit gift box</div><div class="j-meta">Printing · 4 colour · 5,000 sheets</div></div>
+              <div class="job"><span class="j-st" style="color:var(--ink-3)">NEXT</span><div class="j-id">26-27 | JC-00071</div><div class="j-name">Pharma carton 10s</div><div class="j-meta">Printing · 2 colour · 12,000 sheets</div></div>
+              <div class="job"><span class="j-st" style="color:var(--ink-3)">NEXT</span><div class="j-id">26-27 | JC-00074</div><div class="j-name">Sweet box lid</div><div class="j-meta">Printing · 4 colour · 3,500 sheets</div></div>
+            </div>
+            <div class="run-card">
+              <div class="rc-l">PRODUCED SO FAR</div>
+              <div class="rc-v">3,120 <span style="font-size:11px;color:var(--ink-3);font-weight:600">/ 5,000</span></div>
+              <div class="rc-bar"><i></i></div>
+              <div class="rc-l">TIME ON THIS JOB</div>
+              <div class="rc-v" style="font-size:16px">1h 42m</div>
+              <div class="tab-note">Saved on this tablet. It will be sent when the internet is back.</div>
+              <div class="rc-btn"><span>PARTIAL</span><span class="p">MARK COMPLETE</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="alt" id="features">
+  <div class="wrap">
+    <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow">What it does</div></div>
+    <h2 class="sec-title reveal">Everything an operator needs. Nothing they don't.</h2>
+    <p class="sec-sub reveal">ShopFloor turns the job card into the operator's to-do list, and every tap becomes live production data in the office.</p>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="f-ico"><span style="-webkit-mask-image:url('/assets/icons/schedule.svg');mask-image:url('/assets/icons/schedule.svg')"></span></div><h3>Works offline</h3><p>Today's scheduled processes start, complete and cancel without internet, and sync in order the moment the connection is back.</p></div>
+      <div class="feat reveal"><div class="f-ico"><span style="-webkit-mask-image:url('/assets/icons/operator.svg');mask-image:url('/assets/icons/operator.svg')"></span></div><h3>PIN sign-in</h3><p>The company signs in once per tablet. Operators then sign in with their own 4-digit PIN — fast, and personal to each operator.</p></div>
+      <div class="feat reveal"><div class="f-ico"><span style="-webkit-mask-image:url('/assets/icons/machine.svg');mask-image:url('/assets/icons/machine.svg')"></span></div><h3>Machine-wise schedule</h3><p>Each operator sees only the machines assigned to them, and the day's work on each one.</p></div>
+      <div class="feat reveal"><div class="f-ico"><span style="-webkit-mask-image:url('/assets/icons/analytics.svg');mask-image:url('/assets/icons/analytics.svg')"></span></div><h3>Production as it happens</h3><p>Quantity produced and wastage recorded during the run — including partial production — not at the end of the shift.</p></div>
+      <div class="feat reveal"><div class="f-ico"><span style="-webkit-mask-image:url('/assets/icons/boxes.svg');mask-image:url('/assets/icons/boxes.svg')"></span></div><h3>Pending work pick-up</h3><p>Operators can pick up unscheduled pending work when online. It stays online-only, so two machines never take the same job.</p></div>
+      <div class="feat reveal"><div class="f-ico"><span style="-webkit-mask-image:url('/assets/icons/check.svg');mask-image:url('/assets/icons/check.svg')"></span></div><h3>Nothing lost in sync</h3><p>If the server cannot accept something done offline, the job is flagged NEEDS ACTION in the ERP until a supervisor sorts it out.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECURE -->
+<section class="dark">
+  <div class="wrap split">
+    <div>
+      <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow" style="color:var(--gold-bright)">Separate by design</div></div>
+      <h2 class="sec-title reveal">The floor gets the floor. The office stays the office.</h2>
+      <ul class="check-list">
+        <li class="reveal"><span class="tick">✓</span> ShopFloor has its own login — a tablet can never open the ERP</li>
+        <li class="reveal"><span class="tick">✓</span> Company sign-in with authenticator-app 2FA, needed once per tablet</li>
+        <li class="reveal"><span class="tick">✓</span> Each tablet is a named device the owner can sign out from the ERP</li>
+        <li class="reveal"><span class="tick">✓</span> Every start, completion and quantity stamped with operator, machine and time</li>
+      </ul>
+    </div>
+    <div class="reveal" aria-hidden="true">
+      <div class="pin">
+        <div class="p-t">ENTER YOUR PIN</div>
+        <div class="dots4"><i class="f"></i><i class="f"></i><i></i><i></i></div>
+        <div class="keys"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span class="g">⌫</span><span>0</span><span class="g">ENTER</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow">How it works</div></div>
+    <h2 class="sec-title reveal">From tablet on the wall to live floor in four steps.</h2>
+    <p class="sec-sub reveal">Set up once, then the floor runs itself.</p>
+    <div class="steps">
+      <div class="step reveal"><h4>Sign the company in</h4><p>Once per tablet, with the company email, password and authenticator code.</p></div>
+      <div class="step reveal"><h4>Operator enters PIN</h4><p>Each operator signs in with their own 4-digit PIN at the start of a shift.</p></div>
+      <div class="step reveal"><h4>Pick the machine</h4><p>Today's work for that machine appears, in the order it was scheduled.</p></div>
+      <div class="step reveal"><h4>Start, record, complete</h4><p>Production flows into the job in the ERP — live when online, in order when back online.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow">FAQ</div></div>
+    <h2 class="sec-title reveal">ShopFloor — common questions.</h2>
+    <p class="sec-sub reveal">How the app works on a real production floor.</p>
+    <div class="faq-list">
+      <details class="faq-item reveal"><summary>Does ShopFloor need the internet?</summary>
+        <p>Only for some things. Today's scheduled work can be started, completed and cancelled with no connection, and is sent to the server in order as soon as the connection is back. Picking up unscheduled pending work and viewing other days need the internet, so nothing is ever double-booked.</p></details>
+      <details class="faq-item reveal"><summary>What happens if something done offline cannot be recorded?</summary>
+        <p>The work is never thrown away. The job is marked NEEDS ACTION in the ERP and shown on the job's detail view until a supervisor sorts it out; the operator sees the same notice on the tablet.</p></details>
+      <details class="faq-item reveal"><summary>Which devices does it run on?</summary>
+        <p>Any Android tablet or phone running Android 7.0 or newer. A tablet mounted at each machine works best.</p></details>
+      <details class="faq-item reveal"><summary>How do operators sign in?</summary>
+        <p>The company signs in once on each tablet with its email, password and authenticator code. After that, operators sign in with their own 4-digit PIN — no passwords on the floor.</p></details>
+      <details class="faq-item reveal"><summary>Can operators open the ERP from the tablet?</summary>
+        <p>No. ShopFloor has its own login and shows only the floor: the machines assigned to the operator, today's work and their completed tasks. The office ERP is never reachable from it.</p></details>
+      <details class="faq-item reveal"><summary>Do we need the Presstropic ERP to use it?</summary>
+        <p>Yes. ShopFloor shows the work scheduled in the ERP and sends production back to it, so the two always agree.</p></details>
+    </div>
+  </div>
+</section>
+
+
+<section class="alt">
+  <div class="wrap">
+    <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow">The rest of the platform</div></div>
+    <h2 class="sec-title reveal">Works even better together.</h2>
+    <p class="sec-sub reveal">Every Presstropic app reads and writes the same records, so work moves between the office, the floor and your customers without being typed twice.</p>
+    <div class="others">
+      <a class="other reveal" href="/erp/"><img src="/assets/products/erp_icon.svg" alt=""><div><b>Presstropic ERP <span class="badge badge-live">Live</span></b><span>Paper, plates, job cards, store and dispatch for the office.</span></div><span class="arr">→</span></a>
+      <a class="other reveal" href="/crm/"><img src="/assets/products/crm_icon.svg" alt=""><div><b>Presstropic CRM <span class="badge badge-soon">Coming soon</span></b><span>Branded order forms that turn customer orders into jobs.</span></div><span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+
+<!-- INQUIRY -->
+<section class="cta" id="inquiry">
+  <div class="wrap cta-grid">
+    <div class="reveal"><div class="eyebrow" style="margin-bottom:14px">Request a demo</div>
+      <h2>Put your floor on tablets.</h2>
+      <p class="lede">See ShopFloor running on your own machines and jobs. We'll show the operator flow and the office view side by side in under 30 minutes — no commitment.</p>
+      <ul class="cta-points">
+        <li><span class="tick">✓</span> A walkthrough on your kind of machines</li>
+        <li><span class="tick">✓</span> Help choosing and setting up tablets</li>
+        <li><span class="tick">✓</span> We reach out within one working day</li>
+      </ul>
+    </div>
+    <form id="inquiryForm" method="POST" action="/submit">
+      <input type="text" name="bot-field" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true">
+      <h3>Request a demo</h3>
+      <p class="form-sub">Fill this in and we'll get back to you.</p>
+      <div class="field"><label for="name">Your name</label><input id="name" name="name" type="text" required placeholder="e.g. John Doe"></div>
+      <div class="field"><label for="company">Press / company name</label><input id="company" name="company" type="text" required placeholder="e.g. Example Offset Printers"></div>
+      <div class="field"><label for="phone">Phone / WhatsApp</label><input id="phone" name="phone" type="tel" required></div>
+      <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required placeholder="e.g. you@yourpress.com"></div>
+      <div class="field"><label for="machines">Machines on your floor</label>
+        <select id="machines" name="machines" required>
+          <option value="">Select…</option>
+          <option>1–3 machines</option>
+          <option>4–8 machines</option>
+          <option>9+ machines</option>
+        </select>
+      </div>
+      <div class="field"><label for="msg">Anything specific? (optional)</label><textarea id="msg" name="message" placeholder="e.g. We mainly do carton printing and lamination…" rows="5"></textarea></div>
+      <div class="consent">
+        <label class="consent-row"><input type="checkbox" id="accept_terms" name="accept_terms" value="yes" required>
+          <span>I accept the <a href="/terms.html" target="_blank" rel="noopener noreferrer">Terms &amp; Conditions of Service</a></span></label>
+        <label class="consent-row"><input type="checkbox" id="accept_privacy" name="accept_privacy" value="yes" required>
+          <span>I have read the <a href="/privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a></span></label>
+        <!-- Which version of the legal pages was agreed to — keep in sync with "Last updated" on terms.html / privacy.html -->
+        <input type="hidden" name="consent_version" value="2026-09-28">
+      </div>
+      <!-- Anti-spam: page-load time (bots submit in under a second) + optional Cloudflare Turnstile -->
+      <input type="hidden" name="started" id="formStarted" value="">
+      <div id="tsWidget" class="ts-widget"></div>
+      <button class="btn btn-gold" type="submit">Send request →</button>
+      <p class="form-privacy">We only use these details to contact you about Presstropic.</p>
+    </form>
+  </div>
+</section>
+
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <!-- Brand + social -->
+      <div class="foot-col foot-brand">
+        <img src="/assets/presstropic_solutions_dark.svg" alt="Presstropic Solutions">
+        <p>The complete platform for printing presses — orders, production, plates, stock and dispatch, connected end to end.</p>
+        <div class="foot-social">
+          <a href="https://www.linkedin.com/company/presstropic" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 87.53 87.53" width="19" height="19" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><polygon points="19.22,87.53 19.22,30.6 2.13,30.6 2.13,87.53 "/><path d="M10.67 21.35c5.9,0 10.67,-4.78 10.67,-10.67 0,-5.9 -4.78,-10.67 -10.67,-10.67 -5.9,0 -10.67,4.78 -10.67,10.67 0,5.9 4.78,10.67 10.67,10.67z"/><path d="M30.6 30.6l0 56.93 17.08 0 0 -27.34c0,-9.54 4.09,-15.36 12.68,-15.36 7.07,0 10.09,6.64 10.09,14.22l0 28.48 17.08 0 0 -31.6c0,-16.91 -4.8,-26.05 -22,-26.05 -8.96,0 -16.21,4.49 -18.66,8.91l-0.18 0 0 -8.2 -16.1 0z"/></svg></a>
+          <a href="https://www.instagram.com/presstropic" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 116.61 116.61" width="19" height="19" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M38.87 58.34c-0.02,-10.73 8.67,-19.45 19.4,-19.47 10.73,-0.02 19.45,8.66 19.47,19.39 0.02,10.73 -8.67,19.45 -19.4,19.47 -10.73,0.02 -19.45,-8.66 -19.47,-19.4zm-10.5 0.02c0.03,16.54 13.46,29.91 29.99,29.88 16.53,-0.03 29.91,-13.46 29.88,-29.99 -0.03,-16.53 -13.46,-29.91 -30,-29.88 -16.53,0.03 -29.91,13.46 -29.88,29.99zm54 -31.22c0.01,3.86 3.15,6.99 7.01,6.98 3.86,-0.01 6.99,-3.15 6.98,-7.01 -0.01,-3.86 -3.15,-6.99 -7.01,-6.98 -3.86,0.01 -6.99,3.15 -6.98,7.01l0 0zm-47.53 78.66c-5.68,-0.25 -8.77,-1.19 -10.83,-1.98 -2.72,-1.05 -4.67,-2.32 -6.71,-4.35 -2.04,-2.04 -3.31,-3.98 -4.37,-6.69 -0.8,-2.06 -1.76,-5.14 -2.03,-10.82 -0.29,-6.15 -0.35,-7.99 -0.38,-23.56 -0.03,-15.56 0.03,-17.41 0.29,-23.56 0.24,-5.68 1.19,-8.77 1.98,-10.83 1.05,-2.73 2.31,-4.67 4.35,-6.71 2.04,-2.05 3.98,-3.31 6.7,-4.37 2.06,-0.8 5.14,-1.76 10.82,-2.03 6.15,-0.29 7.99,-0.35 23.55,-0.38 15.57,-0.03 17.41,0.02 23.56,0.29 5.68,0.25 8.77,1.19 10.82,1.98 2.73,1.05 4.67,2.31 6.71,4.35 2.04,2.04 3.31,3.97 4.37,6.7 0.8,2.05 1.76,5.14 2.03,10.82 0.29,6.15 0.36,7.99 0.39,23.56 0.03,15.57 -0.03,17.41 -0.3,23.56 -0.25,5.68 -1.19,8.77 -1.98,10.83 -1.05,2.72 -2.31,4.67 -4.35,6.71 -2.04,2.04 -3.97,3.31 -6.7,4.37 -2.05,0.8 -5.14,1.76 -10.82,2.03 -6.15,0.29 -7.99,0.35 -23.56,0.38 -15.56,0.03 -17.41,-0.03 -23.56,-0.29l-0 0zm-0.68 -105.4c-6.2,0.29 -10.44,1.29 -14.14,2.74 -3.83,1.49 -7.08,3.5 -10.31,6.74 -3.24,3.25 -5.22,6.5 -6.71,10.34 -1.44,3.71 -2.41,7.95 -2.68,14.16 -0.27,6.22 -0.33,8.2 -0.3,24.03 0.03,15.83 0.1,17.82 0.4,24.04 0.3,6.2 1.29,10.44 2.74,14.14 1.5,3.83 3.5,7.08 6.74,10.31 3.25,3.23 6.5,5.22 10.34,6.7 3.71,1.43 7.95,2.41 14.15,2.68 6.22,0.27 8.2,0.33 24.03,0.3 15.84,-0.03 17.82,-0.1 24.04,-0.39 6.2,-0.3 10.44,-1.29 14.14,-2.74 3.83,-1.5 7.08,-3.5 10.31,-6.74 3.23,-3.25 5.22,-6.5 6.7,-10.34 1.44,-3.71 2.41,-7.95 2.68,-14.15 0.27,-6.22 0.34,-8.21 0.31,-24.04 -0.03,-15.83 -0.1,-17.82 -0.4,-24.03 -0.29,-6.21 -1.29,-10.44 -2.74,-14.15 -1.5,-3.83 -3.5,-7.08 -6.74,-10.31 -3.25,-3.23 -6.5,-5.22 -10.34,-6.7 -3.71,-1.44 -7.95,-2.41 -14.15,-2.68 -6.22,-0.28 -8.2,-0.34 -24.04,-0.31 -15.83,0.03 -17.82,0.1 -24.03,0.4z"/></svg></a>
+          <a href="https://www.facebook.com/presstropic" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 204.25 400.45" width="19" height="19" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M66.74 400.45l0 -200.23 -66.74 0 0 -66.74 66.74 0 0 -35.84c0,-67.86 33.05,-97.64 89.45,-97.64 27.01,0 41.3,2 48.05,2.92l0 63.82 -38.46 0c-23.94,0 -32.31,12.63 -32.31,38.23l0 28.52 70.16 0 -9.53 66.74 -60.64 0 0 200.23 -66.74 0z"/></svg></a>
+          <a href="https://x.com/presstropic" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" title="X"><svg viewBox="0 0 161.56 146.04" width="19" height="19" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M127.24 0l24.77 0 -54.12 61.86 63.67 84.18 -49.86 0 -39.05 -51.05 -44.68 51.05 -24.79 0 57.89 -66.17 -61.08 -79.87 51.12 0 35.3 46.66 40.83 -46.66zm-8.7 131.21l13.73 0 -88.61 -117.16 -14.73 0 89.62 117.16z"/></svg></a>
+          <a href="https://www.youtube.com/@presstropic" target="_blank" rel="noopener noreferrer" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 292.05 205.76" width="19" height="19" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M260.13 6.14c12.57,3.38 22.46,13.34 25.82,25.99 6.1,22.92 6.1,70.75 6.1,70.75 0,0 0,47.83 -6.1,70.75 -3.36,12.65 -13.25,22.61 -25.82,25.99 -22.78,6.14 -114.1,6.14 -114.1,6.14 0,0 -91.33,0 -114.1,-6.14 -12.57,-3.38 -22.46,-13.34 -25.82,-25.99 -6.1,-22.93 -6.1,-70.75 -6.1,-70.75 0,0 0,-47.83 6.1,-70.75 3.36,-12.65 13.25,-22.61 25.82,-25.99 22.77,-6.14 114.1,-6.14 114.1,-6.14 0,0 91.33,0 114.1,6.14l0 0zm-143.97 140.16l76.33 -43.42 -76.33 -43.43 0 86.85z"/></svg></a>
+          <a href="https://www.whatsapp.com/channel/0029Vb8SBZDAYlUIzQqlSs2F" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp"><svg viewBox="0 0 216.12 217.16" width="19" height="19" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M184.63 31.56c-20.31,-20.34 -47.33,-31.55 -76.12,-31.56 -59.31,0 -107.59,48.27 -107.61,107.6 -0.01,18.97 4.95,37.48 14.36,53.8l-15.27 55.77 57.04 -14.96c15.72,8.58 33.41,13.09 51.42,13.1l0.05 0c59.31,0 107.58,-48.27 107.61,-107.61 0.01,-28.75 -11.17,-55.79 -31.49,-76.13l0 -0 0 0zm-76.12 165.56l-0.04 0c-16.05,-0 -31.79,-4.32 -45.52,-12.47l-3.27 -1.94 -33.85 8.88 9.04 -33.01 -2.13 -3.38c-8.95,-14.24 -13.68,-30.7 -13.67,-47.6 0.02,-49.31 40.14,-89.43 89.48,-89.43 23.89,0.01 46.35,9.32 63.23,26.23 16.89,16.9 26.18,39.38 26.17,63.27 -0.02,49.32 -40.14,89.44 -89.44,89.44l0 0zm49.06 -66.98c-2.69,-1.35 -15.91,-7.85 -18.37,-8.75 -2.47,-0.9 -4.26,-1.35 -6.05,1.35 -1.79,2.69 -6.94,8.75 -8.51,10.54 -1.57,1.8 -3.14,2.02 -5.83,0.67 -2.69,-1.35 -11.35,-4.18 -21.62,-13.34 -7.99,-7.13 -13.39,-15.93 -14.96,-18.63 -1.57,-2.69 -0.17,-4.15 1.18,-5.48 1.21,-1.21 2.69,-3.14 4.03,-4.71 1.35,-1.57 1.79,-2.69 2.69,-4.48 0.9,-1.8 0.45,-3.36 -0.22,-4.71 -0.67,-1.35 -6.05,-14.58 -8.29,-19.96 -2.18,-5.24 -4.4,-4.53 -6.05,-4.62 -1.57,-0.08 -3.36,-0.09 -5.15,-0.09 -1.8,0 -4.71,0.67 -7.17,3.37 -2.47,2.69 -9.41,9.2 -9.41,22.43 0,13.23 9.63,26.02 10.98,27.82 1.35,1.79 18.96,28.95 45.93,40.6 6.41,2.77 11.42,4.43 15.33,5.67 6.44,2.05 12.3,1.76 16.93,1.07 5.17,-0.77 15.91,-6.51 18.15,-12.79 2.24,-6.28 2.24,-11.67 1.57,-12.78 -0.67,-1.12 -2.47,-1.8 -5.15,-3.14l0 -0.01 -0 0z"/></svg></a>
+        </div>
+      </div>
+
+      <!-- Explore -->
+      <div class="foot-col">
+        <h4>Explore</h4>
+        <div class="foot-links" style="flex-direction:column;gap:0">
+          <a href="/erp/">Presstropic ERP</a>
+          <a href="/shopfloor/">ShopFloor app</a>
+          <a href="/crm/">Presstropic CRM</a>
+          <a href="/#platform">The platform</a>
+          <a href="#faq">FAQ</a>
+          <a href="#inquiry">Request a demo</a>
+          <a href="https://app.presstropic.com" target="_blank" rel="noopener">Sign in</a>
+        </div>
+      </div>
+
+
+      <!-- Legal -->
+      <div class="foot-col">
+        <h4>Legal</h4>
+        <div class="foot-links" style="flex-direction:column;gap:0">
+          <a href="/privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy<svg class="ext" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+          <a href="/terms.html" target="_blank" rel="noopener noreferrer">T&amp;C of Services<svg class="ext" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+        </div>
+      </div>
+      <!-- Contact -->
+      <div class="foot-col" id="contact">
+        <h4>Contact</h4>
+        <a href="tel:+919990050560">+91 99900 50560</a>
+        <a href="tel:+919990050561" style="margin-bottom:16px">+91 99900 50561</a>
+        <a href="mailto:sales@presstropic.com">sales@presstropic.com<br><span class="ct-sub">Sales &amp; demos</span></a>
+        <a href="mailto:help@presstropic.com">help@presstropic.com<br><span class="ct-sub">Support</span></a>
+        <a href="mailto:info@presstropic.com">info@presstropic.com<br><span class="ct-sub">General enquiries</span></a>
+        <a href="mailto:founder@presstropic.com" style="display:none">founder@presstropic.com<br><span class="ct-sub">Founder&rsquo;s office</span></a>
+        <!-- Address — hidden until finalised. Fill the lines below and remove style="display:none" to show it. -->
+        <p class="foot-addr" style="display:none">
+          Presstropic Solutions<br>
+          [Street address]<br>
+          [City], [State] [PIN]<br>
+          India
+        </p>
+      </div>
+    </div>
+    <div class="foot-copy">
+      <span>© <span id="yr"></span> Presstropic. All rights reserved.</span>
+      <span>Made for people who run a press.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="ov-backdrop" id="successOverlay" role="dialog" aria-modal="true" aria-labelledby="ovTitle">
+  <div class="ov-card">
+    <button type="button" class="ov-close-x" id="ovClose" aria-label="Close">×</button>
+    <div class="ov-tick">✓</div>
+    <h3 id="ovTitle">Thanks — your request is in.</h3>
+    <p>We'll be in touch within one working day.</p>
+    <button type="button" class="btn btn-gold" id="ovCloseBtn">Close</button>
+  </div>
+</div>
+<div class="ov-backdrop" id="errorOverlay" role="dialog" aria-modal="true" aria-labelledby="ovErrTitle">
+  <div class="ov-card ov-card-err">
+    <button type="button" class="ov-close-x" id="ovErrClose" aria-label="Close">×</button>
+    <div class="ov-tick ov-cross">!</div>
+    <h3 id="ovErrTitle">Something went wrong.</h3>
+    <p id="ovErrMsg">Sorry — we couldn't send your request. Please try again, or email info@presstropic.com.</p>
+    <button type="button" class="btn btn-gold" id="ovErrCloseBtn">Close</button>
+  </div>
+</div>
+<script src="/assets/intl-tel-input/js/intlTelInputWithUtils.min.js"></script>
+<script src="/assets/js/site.js?v=2"></script>
+</body>
+</html>

@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presstropic ERP — Printing Press ERP &amp; Job Card Software</title>
+<meta name="description" content="The Presstropic ERP runs paper, plates, job cards, store, production and dispatch challans from one print-first system — built for printing and job-work presses in India.">
+<link rel="canonical" href="https://presstropic.com/erp/">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Presstropic Solutions">
+<meta name="theme-color" content="#0d0d0d">
+<meta name="keywords" content="printing press ERP, job card software, plate management, paper stock register, dispatch challan software, print job management, printing MIS">
+
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Presstropic">
+<meta property="og:title" content="Presstropic ERP — Run your whole press from one system">
+<meta property="og:description" content="The Presstropic ERP runs paper, plates, job cards, store, production and dispatch challans from one print-first system — built for printing and job-work presses in India.">
+<meta property="og:url" content="https://presstropic.com/erp/">
+<meta property="og:image" content="https://presstropic.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Presstropic — the complete platform for printing presses">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Presstropic ERP — Run your whole press from one system">
+<meta name="twitter:description" content="The Presstropic ERP runs paper, plates, job cards, store, production and dispatch challans from one print-first system — built for printing and job-work presses in India.">
+<meta name="twitter:image" content="https://presstropic.com/assets/og-image.png">
+
+<link rel="preload" href="/assets/fonts/Inter-Variable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts/inter.css">
+<link rel="stylesheet" href="/assets/intl-tel-input/css/intlTelInput.min.css">
+<link rel="stylesheet" href="/assets/css/site.css?v=2">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "SoftwareApplication",
+ "name": "Presstropic ERP",
+ "applicationCategory": "BusinessApplication",
+ "operatingSystem": "Web browser",
+ "url": "https://presstropic.com/erp/",
+ "publisher": {
+  "@type": "Organization",
+  "name": "Presstropic Solutions"
+ },
+ "description": "Print-first ERP for paper, plates, job cards, store, production and dispatch."
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://presstropic.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Presstropic ERP",
+   "item": "https://presstropic.com/erp/"
+  }
+ ]
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is the Presstropic ERP?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The Presstropic ERP is printing press and job-work management software for the office. It runs paper inward, plate tracking, job cards, production, store and dispatch challans from one system, so a press can replace its paper registers, spreadsheets and WhatsApp updates with a single source of truth."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does it handle job cards and job work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. Every job gets a job card with its processes, sizes, quantities, machines and operators. You can track production and wastage per process, see live floor status, and know exactly where each job stands — from scheduling to finishing."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can it generate dispatch challans?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. The ERP creates delivery challans with party, job and rate details, tracks ready-to-ship and dispatched status, and lets you revise rates on existing challans party-wise — for one challan or in bulk. Party-, process- and month-wise dispatch reports are built in."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does it replace registers and spreadsheets?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "That is the point. Masters, paper stock, plates, jobs, production and dispatch live in one place with activity logs, role-based access and backups, so nothing is lost and everyone sees the same numbers."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can we adopt one module at a time?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. Each module — PaperBuddy, RackBuddy, JobBuddy, StoreBuddy and DispatchBuddy — works on its own and links to the others as you add them."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How does it work with the ShopFloor app?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Jobs scheduled in the ERP appear on the ShopFloor tablets of the machines they are scheduled on. What operators start, complete and produce on the floor flows straight back into the job in the ERP."
+   }
+  }
+ ]
+}
+</script>
+<script>
+(function(){
+  var root = document.documentElement, done = false;
+  root.classList.add('pt-loading');
+  function finish(){
+    if (done) return; done = true;
+    var s = document.getElementById('ptSkel');
+    if (s) s.classList.add('out');
+    setTimeout(function(){
+      root.classList.remove('pt-loading');
+      window.__ptReady = true;
+      window.dispatchEvent(new Event('pt-ready'));   // reveal animations start now
+    }, 350);
+  }
+  window.addEventListener('load', function(){
+    var f = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+    f.then(finish, finish);
+  });
+  setTimeout(finish, 10000);          // safety net: never keep a visitor waiting on a stuck resource
+})();
+</script>
+</head>
+<body id="top">
+<div class="pt-skel" id="ptSkel" aria-hidden="true">
+  <div class="sk-head"><div class="sk-wrap sk-nav">
+    <div class="sk" style="width:150px;height:26px"></div>
+    <div class="sk-links"><div class="sk sk-hide-sm" style="width:60px;height:12px"></div><div class="sk sk-hide-sm" style="width:36px;height:12px"></div><div class="sk sk-hide-sm" style="width:56px;height:12px"></div>
+      <div class="sk" style="width:84px;height:40px;border-radius:12px"></div><div class="sk" style="width:140px;height:40px;border-radius:12px"></div></div>
+  </div></div>
+  <div class="sk-wrap">
+    <div class="sk-hero">
+      <div>
+        <div class="sk" style="width:300px;max-width:80%;height:12px;margin-bottom:24px"></div>
+        <div class="sk" style="width:92%;height:52px;margin-bottom:14px"></div>
+        <div class="sk" style="width:64%;height:52px;margin-bottom:26px"></div>
+        <div class="sk-lines" style="max-width:440px"><div class="sk" style="width:100%"></div><div class="sk" style="width:86%"></div><div class="sk" style="width:70%;margin-bottom:26px"></div></div>
+        <div class="sk-row" style="margin-bottom:22px"><div class="sk" style="width:190px;height:48px;border-radius:12px"></div><div class="sk" style="width:170px;height:48px;border-radius:12px"></div></div>
+        <div class="sk-row"><div class="sk" style="width:84px;height:34px;border-radius:20px"></div><div class="sk" style="width:84px;height:34px;border-radius:20px"></div><div class="sk" style="width:84px;height:34px;border-radius:20px"></div><div class="sk" style="width:84px;height:34px;border-radius:20px"></div><div class="sk sk-hide-sm" style="width:84px;height:34px;border-radius:20px"></div></div>
+      </div>
+      <div class="sk" style="height:360px;border-radius:16px"></div>
+    </div>
+    <div class="sk" style="width:420px;max-width:90%;height:34px;margin:10px 0 14px"></div>
+    <div class="sk" style="width:300px;max-width:70%;height:14px;margin-bottom:28px"></div>
+    <div class="sk-cards"><div class="sk" style="height:170px;border-radius:14px"></div><div class="sk" style="height:170px;border-radius:14px"></div><div class="sk" style="height:170px;border-radius:14px"></div><div class="sk" style="height:170px;border-radius:14px"></div></div>
+  </div>
+</div>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="/" aria-label="Presstropic Solutions home"><img src="/assets/presstropic_solutions_light.svg" alt="Presstropic Solutions"></a>
+    <nav class="nav-links" aria-label="Main">
+      <div class="nav-dd">
+        <button type="button" class="navlink active" aria-expanded="false" aria-haspopup="true">Products <svg class="chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="dd-panel" role="menu">
+          <a class="dd-item" href="/erp/"><img src="/assets/products/erp_icon.svg" alt=""><span><b>Presstropic ERP <span class="badge badge-live">Live</span></b><small>Paper, plates, job cards, store and dispatch for the office.</small></span></a>
+          <a class="dd-item" href="/shopfloor/"><img src="/assets/products/floor_icon.svg" alt=""><span><b>ShopFloor <span class="badge badge-live">Android</span></b><small>The tablet app operators use to run the day's work, online or offline.</small></span></a>
+          <a class="dd-item" href="/crm/"><img src="/assets/products/crm_icon.svg" alt=""><span><b>Presstropic CRM <span class="badge badge-soon">Coming soon</span></b><small>Branded order forms that turn customer orders into jobs.</small></span></a>
+          <div class="dd-foot"><span>Three apps. One database.</span><a href="/#platform">How they connect →</a></div>
+        </div>
+      </div>
+      <a class="navlink" href="/#platform">Platform</a>
+      <a class="navlink" href="#faq">FAQ</a>
+      <a class="navlink" href="#contact">Contact</a>
+      <div class="nav-dd">
+        <button type="button" class="btn btn-ghost" aria-expanded="false" aria-haspopup="true">Sign In <svg class="chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="dd-panel right" role="menu">
+          <a class="dd-item" href="https://app.presstropic.com" target="_blank" rel="noopener"><img src="/assets/products/erp_icon.svg" alt=""><span><b>Presstropic ERP</b><small>app.presstropic.com</small></span><svg class="ext" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+          <a class="dd-item" href="https://shopfloor.presstropic.com" target="_blank" rel="noopener"><img src="/assets/products/floor_icon.svg" alt=""><span><b>ShopFloor</b><small>shopfloor.presstropic.com</small></span><svg class="ext" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+        </div>
+      </div>
+      <a class="btn btn-gold" href="#inquiry">Request a demo</a>
+      <button type="button" class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mSheet"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </nav>
+  </div>
+</header>
+<div class="m-sheet" id="mSheet">
+  <h5>Products</h5>
+          <a class="dd-item" href="/erp/"><img src="/assets/products/erp_icon.svg" alt=""><span><b>Presstropic ERP <span class="badge badge-live">Live</span></b><small>Paper, plates, job cards, store and dispatch for the office.</small></span></a>
+          <a class="dd-item" href="/shopfloor/"><img src="/assets/products/floor_icon.svg" alt=""><span><b>ShopFloor <span class="badge badge-live">Android</span></b><small>The tablet app operators use to run the day's work, online or offline.</small></span></a>
+          <a class="dd-item" href="/crm/"><img src="/assets/products/crm_icon.svg" alt=""><span><b>Presstropic CRM <span class="badge badge-soon">Coming soon</span></b><small>Branded order forms that turn customer orders into jobs.</small></span></a>
+  <h5>Explore</h5>
+  <a class="m-link" href="/#platform">The platform</a>
+  <a class="m-link" href="#faq">FAQ</a>
+  <a class="m-link" href="#contact">Contact</a>
+  <h5>Sign in</h5>
+          <a class="dd-item" href="https://app.presstropic.com" target="_blank" rel="noopener"><img src="/assets/products/erp_icon.svg" alt=""><span><b>Presstropic ERP</b><small>app.presstropic.com</small></span><svg class="ext" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+          <a class="dd-item" href="https://shopfloor.presstropic.com" target="_blank" rel="noopener"><img src="/assets/products/floor_icon.svg" alt=""><span><b>ShopFloor</b><small>shopfloor.presstropic.com</small></span><svg class="ext" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+</div>
+
+<main>
+
+<!-- HERO -->
+<section class="hero p-hero">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <img class="lockup" src="/assets/products/presstropic_light.svg" alt="Presstropic ERP">
+      <div class="eyebrow"><span class="regmark"><span></span></span> The ERP for the office</div>
+      <h1>Run your whole press from <span class="accent">one system.</span></h1>
+      <p class="lede">Paper, plates, job cards, production and dispatch — tracked end to end, from inward to delivery challan.</p>
+      <p class="sub">A modular, print-first ERP that replaces registers, spreadsheets and WhatsApp with one source of truth.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#inquiry">Request a demo →</a>
+        <a class="btn btn-ghost" href="#modules">See the modules</a>
+      </div>
+      <p class="hero-signin">Already a customer? <a href="https://app.presstropic.com" target="_blank" rel="noopener">Sign in to the ERP →</a></p>
+      <div class="hero-modules">
+        <div class="hero-mod"><img src="/assets/paperbuddy.svg" alt="">Paper</div>
+        <div class="hero-mod"><img src="/assets/rackbuddy.svg" alt="">Rack</div>
+        <div class="hero-mod"><img src="/assets/jobbuddy.svg" alt="">Job</div>
+        <div class="hero-mod"><img src="/assets/storebuddy.svg" alt="">Store</div>
+        <div class="hero-mod"><img src="/assets/dispatchbuddy.svg" alt="">Dispatch</div>
+      </div>
+    </div>
+    <div class="mock hero-visual reveal" aria-hidden="true">
+      <div class="hv-head"><span class="regmark"><span></span></span>ONE JOB, TRACKED END TO END</div>
+      <div class="hv-flow">
+        <div class="hv-line"><span class="hv-fill"></span><span class="hv-dot"></span></div>
+        <div class="hv-nodes">
+          <div class="hv-node" style="--i:0"><span class="hv-ring"><img src="/assets/paperbuddy.svg" alt=""></span><b>Paper in</b><small>Stock recorded</small></div>
+          <div class="hv-node" style="--i:1"><span class="hv-ring"><img src="/assets/rackbuddy.svg" alt=""></span><b>Plate found</b><small>Rack &amp; slot</small></div>
+          <div class="hv-node" style="--i:2"><span class="hv-ring"><img src="/assets/jobbuddy.svg" alt=""></span><b>Job running</b><small>On the floor</small></div>
+          <div class="hv-node" style="--i:3"><span class="hv-ring"><img src="/assets/storebuddy.svg" alt=""></span><b>Material used</b><small>Store issued</small></div>
+          <div class="hv-node" style="--i:4"><span class="hv-ring"><img src="/assets/dispatchbuddy.svg" alt=""></span><b>Dispatched</b><small>Challan raised</small></div>
+        </div>
+      </div>
+      <div class="hv-foot"><span class="hv-id">26-27 | J-00065</span><span class="hv-status">Every step writes to the same system — nothing re-keyed</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section id="solution" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sol-points">
+      <div class="sol-point reveal"><span class="tick">✓</span> Purpose-built for printing &amp; job-work — not a generic ERP bent to fit</div>
+      <div class="sol-point reveal"><span class="tick">✓</span> Modular: adopt one Buddy or the whole suite</div>
+      <div class="sol-point reveal"><span class="tick">✓</span> Every record traceable, every create/edit/delete logged</div>
+      <div class="sol-point reveal"><span class="tick">✓</span> Financial-year aware IDs that reset cleanly each year</div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES -->
+<section class="modules" id="modules">
+  <div class="wrap">
+    <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow">The Buddy suite</div></div>
+    <h2 class="sec-title reveal">Modules that run the whole floor.</h2>
+    <p class="sec-sub reveal">Issue stock to a job, track its plates, run it on the floor, bill it and dispatch — one thread of data.</p>
+
+    <div class="slider reveal" id="modSlider">
+      <button type="button" class="s-nav prev" aria-label="Previous module"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="slide-track">
+      <article class="slide on" data-i="0" role="group"
+               aria-roledescription="slide" aria-label="PaperBuddy, 1 of 7">
+        <div class="slide-rail">
+          <div class="rail-ico"><img src="/assets/paperbuddy.svg" alt="PaperBuddy module"></div>
+          <div class="mod-tag">Paper inventory</div>
+          <h3>Paper<wbr><span class="b">Buddy</span></h3>
+          <p class="slide-lead">Every sheet accounted for — from the day it arrives to the job it goes out on.</p>
+          <div class="rail-n"><b>01</b><span>/ 07</span></div>
+        </div>
+        <ul class="slide-caps"><li>Inward register by party, type, size and GSM, with multi-bundle entry</li><li>Paper Stock Register with opening and closing balances for any day, week, month or financial year</li><li>Stock issued against a job automatically, with a negative balance recorded when a party supplies its own paper</li><li>Stock adjustments for a recount, damage or write-off — dated, with a reason and the person who made it</li><li>Packaging slips grouped per pack size, printed single, duplicate or triplicate</li></ul>
+      </article>
+      <article class="slide" data-i="1" role="group"
+               aria-roledescription="slide" aria-label="RackBuddy, 2 of 7">
+        <div class="slide-rail">
+          <div class="rail-ico"><img src="/assets/rackbuddy.svg" alt="RackBuddy module"></div>
+          <div class="mod-tag">Plate storage</div>
+          <h3>Rack<wbr><span class="b">Buddy</span></h3>
+          <p class="slide-lead">Every plate mapped to an exact rack location by your own series rules.</p>
+          <div class="rail-n"><b>02</b><span>/ 07</span></div>
+        </div>
+        <ul class="slide-caps"><li>Rack visualisation and series masters</li><li>Search a plate ID and get the exact rack and slot</li><li>Active, missing, scrapped and incomplete-entry registers</li><li>Usage logs showing every time a plate left the rack</li><li>Replacement plates tracked against the original set</li></ul>
+      </article>
+      <article class="slide" data-i="2" role="group"
+               aria-roledescription="slide" aria-label="JobBuddy, 3 of 7">
+        <div class="slide-rail">
+          <div class="rail-ico"><img src="/assets/jobbuddy.svg" alt="JobBuddy module"></div>
+          <div class="mod-tag">Job cards &amp; production</div>
+          <h3>Job<wbr><span class="b">Buddy</span></h3>
+          <p class="slide-lead">Job cards, a process route, and a live view of what is running right now.</p>
+          <div class="rail-n"><b>03</b><span>/ 07</span></div>
+        </div>
+        <ul class="slide-caps"><li>Process route with machine, operator, finish and quantity produced</li><li>Live floor monitoring that refreshes on its own</li><li>Day scheduling, machine-wise schedule and a production calendar</li><li>Operator records and production reports by party, process and machine</li><li>Deleting a job asks whether its paper returns to stock — nothing moves silently</li></ul>
+      </article>
+      <article class="slide" data-i="3" role="group"
+               aria-roledescription="slide" aria-label="StoreBuddy, 4 of 7">
+        <div class="slide-rail">
+          <div class="rail-ico"><img src="/assets/storebuddy.svg" alt="StoreBuddy module"></div>
+          <div class="mod-tag">Raw material store</div>
+          <h3>Store<wbr><span class="b">Buddy</span></h3>
+          <p class="slide-lead">Films, inks and consumables — in, out, returned and scrapped.</p>
+          <div class="rail-n"><b>04</b><span>/ 07</span></div>
+        </div>
+        <ul class="slide-caps"><li>Combination-wise stock for every material variant</li><li>Issue against a Job ID, with reuse returns booked back in</li><li>Inward, issue and return documents all editable and deletable, with stock corrected automatically</li><li>Scrap list kept per financial year</li><li>Deletions blocked when they would drive stock negative</li></ul>
+      </article>
+      <article class="slide" data-i="4" role="group"
+               aria-roledescription="slide" aria-label="DispatchBuddy, 5 of 7">
+        <div class="slide-rail">
+          <div class="rail-ico"><img src="/assets/dispatchbuddy.svg" alt="DispatchBuddy module"></div>
+          <div class="mod-tag">Dispatch, billing &amp; challans</div>
+          <h3>Dispatch<wbr><span class="b">Buddy</span></h3>
+          <p class="slide-lead">From a finished job to a billed, dispatched challan — and the record that it was invoiced.</p>
+          <div class="rail-n"><b>05</b><span>/ 07</span></div>
+        </div>
+        <ul class="slide-caps"><li>One challan can bill several jobs of a party, grouped job by job</li><li>Charge a set of processes together at one rate, or bill on a minimum rate, minimum order quantity or minimum order value</li><li>Job status follows the work: complete, ready-to-ship, shipped, and invoiced</li><li>Un-invoiced Jobs screen shows work that has been dispatched but never billed</li><li>Party ledger: billed, dispatched, awaiting dispatch and unbilled, per customer</li><li>Pivot-style dispatch analysis — slice billed quantity and value by party, process or month</li></ul>
+      </article>
+      <article class="slide" data-i="5" role="group"
+               aria-roledescription="slide" aria-label="AuditReports, 6 of 7">
+        <div class="slide-rail">
+          <div class="rail-ico"><span class="rail-mark"></span></div>
+          <div class="mod-tag">Books &amp; audit</div>
+          <h3>Audit<wbr><span class="b">Reports</span></h3>
+          <p class="slide-lead">The questions an auditor asks first, answered from the data you already have.</p>
+          <div class="rail-n"><b>06</b><span>/ 07</span></div>
+        </div>
+        <ul class="slide-caps"><li>Document numbering gaps found and cross-checked against the audit trail</li><li>Stock reconciliation: received less issued equals closing, on every line</li><li>Audit trail recording who changed what, with each field's old and new value</li><li>Financial year close that freezes a completed year against further edits</li><li>Every register searchable, sortable, filterable, printable and exportable</li></ul>
+      </article>
+      <article class="slide" data-i="6" role="group"
+               aria-roledescription="slide" aria-label="MasterManagement, 7 of 7">
+        <div class="slide-rail">
+          <div class="rail-ico"><span class="rail-mark"></span></div>
+          <div class="mod-tag">Masters &amp; rates</div>
+          <h3>Master<wbr><span class="b">Management</span></h3>
+          <p class="slide-lead">Everything defined once, and changed in bulk when it needs to change.</p>
+          <div class="rail-n"><b>07</b><span>/ 07</span></div>
+        </div>
+        <ul class="slide-caps"><li>Parties, processes, machines, tools, operators and paper types</li><li>Rate lists down to each process, subtype and finish — per party, with a default</li><li>Download a master as a spreadsheet, edit it, upload it back</li><li>Permissions per screen and per action — view, create, edit, delete, print, export</li><li>Every screen reachable from both the sidebar and its module home</li></ul>
+      </article>
+      </div>
+      <button type="button" class="s-nav next" aria-label="Next module"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+    <div class="s-progress"><span id="modBar"></span></div>
+    <div class="dots" id="modDots"><button type="button" class="dot on" data-go="0" aria-label="Go to slide 1"></button><button type="button" class="dot" data-go="1" aria-label="Go to slide 2"></button><button type="button" class="dot" data-go="2" aria-label="Go to slide 3"></button><button type="button" class="dot" data-go="3" aria-label="Go to slide 4"></button><button type="button" class="dot" data-go="4" aria-label="Go to slide 5"></button><button type="button" class="dot" data-go="5" aria-label="Go to slide 6"></button><button type="button" class="dot" data-go="6" aria-label="Go to slide 7"></button></div>
+  
+    <!-- Two real screens per module. They follow the slider above: whichever
+         module is showing, its pair is showing (see show() in the slider script). -->
+    <div class="mod-shots reveal" id="modShots">
+    <div class="shots two mod-pair on" data-mod="0" aria-label="PaperBuddy screens">
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / paperbuddy/stock-register</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1100" data-h="1060" src="/assets/mockup/paper_stock.html" title="Paper Stock Register" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Paper Stock Register</b><span>Opening, inward, issued and closing per stock line, for any day, week, month or financial year.</span></figcaption>
+      </figure>
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / paperbuddy/paper-inward-register</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="694" src="/assets/mockup/paper_inward.html" title="Paper Inward Register" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Paper Inward Register</b><span>Every batch by party, type, size and GSM, with the bundle arithmetic behind each sheet count.</span></figcaption>
+      </figure>
+    </div>
+    <div class="shots two mod-pair" data-mod="1" aria-label="RackBuddy screens" aria-hidden="true">
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / rackbuddy/rack-visualization</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="1062" src="/assets/mockup/rack_visualization.html" title="Rack Visualization" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Rack Visualization</b><span>How full every slot of a rack is at a glance, and the exact plate sitting in each position.</span></figcaption>
+      </figure>
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / rackbuddy/active-plates</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="677" src="/assets/mockup/active_plates.html" title="Active Plates" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Active Plates</b><span>Every plate set on the racks, with its location, the colours present and the plate size.</span></figcaption>
+      </figure>
+    </div>
+    <div class="shots two mod-pair" data-mod="2" aria-label="JobBuddy screens" aria-hidden="true">
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / jobbuddy/live-floor</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="944" src="/assets/mockup/live_floor.html" title="Live Floor" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Live Floor</b><span>What each machine is running right now, who is on it and how far the job has got.</span></figcaption>
+      </figure>
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / jobbuddy/job-register</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1280" data-h="1104" src="/assets/mockup/job_register.html" title="Job Register" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Job Register</b><span>Every job with its processes, sizes and quantities — searchable, sortable and printable.</span></figcaption>
+      </figure>
+    </div>
+    <div class="shots two mod-pair" data-mod="3" aria-label="StoreBuddy screens" aria-hidden="true">
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / storebuddy/stock-register</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="1227" src="/assets/mockup/store_stock.html" title="Store Stock Register" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Store Stock Register</b><span>Combination-wise stock with opening and closing for the period, and anything below its minimum flagged for reorder.</span></figcaption>
+      </figure>
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / storebuddy/outward-register</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="901" src="/assets/mockup/store_issue.html" title="Issue Register" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Issue Register</b><span>Every issue slip against a job and machine, with roll IDs picked first in, first out.</span></figcaption>
+      </figure>
+    </div>
+    <div class="shots two mod-pair" data-mod="4" aria-label="DispatchBuddy screens" aria-hidden="true">
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / dispatchbuddy/dispatch-register/1</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="1177" src="/assets/mockup/challan.html" title="Delivery Challan" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Delivery Challan</b><span>Several jobs of one party on a single challan, billed process by process, with the tax invoice recorded against it.</span></figcaption>
+      </figure>
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / dispatchbuddy/party-ledger</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="803" src="/assets/mockup/party_ledger.html" title="Party Ledger" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Party Ledger</b><span>Billed, dispatched, awaiting dispatch and unbilled work for every customer.</span></figcaption>
+      </figure>
+    </div>
+    <div class="shots two mod-pair" data-mod="5" aria-label="AuditReports screens" aria-hidden="true">
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / global/audit-reports</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="943" src="/assets/mockup/audit_reports.html" title="Audit Reports" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Audit Reports</b><span>Stock reconciled line by line, and every break in a document sequence traced to the deletion that caused it.</span></figcaption>
+      </figure>
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / admin/activity-logs</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="996" src="/assets/mockup/activity_logs.html" title="Activity Log" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Activity Log</b><span>Who changed what and when, on every screen — with deleted records kept for restore.</span></figcaption>
+      </figure>
+    </div>
+    <div class="shots two mod-pair" data-mod="6" aria-label="MasterManagement screens" aria-hidden="true">
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / master-management</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="961" src="/assets/mockup/master_management.html" title="Master Management" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Master Management</b><span>Every master in one place, grouped and counted, reachable from a single screen.</span></figcaption>
+      </figure>
+      <figure class="shot" style="margin:0">
+        <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">app.presstropic.com / master-management/process-rates</span></div>
+        <div class="mock-frame-wrap">
+          <iframe class="mock-frame" data-w="1180" data-h="1037" src="/assets/mockup/process_rates.html" title="Rate Master" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <figcaption class="shot-cap"><b>Rate Master</b><span>Party-wise rates for each process, subtype and finish, with minimum per sheet, MOQ and MOV.</span></figcaption>
+      </figure>
+    </div>
+    </div>
+  </div>
+  </section>
+
+
+<!-- HOW IT CONNECTS -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow">How it connects</div></div>
+    <h2 class="sec-title reveal">One job, end to end.</h2>
+    <p class="sec-sub reveal">Every step writes to the same system — so nothing is re-keyed, and everything is traceable.</p>
+    <div class="flow-steps">
+      <div class="flow-step reveal"><div class="fs-ico"><span style="-webkit-mask-image:url('/assets/icons/inward.svg');mask-image:url('/assets/icons/inward.svg')"></span></div><h4>Material in</h4><p>Paper &amp; store stock recorded on inward.</p></div>
+      <div class="flow-step reveal"><div class="fs-ico"><span style="-webkit-mask-image:url('/assets/icons/jobcard.svg');mask-image:url('/assets/icons/jobcard.svg')"></span></div><h4>Job card</h4><p>Created with its full process route.</p></div>
+      <div class="flow-step reveal"><div class="fs-ico"><span style="-webkit-mask-image:url('/assets/icons/machine.svg');mask-image:url('/assets/icons/machine.svg')"></span></div><h4>On the floor</h4><p>Runs process by process, live.</p></div>
+      <div class="flow-step reveal"><div class="fs-ico"><span style="-webkit-mask-image:url('/assets/icons/location.svg');mask-image:url('/assets/icons/location.svg')"></span></div><h4>Plates tracked</h4><p>Located &amp; checked by series.</p></div>
+      <div class="flow-step reveal"><div class="fs-ico"><span style="-webkit-mask-image:url('/assets/icons/dispatched_jobs.svg');mask-image:url('/assets/icons/dispatched_jobs.svg')"></span></div><h4>Dispatched</h4><p>Challan closes the loop.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section id="trust" class="alt">
+  <div class="wrap">
+    <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow">Control &amp; trust</div></div>
+    <h2 class="sec-title reveal">Built-in governance, not bolted on.</h2>
+    <p class="sec-sub reveal">The controls that make one source of truth actually trustworthy.</p>
+    <div class="gov-grid">
+      <div class="gov reveal"><div class="g-ico"><span style="-webkit-mask-image:url('/assets/icons/security.svg');mask-image:url('/assets/icons/security.svg')"></span></div><h4>2FA &amp; device control</h4><p>Company login with authenticator-app 2FA, backup codes, and named devices you can revoke on the spot.</p></div>
+      <div class="gov reveal"><div class="g-ico"><span style="-webkit-mask-image:url('/assets/icons/activity.svg');mask-image:url('/assets/icons/activity.svg')"></span></div><h4>Activity logs</h4><p>Every create, edit and delete recorded with who and when.</p></div>
+      <div class="gov reveal"><div class="g-ico"><span style="-webkit-mask-image:url('/assets/icons/database.svg');mask-image:url('/assets/icons/database.svg')"></span></div><h4>Backups &amp; export</h4><p>Database backups and CSV/Excel export keep data safe and portable.</p></div>
+      <div class="gov reveal"><div class="g-ico"><span style="-webkit-mask-image:url('/assets/icons/party.svg');mask-image:url('/assets/icons/party.svg')"></span></div><h4>Roles &amp; access</h4><p>Screen-level permissions so each person sees only what they should.</p></div>
+      <div class="gov reveal"><div class="g-ico"><span style="-webkit-mask-image:url('/assets/icons/check.svg');mask-image:url('/assets/icons/check.svg')"></span></div><h4>Master-driven</h4><p>Parties, machines &amp; series defined once and reused everywhere.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow">FAQ</div></div>
+    <h2 class="sec-title reveal">Presstropic ERP — common questions.</h2>
+    <p class="sec-sub reveal">What the ERP does, who it is for, and how it fits a working press.</p>
+    <div class="faq-list">
+      <details class="faq-item reveal"><summary>What is the Presstropic ERP?</summary>
+        <p>The Presstropic ERP is printing press and job-work management software for the office. It runs paper inward, plate tracking, job cards, production, store and dispatch challans from one system, so a press can replace its paper registers, spreadsheets and WhatsApp updates with a single source of truth.</p></details>
+      <details class="faq-item reveal"><summary>Does it handle job cards and job work?</summary>
+        <p>Yes. Every job gets a job card with its processes, sizes, quantities, machines and operators. You can track production and wastage per process, see live floor status, and know exactly where each job stands — from scheduling to finishing.</p></details>
+      <details class="faq-item reveal"><summary>Can it generate dispatch challans?</summary>
+        <p>Yes. The ERP creates delivery challans with party, job and rate details, tracks ready-to-ship and dispatched status, and lets you revise rates on existing challans party-wise — for one challan or in bulk. Party-, process- and month-wise dispatch reports are built in.</p></details>
+      <details class="faq-item reveal"><summary>Does it replace registers and spreadsheets?</summary>
+        <p>That is the point. Masters, paper stock, plates, jobs, production and dispatch live in one place with activity logs, role-based access and backups, so nothing is lost and everyone sees the same numbers.</p></details>
+      <details class="faq-item reveal"><summary>Can we adopt one module at a time?</summary>
+        <p>Yes. Each module — PaperBuddy, RackBuddy, JobBuddy, StoreBuddy and DispatchBuddy — works on its own and links to the others as you add them.</p></details>
+      <details class="faq-item reveal"><summary>How does it work with the ShopFloor app?</summary>
+        <p>Jobs scheduled in the ERP appear on the ShopFloor tablets of the machines they are scheduled on. What operators start, complete and produce on the floor flows straight back into the job in the ERP.</p></details>
+    </div>
+  </div>
+</section>
+
+
+<section class="alt">
+  <div class="wrap">
+    <div class="sec-head"><span class="regmark"><span></span></span><div class="eyebrow">The rest of the platform</div></div>
+    <h2 class="sec-title reveal">Works even better together.</h2>
+    <p class="sec-sub reveal">Every Presstropic app reads and writes the same records, so work moves between the office, the floor and your customers without being typed twice.</p>
+    <div class="others">
+      <a class="other reveal" href="/shopfloor/"><img src="/assets/products/floor_icon.svg" alt=""><div><b>ShopFloor <span class="badge badge-live">Android</span></b><span>The operators' tablet app for the day's work, online or offline.</span></div><span class="arr">→</span></a>
+      <a class="other reveal" href="/crm/"><img src="/assets/products/crm_icon.svg" alt=""><div><b>Presstropic CRM <span class="badge badge-soon">Coming soon</span></b><span>Branded order forms that turn customer orders into jobs.</span></div><span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+
+<!-- INQUIRY -->
+<section class="cta" id="inquiry">
+  <div class="wrap cta-grid">
+    <div class="reveal"><div class="eyebrow" style="margin-bottom:14px">Request a demo</div>
+      <h2>Let's bring your press online.</h2>
+      <p class="lede">Book a walkthrough on your own shop floor, with your own jobs and plates. We'll show the daily flow in under 30 minutes — no commitment.</p>
+      <ul class="cta-points">
+        <li><span class="tick">✓</span> A guided demo with your kind of jobs</li>
+        <li><span class="tick">✓</span> Answers on setup, data and rollout</li>
+        <li><span class="tick">✓</span> We reach out within one working day</li>
+      </ul>
+    </div>
+    <form id="inquiryForm" method="POST" action="/submit">
+      <input type="text" name="bot-field" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true">
+      <h3>Request a demo</h3>
+      <p class="form-sub">Fill this in and we'll get back to you.</p>
+      <div class="field"><label for="name">Your name</label><input id="name" name="name" type="text" required placeholder="e.g. John Doe"></div>
+      <div class="field"><label for="company">Press / company name</label><input id="company" name="company" type="text" required placeholder="e.g. Example Offset Printers"></div>
+      <div class="field"><label for="phone">Phone / WhatsApp</label><input id="phone" name="phone" type="tel" required></div>
+      <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required placeholder="e.g. you@yourpress.com"></div>
+      <div class="field"><label for="machines">Machines on your floor</label>
+        <select id="machines" name="machines" required>
+          <option value="">Select…</option>
+          <option>1–3 machines</option>
+          <option>4–8 machines</option>
+          <option>9+ machines</option>
+        </select>
+      </div>
+      <div class="field"><label for="msg">Anything specific? (optional)</label><textarea id="msg" name="message" placeholder="e.g. We mainly do carton printing and lamination…" rows="5"></textarea></div>
+      <div class="consent">
+        <label class="consent-row"><input type="checkbox" id="accept_terms" name="accept_terms" value="yes" required>
+          <span>I accept the <a href="/terms.html" target="_blank" rel="noopener noreferrer">Terms &amp; Conditions of Service</a></span></label>
+        <label class="consent-row"><input type="checkbox" id="accept_privacy" name="accept_privacy" value="yes" required>
+          <span>I have read the <a href="/privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a></span></label>
+        <!-- Which version of the legal pages was agreed to — keep in sync with "Last updated" on terms.html / privacy.html -->
+        <input type="hidden" name="consent_version" value="2026-09-28">
+      </div>
+      <!-- Anti-spam: page-load time (bots submit in under a second) + optional Cloudflare Turnstile -->
+      <input type="hidden" name="started" id="formStarted" value="">
+      <div id="tsWidget" class="ts-widget"></div>
+      <button class="btn btn-gold" type="submit">Send request →</button>
+      <p class="form-privacy">We only use these details to contact you about Presstropic.</p>
+    </form>
+  </div>
+</section>
+
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <!-- Brand + social -->
+      <div class="foot-col foot-brand">
+        <img src="/assets/presstropic_solutions_dark.svg" alt="Presstropic Solutions">
+        <p>The complete platform for printing presses — orders, production, plates, stock and dispatch, connected end to end.</p>
+        <div class="foot-social">
+          <a href="https://www.linkedin.com/company/presstropic" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 87.53 87.53" width="19" height="19" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><polygon points="19.22,87.53 19.22,30.6 2.13,30.6 2.13,87.53 "/><path d="M10.67 21.35c5.9,0 10.67,-4.78 10.67,-10.67 0,-5.9 -4.78,-10.67 -10.67,-10.67 -5.9,0 -10.67,4.78 -10.67,10.67 0,5.9 4.78,10.67 10.67,10.67z"/><path d="M30.6 30.6l0 56.93 17.08 0 0 -27.34c0,-9.54 4.09,-15.36 12.68,-15.36 7.07,0 10.09,6.64 10.09,14.22l0 28.48 17.08 0 0 -31.6c0,-16.91 -4.8,-26.05 -22,-26.05 -8.96,0 -16.21,4.49 -18.66,8.91l-0.18 0 0 -8.2 -16.1 0z"/></svg></a>
+          <a href="https://www.instagram.com/presstropic" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 116.61 116.61" width="19" height="19" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M38.87 58.34c-0.02,-10.73 8.67,-19.45 19.4,-19.47 10.73,-0.02 19.45,8.66 19.47,19.39 0.02,10.73 -8.67,19.45 -19.4,19.47 -10.73,0.02 -19.45,-8.66 -19.47,-19.4zm-10.5 0.02c0.03,16.54 13.46,29.91 29.99,29.88 16.53,-0.03 29.91,-13.46 29.88,-29.99 -0.03,-16.53 -13.46,-29.91 -30,-29.88 -16.53,0.03 -29.91,13.46 -29.88,29.99zm54 -31.22c0.01,3.86 3.15,6.99 7.01,6.98 3.86,-0.01 6.99,-3.15 6.98,-7.01 -0.01,-3.86 -3.15,-6.99 -7.01,-6.98 -3.86,0.01 -6.99,3.15 -6.98,7.01l0 0zm-47.53 78.66c-5.68,-0.25 -8.77,-1.19 -10.83,-1.98 -2.72,-1.05 -4.67,-2.32 -6.71,-4.35 -2.04,-2.04 -3.31,-3.98 -4.37,-6.69 -0.8,-2.06 -1.76,-5.14 -2.03,-10.82 -0.29,-6.15 -0.35,-7.99 -0.38,-23.56 -0.03,-15.56 0.03,-17.41 0.29,-23.56 0.24,-5.68 1.19,-8.77 1.98,-10.83 1.05,-2.73 2.31,-4.67 4.35,-6.71 2.04,-2.05 3.98,-3.31 6.7,-4.37 2.06,-0.8 5.14,-1.76 10.82,-2.03 6.15,-0.29 7.99,-0.35 23.55,-0.38 15.57,-0.03 17.41,0.02 23.56,0.29 5.68,0.25 8.77,1.19 10.82,1.98 2.73,1.05 4.67,2.31 6.71,4.35 2.04,2.04 3.31,3.97 4.37,6.7 0.8,2.05 1.76,5.14 2.03,10.82 0.29,6.15 0.36,7.99 0.39,23.56 0.03,15.57 -0.03,17.41 -0.3,23.56 -0.25,5.68 -1.19,8.77 -1.98,10.83 -1.05,2.72 -2.31,4.67 -4.35,6.71 -2.04,2.04 -3.97,3.31 -6.7,4.37 -2.05,0.8 -5.14,1.76 -10.82,2.03 -6.15,0.29 -7.99,0.35 -23.56,0.38 -15.56,0.03 -17.41,-0.03 -23.56,-0.29l-0 0zm-0.68 -105.4c-6.2,0.29 -10.44,1.29 -14.14,2.74 -3.83,1.49 -7.08,3.5 -10.31,6.74 -3.24,3.25 -5.22,6.5 -6.71,10.34 -1.44,3.71 -2.41,7.95 -2.68,14.16 -0.27,6.22 -0.33,8.2 -0.3,24.03 0.03,15.83 0.1,17.82 0.4,24.04 0.3,6.2 1.29,10.44 2.74,14.14 1.5,3.83 3.5,7.08 6.74,10.31 3.25,3.23 6.5,5.22 10.34,6.7 3.71,1.43 7.95,2.41 14.15,2.68 6.22,0.27 8.2,0.33 24.03,0.3 15.84,-0.03 17.82,-0.1 24.04,-0.39 6.2,-0.3 10.44,-1.29 14.14,-2.74 3.83,-1.5 7.08,-3.5 10.31,-6.74 3.23,-3.25 5.22,-6.5 6.7,-10.34 1.44,-3.71 2.41,-7.95 2.68,-14.15 0.27,-6.22 0.34,-8.21 0.31,-24.04 -0.03,-15.83 -0.1,-17.82 -0.4,-24.03 -0.29,-6.21 -1.29,-10.44 -2.74,-14.15 -1.5,-3.83 -3.5,-7.08 -6.74,-10.31 -3.25,-3.23 -6.5,-5.22 -10.34,-6.7 -3.71,-1.44 -7.95,-2.41 -14.15,-2.68 -6.22,-0.28 -8.2,-0.34 -24.04,-0.31 -15.83,0.03 -17.82,0.1 -24.03,0.4z"/></svg></a>
+          <a href="https://www.facebook.com/presstropic" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 204.25 400.45" width="19" height="19" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M66.74 400.45l0 -200.23 -66.74 0 0 -66.74 66.74 0 0 -35.84c0,-67.86 33.05,-97.64 89.45,-97.64 27.01,0 41.3,2 48.05,2.92l0 63.82 -38.46 0c-23.94,0 -32.31,12.63 -32.31,38.23l0 28.52 70.16 0 -9.53 66.74 -60.64 0 0 200.23 -66.74 0z"/></svg></a>
+          <a href="https://x.com/presstropic" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" title="X"><svg viewBox="0 0 161.56 146.04" width="19" height="19" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M127.24 0l24.77 0 -54.12 61.86 63.67 84.18 -49.86 0 -39.05 -51.05 -44.68 51.05 -24.79 0 57.89 -66.17 -61.08 -79.87 51.12 0 35.3 46.66 40.83 -46.66zm-8.7 131.21l13.73 0 -88.61 -117.16 -14.73 0 89.62 117.16z"/></svg></a>
+          <a href="https://www.youtube.com/@presstropic" target="_blank" rel="noopener noreferrer" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 292.05 205.76" width="19" height="19" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M260.13 6.14c12.57,3.38 22.46,13.34 25.82,25.99 6.1,22.92 6.1,70.75 6.1,70.75 0,0 0,47.83 -6.1,70.75 -3.36,12.65 -13.25,22.61 -25.82,25.99 -22.78,6.14 -114.1,6.14 -114.1,6.14 0,0 -91.33,0 -114.1,-6.14 -12.57,-3.38 -22.46,-13.34 -25.82,-25.99 -6.1,-22.93 -6.1,-70.75 -6.1,-70.75 0,0 0,-47.83 6.1,-70.75 3.36,-12.65 13.25,-22.61 25.82,-25.99 22.77,-6.14 114.1,-6.14 114.1,-6.14 0,0 91.33,0 114.1,6.14l0 0zm-143.97 140.16l76.33 -43.42 -76.33 -43.43 0 86.85z"/></svg></a>
+          <a href="https://www.whatsapp.com/channel/0029Vb8SBZDAYlUIzQqlSs2F" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp"><svg viewBox="0 0 216.12 217.16" width="19" height="19" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M184.63 31.56c-20.31,-20.34 -47.33,-31.55 -76.12,-31.56 -59.31,0 -107.59,48.27 -107.61,107.6 -0.01,18.97 4.95,37.48 14.36,53.8l-15.27 55.77 57.04 -14.96c15.72,8.58 33.41,13.09 51.42,13.1l0.05 0c59.31,0 107.58,-48.27 107.61,-107.61 0.01,-28.75 -11.17,-55.79 -31.49,-76.13l0 -0 0 0zm-76.12 165.56l-0.04 0c-16.05,-0 -31.79,-4.32 -45.52,-12.47l-3.27 -1.94 -33.85 8.88 9.04 -33.01 -2.13 -3.38c-8.95,-14.24 -13.68,-30.7 -13.67,-47.6 0.02,-49.31 40.14,-89.43 89.48,-89.43 23.89,0.01 46.35,9.32 63.23,26.23 16.89,16.9 26.18,39.38 26.17,63.27 -0.02,49.32 -40.14,89.44 -89.44,89.44l0 0zm49.06 -66.98c-2.69,-1.35 -15.91,-7.85 -18.37,-8.75 -2.47,-0.9 -4.26,-1.35 -6.05,1.35 -1.79,2.69 -6.94,8.75 -8.51,10.54 -1.57,1.8 -3.14,2.02 -5.83,0.67 -2.69,-1.35 -11.35,-4.18 -21.62,-13.34 -7.99,-7.13 -13.39,-15.93 -14.96,-18.63 -1.57,-2.69 -0.17,-4.15 1.18,-5.48 1.21,-1.21 2.69,-3.14 4.03,-4.71 1.35,-1.57 1.79,-2.69 2.69,-4.48 0.9,-1.8 0.45,-3.36 -0.22,-4.71 -0.67,-1.35 -6.05,-14.58 -8.29,-19.96 -2.18,-5.24 -4.4,-4.53 -6.05,-4.62 -1.57,-0.08 -3.36,-0.09 -5.15,-0.09 -1.8,0 -4.71,0.67 -7.17,3.37 -2.47,2.69 -9.41,9.2 -9.41,22.43 0,13.23 9.63,26.02 10.98,27.82 1.35,1.79 18.96,28.95 45.93,40.6 6.41,2.77 11.42,4.43 15.33,5.67 6.44,2.05 12.3,1.76 16.93,1.07 5.17,-0.77 15.91,-6.51 18.15,-12.79 2.24,-6.28 2.24,-11.67 1.57,-12.78 -0.67,-1.12 -2.47,-1.8 -5.15,-3.14l0 -0.01 -0 0z"/></svg></a>
+        </div>
+      </div>
+
+      <!-- Explore -->
+      <div class="foot-col">
+        <h4>Explore</h4>
+        <div class="foot-links" style="flex-direction:column;gap:0">
+          <a href="/erp/">Presstropic ERP</a>
+          <a href="/shopfloor/">ShopFloor app</a>
+          <a href="/crm/">Presstropic CRM</a>
+          <a href="/#platform">The platform</a>
+          <a href="#faq">FAQ</a>
+          <a href="#inquiry">Request a demo</a>
+          <a href="https://app.presstropic.com" target="_blank" rel="noopener">Sign in</a>
+        </div>
+      </div>
+
+
+      <!-- Legal -->
+      <div class="foot-col">
+        <h4>Legal</h4>
+        <div class="foot-links" style="flex-direction:column;gap:0">
+          <a href="/privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy<svg class="ext" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+          <a href="/terms.html" target="_blank" rel="noopener noreferrer">T&amp;C of Services<svg class="ext" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+        </div>
+      </div>
+      <!-- Contact -->
+      <div class="foot-col" id="contact">
+        <h4>Contact</h4>
+        <a href="tel:+919990050560">+91 99900 50560</a>
+        <a href="tel:+919990050561" style="margin-bottom:16px">+91 99900 50561</a>
+        <a href="mailto:sales@presstropic.com">sales@presstropic.com<br><span class="ct-sub">Sales &amp; demos</span></a>
+        <a href="mailto:help@presstropic.com">help@presstropic.com<br><span class="ct-sub">Support</span></a>
+        <a href="mailto:info@presstropic.com">info@presstropic.com<br><span class="ct-sub">General enquiries</span></a>
+        <a href="mailto:founder@presstropic.com" style="display:none">founder@presstropic.com<br><span class="ct-sub">Founder&rsquo;s office</span></a>
+        <!-- Address — hidden until finalised. Fill the lines below and remove style="display:none" to show it. -->
+        <p class="foot-addr" style="display:none">
+          Presstropic Solutions<br>
+          [Street address]<br>
+          [City], [State] [PIN]<br>
+          India
+        </p>
+      </div>
+    </div>
+    <div class="foot-copy">
+      <span>© <span id="yr"></span> Presstropic. All rights reserved.</span>
+      <span>Made for people who run a press.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="ov-backdrop" id="successOverlay" role="dialog" aria-modal="true" aria-labelledby="ovTitle">
+  <div class="ov-card">
+    <button type="button" class="ov-close-x" id="ovClose" aria-label="Close">×</button>
+    <div class="ov-tick">✓</div>
+    <h3 id="ovTitle">Thanks — your request is in.</h3>
+    <p>We'll be in touch within one working day.</p>
+    <button type="button" class="btn btn-gold" id="ovCloseBtn">Close</button>
+  </div>
+</div>
+<div class="ov-backdrop" id="errorOverlay" role="dialog" aria-modal="true" aria-labelledby="ovErrTitle">
+  <div class="ov-card ov-card-err">
+    <button type="button" class="ov-close-x" id="ovErrClose" aria-label="Close">×</button>
+    <div class="ov-tick ov-cross">!</div>
+    <h3 id="ovErrTitle">Something went wrong.</h3>
+    <p id="ovErrMsg">Sorry — we couldn't send your request. Please try again, or email info@presstropic.com.</p>
+    <button type="button" class="btn btn-gold" id="ovErrCloseBtn">Close</button>
+  </div>
+</div>
+<script src="/assets/intl-tel-input/js/intlTelInputWithUtils.min.js"></script>
+<script src="/assets/js/site.js?v=2"></script>
+</body>
+</html>
